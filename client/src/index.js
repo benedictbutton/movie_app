@@ -3,12 +3,30 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import { createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import createSagaMiddleware from "redux-saga";
+import { Provider } from "react-redux";
+import rootReducer from "./redux/reducers/index.js";
+import rootSaga from "./redux/sagas";
 import * as serviceWorker from "./serviceWorker";
 
+const logger = createLogger();
+const saga = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  undefined,
+  applyMiddleware(saga, logger)
+);
+
+saga.run(rootSaga);
+
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
 
