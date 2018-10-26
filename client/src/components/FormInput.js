@@ -14,7 +14,6 @@ const styles = theme => ({
 
 const FormInput = props => {
   const { classes } = props;
-
   return (
     <TextField
       id={props.id}

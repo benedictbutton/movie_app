@@ -1,6 +1,7 @@
 import { SHOW_USER } from "../constants/actionTypes";
 
 const INITIAL_STATE = {
+  id: null,
   firstName: "",
   lastName: "",
   email: "",
@@ -8,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 const applyShowUser = (state, action) => {
-  console.log("test");
+  return { ...state, id: action.user.id };
 };
 
 function userReducer(state = INITIAL_STATE, action) {

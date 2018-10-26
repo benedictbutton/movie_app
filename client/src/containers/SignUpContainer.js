@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import FormInput from "../components/FormInput";
 import { doSignUpForm } from "../redux/actions/formActions";
@@ -25,7 +26,9 @@ const styles = theme => ({
 class SignUpContainer extends Component {
   render() {
     const { handleSubmit, classes } = this.props;
-
+    if (this.props.submitSucceeded) {
+      return <Redirect to="/users/:id" />;
+    }
     return (
       <form
         onSubmit={handleSubmit}
@@ -76,7 +79,9 @@ const signUpForm = {
 };
 
 SignUpContainer = reduxForm(signUpForm)(SignUpContainer);
-export default connect(
-  undefined,
-  { onSubmit: doSignUpForm }
-)(withStyles(styles)(SignUpContainer));
+export default withRouter(
+  connect(
+    undefined,
+    { onSubmit: doSignUpForm }
+  )(withStyles(styles)(SignUpContainer))
+);
