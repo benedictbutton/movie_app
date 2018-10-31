@@ -7,7 +7,8 @@ import "./App.css";
 import HomeContainer from "./containers/HomeContainer";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
-import User from "./components/User";
+import UserContainer from "./containers/UserContainer";
+// import User from "./components/User";
 
 class App extends Component {
   render() {
@@ -18,7 +19,7 @@ class App extends Component {
             <Route exact path="/" component={HomeContainer} />
             <Route exact path="/sign-up" component={SignUpContainer} />
             <Route exact path="/login" component={SignInContainer} />
-            <Route path="/users/:id" component={User} />
+            <Route path="/users/:id" component={UserContainer} />
           </Switch>
         </header>
       </div>

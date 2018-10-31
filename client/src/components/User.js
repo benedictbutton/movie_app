@@ -1,7 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import compose from "recompose/compose";
-import { doShowUser } from "../redux/actions/userActions";
+// import { withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
+// import compose from "recompose/compose";
+// import { getUser } from "../redux/actions/userActions";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -18,9 +19,9 @@ const styles = theme => ({
   }
 });
 
-const User = ({ user, props }) => {
+const User = props => {
   const { classes } = props;
-  const { id } = user;
+  const { id } = props.user;
 
   return (
     <Grid container spacing={16} justify="center">
@@ -31,12 +32,20 @@ const User = ({ user, props }) => {
   );
 };
 
-const mapStateToProps = (state, props) => ({
-  user: state.user,
-  props: props
-});
+// const mapStateToProps = (state, props) => ({
+//   user: state.user,
+//   props: props
+// });
 
-export default compose(
-  withStyles(styles, { name: "User" }),
-  connect(mapStateToProps)
-)(User);
+// const mapDispatchToProps = dispatch => ({
+//   getUser: () => dispatch(getUser)
+// });
+
+// export default withRouter(
+//   compose(
+//     withStyles(styles, { name: "User" }),
+//     connect(mapStateToProps)
+//   )(User)
+// );
+
+export default withStyles(styles)(User);
