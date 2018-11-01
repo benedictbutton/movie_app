@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authenticate_request, only: [:new, :create]
+  skip_before_action :authenticate_request, only: [:new, :create, :show]
 
   def index
     @users = User.all
@@ -7,11 +7,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    binding.pry
   end
 
   def create
-    @user = User.new(first_name: params[:firstName], last_name: params[:lastName], password: params[:password])
+    @user = User.new(first_name: params[:firstName], last_name: params[:lastName], email: params[:email], password: params[:password])
     if @user.save
        render json: @user, status: :created
      else
