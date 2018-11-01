@@ -26,3 +26,177 @@ class App extends Component {
 }
 
 export default App;
+
+
+import React from "react";
+import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import FormInput from "./FormInput";
+import { doSignUpForm } from "../redux/actions/myformActions";
+import { doShowUser } from "../redux/actions/userActions";
+//material-ui
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    backgroundColor: "white"
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  }
+});
+
+const SignUp = props => {
+  const { classes } = props;
+  const { handleSubmit } = props;
+  const fieldNames = [
+    ["First Name", "firstName"],
+    ["Last Name", "lastName"],
+    ["Email", "email"],
+    ["Password", "password"]
+  ];
+
+  let fields = fieldNames.map(field => {
+    return (
+      <Field
+        key={field[1]}
+        id={`filled-${field[1]}-input`}
+        type="text"
+        name={field[1]}
+        label={field[0]}
+        component={FormInput}
+      />
+    );
+  });
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className={classes.container}
+      noValidate
+      autoComplete="off"
+    >
+      {fields}
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        type="submit"
+      >
+        Send
+        <Icon className={classes.rightIcon}>send</Icon>
+      </Button>
+    </form>
+  );
+};
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(doShowUser(data))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SignUp));
+
+mport React from "react";
+import { reduxForm } from "redux-form";
+import { doSignUpForm } from "../redux/actions/myformActions";
+import SignUp from "../components/SignUp";
+
+let SignUpContainer = props => {
+  return <SignUp />;
+};
+
+const signupForm = {
+  form: `signup`,
+  onSubmit: submit
+};
+
+
+export default reduxForm(signupForm)(SignUpContainer);
+
+import React from "react";
+import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
+import FormInput from "./FormInput";
+import { doSignUpForm } from "../redux/actions/myformActions";
+import { doShowUser } from "../redux/actions/userActions";
+//material-ui
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    backgroundColor: "white"
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  }
+});
+
+const SignUp = props => {
+  const { classes } = props;
+  const { handleSubmit } = props;
+  const fieldNames = [
+    ["First Name", "firstName"],
+    ["Last Name", "lastName"],
+    ["Email", "email"],
+    ["Password", "password"]
+  ];
+
+  let fields = fieldNames.map(field => {
+    return (
+      <Field
+        key={field[1]}
+        id={`filled-${field[1]}-input`}
+        type="text"
+        name={field[1]}
+        label={field[0]}
+        component={FormInput}
+      />
+    );
+  });
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className={classes.container}
+      noValidate
+      autoComplete="off"
+    >
+      {fields}
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        type="submit"
+      >
+        Send
+        <Icon className={classes.rightIcon}>send</Icon>
+      </Button>
+    </form>
+  );
+};
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(doShowUser(data))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SignUp));
