@@ -6,6 +6,11 @@ import React from "react";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -16,36 +21,37 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  card: {
+    width: "100vh"
   }
 });
 
 const User = props => {
   const { classes } = props;
-  const { id } = props.user;
+  const { firstName, lastName, email } = props.user;
 
   return (
-    <Grid container spacing={16} justify="center">
-      <Grid item xs={3}>
-        <Paper className={classes.paper}>{id}</Paper>
-      </Grid>
+    <Grid container direction="row" justify="center">
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Profile Avatar"
+            height="auto"
+            image="https://images.pexels.com/photos/371633/pexels-photo-371633.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+            title=""
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h1">
+              {firstName} {lastName}
+            </Typography>
+            <Typography component="p">{email}</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </Grid>
   );
 };
-
-// const mapStateToProps = (state, props) => ({
-//   user: state.user,
-//   props: props
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   getUser: () => dispatch(getUser)
-// });
-
-// export default withRouter(
-//   compose(
-//     withStyles(styles, { name: "User" }),
-//     connect(mapStateToProps)
-//   )(User)
-// );
 
 export default withStyles(styles)(User);
