@@ -5,15 +5,19 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import store from "./redux/store/configureStore";
 // import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <div>
+    <CssBaseline />
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </div>,
   document.getElementById("root")
 );
 

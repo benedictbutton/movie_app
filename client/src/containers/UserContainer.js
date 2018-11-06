@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { doShowUser, getUser } from "../redux/actions/userActions";
 import User from "../components/User";
 //
 const UserContainer = props => {
