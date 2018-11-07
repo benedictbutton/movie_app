@@ -5,6 +5,7 @@ import "./App.css";
 
 //App Components
 import HomeContainer from "./containers/HomeContainer";
+import MoviesContainer from "./containers/MoviesContainer";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
@@ -20,6 +21,7 @@ class App extends Component {
             <Route exact path="/sign-up" component={SignUpContainer} />
             <Route exact path="/login" component={SignInContainer} />
             <Route path="/users/:id" component={UserContainer} />
+            <Route path="/movies" component={MoviesContainer} />
           </Switch>
         </header>
       </div>

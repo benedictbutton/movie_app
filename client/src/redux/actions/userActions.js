@@ -1,5 +1,4 @@
-import { SHOW_USER } from "../constants/actionTypes";
-import { FETCH_USER } from "../constants/actionTypes";
+import { SHOW_USER, FETCH_USER } from "../constants/actionTypes";
 
 const doShowUser = user => ({
   type: SHOW_USER,

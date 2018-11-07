@@ -1,5 +1,4 @@
 async function fetchUser(query) {
-  debugger;
   try {
     let response = await fetch("/api/v1/users/:id", {
       credentials: "same-origin",
