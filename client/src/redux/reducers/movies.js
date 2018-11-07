@@ -4,10 +4,18 @@ const INITIAL_STATE = [];
 
 const applyShowMovies = (state, action) => {
   // let imageUrl = "https://image.tmdb.org/t/p/w500/" + action.movies.poster_path;
-  let movies = action.payload.map(movie => {
-    return (state = [...state, movie]);
+  // debugger;
+  let newState = [];
+  let movies = action.payload.map(array => array.results);
+
+  movies.forEach(array => {
+    for (let movie of array) {
+      newState.push(movie);
+    }
   });
-  return state;
+
+  return [...state, ...newState];
+  debugger;
 };
 
 function moviesReducer(state = INITIAL_STATE, action) {

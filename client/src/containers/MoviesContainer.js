@@ -21,7 +21,8 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    margin: theme.spacing.unit * 6
   },
   appBar: {
     position: "relative"
@@ -46,6 +47,10 @@ const styles = theme => ({
   },
   subheader: {
     width: "100%"
+  },
+  tile: {
+    height: "0",
+    padding: "56.25% 0 0 0"
   }
 });
 
@@ -68,7 +73,7 @@ class MoviesContainer extends Component {
       card += 1;
       // debugger;
       return (
-        <GridListTile key={card} cols={1}>
+        <GridListTile className={classes.tile} key={card} cols={1}>
           <MovieCard key={card} imageUrl={imageUrl} />
         </GridListTile>
       );
