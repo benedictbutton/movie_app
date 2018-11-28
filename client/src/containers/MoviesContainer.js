@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getMovies } from "../redux/actions/movieActions";
+// import { getMovies } from "../redux/selectors/movies";
+import { doAddMovies } from "../redux/actions/movieActions";
+import { denormalize, schema } from "normalizr";
 import { withRouter } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-
+import { movieSchema } from "../redux/schemas/schema";
 //material-ui
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -21,25 +19,7 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    backgroundColor: theme.palette.background.paper,
     margin: theme.spacing.unit * 6
-  },
-  appBar: {
-    position: "relative"
-  },
-  icon: {
-    marginRight: theme.spacing.unit * 2
-  },
-  heroUnit: {
-    backgroundColor: theme.palette.background.paper
-  },
-  heroContent: {
-    maxWidth: 600,
-    margin: "0 auto",
-    padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`
-  },
-  heroButtons: {
-    marginTop: theme.spacing.unit * 4
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -56,11 +36,10 @@ const styles = theme => ({
 
 class MoviesContainer extends Component {
   componentDidMount() {
-    this.props.dispatch(getMovies());
+    this.props.dispatch(doAddMovies());
   }
   render() {
     const { classes, width } = this.props;
-
     const columns = {
       sm: 2,
       md: 4,
@@ -68,74 +47,43 @@ class MoviesContainer extends Component {
     };
 
     let card = 0;
-    let movies = this.props.movies.map(movie => {
+
+    let movies = Object.values(this.props.movies).map(movie => {
+      console.log(movie);
+      let { id, title, overview } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
-      // debugger;
       return (
         <GridListTile className={classes.tile} key={card} cols={1}>
-          <MovieCard key={card} imageUrl={imageUrl} />
+          <MovieCard
+            key={card}
+            id={id}
+            imageUrl={imageUrl}
+            title={title}
+            overview={overview}
+          />
         </GridListTile>
       );
     });
 
     return (
       <>
-        <AppBar position="static" className={classes.appBar}>
-          <Toolbar>
-            <CameraIcon className={classes.icon} />
-            <Typography variant="h6" color="inherit" noWrap>
-              Album layout
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          {/* Hero unit */}
-          <div className={classes.heroUnit}>
-            <div className={classes.heroContent}>
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-              >
-                Album layout
-              </Typography>
-              <Typography
-                variant="h6"
-                align="center"
-                color="textSecondary"
-                paragraph
-              >
-                Something short and leading about the collection below—its
-                contents, the creator, etc. Make it short and sweet, but not too
-                short so folks don&apos;t simply skip over it entirely.
-              </Typography>
-            </div>
-          </div>
-        </main>
         <div className={classes.heroButtons}>
           <Grid container spacing={16} justify="center">
             <Grid item>
               <Button variant="contained" color="primary">
-                Main call to action
+                Exisitng Playlists
               </Button>
             </Grid>
             <Grid item>
               <Button variant="outlined" color="primary">
-                Secondary action
+                Create Playlist
               </Button>
             </Grid>
           </Grid>
         </div>
         <div className={classes.root}>
-          <GridList
-            cellHeight="auto"
-            className={classes.gridList}
-            spacing={3}
-            cols={columns[width]}
-          >
+          <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>
         </div>
@@ -144,13 +92,13 @@ class MoviesContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   movies: state.movies
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    undefined
+    null
   )(withWidth()(withStyles(styles)(MoviesContainer)))
 );

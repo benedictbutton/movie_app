@@ -5,9 +5,9 @@ const doShowMovies = movies => ({
   payload: movies
 });
 
-const getMovies = movies => ({
+const doAddMovies = movies => ({
   type: FETCH_MOVIES,
   payload: movies
 });
 
-export { doShowMovies, getMovies };
+export { doShowMovies, doAddMovies };
