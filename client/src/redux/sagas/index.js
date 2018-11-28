@@ -5,9 +5,8 @@ import {
   SIGNIN_FORM,
   FETCH_MOVIES
 } from "../constants/actionTypes";
-import { handleFetchSignUp } from "./signup";
+import { handleFetchSignUp, handleFetchSignIn } from "./forms";
 import { handleFetchUser } from "./user";
-import { handleFetchSignIn } from "./signin";
 import { handleFetchMovies } from "./movies";
 
 function *watchAll() {

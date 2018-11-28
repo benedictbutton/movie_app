@@ -8,18 +8,67 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0b0b0b;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.home {
+  background-image: url("./assets/grey-large.jpg");
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.theater {
+  background-image: url("./assets/theater.jpg");
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  /* direction: row;
+  position: relative; */
+}
+
+#image {
+  background-image: url("./assets/grey-small.jpg");
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+
+#paper {
+  background-image: url("./assets/profile.png");
+  background-repeat: no-repeat;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  -webkit-box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
+  -moz-box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
+  box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
 }
 
 @keyframes App-logo-spin {

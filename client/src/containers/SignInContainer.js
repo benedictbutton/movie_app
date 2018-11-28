@@ -53,7 +53,7 @@ class SignInContainer extends Component {
   render() {
     const { handleSubmit, classes } = this.props;
     if (this.props.submitSucceeded) {
-      return <Redirect to="/movies" />;
+      return <Redirect to="/ms/movies" />;
     }
     return (
       <React.Fragment>
