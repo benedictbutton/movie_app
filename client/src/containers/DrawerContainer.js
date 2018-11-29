@@ -30,6 +30,10 @@ const styles = theme => ({
 });
 
 class DrawerContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
   state = {
     left: false
   };
@@ -64,6 +68,7 @@ class DrawerContainer extends React.Component {
           </Link>
         </List>
         <Divider />
+        <LogOutContainer />
       </div>
     );
 
@@ -93,7 +98,6 @@ class DrawerContainer extends React.Component {
           >
             {sideList}
           </div>
-          <LogOutContainer />
         </Drawer>
       </div>
     );

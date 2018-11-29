@@ -9,6 +9,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 class LogOutContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      toMovies: false
+    };
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
@@ -16,10 +19,13 @@ class LogOutContainer extends Component {
     event.preventDefault();
     sessionStorage.removeItem("jwt");
     localStorage.removeItem("state");
-    return <Redirect to="/ms/movies" />;
+    this.setState(() => ({ toMovies: true }));
   }
 
   render() {
+    if (this.state.toMovies) {
+      return <Redirect to="/ms/movies" />;
+    }
     return (
       <>
         <Divider />
@@ -29,4 +35,4 @@ class LogOutContainer extends Component {
   }
 }
 
-export default LogOutContainer;
+export default withRouter(LogOutContainer);

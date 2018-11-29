@@ -72,6 +72,7 @@ class SignUpContainer extends Component {
                     type="text"
                     component={FormInput}
                     label="First Name"
+                    autofocus
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -80,6 +81,14 @@ class SignUpContainer extends Component {
                     type="text"
                     component={FormInput}
                     label="Last Name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    name="userName"
+                    type="text"
+                    component={FormInput}
+                    label="Username"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -106,8 +115,7 @@ class SignUpContainer extends Component {
                       type="submit"
                       className={classes.button}
                     >
-                      Send
-                      <Icon className={classes.rightIcon}>send</Icon>
+                      Submit
                     </Button>
                   </Grid>
                 </Grid>

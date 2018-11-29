@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import { doSignInForm } from "../redux/actions/formActions";
+import FormInput from "../components/FormInput";
 //material-ui
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,8 +14,10 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+//Redux-Form generic Input component used in leiu of //FormInput
 
 const styles = theme => ({
   layout: {
@@ -63,27 +66,27 @@ class SignInContainer extends Component {
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign In
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Field
-                  id="email"
+                  type="text"
                   name="email"
+                  label="Email"
+                  id="email"
                   autoComplete="email"
                   autoFocus
-                  component={Input}
+                  component={FormInput}
                 />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
                 <Field
                   name="password"
                   type="password"
+                  label="Password"
                   id="password"
-                  autoComplete="current-password"
-                  component={Input}
+                  component={FormInput}
                 />
               </FormControl>
               <FormControlLabel

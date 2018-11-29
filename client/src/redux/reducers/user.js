@@ -8,6 +8,7 @@ const applyShowUser = (state, action) => {
     id: action.user.id,
     firstName: action.user.first_name,
     lastName: action.user.last_name,
+    action: action.user.username,
     email: action.user.email
   };
 };

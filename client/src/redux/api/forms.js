@@ -22,7 +22,6 @@ async function postSignInForm(query) {
       credentials: "same-origin",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      AUTHORIZATION: `Bearer ${sessionStorage.jwt}`,
       body: JSON.stringify(query)
     });
     let responseJson = await response.json();
