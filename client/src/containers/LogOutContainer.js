@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { doUnsetUser } from "../redux/actions/userActions";
+import { doSignOut } from "../redux/actions/formActions";
 import { Redirect, withRouter } from "react-router-dom";
 import LogOut from "../components/LogOut";
 //material-ui
@@ -19,12 +21,14 @@ class LogOutContainer extends Component {
     event.preventDefault();
     sessionStorage.removeItem("jwt");
     localStorage.removeItem("state");
+    this.props.doUnsetUser();
+    this.props.doSignOut();
     this.setState(() => ({ toMovies: true }));
   }
 
   render() {
     if (this.state.toMovies) {
-      return <Redirect to="/ms/movies" />;
+      return <Redirect to="/" />;
     }
     return (
       <>
@@ -35,4 +39,9 @@ class LogOutContainer extends Component {
   }
 }
 
-export default withRouter(LogOutContainer);
+export default withRouter(
+  connect(
+    null,
+    { doUnsetUser, doSignOut }
+  )(LogOutContainer)
+);

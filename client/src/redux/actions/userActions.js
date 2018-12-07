@@ -1,13 +1,22 @@
-import { SHOW_USER, FETCH_USER } from "../constants/actionTypes";
+import {
+  USER_REQUESTING,
+  SET_USER,
+  UNSET_USER
+} from "../constants/actionTypes";
 
-const doShowUser = user => ({
-  type: SHOW_USER,
+const doUserRequesting = values => ({
+  type: USER_REQUESTING,
+  values
+});
+
+const doSetUser = user => ({
+  type: SET_USER,
   user
 });
 
-const getUser = id => ({
-  type: FETCH_USER,
+const doUnsetUser = id => ({
+  type: UNSET_USER,
   id
 });
 
-export { doShowUser, getUser };
+export { doUserRequesting, doSetUser, doUnsetUser };

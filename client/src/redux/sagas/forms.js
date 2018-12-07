@@ -1,17 +1,24 @@
 import { call, put } from "redux-saga/effects";
-import { doShowUser } from "../actions/userActions";
-import { postSignUpForm, postSignInForm } from "../api/forms";
+import {
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
+  SIGNIN_SUCCESS,
+  SIGNIN_ERROR
+} from "../constants/actionTypes";
+import { fetchSignUpForm, fetchSignInForm } from "../api/forms";
 
 function* handleFetchSignUp(payload) {
   const { values } = payload;
-  const result = yield call(postSignUpForm, values);
-  yield put(doShowUser(result));
+  const { responseJson, error } = yield call(fetchSignUpForm, values);
+  if (responseJson) yield put({ type: SIGNUP_SUCCESS, responseJson });
+  else yield put({ type: SIGNUP_ERROR, error });
 }
 
 function* handleFetchSignIn(payload) {
   const { values } = payload;
-  const result = yield call(postSignInForm, values);
-  yield put(doShowUser(result));
+  const { responseJson, error } = yield call(fetchSignInForm, values);
+  if (responseJson) yield put({ type: SIGNIN_SUCCESS, responseJson });
+  else yield put({ type: SIGNIN_ERROR, error });
 }
 
 export { handleFetchSignUp, handleFetchSignIn };

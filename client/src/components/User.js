@@ -34,7 +34,7 @@ const styles = theme => ({
 
 const User = props => {
   const { classes } = props;
-  const { firstName, lastName, username, email } = props.user;
+  const { firstName, lastName, username, email } = props.user.profile;
 
   return (
     <>

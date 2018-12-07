@@ -1,4 +1,6 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import { createBrowserHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
 import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers/index";
@@ -9,11 +11,12 @@ import throttle from "lodash/throttle";
 const logger = createLogger();
 const saga = createSagaMiddleware();
 const persistedState = loadState();
+const history = createBrowserHistory();
 
 const store = createStore(
-  rootReducer,
+  rootReducer(history),
   persistedState,
-  applyMiddleware(saga, logger)
+  compose(applyMiddleware(routerMiddleware(history), saga, logger))
 );
 
 saga.run(rootSaga);
@@ -21,10 +24,9 @@ saga.run(rootSaga);
 store.subscribe(
   throttle(() => {
     saveState({
-      user: store.getState().user,
-      form: store.getState().form
+      user: store.getState().user
     });
   }, 1000)
 );
 
-export default store;
+export { store, history };

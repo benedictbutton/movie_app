@@ -1,11 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { doUserRequesting } from "../redux/actions/userActions";
 import User from "../components/User";
 
-const UserContainer = props => {
-  return <User {...props} />;
-};
+class UserContainer extends Component {
+  componentDidMount() {
+    const { history } = this.props;
+    this.props.dispatch(doUserRequesting(history));
+  }
+
+  render() {
+    return <User {...this.props} />;
+  }
+}
 
 const mapStateToProps = (state, props) => ({
   user: state.user

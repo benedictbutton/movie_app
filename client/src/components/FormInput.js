@@ -1,9 +1,10 @@
 import React from "react";
 //material-ui
-
 import TextField from "@material-ui/core/TextField";
 
 const FormInput = props => {
+  const { touched, error } = props.meta;
+
   return (
     <TextField
       id={props.id}
@@ -12,6 +13,10 @@ const FormInput = props => {
       name={props.input.name}
       fullWidth
       {...props.input}
+      helperText={
+        touched && (error && <span style={{ color: "red" }}>{error}</span>)
+      }
+      margin="dense"
     />
   );
 };

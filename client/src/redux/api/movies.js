@@ -16,7 +16,6 @@ async function fetchMovies(query) {
       header
     );
   });
-
   const results = await Promise.all(promises);
   const data = await Promise.all(results.map(r => r.json()));
   const normalizedData = normalize(data, [listSchema]);

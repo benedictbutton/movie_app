@@ -3,7 +3,21 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import FormInput from "../components/FormInput";
-import { doSignUpForm } from "../redux/actions/formActions";
+import { doSignUpRequesting } from "../redux/actions/formActions";
+import {
+  required,
+  maxLength,
+  maxLength15,
+  minLength,
+  minLength2,
+  minLength7,
+  email,
+  alphaNumeric,
+  passwordLowercase,
+  passwordUppercase,
+  passwordNumber,
+  passwordsMatch
+} from "../util/validations";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -43,16 +57,23 @@ const styles = theme => ({
 
 class SignUpContainer extends Component {
   render() {
-    const { handleSubmit, classes } = this.props;
+    const {
+      handleSubmit,
+      pristine,
+      submitting,
+      valid,
+      client: { requesting, successful, messages, errors, display },
+      classes
+    } = this.props;
 
-    if (this.props.submitSucceeded) {
+    if (this.props.client.successful) {
       return <Redirect to="/ms/movies" />;
     }
     return (
       <>
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Grid container spacing={24}>
+            <Grid container spacing={24} justify="center">
               <Grid item xs={4}>
                 <Typography
                   component="h3"
@@ -85,10 +106,12 @@ class SignUpContainer extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <Field
-                    name="userName"
+                    name="username"
                     type="text"
                     component={FormInput}
                     label="Username"
+                    validate={[required, maxLength15, minLength2]}
+                    warn={alphaNumeric}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -97,6 +120,7 @@ class SignUpContainer extends Component {
                     type="text"
                     component={FormInput}
                     label="Email"
+                    validate={[required, email]}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -105,6 +129,23 @@ class SignUpContainer extends Component {
                     type="password"
                     component={FormInput}
                     label="Password"
+                    validate={[
+                      required,
+                      passwordLowercase,
+                      passwordUppercase,
+                      passwordNumber,
+                      minLength7,
+                      maxLength15
+                    ]}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    name="passwordConfirmation"
+                    type="password"
+                    component={FormInput}
+                    label="Confirm Password"
+                    validate={[required, passwordsMatch]}
                   />
                 </Grid>
                 <Grid container justify="flex-end" alignItems="flex-end">
@@ -113,6 +154,7 @@ class SignUpContainer extends Component {
                       color="primary"
                       variant="contained"
                       type="submit"
+                      disabled={!valid || pristine || submitting}
                       className={classes.button}
                     >
                       Submit
@@ -130,13 +172,17 @@ class SignUpContainer extends Component {
 
 const signUpForm = {
   form: `signup`,
-  onSubmit: doSignUpForm
+  onSubmit: doSignUpRequesting
 };
+
+const mapStateToProps = state => ({
+  client: state.client
+});
 
 SignUpContainer = reduxForm(signUpForm)(SignUpContainer);
 export default withRouter(
   connect(
-    undefined,
-    { onSubmit: doSignUpForm }
+    mapStateToProps,
+    { onSubmit: doSignUpRequesting }
   )(withStyles(styles)(SignUpContainer))
 );

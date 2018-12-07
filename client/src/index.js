@@ -2,20 +2,24 @@ import "babel-polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import store from "./redux/store/configureStore";
+import { store } from "./redux/store/configureStore";
+import { history } from "./redux/store/configureStore";
 // import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <div>
     <CssBaseline />
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <ConnectedRouter history={history}>
+        <Router>
+          <App />
+        </Router>
+      </ConnectedRouter>
     </Provider>
   </div>,
   document.getElementById("root")

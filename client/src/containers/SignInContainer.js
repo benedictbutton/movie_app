@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
-import { doSignInForm } from "../redux/actions/formActions";
+import { doSignInRequesting } from "../redux/actions/formActions";
 import FormInput from "../components/FormInput";
+import Notifications from "../components/Notifications";
 //material-ui
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -55,9 +55,10 @@ const styles = theme => ({
 class SignInContainer extends Component {
   render() {
     const { handleSubmit, classes } = this.props;
-    if (this.props.submitSucceeded) {
+    if (this.props.client.successful) {
       return <Redirect to="/ms/movies" />;
     }
+
     return (
       <React.Fragment>
         <main className={classes.layout}>
@@ -105,20 +106,25 @@ class SignInContainer extends Component {
             </form>
           </Paper>
         </main>
+        <Notifications />
       </React.Fragment>
     );
   }
 }
 
+const mapStateToProps = (state, props) => ({
+  client: state.client
+});
+
 const signInForm = {
   form: `signin`,
-  onSubmit: doSignInForm
+  onSubmit: doSignInRequesting
 };
 
 SignInContainer = reduxForm(signInForm)(SignInContainer);
 export default withRouter(
   connect(
-    undefined,
-    { onSubmit: doSignInForm }
+    mapStateToProps,
+    { onSubmit: doSignInRequesting }
   )(withStyles(styles)(SignInContainer))
 );
