@@ -19,6 +19,8 @@ import {
   passwordsMatch
 } from "../util/validations";
 //material-ui
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
@@ -52,6 +54,10 @@ const styles = theme => ({
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main
   }
 });
 
@@ -74,11 +80,14 @@ class SignUpContainer extends Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Grid container spacing={24} justify="center">
-              <Grid item xs={4}>
+              <Grid item xs={4} align="center">
+                <Avatar className={classes.avatar}>
+                  <AssignmentIcon />
+                </Avatar>
                 <Typography
-                  component="h3"
-                  variant="h4"
-                  align="left"
+                  component="h1"
+                  variant="h5"
+                  align="center"
                   gutterbottom
                 >
                   Sign Up
