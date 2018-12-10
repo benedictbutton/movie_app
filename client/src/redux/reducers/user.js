@@ -2,7 +2,6 @@ import {
   USER_REQUESTING,
   USER_SUCCESS,
   USER_ERROR,
-  SET_USER,
   UNSET_USER
 } from "../constants/actionTypes";
 
@@ -21,7 +20,6 @@ const INITIAL_STATE = {
 };
 
 const applyUserRequest = (state, action) => {
-  debugger;
   return {
     ...state,
     requesting: true
@@ -55,27 +53,16 @@ const applyUserError = (state, action) => ({
   successful: false
 });
 
-const applySetUser = (state, action) => ({
-  ...state,
-  id: action.responseJson.id,
-  firstName: action.responseJson.first_name,
-  lastName: action.responseJson.last_name,
-  action: action.responseJson.username,
-  email: action.responseJson.email
-});
-
 function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_USER:
-      return applySetUser(state, action);
-    case UNSET_USER:
-      return INITIAL_STATE;
     case USER_REQUESTING:
       return applyUserRequest(state, action);
     case USER_SUCCESS:
       return applyUserSuccess(state, action);
     case USER_ERROR:
       return applyUserError(state, action);
+    case UNSET_USER:
+      return INITIAL_STATE;
     default:
       return state;
   }

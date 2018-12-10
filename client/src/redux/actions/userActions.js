@@ -1,17 +1,8 @@
-import {
-  USER_REQUESTING,
-  SET_USER,
-  UNSET_USER
-} from "../constants/actionTypes";
+import { USER_REQUESTING, UNSET_USER } from "../constants/actionTypes";
 
 const doUserRequesting = values => ({
   type: USER_REQUESTING,
   values
-});
-
-const doSetUser = user => ({
-  type: SET_USER,
-  user
 });
 
 const doUnsetUser = id => ({
@@ -19,4 +10,4 @@ const doUnsetUser = id => ({
   id
 });
 
-export { doUserRequesting, doSetUser, doUnsetUser };
+export { doUserRequesting, doUnsetUser };

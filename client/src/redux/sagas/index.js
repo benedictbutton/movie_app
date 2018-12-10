@@ -1,9 +1,9 @@
-import { takeEvery, takeLatest, all } from "redux-saga/effects";
+import { take, fork, takeEvery, takeLatest, all } from "redux-saga/effects";
 import {
   SIGNUP_REQUESTING,
   SIGNIN_REQUESTING,
   USER_REQUESTING,
-  FETCH_MOVIES
+  MOVIES_REQUESTING
 } from "../constants/actionTypes";
 import { handleFetchSignUp, handleFetchSignIn } from "./forms";
 import { handleFetchUser } from "./user";
@@ -14,7 +14,7 @@ function *watchAll() {
     takeLatest(SIGNUP_REQUESTING, handleFetchSignUp),
     takeLatest(SIGNIN_REQUESTING, handleFetchSignIn),
     takeLatest(USER_REQUESTING, handleFetchUser),
-    takeEvery(FETCH_MOVIES, handleFetchMovies)
+    takeLatest(MOVIES_REQUESTING, handleFetchMovies)
   ]);
 }
 

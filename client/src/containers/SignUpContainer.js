@@ -9,7 +9,7 @@ import {
   maxLength,
   maxLength15,
   minLength,
-  minLength2,
+  minLength5,
   minLength7,
   email,
   alphaNumeric,
@@ -110,7 +110,7 @@ class SignUpContainer extends Component {
                     type="text"
                     component={FormInput}
                     label="Username"
-                    validate={[required, maxLength15, minLength2]}
+                    validate={[required, maxLength15, minLength5]}
                     warn={alphaNumeric}
                   />
                 </Grid>

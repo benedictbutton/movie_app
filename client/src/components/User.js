@@ -70,7 +70,7 @@ const User = props => {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <Typography variant="h5" component="h3">
+              <Typography noWrap variant="h5" component="h3">
                 ..............
               </Typography>
             </Grid>
@@ -85,7 +85,7 @@ const User = props => {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <Typography variant="h5" component="h3">
+              <Typography noWrap variant="h5" component="h3">
                 ......................
               </Typography>
             </Grid>

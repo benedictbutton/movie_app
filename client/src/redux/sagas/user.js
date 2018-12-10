@@ -1,15 +1,15 @@
 import { call, put } from "redux-saga/effects";
-import { push } from "connected-react-router";
 import { USER_SUCCESS, USER_ERROR } from "../constants/actionTypes";
 import { fetchUser } from "../api/user";
 
-function* handleFetchUser(payload) {
-  debugger;
-  const { responseJson, error } = yield call(fetchUser);
-  if (responseJson) yield put({ type: USER_SUCCESS, responseJson });
-  else {
+function* handleFetchUser(action) {
+  const { responseJson, error } = yield call(fetchUser, action);
+  if (responseJson) {
+    yield put({ type: USER_SUCCESS, responseJson });
+    action.values.push("/ms/users/:id");
+  } else {
     yield put({ type: USER_ERROR, error });
-    yield put(push("/ms/sign-in"));
+    action.values.push("/ms/sign-in");
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doUserRequesting } from "../redux/actions/userActions";
 import User from "../components/User";
@@ -16,6 +16,7 @@ class UserContainer extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  client: state.client,
   user: state.user
 });
 

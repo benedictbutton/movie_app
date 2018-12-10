@@ -11,8 +11,8 @@ export const DISPLAY_TOGGLE = "DISPLAY_TOGGLE";
 export const USER_REQUESTING = "USER_REQUESTING";
 export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
-export const SET_USER = "SET_USER";
 export const UNSET_USER = "UNSET_USER";
 //Movies
-export const FETCH_MOVIES = "FETCH_MOVIES";
-export const SHOW_MOVIES = "SHOW_MOVIES";
+export const MOVIES_REQUESTING = "MOVIES_REQUESTING";
+export const MOVIES_SUCCESS = "MOVIES_SUCCESS";
+export const MOVIES_ERROR = "MOVIES_ERROR";

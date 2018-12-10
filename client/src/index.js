@@ -2,7 +2,6 @@ import "babel-polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ConnectedRouter } from "connected-react-router";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
@@ -15,11 +14,9 @@ ReactDOM.render(
   <div>
     <CssBaseline />
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Router>
-          <App />
-        </Router>
-      </ConnectedRouter>
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </div>,
   document.getElementById("root")

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
-import { doAddMovies } from "../redux/actions/movieActions";
+import { doMoviesRequesting } from "../redux/actions/movieActions";
 import { denormalize, schema } from "normalizr";
 import { withRouter } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
@@ -37,7 +37,8 @@ const styles = theme => ({
 
 class MoviesContainer extends Component {
   componentDidMount() {
-    this.props.dispatch(doAddMovies());
+    const { history } = this.props;
+    this.props.dispatch(doMoviesRequesting(history));
   }
   render() {
     const { classes, width } = this.props;
@@ -48,7 +49,7 @@ class MoviesContainer extends Component {
     };
 
     let card = 0;
-    let movies = Object.values(this.props.movies).map(movie => {
+    let movies = Object.values(this.props.movies.list).map(movie => {
       let { id, title, overview } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;

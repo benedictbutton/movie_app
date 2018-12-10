@@ -7,7 +7,6 @@
     "@material-ui/core": "^3.2.1",
     "@material-ui/icons": "^3.0.1",
     "babel-polyfill": "^6.26.0",
-    "connected-react-router": "^5.0.1",
     "lodash": "^4.17.11",
     "normalizr": "^3.3.0",
     "react": "^16.5.2",
