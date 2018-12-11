@@ -41,9 +41,10 @@ const applySignUpError = (state, action) => ({
       time: new Date()
     }
   ],
-  messages: [],
+  messages: action.error.message,
   requesting: false,
-  successful: false
+  successful: false,
+  display: true
 });
 
 const applySignInRequest = (state, action) => ({

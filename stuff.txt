@@ -200,3 +200,10 @@ export default connect(
   null,
   mapDispatchToProps
 )(withStyles(styles)(SignUp));
+
+title :not null
+Year
+Ratings
+imageUrl
+
+director

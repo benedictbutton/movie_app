@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import FormInput from "../components/FormInput";
+import Notifications from "../components/Notifications";
 import { doSignUpRequesting } from "../redux/actions/formActions";
 import {
   required,
@@ -88,7 +89,7 @@ class SignUpContainer extends Component {
                   component="h1"
                   variant="h5"
                   align="center"
-                  gutterbottom
+                  gutterBottom
                 >
                   Sign Up
                 </Typography>
@@ -174,6 +175,7 @@ class SignUpContainer extends Component {
             </form>
           </Paper>
         </main>
+        <Notifications />
       </>
     );
   }
