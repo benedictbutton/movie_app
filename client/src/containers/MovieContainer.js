@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import Movie from "../components/Movie";
 
 const MovieContainer = props => {
-  return <Movie movie={props.location.state.movie} />;
+  return <Movie movie={props.location.state} />;
 };
 
 // function getTheMovie(state) {
