@@ -1,18 +1,21 @@
-async function fetchUser(query) {
+import { schema, normalize } from "normalizr";
+import { userSchema } from "../schemas/schema";
+
+async function fetchUser() {
   try {
     let response = await fetch("/api/v1/users/:id", {
       credentials: "same-origin",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        AUTHORIZATION: `Bearer ${sessionStorage.jwt}`
-      },
-      body: JSON.stringify(query)
+        Authorization: `Bearer ${sessionStorage.jwt}`
+      }
     });
+    if (!response.ok) throw new Error(response);
     let responseJson = await response.json();
-    return responseJson;
+    return { responseJson };
   } catch (error) {
-    console.log(error);
+    return { error };
   }
 }
 

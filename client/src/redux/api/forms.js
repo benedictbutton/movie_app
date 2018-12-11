@@ -1,6 +1,6 @@
 import { saveState } from "../../localStorage";
 
-async function postSignUpForm(query) {
+async function fetchSignUpForm(query) {
   try {
     let response = await fetch("/api/v1/users.json", {
       credentials: "same-origin",
@@ -9,27 +9,32 @@ async function postSignUpForm(query) {
       body: JSON.stringify(query)
     });
     let responseJson = await response.json();
-    sessionStorage.setItem("jwt", responseJson.password_digest);
-    return responseJson;
+    if (!response.ok) {
+      const error = responseJson.email[0];
+      throw new Error(error);
+    }
+    sessionStorage.setItem("jwt", responseJson.auth_token);
+    return { responseJson };
   } catch (error) {
-    console.log(error);
+    return { error };
   }
 }
 
-async function postSignInForm(query) {
+async function fetchSignInForm(query) {
   try {
     let response = await fetch("/authenticate.json", {
       credentials: "same-origin",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      AUTHORIZATION: `Bearer ${sessionStorage.jwt}`,
       body: JSON.stringify(query)
     });
     let responseJson = await response.json();
-    return responseJson;
+    if (!response.ok) throw new Error(response);
+    sessionStorage.setItem("jwt", responseJson.auth_token);
+    return { responseJson };
   } catch (error) {
-    console.log(error);
+    return { error };
   }
 }
 
-export { postSignUpForm, postSignInForm };
+export { fetchSignUpForm, fetchSignInForm };

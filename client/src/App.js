@@ -30,11 +30,13 @@ class App extends Component {
         <header className="App-header">
           <Route exact path="/" component={HomeContainer} />
           <Route path="/ms" component={HeaderContainer} />
-          <Route path="/ms/sign-up" component={SignUpContainer} />
-          <Route path="/ms/sign-in" component={SignInContainer} />
-          <Route path="/ms/movies" component={MoviesContainer} />
-          <Route path="/ms/movie/:id" component={MovieContainer} />
-          <Route path="/ms/users/:id" component={UserContainer} />
+          <Switch>
+            <Route path="/ms/sign-up" component={SignUpContainer} />
+            <Route path="/ms/sign-in" component={SignInContainer} />
+            <Route path="/ms/movies" component={MoviesContainer} />
+            <Route path="/ms/movie/:id" component={MovieContainer} />
+            <Route path="/ms/users/:id" component={UserContainer} />
+          </Switch>
         </header>
       </div>
     );

@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //material-ui
 import List from "@material-ui/core/List";
@@ -21,4 +22,4 @@ const LogOut = props => {
   );
 };
 
-export default LogOut;
+export default withRouter(LogOut);

@@ -21,10 +21,9 @@ saga.run(rootSaga);
 store.subscribe(
   throttle(() => {
     saveState({
-      user: store.getState().user,
-      form: store.getState().form
+      user: store.getState().user
     });
   }, 1000)
 );
 
-export default store;
+export { store };

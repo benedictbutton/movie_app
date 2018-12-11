@@ -1,10 +1,16 @@
 import { call, put } from "redux-saga/effects";
-import { doShowUser } from "../actions/userActions";
+import { USER_SUCCESS, USER_ERROR } from "../constants/actionTypes";
 import { fetchUser } from "../api/user";
 
-function* handleFetchUser(query) {
-  const result = yield call(fetchUser, query);
-  yield put(doShowUser(result));
+function* handleFetchUser(action) {
+  const { responseJson, error } = yield call(fetchUser, action);
+  if (responseJson) {
+    yield put({ type: USER_SUCCESS, responseJson });
+    action.values.push("/ms/users/:id");
+  } else {
+    yield put({ type: USER_ERROR, error });
+    action.values.push("/ms/sign-in");
+  }
 }
 
 export { handleFetchUser };

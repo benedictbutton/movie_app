@@ -1,13 +1,8 @@
-import { SHOW_MOVIES, FETCH_MOVIES } from "../constants/actionTypes";
+import { MOVIES_REQUESTING } from "../constants/actionTypes";
 
-const doShowMovies = movies => ({
-  type: SHOW_MOVIES,
+const doMoviesRequesting = movies => ({
+  type: MOVIES_REQUESTING,
   payload: movies
 });
 
-const doAddMovies = movies => ({
-  type: FETCH_MOVIES,
-  payload: movies
-});
-
-export { doShowMovies, doAddMovies };
+export { doMoviesRequesting };

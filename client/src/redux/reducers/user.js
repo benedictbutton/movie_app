@@ -1,22 +1,68 @@
-import { SHOW_USER } from "../constants/actionTypes";
+import {
+  USER_REQUESTING,
+  USER_SUCCESS,
+  USER_ERROR,
+  UNSET_USER
+} from "../constants/actionTypes";
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  profile: {
+    id: null,
+    firstName: null,
+    lastName: null,
+    username: "",
+    email: ""
+  },
+  requesting: false,
+  successful: false,
+  errors: [],
+  messages: ""
+};
 
-const applyShowUser = (state, action) => {
+const applyUserRequest = (state, action) => {
   return {
     ...state,
-    id: action.user.id,
-    firstName: action.user.first_name,
-    lastName: action.user.last_name,
-    email: action.user.email
+    requesting: true
   };
 };
 
-function userReducer(state = {}, action) {
-  switch (action.type) {
-    case SHOW_USER: {
-      return applyShowUser(state, action);
+const applyUserSuccess = (state, action) => ({
+  ...state,
+  profile: {
+    id: action.responseJson.id,
+    firstName: action.responseJson.first_name,
+    lastName: action.responseJson.last_name,
+    username: action.responseJson.username,
+    email: action.responseJson.email
+  },
+  requesting: false,
+  successful: true
+});
+
+const applyUserError = (state, action) => ({
+  ...state,
+  errors: [
+    ...state.errors,
+    {
+      body: action.error,
+      time: new Date()
     }
+  ],
+  messages: [],
+  requesting: false,
+  successful: false
+});
+
+function userReducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case USER_REQUESTING:
+      return applyUserRequest(state, action);
+    case USER_SUCCESS:
+      return applyUserSuccess(state, action);
+    case USER_ERROR:
+      return applyUserError(state, action);
+    case UNSET_USER:
+      return INITIAL_STATE;
     default:
       return state;
   }

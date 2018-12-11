@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
-import { doAddMovies } from "../redux/actions/movieActions";
+import { doMoviesRequesting } from "../redux/actions/movieActions";
 import { denormalize, schema } from "normalizr";
 import { withRouter } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
 import { movieSchema } from "../redux/schemas/schema";
+import Notifications from "../components/Notifications";
 //material-ui
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -36,7 +37,8 @@ const styles = theme => ({
 
 class MoviesContainer extends Component {
   componentDidMount() {
-    this.props.dispatch(doAddMovies());
+    const { history } = this.props;
+    this.props.dispatch(doMoviesRequesting(history));
   }
   render() {
     const { classes, width } = this.props;
@@ -47,9 +49,7 @@ class MoviesContainer extends Component {
     };
 
     let card = 0;
-
-    let movies = Object.values(this.props.movies).map(movie => {
-      console.log(movie);
+    let movies = Object.values(this.props.movies.list).map(movie => {
       let { id, title, overview } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
@@ -68,7 +68,7 @@ class MoviesContainer extends Component {
 
     return (
       <>
-        <div className={classes.heroButtons}>
+        <div>
           <Grid container spacing={16} justify="center">
             <Grid item>
               <Button variant="contained" color="primary">
@@ -87,6 +87,7 @@ class MoviesContainer extends Component {
             {movies}
           </GridList>
         </div>
+        <Notifications />
       </>
     );
   }
