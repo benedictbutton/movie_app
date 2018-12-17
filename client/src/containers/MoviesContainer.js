@@ -1,17 +1,20 @@
 import React, { Component } from "react";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
 import { denormalize, schema } from "normalizr";
-import { withRouter } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
 import { movieSchema } from "../redux/schemas/schema";
+import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
+import Stars from "../components/Stars";
+import StarsContainer from "./StarsContainer";
 //material-ui
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import Hidden from "@material-ui/core/Hidden";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -32,14 +35,37 @@ const styles = theme => ({
   tile: {
     height: "0",
     padding: "56.25% 0 0 0"
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
   }
 });
 
 class MoviesContainer extends Component {
-  componentDidMount() {
-    const { history } = this.props;
-    this.props.dispatch(doMoviesRequesting(history));
+  constructor(props) {
+    super(props);
+    this.state = {
+      starsVisible: null
+    };
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
+
+  componentDidMount() {
+    this.props.dispatch(doMoviesRequesting());
+  }
+
+  handleMouseEnter(event) {
+    debugger;
+    this.setState({ starsVisible: true });
+  }
+
+  handleMouseLeave = () => {
+    this.setState({ starsVisible: null });
+  };
+
   render() {
     const { classes, width } = this.props;
     const columns = {
@@ -58,9 +84,12 @@ class MoviesContainer extends Component {
           <MovieCard
             key={card}
             id={id}
-            imageUrl={imageUrl}
             title={title}
             overview={overview}
+            imageUrl={imageUrl}
+            starsVisible={this.state.starsVisible}
+            handleMouseEnter={this.handleMouseEnter}
+            handleMouseLeave={this.handleMouseLeave}
           />
         </GridListTile>
       );

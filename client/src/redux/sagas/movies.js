@@ -4,13 +4,8 @@ import { fetchMovies } from "../api/movies";
 
 function* handleFetchMovies(action) {
   const { responseJson, error } = yield call(fetchMovies, action);
-  if (responseJson) {
-    yield put({ type: MOVIES_SUCCESS, responseJson });
-    action.payload.push("/ms/movies");
-  } else {
-    yield put({ type: MOVIES_ERROR, error });
-    action.payload.push("/ms/sign-in");
-  }
+  if (responseJson) yield put({ type: MOVIES_SUCCESS, responseJson });
+  else yield put({ type: MOVIES_ERROR, error });
 }
 
 export { handleFetchMovies };

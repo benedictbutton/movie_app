@@ -50,7 +50,7 @@ const HeaderContainer = props => {
       <Paper className={classes.heroContent} id="image">
         <Typography
           component="h1"
-          variant="h1"
+          variant="h2"
           align="center"
           className={classes.type}
           gutterBottom

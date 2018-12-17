@@ -2,10 +2,15 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 //material-ui
 import Card from "@material-ui/core/Card";
+import CardAction from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import GridListTileBar from "@material-ui/core/GridListTileBar";
+import MovieContainer from "../containers/MovieContainer";
+import Stars from "../components/Stars";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -36,6 +41,11 @@ const styles = theme => ({
   },
   content: {
     flex: "1 0 auto"
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
   }
 });
 
@@ -49,11 +59,21 @@ const Movie = props => {
         <Grid container spacing={8} justify="flex-start">
           <Card className={classes.card}>
             <Grid item xs={12} sm={6} className={classes.grid}>
-              <CardMedia
-                component="img"
-                className={classes.media}
-                image={imageUrl}
-              />
+              <Card>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    className={classes.media}
+                    image={imageUrl}
+                  />
+                </CardActionArea>
+                <CardAction
+                  titlePosition="bottom"
+                  actionIcon={<Stars />}
+                  actionPosition="center"
+                  className={classes.titleBar}
+                />
+              </Card>
             </Grid>
             <Grid item xs={12} sm={6}>
               <CardHeader title={title} />
