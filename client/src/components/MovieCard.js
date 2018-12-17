@@ -64,15 +64,15 @@ class MovieCard extends Component {
             }}
           >
             <img src={imageUrl} alt="test" width="100%" height="100%" />
-            <StarsContainer
-              id={title}
-              actionPosition="left"
-              actionIcon={<Stars starSize={starSize[width]} />}
-              open={open}
-              onClose={this.handleMouseLeave}
-              starsVisible={this.state.starsVisible}
-            />
           </Link>
+          <StarsContainer
+            id={title}
+            actionPosition="left"
+            actionIcon={<Stars starSize={starSize[width]} />}
+            open={open}
+            onClose={this.handleMouseLeave}
+            starsVisible={this.state.starsVisible}
+          />
         </div>
       </>
     );
