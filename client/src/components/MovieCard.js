@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 //material-ui
 import GridListTileBar from "@material-ui/core/GridListTileBar";
@@ -16,42 +16,67 @@ const styles = theme => ({
   }
 });
 
-const MovieCard = props => {
-  const { classes, title, imageUrl, overview, width, ...rest } = props;
+class MovieCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      starsVisible: null
+    };
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
 
-  const starSize = {
-    xs: 20,
-    lg: 18
+  handleMouseEnter(event) {
+    debugger;
+    this.setState({ starsVisible: event.currentTarget });
+  }
+
+  handleMouseLeave = () => {
+    this.setState({ starsVisible: null });
   };
 
-  return (
-    <>
-      <Link
-        to={{
-          pathname: `/ms/movie/${props.id}`,
-          state: {
-            title: title,
-            imageUrl: imageUrl,
-            overview: overview
-          }
-        }}
-      >
-        <img
-          src={imageUrl}
-          alt="test"
-          width="100%"
-          height="100%"
-          onMouseEnter={props.handleMouseEnter}
-          onMouseLeave={props.handleMouseLeave}
-        />
-      </Link>
-      <StarsContainer
-        actionPosition="left"
-        actionIcon={<Stars starSize={starSize[width]} />}
-        starsVisible={props.starsVisible}
-      />
-    </>
-  );
-};
+  render() {
+    const { classes, id, title, imageUrl, overview, width } = this.props;
+
+    const starSize = {
+      xs: 20,
+      lg: 18
+    };
+
+    const open = Boolean(this.state.starsVisible);
+
+    return (
+      <>
+        <div
+          aria-owns={open ? title : undefined}
+          aria-haspopup="true"
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <Link
+            to={{
+              pathname: `/ms/movie/${id}`,
+              state: {
+                title: title,
+                imageUrl: imageUrl,
+                overview: overview
+              }
+            }}
+          >
+            <img src={imageUrl} alt="test" width="100%" height="100%" />
+            <StarsContainer
+              id={title}
+              actionPosition="left"
+              actionIcon={<Stars starSize={starSize[width]} />}
+              open={open}
+              onClose={this.handleMouseLeave}
+              starsVisible={this.state.starsVisible}
+            />
+          </Link>
+        </div>
+      </>
+    );
+  }
+}
 
 export default withRouter(withWidth()(withStyles(styles)(MovieCard)));

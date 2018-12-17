@@ -7,14 +7,11 @@ import { denormalize, schema } from "normalizr";
 import { movieSchema } from "../redux/schemas/schema";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
-import Stars from "../components/Stars";
-import StarsContainer from "./StarsContainer";
 //material-ui
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import Hidden from "@material-ui/core/Hidden";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -46,25 +43,11 @@ const styles = theme => ({
 class MoviesContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      starsVisible: null
-    };
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(doMoviesRequesting());
   }
-
-  handleMouseEnter(event) {
-    debugger;
-    this.setState({ starsVisible: true });
-  }
-
-  handleMouseLeave = () => {
-    this.setState({ starsVisible: null });
-  };
 
   render() {
     const { classes, width } = this.props;
@@ -87,9 +70,6 @@ class MoviesContainer extends Component {
             title={title}
             overview={overview}
             imageUrl={imageUrl}
-            starsVisible={this.state.starsVisible}
-            handleMouseEnter={this.handleMouseEnter}
-            handleMouseLeave={this.handleMouseLeave}
           />
         </GridListTile>
       );
