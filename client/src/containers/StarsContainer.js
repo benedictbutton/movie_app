@@ -93,10 +93,10 @@ const StarsContainer = props => {
   );
 
   // Remove the margin between the title / subtitle wrapper, and the Action Icon
-  const titleWrapClassName = classNames(classes.titleWrap, {
-    [classes.titleWrapActionPosLeft]: actionPos === "left",
-    [classes.titleWrapActionPosRight]: actionPos === "right"
-  });
+  // const titleWrapClassName = classNames(classes.titleWrap, {
+  //   [classes.titleWrapActionPosLeft]: actionPos === "left",
+  //   [classes.titleWrapActionPosRight]: actionPos === "right"
+  // });
 
   return (
     <div>

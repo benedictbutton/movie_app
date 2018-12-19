@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
+import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
 import { denormalize, schema } from "normalizr";
 import { movieSchema } from "../redux/schemas/schema";
@@ -43,10 +44,15 @@ const styles = theme => ({
 class MoviesContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleRating = this.handleRating.bind(this);
   }
 
   componentDidMount() {
-    this.props.dispatch(doMoviesRequesting());
+    this.props.doMoviesRequesting();
+  }
+
+  handleRating(event) {
+    this.props.doRatingAdd(event);
   }
 
   render() {
@@ -60,6 +66,7 @@ class MoviesContainer extends Component {
     let card = 0;
     let movies = Object.values(this.props.movies.list).map(movie => {
       let { id, title, overview } = movie;
+      id = id.toString();
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (
@@ -70,6 +77,7 @@ class MoviesContainer extends Component {
             title={title}
             overview={overview}
             imageUrl={imageUrl}
+            handleRating={this.handleRating}
           />
         </GridListTile>
       );
@@ -109,6 +117,6 @@ const mapStateToProps = state => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    { doMoviesRequesting, doRatingAdd }
   )(withWidth()(withStyles(styles)(MoviesContainer)))
 );

@@ -6,7 +6,6 @@ import { Redirect, withRouter } from "react-router-dom";
 import LogOut from "../components/LogOut";
 //material-ui
 import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
 
 class LogOutContainer extends Component {
   constructor(props) {

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 //material-ui
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import MovieContainer from "../containers/MovieContainer";
 import Stars from "../components/Stars";
 import StarsContainer from "../containers/StarsContainer";
 import { withStyles } from "@material-ui/core/styles";
@@ -27,7 +25,6 @@ class MovieCard extends Component {
   }
 
   handleMouseEnter(event) {
-    debugger;
     this.setState({ starsVisible: event.currentTarget });
   }
 
@@ -36,11 +33,14 @@ class MovieCard extends Component {
   };
 
   render() {
-    const { classes, id, title, imageUrl, overview, width } = this.props;
+    const { id, title, imageUrl, overview, width, handleRating } = this.props;
 
     const starSize = {
       xs: 20,
-      lg: 18
+      sm: 20,
+      md: 20,
+      lg: 18,
+      xl: 18
     };
 
     const open = Boolean(this.state.starsVisible);
@@ -48,7 +48,7 @@ class MovieCard extends Component {
     return (
       <>
         <div
-          aria-owns={open ? title : undefined}
+          aria-owns={open ? id : undefined}
           aria-haspopup="true"
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
@@ -66,9 +66,15 @@ class MovieCard extends Component {
             <img src={imageUrl} alt="test" width="100%" height="100%" />
           </Link>
           <StarsContainer
-            id={title}
+            id={id}
             actionPosition="left"
-            actionIcon={<Stars starSize={starSize[width]} />}
+            actionIcon={
+              <Stars
+                id={id}
+                starSize={starSize[width]}
+                handleRating={handleRating}
+              />
+            }
             open={open}
             onClose={this.handleMouseLeave}
             starsVisible={this.state.starsVisible}

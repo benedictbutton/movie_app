@@ -1,27 +1,55 @@
 import React from "react";
+import { connect } from "react-redux";
 //material-ui
 // import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarIcon from "@material-ui/icons/Star";
+import StarIconBorder from "@material-ui/icons/StarBorder";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   icon: {
-    flex: 1,
-    color: "white"
+    flex: 1
   }
 });
 
 const Stars = props => {
-  const { classes } = props;
-  let stars = [0, 1, 2, 3, 5].map(el => {
+  const { id, classes, handleRating } = props;
+  let movieRating = props.ratings[id] || {
+    stars: ["white", "white", "white", "white", "white"],
+    score: 0
+  };
+  let stars = movieRating.stars.map((el, index) => {
     return (
-      <IconButton key={el} className={classes.icon}>
-        <StarBorderIcon style={{ fontSize: props.starSize }} />
+      <IconButton
+        key={index}
+        id={id}
+        value={index}
+        className={classes.icon}
+        onClick={handleRating}
+      >
+        {el === "white" ? (
+          <StarIconBorder
+            id={index}
+            style={{ color: el, fontSize: props.starSize }}
+          />
+        ) : (
+          <StarIcon
+            id={index}
+            style={{ color: el, fontSize: props.starSize }}
+          />
+        )}
       </IconButton>
     );
   });
   return <div className={classes.root}>{stars}</div>;
 };
 
-export default withStyles(styles)(Stars);
+const mapStateToProps = state => ({
+  ratings: state.ratings
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(styles)(Stars));

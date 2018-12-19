@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Movie from "../components/Movie";
@@ -18,7 +18,6 @@ const MovieContainer = props => {
 // }
 
 const mapStateToProps = (state, props) => {
-  const id = props.match.params.id;
   return { movies: state.movies };
 };
 

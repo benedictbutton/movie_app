@@ -1,8 +1,8 @@
-import { RATINGS_TOGGLE } from "../constants/actionTypes";
+import { RATING_ADD } from "../constants/actionTypes";
 
-const doRatingsToggle = event => ({
-  type: RATINGS_TOGGLE,
+const doRatingAdd = event => ({
+  type: RATING_ADD,
   event
 });
 
-export { doRatingsToggle };
+export { doRatingAdd };
