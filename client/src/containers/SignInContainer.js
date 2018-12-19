@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
 import { reduxForm, Field } from "redux-form";
 import { doSignInRequesting } from "../redux/actions/formActions";
+import { getClient } from "../redux/selectors/selectors";
 import FormInput from "../components/FormInput";
 import Notifications from "../components/Notifications";
 //material-ui
@@ -111,7 +112,7 @@ class SignInContainer extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  client: state.client
+  client: getClient(state)
 });
 
 const signInForm = {

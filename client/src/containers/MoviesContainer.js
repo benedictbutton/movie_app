@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
+import { getMovies } from "../redux/selectors/selectors";
 import { denormalize, schema } from "normalizr";
 import { movieSchema } from "../redux/schemas/schema";
 import MovieCard from "../components/MovieCard";
@@ -111,7 +112,7 @@ class MoviesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies
+  movies: getMovies(state)
 });
 
 export default withRouter(

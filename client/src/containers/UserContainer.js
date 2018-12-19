@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doUserRequesting } from "../redux/actions/userActions";
+import { getClient, getUser } from "../redux/selectors/selectors";
 import User from "../components/User";
 
 class UserContainer extends Component {
@@ -19,8 +20,8 @@ class UserContainer extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  client: state.client,
-  user: state.user
+  client: getClient(state),
+  user: getUser(state)
 });
 
 export default withRouter(

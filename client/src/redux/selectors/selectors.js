@@ -10,3 +10,11 @@
 // };
 //
 // export { getMovies };
+
+const getClient = state => state.client;
+
+const getUser = state => state.user;
+
+const getMovies = state => state.movies;
+
+export { getClient, getUser, getMovies };

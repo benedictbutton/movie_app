@@ -5,6 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import FormInput from "../components/FormInput";
 import Notifications from "../components/Notifications";
 import { doSignUpRequesting } from "../redux/actions/formActions";
+import { getClient } from "../redux/selectors/selectors";
 import {
   required,
   maxLength,
@@ -186,7 +187,7 @@ const signUpForm = {
 };
 
 const mapStateToProps = state => ({
-  client: state.client
+  client: getClient(state)
 });
 
 SignUpContainer = reduxForm(signUpForm)(SignUpContainer);
