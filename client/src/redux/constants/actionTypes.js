@@ -16,3 +16,8 @@ export const UNSET_USER = "UNSET_USER";
 export const MOVIES_REQUESTING = "MOVIES_REQUESTING";
 export const MOVIES_SUCCESS = "MOVIES_SUCCESS";
 export const MOVIES_ERROR = "MOVIES_ERROR";
+export const MOVIE_POSTING = "MOVIE_POSTING";
+export const MOVIE_SUCCESS = "MOVIE_SUCCESS";
+export const MOVIE_ERROR = "MOVIE_ERROR";
+//Ratings
+export const RATING_ADD = "RATING_ADD";

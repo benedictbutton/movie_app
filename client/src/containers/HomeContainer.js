@@ -1,11 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import SignInContainer from "./SignInContainer";
-import SignUpContainer from "./SignUpContainer";
-
 //material-ui
 import { Grid, Paper, withStyles } from "@material-ui/core";
-import Image from "../assets/grey-large.jpg";
 
 const styles = theme => ({
   // root: {

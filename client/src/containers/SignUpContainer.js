@@ -5,6 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import FormInput from "../components/FormInput";
 import Notifications from "../components/Notifications";
 import { doSignUpRequesting } from "../redux/actions/formActions";
+import { getClient } from "../redux/selectors/selectors";
 import {
   required,
   maxLength,
@@ -24,7 +25,6 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -187,7 +187,7 @@ const signUpForm = {
 };
 
 const mapStateToProps = state => ({
-  client: state.client
+  client: getClient(state)
 });
 
 SignUpContainer = reduxForm(signUpForm)(SignUpContainer);

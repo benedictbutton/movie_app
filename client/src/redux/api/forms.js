@@ -1,12 +1,10 @@
-import { saveState } from "../../localStorage";
-
-async function fetchSignUpForm(query) {
+async function fetchSignUpForm(payload) {
   try {
     let response = await fetch("/api/v1/users.json", {
       credentials: "same-origin",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query)
+      body: JSON.stringify(payload)
     });
     let responseJson = await response.json();
     if (!response.ok) {

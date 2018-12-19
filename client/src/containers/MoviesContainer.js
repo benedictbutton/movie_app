@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
+import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
+import { getMovies } from "../redux/selectors/selectors";
 import { denormalize, schema } from "normalizr";
-import { withRouter } from "react-router-dom";
-import MovieCard from "../components/MovieCard";
 import { movieSchema } from "../redux/schemas/schema";
+import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
 import Button from "@material-ui/core/Button";
@@ -32,14 +34,28 @@ const styles = theme => ({
   tile: {
     height: "0",
     padding: "56.25% 0 0 0"
+  },
+  titleBar: {
+    background:
+      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
   }
 });
 
 class MoviesContainer extends Component {
-  componentDidMount() {
-    const { history } = this.props;
-    this.props.dispatch(doMoviesRequesting(history));
+  constructor(props) {
+    super(props);
+    this.handleRating = this.handleRating.bind(this);
   }
+
+  componentDidMount() {
+    this.props.doMoviesRequesting();
+  }
+
+  handleRating(event) {
+    this.props.doRatingAdd(event);
+  }
+
   render() {
     const { classes, width } = this.props;
     const columns = {
@@ -51,6 +67,7 @@ class MoviesContainer extends Component {
     let card = 0;
     let movies = Object.values(this.props.movies.list).map(movie => {
       let { id, title, overview } = movie;
+      id = id.toString();
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (
@@ -58,9 +75,10 @@ class MoviesContainer extends Component {
           <MovieCard
             key={card}
             id={id}
-            imageUrl={imageUrl}
             title={title}
             overview={overview}
+            imageUrl={imageUrl}
+            handleRating={this.handleRating}
           />
         </GridListTile>
       );
@@ -94,12 +112,12 @@ class MoviesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies
+  movies: getMovies(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    { doMoviesRequesting, doRatingAdd }
   )(withWidth()(withStyles(styles)(MoviesContainer)))
 );

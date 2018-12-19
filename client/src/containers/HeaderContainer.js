@@ -1,15 +1,12 @@
 import React from "react";
 import DrawerContainer from "./DrawerContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router-dom";
 //material-ui
 import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/AppBar";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
@@ -50,7 +47,7 @@ const HeaderContainer = props => {
       <Paper className={classes.heroContent} id="image">
         <Typography
           component="h1"
-          variant="h1"
+          variant="h2"
           align="center"
           className={classes.type}
           gutterBottom

@@ -1,12 +1,8 @@
 import React from "react";
-import Image from "../assets/grey-small.jpg";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Icon from "@material-ui/core/Icon";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({

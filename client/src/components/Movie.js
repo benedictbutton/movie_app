@@ -6,7 +6,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -49,11 +48,13 @@ const Movie = props => {
         <Grid container spacing={8} justify="flex-start">
           <Card className={classes.card}>
             <Grid item xs={12} sm={6} className={classes.grid}>
-              <CardMedia
-                component="img"
-                className={classes.media}
-                image={imageUrl}
-              />
+              <Card>
+                <CardMedia
+                  component="img"
+                  className={classes.media}
+                  image={imageUrl}
+                />
+              </Card>
             </Grid>
             <Grid item xs={12} sm={6}>
               <CardHeader title={title} />
