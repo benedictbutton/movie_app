@@ -1,16 +1,34 @@
-import { schema, normalize } from "normalizr";
-import { movieSchema, listSchema } from "../schemas/schema";
+import { normalize } from "normalizr";
+import { listSchema } from "../schemas/schema";
+
+const accessToken =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3N2Q1ZDQ0Yjg5MWNlYjZkNGI1ZTcxN2I4ZTJlOTI1NiIsInN1YiI6IjViZGI3YWZiYzNhMzY4NDAzMjAwMDFkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._5X_Tv8-TJrTWsCzxVsZufVIY0u_aFWMfUi38r8loaY";
+
+const queryKey = query => {
+  if (query === "Drama") return 18;
+  else if (query === "Comedy") return 35;
+  else if (query === "Action") return 28;
+  else if (query === "Romance") return 10749;
+  else if (query === "Thriller") return 53;
+  else if (query === "Documentary") return 99;
+  else if (query === "SciFi") return 878;
+  else if (query === "Horror") return 27;
+  else return 18;
+};
 
 async function fetchMovies(query) {
   try {
+    console.log(query);
+    let genreId = queryKey(query);
     let ids = [1, 2, 3, 4, 5];
     const promises = ids.map(id => {
       return fetch(
-        `https://api.themoviedb.org/4/list/${id}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+        `https://api.themoviedb.org/4/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=${id}`,
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`
           }
         }
       );

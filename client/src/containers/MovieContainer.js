@@ -1,25 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getMovies } from "../redux/selectors/selectors";
 import Movie from "../components/Movie";
 
 const MovieContainer = props => {
   return <Movie movie={props.location.state} />;
 };
 
-// function getTheMovie(state) {
-//   debugger;
-//   let title;
-//   const movie = state.map(el => {
-//     title = el.title;
-//     return title;
-//   });
-//   return movie;
-// }
-
-const mapStateToProps = (state, props) => {
-  return { movies: state.movies };
-};
+const mapStateToProps = state => ({
+  movies: getMovies(state)
+});
 
 export default withRouter(
   connect(

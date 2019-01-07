@@ -1,4 +1,3 @@
-import { schema, normalize } from "normalizr";
 import {
   MOVIES_REQUESTING,
   MOVIES_SUCCESS,
@@ -11,13 +10,13 @@ const INITIAL_STATE = {
   successful: false,
   errors: [],
   messages: "",
-  history: {}
+  query: "Drama"
 };
 
 const applyMoviesRequesting = (state, action) => ({
   ...state,
   requesting: true,
-  history: action
+  query: action.payload
 });
 
 const applyMoviesSuccess = (state, action) => ({

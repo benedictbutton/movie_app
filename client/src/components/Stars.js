@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { doMoviePosting } from "../redux/actions/movieActions";
+import { getMoviesAsIds, getRatings } from "../redux/selectors/selectors";
 //material-ui
-// import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarIcon from "@material-ui/icons/Star";
 import StarIconBorder from "@material-ui/icons/StarBorder";
@@ -15,7 +16,7 @@ const styles = theme => ({
 
 const Stars = props => {
   const { id, classes, handleRating } = props;
-  let movieRating = props.ratings[id] || {
+  let movieRating = props.ratings.list[id] || {
     stars: ["white", "white", "white", "white", "white"],
     score: 0
   };
@@ -26,7 +27,10 @@ const Stars = props => {
         id={id}
         value={index}
         className={classes.icon}
-        onClick={handleRating}
+        onClick={event => {
+          handleRating(event);
+          props.doMoviePosting(event, props.movie);
+        }}
       >
         {el === "white" ? (
           <StarIconBorder
@@ -45,11 +49,12 @@ const Stars = props => {
   return <div className={classes.root}>{stars}</div>;
 };
 
-const mapStateToProps = state => ({
-  ratings: state.ratings
+const mapStateToProps = (state, props) => ({
+  ratings: getRatings(state),
+  movie: getMoviesAsIds(state, props.id)
 });
 
 export default connect(
   mapStateToProps,
-  null
+  { doMoviePosting }
 )(withStyles(styles)(Stars));

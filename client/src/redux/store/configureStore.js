@@ -20,10 +20,13 @@ saga.run(rootSaga);
 
 store.subscribe(
   throttle(() => {
-    saveState({
-      user: store.getState().user,
-      ratings: store.getState().ratings
-    });
+    if (store.getState().client.successful) {
+      saveState({
+        client: store.getState().client,
+        user: store.getState().user,
+        ratings: store.getState().ratings
+      });
+    }
   }, 1000)
 );
 

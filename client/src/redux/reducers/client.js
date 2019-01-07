@@ -75,6 +75,12 @@ const applySignInError = (state, action) => ({
   display: true
 });
 
+const applySignOut = () => {
+  window.localStorage.clear();
+
+  return INITIAL_STATE;
+};
+
 const applyToggleDisplay = (state, action) => ({
   ...state,
   display: false
@@ -95,7 +101,7 @@ function clientReducer(state = INITIAL_STATE, action) {
     case SIGNIN_ERROR:
       return applySignInError(state, action);
     case SIGN_OUT:
-      return INITIAL_STATE;
+      return applySignOut();
     case DISPLAY_TOGGLE:
       return applyToggleDisplay(state);
 

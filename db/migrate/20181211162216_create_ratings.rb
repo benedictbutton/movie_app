@@ -4,7 +4,7 @@ class CreateRatings < ActiveRecord::Migration[5.1]
       t.belongs_to :user, index: true
       t.belongs_to :movie, index: true
       t.integer :score, numericality: true,  default: 0
-      t.timestamps  
+      t.timestamps
     end
   end
 end

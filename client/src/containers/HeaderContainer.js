@@ -1,8 +1,9 @@
 import React from "react";
-import DrawerContainer from "./DrawerContainer";
 import { withRouter } from "react-router-dom";
+import DrawerContainer from "./DrawerContainer";
 //material-ui
 import AppBar from "@material-ui/core/AppBar";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -45,15 +46,36 @@ const HeaderContainer = props => {
       </AppBar>
 
       <Paper className={classes.heroContent} id="image">
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          className={classes.type}
-          gutterBottom
-        >
-          MOVIES SCENE
-        </Typography>
+        <Grid container align="center" justify="center">
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            className={classes.type}
+            gutterBottom
+          >
+            MOVIE
+          </Typography>
+          <Typography
+            id="rotate"
+            component="h1"
+            variant="h2"
+            align="center"
+            className={classes.type}
+            gutterBottom
+          >
+            {"  "}S{"  "}
+          </Typography>
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            className={classes.type}
+            gutterBottom
+          >
+            CENE
+          </Typography>
+        </Grid>
       </Paper>
     </>
   );

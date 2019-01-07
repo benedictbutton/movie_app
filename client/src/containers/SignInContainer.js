@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { doSignInRequesting } from "../redux/actions/formActions";
 import { getClient } from "../redux/selectors/selectors";
