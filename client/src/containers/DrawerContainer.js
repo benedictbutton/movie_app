@@ -1,7 +1,7 @@
 import React from "react";
-import LogOutContainer from "./LogOutContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LogOutContainer from "./LogOutContainer";
 //material-ui
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";

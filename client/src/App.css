@@ -71,6 +71,19 @@
   box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
 }
 
+#rotate {
+  /* Safari */
+  -webkit-transform: rotate(45deg);
+  /* Firefox */
+  -moz-transform: rotate(45deg);
+  /* IE */
+  -ms-transform: rotate(45deg);
+  /* Opera */
+  -o-transform: rotate(45sdeg);
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -8,11 +8,10 @@ import User from "../components/User";
 class UserContainer extends Component {
   componentDidMount() {
     this.props.dispatch(doUserRequesting());
-    console.log("test", this.props);
   }
 
   render() {
-    if (!this.props.user.successful) {
+    if (!this.props.client.successful) {
       return <Redirect to="/ms/sign-in" />;
     }
     return <User {...this.props} />;

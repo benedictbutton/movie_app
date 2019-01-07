@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 // import { getMovies } from "../redux/selectors/movies";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
-import { getMovies } from "../redux/selectors/selectors";
-import { denormalize, schema } from "normalizr";
-import { movieSchema } from "../redux/schemas/schema";
+import { getMovies, getRatings } from "../redux/selectors/selectors";
+import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
@@ -14,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -22,6 +22,7 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
+    alignItems: "center",
     margin: theme.spacing.unit * 6
   },
   footer: {
@@ -29,6 +30,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 6
   },
   subheader: {
+    backgroundColor: theme.palette.background.paper,
     width: "100%"
   },
   tile: {
@@ -49,7 +51,7 @@ class MoviesContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.doMoviesRequesting();
+    this.props.doMoviesRequesting(this.props.movies.query);
   }
 
   handleRating(event) {
@@ -102,6 +104,15 @@ class MoviesContainer extends Component {
         </div>
         <div className={classes.root}>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
+            <GridListTile
+              key="Subheader"
+              cols={columns[width]}
+              style={{ height: "auto" }}
+            >
+              <ListSubheader component="div">
+                <GenreContainer />
+              </ListSubheader>
+            </GridListTile>
             {movies}
           </GridList>
         </div>
@@ -112,7 +123,8 @@ class MoviesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  movies: getMovies(state)
+  movies: getMovies(state),
+  ratings: getRatings(state)
 });
 
 export default withRouter(

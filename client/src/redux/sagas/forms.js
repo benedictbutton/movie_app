@@ -6,6 +6,7 @@ import {
   SIGNIN_ERROR
 } from "../constants/actionTypes";
 import { fetchSignUpForm, fetchSignInForm } from "../api/forms";
+import { handleFetchRatings } from "./ratings";
 
 function* handleFetchSignUp(payload) {
   const { values } = payload;
@@ -17,8 +18,10 @@ function* handleFetchSignUp(payload) {
 function* handleFetchSignIn(payload) {
   const { values } = payload;
   const { responseJson, error } = yield call(fetchSignInForm, values);
-  if (responseJson) yield put({ type: SIGNIN_SUCCESS, responseJson });
-  else yield put({ type: SIGNIN_ERROR, error });
+  if (responseJson) {
+    yield call(handleFetchRatings);
+    yield put({ type: SIGNIN_SUCCESS, responseJson });
+  } else yield put({ type: SIGNIN_ERROR, error });
 }
 
 export { handleFetchSignUp, handleFetchSignIn };

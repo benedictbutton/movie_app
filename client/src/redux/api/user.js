@@ -1,6 +1,3 @@
-import { schema, normalize } from "normalizr";
-import { userSchema } from "../schemas/schema";
-
 async function fetchUser() {
   try {
     let response = await fetch("/api/v1/users/:id", {

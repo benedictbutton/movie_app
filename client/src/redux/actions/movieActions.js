@@ -5,9 +5,10 @@ const doMoviesRequesting = movies => ({
   payload: movies
 });
 
-const doMoviePosting = movie => ({
+const doMoviePosting = (rating, movie) => ({
   type: MOVIE_POSTING,
-  payload: movie
+  movie: movie,
+  score: rating.currentTarget.value
 });
 
 export { doMoviesRequesting, doMoviePosting };

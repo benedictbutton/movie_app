@@ -1,4 +1,7 @@
 class Rating < ApplicationRecord
-  belongs_to :users
-  belongs_to :movies
+  include Stars
+
+  belongs_to :users, optional: true
+  belongs_to :movies, optional: true
+
 end
