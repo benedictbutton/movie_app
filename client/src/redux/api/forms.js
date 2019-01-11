@@ -1,11 +1,14 @@
 async function fetchSignUpForm(payload) {
   try {
-    let response = await fetch("/api/v1/users.json", {
-      credentials: "same-origin",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    let response = await fetch(
+      " https://my-movie-database.herokuapp.com/api/v1/users.json",
+      {
+        credentials: "same-origin",
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
     let responseJson = await response.json();
     if (!response.ok) {
       const error = responseJson.email[0];
@@ -20,12 +23,15 @@ async function fetchSignUpForm(payload) {
 
 async function fetchSignInForm(query) {
   try {
-    let response = await fetch("/authenticate.json", {
-      credentials: "same-origin",
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(query)
-    });
+    let response = await fetch(
+      " https://my-movie-database.herokuapp.com/authenticate.json",
+      {
+        credentials: "same-origin",
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(query)
+      }
+    );
     let responseJson = await response.json();
     if (!response.ok) throw new Error(response);
     sessionStorage.setItem("jwt", responseJson.auth_token);
