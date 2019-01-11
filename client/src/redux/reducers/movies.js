@@ -1,4 +1,5 @@
 import {
+  MY_MOVIES_REQUESTING,
   MOVIES_REQUESTING,
   MOVIES_SUCCESS,
   MOVIES_ERROR
@@ -43,6 +44,8 @@ const applyMoviesError = (state, action) => ({
 function moviesReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case MOVIES_REQUESTING:
+      return applyMoviesRequesting(state, action);
+    case MY_MOVIES_REQUESTING:
       return applyMoviesRequesting(state, action);
     case MOVIES_SUCCESS:
       return applyMoviesSuccess(state, action);

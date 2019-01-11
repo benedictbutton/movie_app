@@ -2,6 +2,15 @@ class Api::V1::MoviesController < ApplicationController
   include Stars
   # skip_before_action :authenticate_request, only: %i[new create] (authenticating might be useful)
 
+  def index
+    movies = []
+    ratings = Rating.where(user_id: @current_user.id)
+    ratings.each do |movie|
+      movies << Movie.find(movie.movie_id)
+    end
+    render json: movies
+  end
+
   def create
     score = params[:score]
     stars = Rating.add_stars(score)
