@@ -24,7 +24,7 @@ class Api::V1::MoviesController < ApplicationController
       end
       render json: @rating, status: :created
     else
-      @movie = Movie.new(id: params[:id], title: params[:title], poster: params[:poster_path], release_date: params[:release_date], description: params[:description], vote_count: params[:vote_count], vote_rating: params[:vote_rating])
+      @movie = Movie.new(id: params[:id], title: params[:title], poster_path: params[:poster_path], release_date: params[:release_date], description: params[:description], vote_count: params[:vote_count], vote_rating: params[:vote_rating])
       if @movie.save
         @rating = @movie.ratings.create(movie_id: @movie.id, user_id: @current_user.id, score: params[:score], stars: stars)
         render json: @rating, status: :created
