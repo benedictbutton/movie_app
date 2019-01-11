@@ -13,6 +13,7 @@ export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_ERROR = "USER_ERROR";
 export const UNSET_USER = "UNSET_USER";
 //Movies
+export const MY_MOVIES_REQUESTING = "MY_MOVIES_REQUESTING";
 export const MOVIES_REQUESTING = "MOVIES_REQUESTING";
 export const MOVIES_SUCCESS = "MOVIES_SUCCESS";
 export const MOVIES_ERROR = "MOVIES_ERROR";

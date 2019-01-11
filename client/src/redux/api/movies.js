@@ -1,5 +1,5 @@
 import { normalize } from "normalizr";
-import { listSchema } from "../schemas/schema";
+import { listSchema, movieSchema } from "../schemas/schema";
 
 const accessToken =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3N2Q1ZDQ0Yjg5MWNlYjZkNGI1ZTcxN2I4ZTJlOTI1NiIsInN1YiI6IjViZGI3YWZiYzNhMzY4NDAzMjAwMDFkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._5X_Tv8-TJrTWsCzxVsZufVIY0u_aFWMfUi38r8loaY";
@@ -47,6 +47,25 @@ async function fetchMovies(query) {
   }
 }
 
+async function fetchMyMovies() {
+  try {
+    let response = await fetch("/api/v1/movies.json", {
+      credentials: "same-origin",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.jwt}`
+      }
+    });
+    if (!response.ok) throw new Error(response);
+    let data = await response.json();
+    const responseJson = normalize(data, [movieSchema]);
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
 async function postMovie(payload) {
   try {
     let response = await fetch("/api/v1/movies.json", {
@@ -66,4 +85,4 @@ async function postMovie(payload) {
   }
 }
 
-export { fetchMovies, postMovie };
+export { fetchMovies, fetchMyMovies, postMovie };

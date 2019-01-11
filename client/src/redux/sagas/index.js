@@ -4,11 +4,16 @@ import {
   SIGNIN_REQUESTING,
   USER_REQUESTING,
   MOVIES_REQUESTING,
+  MY_MOVIES_REQUESTING,
   MOVIE_POSTING
 } from "../constants/actionTypes";
 import { handleFetchSignUp, handleFetchSignIn } from "./forms";
 import { handleFetchUser } from "./user";
-import { handleFetchMovies, handlePostMovie } from "./movies";
+import {
+  handleFetchMovies,
+  handleFetchMyMovies,
+  handlePostMovie
+} from "./movies";
 
 function* watchAll() {
   yield all([
@@ -16,6 +21,7 @@ function* watchAll() {
     takeEvery(SIGNIN_REQUESTING, handleFetchSignIn),
     takeLatest(USER_REQUESTING, handleFetchUser),
     takeLatest(MOVIES_REQUESTING, handleFetchMovies),
+    takeLatest(MY_MOVIES_REQUESTING, handleFetchMyMovies),
     takeLatest(MOVIE_POSTING, handlePostMovie)
   ]);
 }

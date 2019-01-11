@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getRatings } from "../redux/selectors/selectors";
 import LogOutContainer from "./LogOutContainer";
 //material-ui
 import Drawer from "@material-ui/core/Drawer";
@@ -44,6 +46,7 @@ class DrawerContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const rating = Object.entries(this.props.ratings.list)[0];
 
     const sideList = (
       <div className={classes.list}>
@@ -64,6 +67,23 @@ class DrawerContainer extends React.Component {
               <ListItemText primary="Movies" />
             </ListItem>
           </Link>
+          {rating[0] === "id" ? (
+            <ListItem button key="Ratings">
+              <ListItemIcon>
+                <FontAwesomeIcon icon="star" />
+              </ListItemIcon>
+              <ListItemText primary="Ratings" />
+            </ListItem>
+          ) : (
+            <Link to="/ms/ratings" key="Ratings">
+              <ListItem button key="Ratings">
+                <ListItemIcon>
+                  <FontAwesomeIcon icon="star" />
+                </ListItemIcon>
+                <ListItemText primary="Ratings" />
+              </ListItem>
+            </Link>
+          )}
         </List>
         <Divider />
         <LogOutContainer />
@@ -102,4 +122,13 @@ class DrawerContainer extends React.Component {
   }
 }
 
-export default withRouter(withStyles(styles)(DrawerContainer));
+const mapStateToProps = state => ({
+  ratings: getRatings(state)
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(withStyles(styles)(DrawerContainer))
+);

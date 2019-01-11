@@ -8,19 +8,21 @@ import {
   faBars,
   faUser,
   faFilm,
-  faSortDown
+  faSortDown,
+  faStar
 } from "@fortawesome/free-solid-svg-icons";
 //App Components
 import HeaderContainer from "./containers/HeaderContainer";
 import HomeContainer from "./containers/HomeContainer";
 import MovieContainer from "./containers/MovieContainer";
 import MoviesContainer from "./containers/MoviesContainer";
+import RatingsContainer from "./containers/RatingsContainer";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
 // import User from "./components/User";
 
-library.add(faSignOutAlt, faBars, faUser, faFilm, faSortDown);
+library.add(faSignOutAlt, faBars, faUser, faFilm, faSortDown, faStar);
 
 class App extends Component {
   render() {
@@ -34,6 +36,7 @@ class App extends Component {
             <Route path="/ms/sign-in" component={SignInContainer} />
             <Route path="/ms/movies" component={MoviesContainer} />
             <Route path="/ms/movie/:id" component={MovieContainer} />
+            <Route path="/ms/ratings" component={RatingsContainer} />
             <Route path="/ms/users/:id" component={UserContainer} />
           </Switch>
         </header>

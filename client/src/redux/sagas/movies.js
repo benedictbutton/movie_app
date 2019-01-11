@@ -5,11 +5,18 @@ import {
   MOVIE_SUCCESS,
   MOVIE_ERROR
 } from "../constants/actionTypes";
-import { fetchMovies, postMovie } from "../api/movies";
+import { fetchMovies, fetchMyMovies, postMovie } from "../api/movies";
 
 function* handleFetchMovies(action) {
   const { payload } = action;
   const { responseJson, error } = yield call(fetchMovies, payload);
+  if (responseJson) yield put({ type: MOVIES_SUCCESS, responseJson });
+  else yield put({ type: MOVIES_ERROR, error });
+}
+
+function* handleFetchMyMovies(action) {
+  const { payload } = action;
+  const { responseJson, error } = yield call(fetchMyMovies, payload);
   if (responseJson) yield put({ type: MOVIES_SUCCESS, responseJson });
   else yield put({ type: MOVIES_ERROR, error });
 }
@@ -22,4 +29,4 @@ function* handlePostMovie(payload) {
   else yield put({ type: MOVIE_ERROR, error });
 }
 
-export { handleFetchMovies, handlePostMovie };
+export { handleFetchMovies, handleFetchMyMovies, handlePostMovie };
