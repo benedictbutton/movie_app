@@ -38,7 +38,7 @@ const HeaderContainer = props => {
   return (
     <>
       <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar variant="dense">
           <Typography variant="h6" color="inherit" noWrap>
             <DrawerContainer />
           </Typography>
