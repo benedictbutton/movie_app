@@ -108,11 +108,7 @@ class RatingsContainer extends Component {
               key="Subheader"
               cols={columns[width]}
               style={{ height: "auto" }}
-            >
-              <ListSubheader component="div">
-                <GenreContainer />
-              </ListSubheader>
-            </GridListTile>
+            />
             {movies}
           </GridList>
         </div>

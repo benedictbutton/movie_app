@@ -10,6 +10,7 @@
     "@material-ui/core": "^3.2.1",
     "@material-ui/icons": "^3.0.1",
     "babel-polyfill": "^6.26.0",
+    "dotenv": "^6.2.0",
     "lodash": "^4.17.11",
     "normalizr": "^3.3.0",
     "react": "^16.7.0",

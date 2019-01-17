@@ -1,8 +1,7 @@
 import { normalize } from "normalizr";
 import { listSchema, movieSchema } from "../schemas/schema";
 
-const accessToken =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3N2Q1ZDQ0Yjg5MWNlYjZkNGI1ZTcxN2I4ZTJlOTI1NiIsInN1YiI6IjViZGI3YWZiYzNhMzY4NDAzMjAwMDFkMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._5X_Tv8-TJrTWsCzxVsZufVIY0u_aFWMfUi38r8loaY";
+const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
 
 const queryKey = query => {
   if (query === "Drama") return 18;
@@ -18,7 +17,6 @@ const queryKey = query => {
 
 async function fetchMovies(query) {
   try {
-    console.log(query);
     let genreId = queryKey(query);
     let ids = [1, 2, 3, 4, 5];
     const promises = ids.map(id => {
