@@ -1,1 +1,11 @@
-{ "root": "client/", "routes": { "/**": "index.html" } }
+{
+  "root": "build/",
+  "routes": {
+    "/**": "index.html"
+  },
+  "proxies": {
+    "/api/": {
+      "origin": "http://my-movie-database.herokuapp.com"
+    }
+  }
+}
