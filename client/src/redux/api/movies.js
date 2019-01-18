@@ -46,14 +46,17 @@ async function fetchMovies(query) {
 
 async function fetchMyMovies() {
   try {
-    let response = await fetch("/api/v1/movies.json", {
-      credentials: "same-origin",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.jwt}`
+    let response = await fetch(
+      "http://my-movie-database.herokuapp.com/api/v1/movies.json",
+      {
+        credentials: "same-origin",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.jwt}`
+        }
       }
-    });
+    );
     if (!response.ok) throw new Error(response);
     let data = await response.json();
     const responseJson = normalize(data, [movieSchema]);
@@ -65,15 +68,18 @@ async function fetchMyMovies() {
 
 async function postMovie(payload) {
   try {
-    let response = await fetch("/api/v1/movies.json", {
-      credentials: "same-origin",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.jwt}`
-      },
-      body: JSON.stringify(payload)
-    });
+    let response = await fetch(
+      "http://my-movie-database.herokuapp.com/api/v1/movies.json",
+      {
+        credentials: "same-origin",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.jwt}`
+        },
+        body: JSON.stringify(payload)
+      }
+    );
     if (!response.ok) throw new Error(response);
     let responseJson = await response.json();
     return { responseJson };
