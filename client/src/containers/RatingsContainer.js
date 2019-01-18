@@ -104,11 +104,6 @@ class RatingsContainer extends Component {
         </div>
         <div className={classes.root}>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
-            <GridListTile
-              key="Subheader"
-              cols={columns[width]}
-              style={{ height: "auto" }}
-            />
             {movies}
           </GridList>
         </div>
