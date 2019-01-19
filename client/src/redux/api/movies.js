@@ -2,6 +2,7 @@ import { normalize } from "normalizr";
 import { listSchema, movieSchema } from "../schemas/schema";
 
 const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
+console.log(accessToken);
 const queryKey = query => {
   if (query === "Drama") return 18;
   else if (query === "Comedy") return 35;
