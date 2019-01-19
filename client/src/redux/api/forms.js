@@ -1,7 +1,7 @@
 async function fetchSignUpForm(payload) {
   try {
     let response = await fetch(
-      "http://my-movie-database.herokuapp.com/api/v1/users.json",
+      `${process.env.REACT_APP_API_URL}/api/v1/users.json`,
       {
         credentials: "same-origin",
         method: "POST",
@@ -24,7 +24,7 @@ async function fetchSignUpForm(payload) {
 async function fetchSignInForm(query) {
   try {
     let response = await fetch(
-      "http://my-movie-database.herokuapp.com/authenticate.json",
+      `${process.env.REACT_APP_API_URL}/api/v1/authenticate.json`,
       {
         credentials: "same-origin",
         method: "POST",

@@ -47,7 +47,7 @@ async function fetchMovies(query) {
 async function fetchMyMovies() {
   try {
     let response = await fetch(
-      "http://my-movie-database.herokuapp.com/api/v1/movies.json",
+      `${process.env.REACT_APP_API_URL}/api/v1/movies.json`,
       {
         credentials: "same-origin",
         method: "GET",
@@ -69,7 +69,7 @@ async function fetchMyMovies() {
 async function postMovie(payload) {
   try {
     let response = await fetch(
-      "http://my-movie-database.herokuapp.com/api/v1/movies.json",
+      `${process.env.REACT_APP_API_URL}/api/movies.json`,
       {
         credentials: "same-origin",
         method: "POST",

@@ -4,7 +4,7 @@ import { ratingSchema } from "../schemas/schema";
 async function fetchRatings() {
   try {
     let response = await fetch(
-      "http://my-movie-database.herokuapp.com/api/v1/ratings.json",
+      `${process.env.REACT_APP_API_URL}/api/v1/ratings.json`,
       {
         credentials: "same-origin",
         method: "GET",
