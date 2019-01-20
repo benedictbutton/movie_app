@@ -42,36 +42,41 @@ const MenuProps = {
   }
 };
 
-const genreList = ["Drama", "Comedy", "Action", "Documentary", "SciFi"];
+const genreList = {
+  18: "Drama",
+  53: "Thriller",
+  10749: "Romance",
+  35: "Comedy",
+  28: "Action",
+  99: "Documentary",
+  878: "SciFi",
+  27: "Horror"
+};
 
 class GenreContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      genreName: []
+      genreName: "",
+      page: 0
     };
   }
 
   handleChange(event) {
-    this.setState({ genreName: event.target.value });
-    this.props.doMoviesRequesting(event.target.value);
+    this.setState({ genreName: event.target.value, page: this.state.page + 1 });
+    let payload = [this.state.page, event.target.value];
+    this.props.doMoviesRequesting(payload);
   }
 
   render() {
     const { classes } = this.props;
 
-    let genres = genreList.map(genre => {
+    let genres = Object.keys(genreList).map(genre => {
       return (
-        <MenuItem
-          key={genre}
-          value={genre}
-          className={
-            genreList.indexOf(genre) === -1 ? classes.regular : classes.medium
-          }
-        >
+        <MenuItem key={genre} value={genre} className={classes.medium}>
           <Typography color="primary" variant="h6">
-            {genre}
+            {genreList[genre]}
           </Typography>
         </MenuItem>
       );
