@@ -11,14 +11,17 @@ const INITIAL_STATE = {
   successful: false,
   errors: [],
   messages: "",
-  query: "Drama"
+  query: [0, 18]
 };
 
-const applyMoviesRequesting = (state, action) => ({
-  ...state,
-  requesting: true,
-  query: action.payload
-});
+const applyMoviesRequesting = (state, action) => {
+  debugger;
+  return {
+    ...state,
+    requesting: true,
+    query: action.payload
+  };
+};
 
 const applyMoviesSuccess = (state, action) => ({
   ...state,

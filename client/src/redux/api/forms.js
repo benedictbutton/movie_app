@@ -24,7 +24,7 @@ async function fetchSignUpForm(payload) {
 async function fetchSignInForm(query) {
   try {
     let response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/v1/authenticate.json`,
+      `${process.env.REACT_APP_API_URL}/authenticate.json`,
       {
         credentials: "same-origin",
         method: "POST",
