@@ -16,12 +16,9 @@ const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
 
 async function fetchMovies(query) {
   try {
-    debugger;
     let genreId = parseInt(query[1], 10);
     let array = [1, 2, 3, 4, 5];
-
     let ids = array.map(num => num + query[0]);
-    debugger;
     const promises = ids.map(id => {
       return fetch(
         `https://api.themoviedb.org/4/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=${id}`,
