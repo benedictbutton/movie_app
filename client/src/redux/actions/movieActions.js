@@ -1,7 +1,8 @@
 import {
   MOVIES_REQUESTING,
   MY_MOVIES_REQUESTING,
-  MOVIE_POSTING
+  MOVIE_POSTING,
+  UPDATE_GENRE
 } from "../constants/actionTypes";
 
 const doMoviesRequesting = movies => ({
@@ -20,4 +21,14 @@ const doMoviePosting = (rating, movie) => ({
   score: rating.currentTarget.value
 });
 
-export { doMoviesRequesting, doMyMoviesRequesting, doMoviePosting };
+const doUpdateGenre = query => ({
+  type: UPDATE_GENRE,
+  query
+});
+
+export {
+  doMoviesRequesting,
+  doMyMoviesRequesting,
+  doMoviePosting,
+  doUpdateGenre
+};

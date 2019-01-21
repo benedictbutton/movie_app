@@ -20,6 +20,7 @@ export const MOVIES_ERROR = "MOVIES_ERROR";
 export const MOVIE_POSTING = "MOVIE_POSTING";
 export const MOVIE_SUCCESS = "MOVIE_SUCCESS";
 export const MOVIE_ERROR = "MOVIE_ERROR";
+export const UPDATE_GENRE = "UPDATE_GENRE";
 //Ratings
 export const RATINGS_REQUESTING = "RATINGS_REQUESTING";
 export const RATINGS_SUCCESS = "RATINGS_SUCCESS";

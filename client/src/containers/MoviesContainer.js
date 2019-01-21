@@ -44,15 +44,51 @@ const styles = theme => ({
   }
 });
 
+// const applyUpdateResult = (movies) => (prevState) => ({
+//   hits: [...prevState.hits, ...result.hits],
+//   page: result.page,
+//   isError: false,
+//   isLoading: false,
+// });
+//
+// const applySetResult = (result) => (prevState) => ({
+//   hits: [...prevState.hits, ...result.hits],
+//   page: result.page,
+//   isError: false,
+//   isLoading: false,
+// });
+
 class MoviesContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: 0
+    };
     this.handleRating = this.handleRating.bind(this);
   }
 
   componentDidMount() {
+    window.addEventListener("scroll", this.onScroll, false);
     this.props.doMoviesRequesting(this.props.movies.query);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll, false);
+  }
+
+  onScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      this.props.movies.results.length &&
+      !this.props.movies.requesting
+    ) {
+      let payload = {
+        page: this.props.movies.query.page + 1,
+        genre: this.props.movies.query.genre
+      };
+      this.props.doMoviesRequesting(payload);
+    }
+  };
 
   handleRating(event) {
     this.props.doRatingAdd(event);
@@ -65,12 +101,12 @@ class MoviesContainer extends Component {
       md: 4,
       lg: 6
     };
-
+    // Object.values(this.props.movies.list)
     let card = 0;
-    let movies = Object.values(this.props.movies.list).map(movie => {
-      let { id, title, overview } = movie;
+    let movies = this.props.movies.results.map(index => {
+      let { id, title, overview, poster_path } = this.props.movies.list[index];
       id = id.toString();
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+      let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={1}>

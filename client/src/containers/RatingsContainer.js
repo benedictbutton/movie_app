@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMyMoviesRequesting } from "../redux/actions/movieActions";
 import { getMovies, getRatings } from "../redux/selectors/selectors";
-import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
@@ -13,7 +12,6 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 

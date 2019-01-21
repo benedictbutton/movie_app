@@ -2,23 +2,12 @@ import { normalize } from "normalizr";
 import { listSchema, movieSchema } from "../schemas/schema";
 
 const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
-// const queryKey = query => {
-//   if (query === "Drama") return 18;
-//   else if (query === "Comedy") return 35;
-//   else if (query === "Action") return 28;
-//   else if (query === "Romance") return 10749;
-//   else if (query === "Thriller") return 53;
-//   else if (query === "Documentary") return 99;
-//   else if (query === "SciFi") return 878;
-//   else if (query === "Horror") return 27;
-//   else return 18;
-// };
 
 async function fetchMovies(query) {
   try {
-    let genreId = parseInt(query[1], 10);
-    let array = [1, 2, 3, 4, 5];
-    let ids = array.map(num => num + query[0]);
+    let genreId = parseInt(query.genre, 10);
+    let array = [1, 2, 3];
+    let ids = array.map(num => num + query.page);
     const promises = ids.map(id => {
       return fetch(
         `https://api.themoviedb.org/4/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=${id}`,

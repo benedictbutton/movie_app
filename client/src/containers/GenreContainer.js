@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { doMoviesRequesting } from "../redux/actions/movieActions";
+import {
+  doMoviesRequesting,
+  doUpdateGenre
+} from "../redux/actions/movieActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //material-ui
 import Input from "@material-ui/core/Input";
@@ -64,14 +67,14 @@ class GenreContainer extends Component {
   }
 
   handleChange(event) {
-    this.setState({ genreName: event.target.value, page: this.state.page + 1 });
-    let payload = [this.state.page, event.target.value];
+    this.setState({ genreName: event.target.value });
+    let payload = { page: 0, genre: event.target.value };
+    this.props.doUpdateGenre(payload);
     this.props.doMoviesRequesting(payload);
   }
 
   render() {
     const { classes } = this.props;
-
     let genres = Object.keys(genreList).map(genre => {
       return (
         <MenuItem key={genre} value={genre} className={classes.medium}>
@@ -108,5 +111,5 @@ class GenreContainer extends Component {
 
 export default connect(
   null,
-  { doMoviesRequesting }
+  { doMoviesRequesting, doUpdateGenre }
 )(withStyles(styles)(GenreContainer));
