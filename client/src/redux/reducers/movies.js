@@ -10,6 +10,7 @@ import {
 const INITIAL_STATE = {
   results: [],
   list: {},
+  ratedList: {},
   requesting: false,
   successful: false,
   errors: [],
@@ -48,8 +49,7 @@ const applyMyMoviesRequesting = (state, action) => {
 
 const applyMyMoviesSuccess = (state, action) => ({
   ...state,
-  results: action.responseJson.result,
-  list: action.responseJson.entities.movies,
+  ratedList: action.responseJson.entities.movies,
   requesting: false,
   success: true
 });

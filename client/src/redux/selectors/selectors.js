@@ -10,6 +10,8 @@ const getMoviesAsList = state => {
   return state.movies.list;
 };
 
+const getRatedMovies = state => state.movies.ratedList;
+
 const getMoviesRated = (state, id) => {
   return state[id];
 };
@@ -26,5 +28,6 @@ export {
   getMoviesAsList,
   getMoviesRated,
   getRatings,
-  getRatingsAsIds
+  getRatingsAsIds,
+  getRatedMovies
 };

@@ -5,10 +5,12 @@ import { createSelector } from "reselect";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMyMoviesRequesting } from "../redux/actions/movieActions";
 import {
+  getMovies,
   getMoviesAsList,
   getMoviesRated,
   getRatings,
-  getRatingsAsIds
+  getRatingsAsIds,
+  getRatedMovies
 } from "../redux/selectors/selectors";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
@@ -116,15 +118,15 @@ class RatingsContainer extends Component {
   }
 }
 
-const getRatedMovies = createSelector(
-  [getRatingsAsIds, getMoviesAsList],
-  (ids, movies) =>
-    ids
-      .filter(id => {
-        return movies.hasOwnProperty(id);
-      })
-      .map(id => getMoviesRated(movies, id))
-);
+// const getRatedMovies = createSelector(
+//   [getRatingsAsIds, getMoviesAsList],
+//   (ids, movies) =>
+//     ids
+//       .filter(id => {
+//         return movies.hasOwnProperty(id);
+//       })
+//       .map(id => getMoviesRated(movies, id))
+// );
 
 const mapStateToProps = (state, props) => ({
   ratedMovies: getRatedMovies(state),
