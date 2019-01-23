@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import { getMovies } from "../redux/selectors/movies";
+import { createSelector } from "reselect";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMyMoviesRequesting } from "../redux/actions/movieActions";
-import { getMovies, getRatings } from "../redux/selectors/selectors";
+import {
+  getMoviesAsList,
+  getMoviesRated,
+  getRatings,
+  getRatingsAsIds
+} from "../redux/selectors/selectors";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
@@ -49,7 +54,8 @@ class RatingsContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.doMyMoviesRequesting();
+    let keys = Object.keys(this.props.ratings.list);
+    this.props.doMyMoviesRequesting(keys);
   }
 
   handleRating(event) {
@@ -65,10 +71,9 @@ class RatingsContainer extends Component {
     };
 
     let card = 0;
-    let movies = Object.values(this.props.movies.list).map(movie => {
-      let { id, title, overview } = movie;
-      id = id.toString();
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+    let movies = Object.values(this.props.ratedMovies).map(movie => {
+      let { id, title, overview, poster_path } = movie;
+      let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={1}>
@@ -111,8 +116,18 @@ class RatingsContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  movies: getMovies(state),
+const getRatedMovies = createSelector(
+  [getRatingsAsIds, getMoviesAsList],
+  (ids, movies) =>
+    ids
+      .filter(id => {
+        return movies.hasOwnProperty(id);
+      })
+      .map(id => getMoviesRated(movies, id))
+);
+
+const mapStateToProps = (state, props) => ({
+  ratedMovies: getRatedMovies(state),
   ratings: getRatings(state)
 });
 

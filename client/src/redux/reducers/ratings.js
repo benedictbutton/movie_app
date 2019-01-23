@@ -27,7 +27,7 @@ const applyRatingsSuccess = (state, action) => {
   let ratings = action.responseJson.entities.rating;
   return {
     ...state,
-    list: ratings,
+    list: { ...state.list, ...ratings },
     requesting: false,
     successful: true
   };

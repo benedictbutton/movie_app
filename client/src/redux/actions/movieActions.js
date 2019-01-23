@@ -10,9 +10,8 @@ const doMoviesRequesting = movies => ({
   payload: movies
 });
 
-const doMyMoviesRequesting = movies => ({
-  type: MY_MOVIES_REQUESTING,
-  payload: movies
+const doMyMoviesRequesting = () => ({
+  type: MY_MOVIES_REQUESTING
 });
 
 const doMoviePosting = (rating, movie) => ({

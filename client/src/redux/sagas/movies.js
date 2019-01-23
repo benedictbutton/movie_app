@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import {
   MOVIES_SUCCESS,
+  MY_MOVIES_SUCCESS,
   MOVIES_ERROR,
   MOVIE_SUCCESS,
   MOVIE_ERROR
@@ -14,10 +15,10 @@ function* handleFetchMovies(action) {
   else yield put({ type: MOVIES_ERROR, error });
 }
 
-function* handleFetchMyMovies(action) {
-  const { payload } = action;
-  const { responseJson, error } = yield call(fetchMyMovies, payload);
-  if (responseJson) yield put({ type: MOVIES_SUCCESS, responseJson });
+function* handleFetchMyMovies() {
+  // const { payload } = action;
+  const { responseJson, error } = yield call(fetchMyMovies);
+  if (responseJson) yield put({ type: MY_MOVIES_SUCCESS, responseJson });
   else yield put({ type: MOVIES_ERROR, error });
 }
 

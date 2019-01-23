@@ -44,20 +44,6 @@ const styles = theme => ({
   }
 });
 
-// const applyUpdateResult = (movies) => (prevState) => ({
-//   hits: [...prevState.hits, ...result.hits],
-//   page: result.page,
-//   isError: false,
-//   isLoading: false,
-// });
-//
-// const applySetResult = (result) => (prevState) => ({
-//   hits: [...prevState.hits, ...result.hits],
-//   page: result.page,
-//   isError: false,
-//   isLoading: false,
-// });
-
 class MoviesContainer extends Component {
   constructor(props) {
     super(props);
@@ -101,7 +87,7 @@ class MoviesContainer extends Component {
       md: 4,
       lg: 6
     };
-    // Object.values(this.props.movies.list)
+
     let card = 0;
     let movies = this.props.movies.results.map(index => {
       let { id, title, overview, poster_path } = this.props.movies.list[index];
@@ -158,7 +144,18 @@ class MoviesContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+// const getMoviesMinusId = state => {
+//   debugger;
+//   let index = state.movies.results.indexOf("id");
+//   let newState = [
+//     ...state.movies.slice(0, index),
+//     state[index] + 1,
+//     ...state.movies.results.slice(index + 1)
+//   ];
+//   return newState;
+// };
+
+const mapStateToProps = (state, props) => ({
   movies: getMovies(state),
   ratings: getRatings(state)
 });

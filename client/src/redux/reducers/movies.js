@@ -1,7 +1,8 @@
 import {
-  MY_MOVIES_REQUESTING,
   MOVIES_REQUESTING,
   MOVIES_SUCCESS,
+  MY_MOVIES_REQUESTING,
+  MY_MOVIES_SUCCESS,
   MOVIES_ERROR,
   UPDATE_GENRE
 } from "../constants/actionTypes";
@@ -26,18 +27,32 @@ const applyMoviesRequesting = (state, action) => ({
   }
 });
 
-const applyMoviesSuccess = (state, action) => {
+const applyMoviesSuccess = (state, action) => ({
+  ...state,
+  results: [
+    ...state.results,
+    ...action.responseJson.entities.lists.undefined.results
+  ],
+  list: { ...state.list, ...action.responseJson.entities.movies },
+  requesting: false,
+  successful: true
+});
+
+const applyMyMoviesRequesting = (state, action) => {
+  // action.payload.pop();
   return {
     ...state,
-    results: [
-      ...state.results,
-      ...action.responseJson.entities.lists.undefined.results
-    ],
-    list: { ...state.list, ...action.responseJson.entities.movies },
-    requesting: false,
-    successful: true
+    requesting: true
   };
 };
+
+const applyMyMoviesSuccess = (state, action) => ({
+  ...state,
+  results: action.responseJson.result,
+  list: action.responseJson.entities.movies,
+  requesting: false,
+  success: true
+});
 
 const applyMoviesError = (state, action) => ({
   ...state,
@@ -63,10 +78,12 @@ function moviesReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case MOVIES_REQUESTING:
       return applyMoviesRequesting(state, action);
-    case MY_MOVIES_REQUESTING:
-      return applyMoviesRequesting(state, action);
     case MOVIES_SUCCESS:
       return applyMoviesSuccess(state, action);
+    case MY_MOVIES_REQUESTING:
+      return applyMyMoviesRequesting(state, action);
+    case MY_MOVIES_SUCCESS:
+      return applyMyMoviesSuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
     case UPDATE_GENRE:

@@ -17,6 +17,10 @@ async function fetchRatings() {
     if (!response.ok) throw new Error(response);
     let data = await response.json();
     data = data.ratings;
+    if (data.length === 0) {
+      let responseJson = { entities: { rating: {} } };
+      return { responseJson };
+    }
     let responseJson = normalize(data, [ratingSchema]);
     return { responseJson };
   } catch (error) {
