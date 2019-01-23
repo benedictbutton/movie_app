@@ -31,8 +31,10 @@ const applyMoviesRequesting = (state, action) => ({
 const applyMoviesSuccess = (state, action) => ({
   ...state,
   results: [
-    ...state.results,
-    ...action.responseJson.entities.lists.undefined.results
+    ...new Set([
+      ...state.results,
+      ...action.responseJson.entities.lists.undefined.results
+    ])
   ],
   list: { ...state.list, ...action.responseJson.entities.movies },
   requesting: false,
