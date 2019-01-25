@@ -4,15 +4,6 @@ jq.onload = function() {
   jQuery.noConflict();
 };
 
-let runScript = path => {
-  let script = document.createElement("script");
-  script.type = "text/javascript";
-  script.src = path;
-  document.head.appendChild(script);
-};
-
-runScript("underscorejs.org/underscore-min.js");
-
 function detectSelector(node) {
   let getTag = node =>
     $(node)
