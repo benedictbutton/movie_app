@@ -1,5 +1,32 @@
 test
 
+function detectSelector(node) {
+
+let nodeId = $(node).attr('id');
+
+if (nodeId) {
+  let regX = '!"#$%&\'()*+,./:;<=>?@[\]^`{|}~';
+if(regX.test(nodeId)) {
+  let match = nodeId.search(regX);
+  for(let i=0; i<match.length; i++) {
+    let newNodeId = nodeId.slice(0, match[i]) + '/' + nodeId.slice(match[i], -1);
+    nodeId = newNodeId
+  }
+  console.log(nodeId);
+}
+
+return "#" + nodeId;
+
+} else {
+
+return "?";
+
+}
+
+}
+
+
+
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
