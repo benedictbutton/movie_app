@@ -66,11 +66,18 @@ class RatingsContainer extends Component {
 
   render() {
     const { classes, width } = this.props;
+    //Provides breakpoints for number of movies per column according to screen size
     const columns = {
       sm: 2,
       md: 4,
       lg: 6
     };
+
+    // When only 1 movie was rated, it was previously displaying minituarized. With resize, if the rating object contains only 1 movie, I will increase it's screen coverage by setting its column attribute to 2 instead of 1
+    let resize = null;
+    let length = Object.keys(this.props.ratedMovies).length;
+    if (length <= 2) resize = 2;
+    else resize = 1;
 
     let card = 0;
     let movies = Object.values(this.props.ratedMovies).map(movie => {
@@ -78,7 +85,7 @@ class RatingsContainer extends Component {
       let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
       return (
-        <GridListTile className={classes.tile} key={card} cols={1}>
+        <GridListTile className={classes.tile} key={card} cols={resize}>
           <MovieCard
             key={card}
             id={id}
@@ -93,20 +100,6 @@ class RatingsContainer extends Component {
 
     return (
       <>
-        <div>
-          <Grid container spacing={16} justify="center">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                Exisitng Playlists
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="outlined" color="primary">
-                Create Playlist
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
         <div className={classes.root}>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
