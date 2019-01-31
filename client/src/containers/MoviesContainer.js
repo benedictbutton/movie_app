@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import { getMovies } from "../redux/selectors/movies";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
 import { getMovies, getRatings } from "../redux/selectors/selectors";
@@ -82,6 +81,7 @@ class MoviesContainer extends Component {
 
   render() {
     const { classes, width } = this.props;
+    //Provides breakpoints for number of movies per column according to screen size
     const columns = {
       sm: 2,
       md: 4,
@@ -110,20 +110,6 @@ class MoviesContainer extends Component {
 
     return (
       <>
-        <div>
-          <Grid container spacing={16} justify="center">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                Exisitng Playlists
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="outlined" color="primary">
-                Create Playlist
-              </Button>
-            </Grid>
-          </Grid>
-        </div>
         <div className={classes.root}>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             <GridListTile
@@ -143,17 +129,6 @@ class MoviesContainer extends Component {
     );
   }
 }
-
-// const getMoviesMinusId = state => {
-//   debugger;
-//   let index = state.movies.results.indexOf("id");
-//   let newState = [
-//     ...state.movies.slice(0, index),
-//     state[index] + 1,
-//     ...state.movies.results.slice(index + 1)
-//   ];
-//   return newState;
-// };
 
 const mapStateToProps = (state, props) => ({
   movies: getMovies(state),
