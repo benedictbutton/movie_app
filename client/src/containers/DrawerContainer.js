@@ -19,7 +19,7 @@ const styles = theme => ({
     color: "white"
   },
   icon: {
-    marginRight: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 1
   },
   list: {
     width: 250
@@ -100,7 +100,7 @@ class DrawerContainer extends React.Component {
             className={classes.icon}
             icon="bars"
             size="2x"
-            color="white"
+            color="ffff99"
           />
           Menu
         </Button>

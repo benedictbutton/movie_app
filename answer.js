@@ -1,3 +1,11 @@
+/* AppBar */
+// <AppBar position="static" className={classes.appBar}>
+// <Toolbar variant="dense">
+// <Typography variant="h6" color="inherit" noWrap>
+// </Typography>
+// </Toolbar>
+// </AppBar>
+
 // var jq = document.createElement("script");
 // jq.src = "https://code.jquery.com/jquery-3.1.1.min.js";
 // jq.onload = function() {

@@ -10,7 +10,9 @@ import {
   faUser,
   faFilm,
   faSortDown,
-  faStar
+  faStar,
+  faStepForward,
+  faPlay
 } from "@fortawesome/free-solid-svg-icons";
 //App Components
 import HeaderContainer from "./containers/HeaderContainer";
@@ -23,7 +25,16 @@ import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
 // import User from "./components/User";
 
-library.add(faSignOutAlt, faBars, faUser, faFilm, faSortDown, faStar);
+library.add(
+  faSignOutAlt,
+  faBars,
+  faUser,
+  faFilm,
+  faSortDown,
+  faStar,
+  faStepForward,
+  faPlay
+);
 
 class App extends Component {
   render() {

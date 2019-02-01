@@ -16,6 +16,7 @@ import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
 import Button from "@material-ui/core/Button";
+import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -70,14 +71,28 @@ class RatingsContainer extends Component {
     const columns = {
       sm: 2,
       md: 4,
-      lg: 6
+      lg: 6,
+      xl: 8
     };
 
     // When only 1 movie was rated, it was previously displaying minituarized. With resize, if the rating object contains only 1 movie, I will increase it's screen coverage by setting its column attribute to 2 instead of 1
     let resize = null;
     let length = Object.keys(this.props.ratedMovies).length;
-    if (length <= 2) resize = 2;
-    else resize = 1;
+    if (length <= 3) {
+      switch (this.props.width) {
+        case "md": {
+          resize = 5 - length;
+          break;
+        }
+        case "lg":
+        case "xl": {
+          resize = 5 - length;
+          break;
+        }
+        default:
+          resize = 1;
+      }
+    } else resize = 1;
 
     let card = 0;
     let movies = Object.values(this.props.ratedMovies).map(movie => {

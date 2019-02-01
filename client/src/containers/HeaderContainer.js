@@ -2,10 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import DrawerContainer from "./DrawerContainer";
 //material-ui
-import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -15,7 +13,7 @@ const styles = theme => ({
   },
   appBar: {
     position: "relative",
-    backgroundColor: "primary"
+    backgroundColor: "#0b0b0b"
   },
   heroUnit: {
     backgroundColor: theme.palette.background.paper
@@ -23,7 +21,7 @@ const styles = theme => ({
   heroContent: {
     width: "100%",
     margin: "0 auto",
-    padding: `${theme.spacing.unit * 5}px 0 ${theme.spacing.unit * 3}px`
+    bottomPadding: `${theme.spacing.unit * 5}px`
   },
   type: {
     color: "#ffff99",
@@ -37,15 +35,13 @@ const HeaderContainer = props => {
 
   return (
     <>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit" noWrap>
-            <DrawerContainer />
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
       <Paper className={classes.heroContent} id="image">
+        <Grid container alignItems="flex-start" justify="flex-start">
+          <Grid item>
+            <DrawerContainer />
+          </Grid>
+        </Grid>
+
         <Grid container align="center" justify="center">
           <Typography
             component="h1"

@@ -85,7 +85,8 @@ class MoviesContainer extends Component {
     const columns = {
       sm: 2,
       md: 4,
-      lg: 6
+      lg: 6,
+      xl: 6
     };
 
     let card = 0;
