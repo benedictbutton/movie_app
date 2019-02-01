@@ -41,7 +41,6 @@ const HeaderContainer = props => {
             <DrawerContainer />
           </Grid>
         </Grid>
-
         <Grid container align="center" justify="center">
           <Typography
             component="h1"
