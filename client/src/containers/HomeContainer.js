@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "../assets/brushed-metal.jpg";
+import Title from "../components/Title";
 //material-ui
 import { Button, Grid, Typography, withStyles } from "@material-ui/core";
 
@@ -23,11 +24,6 @@ const styles = theme => ({
   label: {
     align: "center",
     marginRight: theme.spacing.unit * 2
-  },
-  type: {
-    color: "#ffff99",
-    fontWeight: "900",
-    fontFamily: "'Cinzel', serif"
   }
 });
 
@@ -37,70 +33,42 @@ const HomeContainer = props => {
   return (
     <Grid container className="home" direction="column">
       <Grid item>
-        <Grid container>
-          <Typography
-            component="h1"
-            variant="h1"
-            align="center"
-            className={classes.type}
-            gutterBottom
-          >
-            MOVIE
-          </Typography>
-          <Typography
-            id="rotate"
-            component="h1"
-            variant="h1"
-            align="center"
-            className={classes.type}
-            gutterBottom
-          >
-            {"  "}S{"  "}
-          </Typography>
-          <Typography
-            component="h1"
-            variant="h1"
-            align="center"
-            className={classes.type}
-            gutterBottom
-          >
-            CENE
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Grid container className={classes.grid}>
-          <Grid item>
-            <Link to="/ms/sign-up" style={{ textDecoration: "none" }}>
-              <Button
-                className={classes.button}
-                variant="contained"
-                size="large"
-              >
-                <Typography className={classes.label} variant="headline">
-                  Sign Up
-                </Typography>
-                <Typography>
-                  <FontAwesomeIcon icon="play" size="2x" />
-                </Typography>
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link to="/ms/sign-in" style={{ textDecoration: "none" }}>
-              <Button
-                className={classes.button}
-                variant="contained"
-                size="large"
-              >
-                <Typography className={classes.label} variant="headline">
-                  Sign In
-                </Typography>
-                <Typography>
-                  <FontAwesomeIcon icon="step-forward" size="2x" />
-                </Typography>
-              </Button>
-            </Link>
+        <Title />
+        <Grid />
+        <Grid item>
+          <Grid container alignItems="center" justify="center">
+            <Grid item>
+              <Link to="/ms/sign-up" style={{ textDecoration: "none" }}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  size="large"
+                >
+                  <Typography className={classes.label} variant="headline">
+                    Sign Up
+                  </Typography>
+                  <Typography>
+                    <FontAwesomeIcon icon="play" size="2x" />
+                  </Typography>
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to="/ms/sign-in" style={{ textDecoration: "none" }}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  size="large"
+                >
+                  <Typography className={classes.label} variant="headline">
+                    Sign In
+                  </Typography>
+                  <Typography>
+                    <FontAwesomeIcon icon="step-forward" size="2x" />
+                  </Typography>
+                </Button>
+              </Link>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

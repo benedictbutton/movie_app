@@ -16,7 +16,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   button: {
-    color: "white"
+    color: "#ecca00"
   },
   icon: {
     margin: theme.spacing.unit * 1
@@ -100,7 +100,7 @@ class DrawerContainer extends React.Component {
             className={classes.icon}
             icon="bars"
             size="2x"
-            color="ffff99"
+            color="#ecca00"
           />
           Menu
         </Button>

@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //material-ui
 import Input from "@material-ui/core/Input";
+import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -25,6 +26,14 @@ const styles = theme => ({
   },
   noLabel: {
     marginTop: theme.spacing.unit * 3
+  },
+  select: {
+    "&:before": {
+      borderColor: "yellow"
+    },
+    icon: {
+      color: "primary"
+    }
   },
   regular: {
     fontWeight: theme.typography.fontWeightRegular
@@ -86,24 +95,31 @@ class GenreContainer extends Component {
     });
     return (
       <div className={classes.root}>
-        <FormControl className={classes.formControl}>
-          <Select
-            displayEmpty
-            value={this.state.genreName}
-            onChange={this.handleChange}
-            onSelect={this.handleSelect}
-            input={<Input id="select-multiple-placeholder" />}
-            MenuProps={MenuProps}
-          >
-            <MenuItem disabled value="">
-              <Typography color="primary" variant="h6">
-                <em color="primary">Genres </em>
-                <FontAwesomeIcon color="blue" icon="sort-down" />
-              </Typography>
-            </MenuItem>
-            {genres}
-          </Select>
-        </FormControl>
+        <Grid container>
+          <Grid item>
+            <FormControl className={classes.formControl}>
+              <Select
+                displayEmpty
+                className={classes.select}
+                value={this.state.genreName}
+                onChange={this.handleChange}
+                onSelect={this.handleSelect}
+                input={<Input id="select-multiple-placeholder" />}
+                MenuProps={MenuProps}
+              >
+                <MenuItem disabled value="">
+                  <Typography color="primary" variant="h6">
+                    <em color="primary">Genres </em>
+                  </Typography>
+                </MenuItem>
+                {genres}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item>
+            <FontAwesomeIcon color="blue" icon="sort-down" size="1.5x" />
+          </Grid>
+        </Grid>
       </div>
     );
   }

@@ -112,16 +112,12 @@ class MoviesContainer extends Component {
     return (
       <>
         <div className={classes.root}>
+          <Grid container alignItems="left">
+            <ListSubheader alignItems="left" component="div">
+              <GenreContainer />
+            </ListSubheader>
+          </Grid>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
-            <GridListTile
-              key="Subheader"
-              cols={columns[width]}
-              style={{ height: "auto" }}
-            >
-              <ListSubheader component="div">
-                <GenreContainer />
-              </ListSubheader>
-            </GridListTile>
             {movies}
           </GridList>
         </div>
