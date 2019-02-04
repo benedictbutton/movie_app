@@ -81,7 +81,7 @@ class MoviesContainer extends Component {
 
   render() {
     const { classes, width } = this.props;
-    //Provides breakpoints for number of movies per column according to screen size
+    //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       sm: 2,
       md: 4,

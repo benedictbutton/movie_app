@@ -9,7 +9,6 @@ import {
   faBars,
   faUser,
   faFilm,
-  faSortDown,
   faStar,
   faStepForward,
   faPlay
@@ -30,7 +29,6 @@ library.add(
   faBars,
   faUser,
   faFilm,
-  faSortDown,
   faStar,
   faStepForward,
   faPlay

@@ -38,7 +38,7 @@ class MovieCard extends Component {
     const starSize = {
       xs: 20,
       sm: 20,
-      md: 20,
+      md: 16,
       lg: 18,
       xl: 18
     };

@@ -4,7 +4,7 @@ import {
   doMoviesRequesting,
   doUpdateGenre
 } from "../redux/actions/movieActions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "../assets/grey-large-menu.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";
@@ -19,6 +19,7 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap"
   },
+  font: { color: "#ecca00" },
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 120,
@@ -29,11 +30,11 @@ const styles = theme => ({
   },
   select: {
     "&:before": {
-      borderColor: "yellow"
-    },
-    icon: {
-      color: "primary"
+      borderColor: "#ecca00"
     }
+  },
+  icon: {
+    color: "#ecca00"
   },
   regular: {
     fontWeight: theme.typography.fontWeightRegular
@@ -49,7 +50,8 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
+      width: 250,
+      backgroundImage: `url(${Image})`
     }
   }
 };
@@ -86,7 +88,12 @@ class GenreContainer extends Component {
     const { classes } = this.props;
     let genres = Object.keys(genreList).map(genre => {
       return (
-        <MenuItem key={genre} value={genre} className={classes.medium}>
+        <MenuItem
+          key={genre}
+          color="#ecca00"
+          value={genre}
+          className={classes.medium}
+        >
           <Typography color="primary" variant="h6">
             {genreList[genre]}
           </Typography>
@@ -99,6 +106,7 @@ class GenreContainer extends Component {
           <Grid item>
             <FormControl className={classes.formControl}>
               <Select
+                classes={{ icon: classes.icon }}
                 displayEmpty
                 className={classes.select}
                 value={this.state.genreName}
@@ -108,16 +116,13 @@ class GenreContainer extends Component {
                 MenuProps={MenuProps}
               >
                 <MenuItem disabled value="">
-                  <Typography color="primary" variant="h6">
-                    <em color="primary">Genres </em>
+                  <Typography className={classes.font} variant="h6">
+                    <em>Genres </em>
                   </Typography>
                 </MenuItem>
                 {genres}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item>
-            <FontAwesomeIcon color="blue" icon="sort-down" size="1.5x" />
           </Grid>
         </Grid>
       </div>
