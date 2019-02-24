@@ -54,7 +54,8 @@ const styles = theme => ({
 class SignInContainer extends Component {
   render() {
     const { handleSubmit, classes, client } = this.props;
-    if (this.props.client.successful) {
+
+    if (client.successful) {
       return <Redirect to="/ms/movies" />;
     }
 

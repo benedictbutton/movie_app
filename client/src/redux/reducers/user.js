@@ -54,7 +54,13 @@ const applyUserError = (state, action) => ({
 
 const applyToggleDisplay = (state, action) => ({
   ...state,
-  notifications: { ...state.notifications, display: false, message: "" }
+  notifications: {
+    ...state.notifications,
+    body: "",
+    message: "",
+    code: null,
+    display: false
+  }
 });
 
 function userReducer(state = INITIAL_STATE, action) {
