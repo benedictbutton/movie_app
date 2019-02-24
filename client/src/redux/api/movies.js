@@ -1,5 +1,6 @@
 import { normalize } from "normalizr";
 import { listSchema, movieSchema } from "../schemas/schema";
+import CustomError from "../../util/CustomError";
 
 const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
 
@@ -47,9 +48,10 @@ async function fetchMyMovies() {
         }
       }
     );
-    if (!response.ok) throw new Error(response);
-    let data = await response.json();
-    const responseJson = normalize(data, [movieSchema]);
+    let resolvedResponse = await response.json();
+    if (!response.ok)
+      throw new CustomError(resolvedResponse.error, response.status);
+    const responseJson = normalize(resolvedResponse, [movieSchema]);
     return { responseJson };
   } catch (error) {
     return { error };
@@ -70,8 +72,8 @@ async function postMovie(payload) {
         body: JSON.stringify(payload)
       }
     );
-    if (!response.ok) throw new Error(response);
     let responseJson = await response.json();
+    if (!response.ok) throw new Error(responseJson.error);
     return { responseJson };
   } catch (error) {
     return { error };

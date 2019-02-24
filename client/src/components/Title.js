@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Grid, Typography, withStyles, withWidth } from "@material-ui/core";
 
 const styles = theme => ({
@@ -7,9 +6,9 @@ const styles = theme => ({
     flex: 1
   },
   type: {
-    color: "#ffff99",
+    color: "#ecca00",
     fontWeight: "900",
-    fontFamily: "'Cinzel', serif"
+    fontFamily: "'NewTimesRoman', serif"
   }
 });
 

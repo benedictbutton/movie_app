@@ -6,15 +6,13 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_ERROR,
   SIGN_OUT,
-  DISPLAY_TOGGLE
+  TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
 const INITIAL_STATE = {
   requesting: false,
   successful: false,
-  messages: "",
-  errors: [],
-  display: false
+  notifications: {}
 };
 
 const applySignUpRequest = (state, action) => ({
@@ -26,25 +24,21 @@ const applySignUpSuccess = (state, action) => {
   return {
     ...state,
     requesting: false,
-    successful: true,
-    messages: "Welcome & Enjoy :-)",
-    display: true
+    successful: true
   };
 };
 
 const applySignUpError = (state, action) => ({
   ...state,
-  errors: [
-    ...state.errors,
-    {
-      body: action.error,
-      time: new Date()
-    }
-  ],
-  messages: action.error.message,
+  notifications: {
+    ...state.notifications,
+    body: action.error,
+    message: `${action.error.message}`,
+    code: action.error.code,
+    display: true
+  },
   requesting: false,
-  successful: false,
-  display: true
+  successful: false
 });
 
 const applySignInRequest = (state, action) => ({
@@ -55,24 +49,20 @@ const applySignInRequest = (state, action) => ({
 const applySignInSuccess = (state, action) => ({
   ...state,
   requesting: false,
-  successful: true,
-  messages: "Welcome Back :-)",
-  display: true
+  successful: true
 });
 
 const applySignInError = (state, action) => ({
   ...state,
-  errors: [
-    ...state.errors,
-    {
-      body: action.error,
-      time: new Date()
-    }
-  ],
-  messages: "Woops. Sorry, not quite. Have another try.",
+  notifications: {
+    ...state.notifications,
+    body: action.error,
+    message: `${action.error.message}`,
+    code: action.error.code,
+    display: true
+  },
   requesting: false,
-  successful: false,
-  display: true
+  successful: false
 });
 
 const applySignOut = () => {
@@ -83,7 +73,7 @@ const applySignOut = () => {
 
 const applyToggleDisplay = (state, action) => ({
   ...state,
-  display: false
+  notifications: { ...state.notifications, display: false, message: "" }
 });
 
 function clientReducer(state = INITIAL_STATE, action) {
@@ -102,7 +92,7 @@ function clientReducer(state = INITIAL_STATE, action) {
       return applySignInError(state, action);
     case SIGN_OUT:
       return applySignOut();
-    case DISPLAY_TOGGLE:
+    case TOGGLE_DISPLAY:
       return applyToggleDisplay(state);
 
     default:

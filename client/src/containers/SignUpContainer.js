@@ -69,7 +69,7 @@ class SignUpContainer extends Component {
       pristine,
       submitting,
       valid,
-      client: { requesting, successful, messages, errors, display },
+      client: { requesting, successful, notifications, display },
       classes
     } = this.props;
 
@@ -175,7 +175,7 @@ class SignUpContainer extends Component {
             </form>
           </Paper>
         </main>
-        <Notifications />
+        <Notifications>{notifications}</Notifications>
       </>
     );
   }

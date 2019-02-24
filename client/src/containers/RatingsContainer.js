@@ -1,23 +1,17 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { createSelector } from "reselect";
+import { doSignOut } from "../redux/actions/formActions";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMyMoviesRequesting } from "../redux/actions/movieActions";
 import {
-  getMovies,
-  getMoviesAsList,
-  getMoviesRated,
+  getMoviesAsErrors,
   getRatings,
-  getRatingsAsIds,
   getRatedMovies
 } from "../redux/selectors/selectors";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
-import Button from "@material-ui/core/Button";
-import classNames from "classnames";
-import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -40,8 +34,9 @@ const styles = theme => ({
     width: "100%"
   },
   tile: {
-    height: "0",
-    padding: "56.25% 0 0 0"
+    height: 0,
+    padding: "56.25% 0 0 0",
+    maxWidth: 500
   },
   titleBar: {
     background:
@@ -66,41 +61,22 @@ class RatingsContainer extends Component {
   }
 
   render() {
-    const { classes, width } = this.props;
-    //Provides breakpoints for number of movies per column according to screen size
+    const { classes, width, ratedMovies, movieErrors } = this.props;
+    //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       sm: 2,
       md: 4,
       lg: 6,
-      xl: 8
+      xl: 6
     };
 
-    // When only 1 movie was rated, it was previously displaying minituarized. With resize, if the rating object contains only 1 movie, I will increase it's screen coverage by setting its column attribute to 2 instead of 1
-    let resize = null;
-    let length = Object.keys(this.props.ratedMovies).length;
-    if (length <= 3) {
-      switch (this.props.width) {
-        case "md": {
-          resize = 5 - length;
-          break;
-        }
-        case "lg":
-        case "xl": {
-          resize = 5 - length;
-          break;
-        }
-        default:
-          resize = 1;
-      }
-    } else resize = 1;
-
     let card = 0;
-    let movies = Object.values(this.props.ratedMovies).map(movie => {
+    let movies = Object.values(ratedMovies).map(movie => {
       let { id, title, overview, poster_path } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
       return (
-        <GridListTile className={classes.tile} key={card} cols={resize}>
+        <GridListTile className={classes.tile} key={card} cols={1}>
           <MovieCard
             key={card}
             id={id}
@@ -113,6 +89,13 @@ class RatingsContainer extends Component {
       );
     });
 
+    // if (movieErrors.code === 401) {
+    //   this.props.doSignOut();
+    //   sessionStorage.removeItem("jwt");
+    //   localStorage.removeItem("state");
+    //   return <Redirect to="/ms/sign-in" />;
+    // }
+
     return (
       <>
         <div className={classes.root}>
@@ -120,7 +103,7 @@ class RatingsContainer extends Component {
             {movies}
           </GridList>
         </div>
-        <Notifications />
+        <Notifications>{movieErrors}</Notifications>
       </>
     );
   }
@@ -138,12 +121,13 @@ class RatingsContainer extends Component {
 
 const mapStateToProps = (state, props) => ({
   ratedMovies: getRatedMovies(state),
-  ratings: getRatings(state)
+  ratings: getRatings(state),
+  movieErrors: getMoviesAsErrors(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { doMyMoviesRequesting, doRatingAdd }
+    { doMyMoviesRequesting, doRatingAdd, doSignOut }
   )(withWidth()(withStyles(styles)(RatingsContainer)))
 );

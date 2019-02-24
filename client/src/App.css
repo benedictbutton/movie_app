@@ -60,17 +60,6 @@
   background-size: 100% 100%;
 }
 
-#paper {
-  background-image: url("./assets/profile.png");
-  background-repeat: no-repeat;
-  -moz-background-size: 100% 100%;
-  -webkit-background-size: 100% 100%;
-  background-size: 100% 100%;
-  -webkit-box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
-  -moz-box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
-  box-shadow: 3px 3px 5px 6px rgba(255, 255, 131, 0.5);
-}
-
 #rotate {
   /* Safari */
   -webkit-transform: rotate(45deg);

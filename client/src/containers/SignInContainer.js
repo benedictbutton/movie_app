@@ -53,13 +53,13 @@ const styles = theme => ({
 
 class SignInContainer extends Component {
   render() {
-    const { handleSubmit, classes } = this.props;
+    const { handleSubmit, classes, client } = this.props;
     if (this.props.client.successful) {
       return <Redirect to="/ms/movies" />;
     }
 
     return (
-      <React.Fragment>
+      <>
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
@@ -105,8 +105,8 @@ class SignInContainer extends Component {
             </form>
           </Paper>
         </main>
-        <Notifications />
-      </React.Fragment>
+        <Notifications>{client.notifications}</Notifications>
+      </>
     );
   }
 }
