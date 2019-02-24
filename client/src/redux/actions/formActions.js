@@ -1,8 +1,7 @@
 import {
   SIGNUP_REQUESTING,
   SIGNIN_REQUESTING,
-  SIGN_OUT,
-  DISPLAY_TOGGLE
+  SIGN_OUT
 } from "../constants/actionTypes";
 
 const doSignUpRequesting = values => ({
@@ -19,8 +18,4 @@ const doSignOut = value => ({
   type: SIGN_OUT
 });
 
-const doToggleDisplay = () => ({
-  type: DISPLAY_TOGGLE
-});
-
-export { doSignUpRequesting, doSignInRequesting, doSignOut, doToggleDisplay };
+export { doSignUpRequesting, doSignInRequesting, doSignOut };

@@ -3,12 +3,15 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
-import { getMovies, getRatings } from "../redux/selectors/selectors";
+import {
+  getMovies,
+  getRatings,
+  getMoviesAsErrors
+} from "../redux/selectors/selectors";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -20,7 +23,7 @@ const styles = theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justify: "space-around",
     alignItems: "center",
     margin: theme.spacing.unit * 6
   },
@@ -49,7 +52,6 @@ class MoviesContainer extends Component {
     this.state = {
       page: 0
     };
-    this.handleRating = this.handleRating.bind(this);
   }
 
   componentDidMount() {
@@ -75,18 +77,15 @@ class MoviesContainer extends Component {
     }
   };
 
-  handleRating(event) {
-    this.props.doRatingAdd(event);
-  }
-
   render() {
-    const { classes, width } = this.props;
+    const { classes, width, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
-      sm: 2,
+      xs: 2,
+      sm: 3,
       md: 4,
       lg: 6,
-      xl: 6
+      xl: 8
     };
 
     let card = 0;
@@ -103,7 +102,6 @@ class MoviesContainer extends Component {
             title={title}
             overview={overview}
             imageUrl={imageUrl}
-            handleRating={this.handleRating}
           />
         </GridListTile>
       );
@@ -112,8 +110,8 @@ class MoviesContainer extends Component {
     return (
       <>
         <div className={classes.root}>
-          <Grid container alignItems="left">
-            <ListSubheader alignItems="left" component="div">
+          <Grid container>
+            <ListSubheader component="div">
               <GenreContainer />
             </ListSubheader>
           </Grid>
@@ -121,7 +119,7 @@ class MoviesContainer extends Component {
             {movies}
           </GridList>
         </div>
-        <Notifications />
+        <Notifications>{movieErrors}</Notifications>
       </>
     );
   }
@@ -129,7 +127,8 @@ class MoviesContainer extends Component {
 
 const mapStateToProps = (state, props) => ({
   movies: getMovies(state),
-  ratings: getRatings(state)
+  ratings: getRatings(state),
+  movieErrors: getMoviesAsErrors(state)
 });
 
 export default withRouter(

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { doSignOut } from "../redux/actions/formActions";
 import { doUserRequesting } from "../redux/actions/userActions";
-import { getClient, getUser } from "../redux/selectors/selectors";
+import { getUser } from "../redux/selectors/selectors";
+import Notifications from "../components/Notifications";
 import User from "../components/User";
 
 class UserContainer extends Component {
@@ -11,15 +13,18 @@ class UserContainer extends Component {
   }
 
   render() {
-    if (!this.props.client.successful) {
-      return <Redirect to="/ms/sign-in" />;
-    }
-    return <User {...this.props} />;
+    const { user } = this.props;
+
+    return (
+      <>
+        <User {...this.props} />
+        <Notifications>{user.notifications}</Notifications>
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  client: getClient(state),
   user: getUser(state)
 });
 

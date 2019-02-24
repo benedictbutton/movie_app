@@ -7,12 +7,6 @@ import Title from "../components/Title";
 import { Button, Grid, Typography, withStyles } from "@material-ui/core";
 
 const styles = theme => ({
-  // root: {
-  //   backgroundImage: `url(${Image})`,
-  //   flexGrow: "1",
-  //   flexWrap: "wrap",
-  //   maxWidth: "100%"
-  // },
   button: {
     display: "flex",
     padding: theme.spacing.unit * 2,

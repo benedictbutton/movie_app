@@ -2,7 +2,8 @@ import {
   USER_REQUESTING,
   USER_SUCCESS,
   USER_ERROR,
-  UNSET_USER
+  UNSET_USER,
+  TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
 const INITIAL_STATE = {
@@ -15,8 +16,7 @@ const INITIAL_STATE = {
   },
   requesting: false,
   successful: false,
-  errors: [],
-  messages: ""
+  notifications: {}
 };
 
 const applyUserRequest = (state, action) => {
@@ -41,16 +41,20 @@ const applyUserSuccess = (state, action) => ({
 
 const applyUserError = (state, action) => ({
   ...state,
-  errors: [
-    ...state.errors,
-    {
-      body: action.error,
-      time: new Date()
-    }
-  ],
-  messages: [],
+  notifications: {
+    ...state.notifications,
+    body: action.error,
+    message: `${action.error.message}`,
+    code: action.error.code,
+    display: true
+  },
   requesting: false,
   successful: false
+});
+
+const applyToggleDisplay = (state, action) => ({
+  ...state,
+  notifications: { ...state.notifications, display: false, message: "" }
 });
 
 function userReducer(state = INITIAL_STATE, action) {
@@ -61,6 +65,8 @@ function userReducer(state = INITIAL_STATE, action) {
       return applyUserSuccess(state, action);
     case USER_ERROR:
       return applyUserError(state, action);
+    case TOGGLE_DISPLAY:
+      return applyToggleDisplay(state);
     case UNSET_USER:
       return INITIAL_STATE;
     default:

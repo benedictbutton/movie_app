@@ -1,3 +1,5 @@
+import CustomError from "../../util/CustomError";
+
 async function fetchUser() {
   try {
     let response = await fetch(
@@ -11,8 +13,9 @@ async function fetchUser() {
         }
       }
     );
-    if (!response.ok) throw new Error(response);
     let responseJson = await response.json();
+    if (!response.ok)
+      throw new CustomError(responseJson.error, response.status);
     return { responseJson };
   } catch (error) {
     return { error };

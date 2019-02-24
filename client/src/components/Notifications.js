@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { doToggleDisplay } from "../redux/actions/formActions";
+import { doUnSetError } from "../redux/actions/notificationActions";
 //material-ui
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
@@ -32,23 +32,25 @@ const styles = theme => ({
 });
 
 const Notifications = props => {
-  const { classes } = props;
+  const { children, classes } = props;
 
   return (
     <div>
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={props.client.display}
-        onClose={props.onToggleDisplay}
-      >
-        <div style={getModalStyle()} className={classes.paper}>
-          <Typography variant="h6" id="modal-title">
-            {props.client.messages}
-          </Typography>
-          <Typography variant="subtitle1" id="simple-modal-description" />
-        </div>
-      </Modal>
+      {children ? (
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={children.display}
+          onClose={props.doUnSetError}
+        >
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="h6" id="modal-title" align="center">
+              {children.message}
+            </Typography>
+            <Typography variant="subtitle1" id="simple-modal-description" />
+          </div>
+        </Modal>
+      ) : null}
     </div>
   );
 };
@@ -59,5 +61,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { onToggleDisplay: doToggleDisplay }
+  { doUnSetError }
 )(withStyles(styles)(Notifications));

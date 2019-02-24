@@ -13,8 +13,7 @@ const INITIAL_STATE = {
   },
   requesting: false,
   successful: false,
-  errors: [],
-  messages: ""
+  notifications: {}
 };
 
 const applyRatingsRequesting = (action, state) => ({
@@ -35,14 +34,11 @@ const applyRatingsSuccess = (state, action) => {
 
 const applyRatingsError = (state, action) => ({
   ...state,
-  errors: [
-    ...state.errors,
-    {
-      body: action.error,
-      time: new Date()
-    }
-  ],
-  messages: [],
+  notifications: {
+    ...state.notifications,
+    body: action,
+    message: `${action.error.message}`
+  },
   requesting: false,
   successful: false
 });

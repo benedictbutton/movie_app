@@ -4,7 +4,8 @@ import {
   MY_MOVIES_REQUESTING,
   MY_MOVIES_SUCCESS,
   MOVIES_ERROR,
-  UPDATE_GENRE
+  UPDATE_GENRE,
+  TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
 const INITIAL_STATE = {
@@ -13,8 +14,7 @@ const INITIAL_STATE = {
   ratedList: {},
   requesting: false,
   successful: false,
-  errors: [],
-  messages: "",
+  notifications: {},
   query: { page: 0, genre: "18" }
 };
 
@@ -28,6 +28,7 @@ const applyMoviesRequesting = (state, action) => ({
   }
 });
 
+/*The Set data structure ensures that when navigating from Ratings to Movies, duplicate movie entries are not saved in state since both routes rely on it for displaying movies*/
 const applyMoviesSuccess = (state, action) => ({
   ...state,
   results: [
@@ -41,33 +42,34 @@ const applyMoviesSuccess = (state, action) => ({
   successful: true
 });
 
-const applyMyMoviesRequesting = (state, action) => {
-  // action.payload.pop();
-  return {
-    ...state,
-    requesting: true
-  };
-};
+const applyMyMoviesRequesting = (state, action) => ({
+  ...state,
+  requesting: true
+});
 
 const applyMyMoviesSuccess = (state, action) => ({
   ...state,
   ratedList: action.responseJson.entities.movies,
   requesting: false,
-  success: true
+  successful: true
 });
 
 const applyMoviesError = (state, action) => ({
   ...state,
-  errors: [
-    ...state.errors,
-    {
-      body: action.error,
-      time: new Date()
-    }
-  ],
-  messages: [],
+  notifications: {
+    ...state.notifications,
+    body: action.error,
+    message: `${action.error.message}`,
+    code: action.error.code,
+    display: true
+  },
   requesting: false,
   successful: false
+});
+
+const applyToggleDisplay = (state, action) => ({
+  ...state,
+  notifications: { ...state.notifications, display: false, message: "" }
 });
 
 const applyUpdateGenre = (state, action) => ({
@@ -88,6 +90,8 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMyMoviesSuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
+    case TOGGLE_DISPLAY:
+      return applyToggleDisplay(state);
     case UPDATE_GENRE:
       return applyUpdateGenre(state, action);
 

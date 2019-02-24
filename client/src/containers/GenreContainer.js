@@ -4,7 +4,7 @@ import {
   doMoviesRequesting,
   doUpdateGenre
 } from "../redux/actions/movieActions";
-import Image from "../assets/grey-large-menu.jpg";
+import Image from "../assets/brushed-metal.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";
