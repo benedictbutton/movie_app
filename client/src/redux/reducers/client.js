@@ -49,7 +49,14 @@ const applySignInRequest = (state, action) => ({
 const applySignInSuccess = (state, action) => ({
   ...state,
   requesting: false,
-  successful: true
+  successful: true,
+  notifications: {
+    ...state.notifications,
+    body: null,
+    message: "Welcome back :-)",
+    code: 200,
+    display: true
+  }
 });
 
 const applySignInError = (state, action) => ({
@@ -73,7 +80,13 @@ const applySignOut = () => {
 
 const applyToggleDisplay = (state, action) => ({
   ...state,
-  notifications: { ...state.notifications, display: false, message: "" }
+  notifications: {
+    ...state.notifications,
+    body: "",
+    message: "",
+    code: null,
+    display: false
+  }
 });
 
 function clientReducer(state = INITIAL_STATE, action) {

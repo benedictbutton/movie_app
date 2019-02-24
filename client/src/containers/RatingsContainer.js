@@ -21,7 +21,7 @@ const styles = theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justify: "space-around",
     alignItems: "center",
     margin: theme.spacing.unit * 6
   },
@@ -64,19 +64,30 @@ class RatingsContainer extends Component {
     const { classes, width, ratedMovies, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
-      sm: 2,
+      xs: 2,
+      sm: 3,
       md: 4,
       lg: 6,
-      xl: 6
+      xl: 8
     };
 
+    let resize = 1;
+    let length = Object.keys(this.props.ratedMovies).length;
+    if (length < 3 && columns[width] >= 3) {
+      switch (length) {
+        case 1:
+        case 2:
+          resize = 3;
+          break;
+      }
+    }
     let card = 0;
     let movies = Object.values(ratedMovies).map(movie => {
       let { id, title, overview, poster_path } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
       return (
-        <GridListTile className={classes.tile} key={card} cols={1}>
+        <GridListTile className={classes.tile} key={card} cols={resize}>
           <MovieCard
             key={card}
             id={id}

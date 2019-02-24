@@ -3,7 +3,8 @@ import {
   RATINGS_SUCCESS,
   RATINGS_ERROR,
   RATING_ADD,
-  RATINGS_REMOVE
+  RATINGS_REMOVE,
+  TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
 let id = "id";
@@ -43,6 +44,17 @@ const applyRatingsError = (state, action) => ({
   successful: false
 });
 
+const applyToggleDisplay = (state, action) => ({
+  ...state,
+  notifications: {
+    ...state.notifications,
+    body: "",
+    message: "",
+    code: null,
+    display: false
+  }
+});
+
 const applyRatingAdd = (state, action) => {
   let rating = action.event.currentTarget.value.toString();
   let newStars = [0, 1, 2, 3, 4].map((star, index) => {
@@ -73,6 +85,8 @@ function ratingsReducer(state = INITIAL_STATE, action) {
       return applyRatingsSuccess(state, action);
     case RATINGS_ERROR:
       return applyRatingsError(state, action);
+    case TOGGLE_DISPLAY:
+      return applyToggleDisplay(state);
     case RATING_ADD:
       return applyRatingAdd(state, action);
     case RATINGS_REMOVE:
