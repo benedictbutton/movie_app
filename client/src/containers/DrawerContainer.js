@@ -12,6 +12,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -84,6 +85,14 @@ class DrawerContainer extends React.Component {
               </ListItem>
             </Link>
           )}
+          <Link to="/ms/movies" key="Playlist">
+            <ListItem button key="Playlist">
+              <ListItemIcon>
+                <PlaylistPlayIcon />
+              </ListItemIcon>
+              <ListItemText primary="Playlist" />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <LogOutContainer />

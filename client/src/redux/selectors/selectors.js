@@ -1,10 +1,12 @@
 const getClient = state => state.client;
 
+const getClientNotifications = state => state.client.notifications;
+
 const getUser = state => state.user;
 
-const getMovies = state => state.movies;
-
 const getRatings = state => state.ratings;
+
+const getMovies = state => state.movies;
 
 const getMoviesAsErrors = state => state.movies.notifications;
 
@@ -24,6 +26,7 @@ const getRatedMovies = state => state.movies.ratedList;
 
 export {
   getClient,
+  getClientNotifications,
   getUser,
   getMovies,
   getMoviesAsErrors,

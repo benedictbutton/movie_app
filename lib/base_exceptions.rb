@@ -5,11 +5,11 @@ module ApiExceptions
 
     ERROR_DESCRIPTION = proc { |code, message| { status: 'error | failure', code: code, message: message } }
     ERROR_CODE_MAP = {
-      'AuthenticationError::InvalidToken' =>
-        ERROR_DESCRIPTION.call(401, 'Invalid or expired token. Please sign-in again.'),
-      'AuthenticationError::InvalidCredentials' => ERROR_DESCRIPTION.call(401, 'Incorrect email and/or password. Please try again.'),
+      'AuthenticationError::InvalidCredentials' =>  ERROR_DESCRIPTION.call(401, 'Incorrect email and/or password. Please try again.'),
       'AuthorizationError::EmailDuplicate' =>
-        ERROR_DESCRIPTION.call(400, 'Email has already been used to setup account. Please use a different email.')
+        ERROR_DESCRIPTION.call(400, 'Email has already been used to setup account. Please use a different email.'),
+      'AuthorizationError::InvalidToken' =>
+        ERROR_DESCRIPTION.call(401, 'Invalid or expired token. Please sign-in again.')
     }.freeze
 
     def initialize

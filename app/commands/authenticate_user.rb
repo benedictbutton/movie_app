@@ -16,9 +16,7 @@ class AuthenticateUser
 
   def user
     user = User.find_by_email(email)
-    return user if user && user.authenticate(password)
-
-    errors.add :user_authentication, 'invalid credientials'
-    nil
+    raise ApiExceptions::AuthenticationError::InvalidCredentials.new unless user && user.authenticate(password)
+    return user
   end
 end
