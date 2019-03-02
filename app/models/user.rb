@@ -4,4 +4,6 @@ class User < ApplicationRecord
   has_secure_password
   has_many :ratings
   has_many :movies, :through => :ratings
+  has_many :playlists
+  has_many :movies, :through => :playlists
 end

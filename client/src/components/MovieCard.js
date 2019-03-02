@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import Add from "./Add";
 import Stars from "./Stars";
-import StarsContainer from "../containers/StarsContainer";
+import ActionIconsContainer from "../containers/ActionIconsContainer";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
@@ -62,6 +63,15 @@ class MovieCard extends Component {
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         >
+          <ActionIconsContainer
+            id={id}
+            actionPosition="right"
+            titlePosition="top"
+            actionIcon={<Add id={id} starSize={starSize[width]} />}
+            open={open}
+            onClose={this.handleMouseLeave}
+            starsVisible={this.state.starsVisible}
+          />
           <Link
             to={{
               pathname: `/ms/movie/${id}`,
@@ -75,7 +85,7 @@ class MovieCard extends Component {
           >
             <img src={imageUrl} alt="test" width="100%" height="100%" />
           </Link>
-          <StarsContainer
+          <ActionIconsContainer
             id={id}
             actionPosition="left"
             actionIcon={

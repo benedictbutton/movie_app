@@ -3,7 +3,8 @@ import { Grid, Typography, withStyles, withWidth } from "@material-ui/core";
 
 const styles = theme => ({
   title: {
-    flex: 1
+    flex: 1,
+    marginBottom: theme.spacing.unit * 2
   },
   type: {
     color: "#ecca00",

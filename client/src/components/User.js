@@ -33,13 +33,18 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit * 8
     },
     zIndex: 10,
-    position: "absolute"
+    position: "absolute",
+    width: "50%"
   },
   type: {
-    flex: 1,
     fontFamily: "'NewTimesRoman', serif",
     fontWeight: "700",
-    color: "blue"
+    color: "#272727"
+  },
+  info: {
+    fontFamily: "'NewTimesRoman', serif",
+    fontWeight: "500",
+    color: "#343434"
   }
 });
 
@@ -55,77 +60,97 @@ const User = props => {
             className={classes.icon}
             style={{ fontSize: 200 }}
           />
-          <Paper className={classes.paper} align="left">
-            <Typography variant="h2" gutterBottom className={classes.type}>
-              Profile
-            </Typography>
-            <Grid
-              container
-              spacing={24}
-              justify="space-around"
-              alignItems="flex-start"
-            >
-              <Grid item xs={5} align="left">
-                <Typography
-                  variant="h5"
-                  component="h4"
-                  className={classes.type}
-                >
-                  First Name
-                </Typography>
-              </Grid>
-              <Grid item xs={5} align="left">
-                <Typography variant="h5" component="h3">
-                  {firstName}
-                </Typography>
-              </Grid>
-              <Grid item xs={5} align="left">
-                <Typography
-                  variant="h5"
-                  component="h4"
-                  className={classes.type}
-                >
-                  Last Name
-                </Typography>
-              </Grid>
 
-              <Grid item xs={5} align="left">
-                <Typography variant="h5" component="h3">
-                  {lastName}
+          <Grid container alignItems="center" justify="center">
+            <Grid item xs={5}>
+              <Paper className={classes.paper} align="center">
+                <Typography variant="h2" gutterBottom className={classes.type}>
+                  Profile
                 </Typography>
-              </Grid>
-              <Grid item xs={5} align="left">
-                <Typography
-                  variant="h5"
-                  component="h4"
-                  className={classes.type}
+                <Grid
+                  container
+                  spacing={24}
+                  justify="space-around"
+                  alignItems="flex-start"
                 >
-                  Username
-                </Typography>
-              </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h4"
+                      className={classes.type}
+                    >
+                      First Name
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h3"
+                      className={classes.info}
+                    >
+                      {firstName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h4"
+                      className={classes.type}
+                    >
+                      Last Name
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h3"
+                      className={classes.info}
+                    >
+                      {lastName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h4"
+                      className={classes.type}
+                    >
+                      Username
+                    </Typography>
+                  </Grid>
 
-              <Grid item xs={5} align="left">
-                <Typography variant="h5" component="h3">
-                  {username}
-                </Typography>
-              </Grid>
-              <Grid item xs={5} align="left">
-                <Typography
-                  variant="h5"
-                  component="h4"
-                  className={classes.type}
-                >
-                  Email
-                </Typography>
-              </Grid>
-
-              <Grid item xs={5} align="left">
-                <Typography variant="h5" component="h3">
-                  {email}
-                </Typography>
-              </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h3"
+                      className={classes.info}
+                    >
+                      {username}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h4"
+                      className={classes.type}
+                    >
+                      Email
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={5} align="left">
+                    <Typography
+                      variant="h5"
+                      component="h3"
+                      className={classes.info}
+                      noWrap
+                    >
+                      {email}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
             </Grid>
-          </Paper>
+          </Grid>
         </div>
       </Grid>
     </>

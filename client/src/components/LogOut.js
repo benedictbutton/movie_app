@@ -13,7 +13,7 @@ const LogOut = props => {
       <List>
         <ListItem button onClick={props.logout} key="Log Out">
           <ListItemIcon>
-            <FontAwesomeIcon icon="sign-out-alt" size="2x" />
+            <FontAwesomeIcon icon="sign-out-alt" />
           </ListItemIcon>
           <ListItemText primary="Log Out" />
         </ListItem>

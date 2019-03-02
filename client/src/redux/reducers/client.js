@@ -20,13 +20,18 @@ const applySignUpRequest = (state, action) => ({
   requesting: true
 });
 
-const applySignUpSuccess = (state, action) => {
-  return {
-    ...state,
-    requesting: false,
-    successful: true
-  };
-};
+const applySignUpSuccess = (state, action) => ({
+  ...state,
+  requesting: false,
+  successful: true,
+  notifications: {
+    ...state.notifications,
+    body: null,
+    message: "SignUp Successful. Enjoy :-)",
+    code: 200,
+    display: true
+  }
+});
 
 const applySignUpError = (state, action) => ({
   ...state,
@@ -53,7 +58,7 @@ const applySignInSuccess = (state, action) => ({
   notifications: {
     ...state.notifications,
     body: null,
-    message: "Welcome back :-)",
+    message: "Welcome back!",
     code: 200,
     display: true
   }

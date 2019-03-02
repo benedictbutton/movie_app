@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { doRatingAdd } from "../redux/actions/ratingActions";
 import { doMoviesRequesting } from "../redux/actions/movieActions";
 import {
+  getClientNotifications,
   getMovies,
   getRatings,
   getMoviesAsErrors
@@ -31,18 +32,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing.unit * 6
   },
-  subheader: {
-    backgroundColor: theme.palette.background.paper,
-    width: "100%"
-  },
   tile: {
     height: "0",
-    padding: "56.25% 0 0 0"
-  },
-  titleBar: {
-    background:
-      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
-      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
+    paddingTop: "56.25%"
   }
 });
 
@@ -78,7 +70,7 @@ class MoviesContainer extends Component {
   };
 
   render() {
-    const { classes, width, movieErrors } = this.props;
+    const { classes, width, clientNotifications, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -120,12 +112,14 @@ class MoviesContainer extends Component {
           </GridList>
         </div>
         <Notifications>{movieErrors}</Notifications>
+        <Notifications>{clientNotifications}</Notifications>
       </>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
+  clientNotifications: getClientNotifications(state),
   movies: getMovies(state),
   ratings: getRatings(state),
   movieErrors: getMoviesAsErrors(state)
