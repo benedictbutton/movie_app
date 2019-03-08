@@ -1,23 +1,19 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { reset } from "redux-form";
 import { doRatingAdd } from "../redux/actions/ratingActions";
+import { doMovieSearchRequesting } from "../redux/actions/movieActions";
 import {
-  doMoviesRequesting,
-  doMovieSearchRequesting,
-  doUpdateGenre
-} from "../redux/actions/movieActions";
-import {
-  getClientNotifications,
-  getMovies,
-  getRatings,
+  getSearchedMovies,
   getMoviesAsErrors
 } from "../redux/selectors/selectors";
+import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
-// material-ui
+//material-ui
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -33,55 +29,34 @@ const styles = theme => ({
     alignItems: "center",
     margin: theme.spacing.unit * 6
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6
-  },
   tile: {
-    height: "0",
-    paddingTop: "56.25%"
+    height: 0,
+    padding: "56.25% 0 0 0",
+    maxWidth: 500
   }
 });
 
-class MoviesContainer extends Component {
-  state = {
-    search: false
-  };
-  componentDidMount() {
-    window.addEventListener("scroll", this.onScroll, false);
-    this.props.doMoviesRequesting(this.props.movies.query);
+class SearchContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.handleRating = this.handleRating.bind(this);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.onScroll, false);
-  }
-
-  onScroll = () => {
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      this.props.movies.results.length &&
-      !this.props.movies.requesting
-    ) {
-      let payload = {
-        page: this.props.movies.query.page + 1,
-        genre: this.props.movies.query.genre
-      };
-      this.props.doMoviesRequesting(payload);
-    }
-  };
+  // componentDidMount() {
+  //   this.props.doMovieSearchRequesting();
+  // }
 
   handleSearch = event => {
-    this.setState(prevState => {
-      return { ...this.state.search, search: true };
-    });
     this.props.doMovieSearchRequesting(event);
-    this.props.history.push("search");
+    this.props.dispatch(reset("search"));
   };
 
-  render() {
-    // if (this.state.search) return <Redirect to="/ms/search" />;
+  handleRating(event) {
+    this.props.doRatingAdd(event);
+  }
 
-    const { classes, width, clientNotifications, movieErrors } = this.props;
+  render() {
+    const { classes, width, ratedMovies, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -91,20 +66,32 @@ class MoviesContainer extends Component {
       xl: 8
     };
 
+    let resize = 1;
+    let length = Object.keys(this.props.searchedMovies).length;
+    if (length < 3 && columns[width] >= 3) {
+      switch (length) {
+        case 1:
+        case 2:
+          resize = 3;
+          break;
+      }
+    }
     let card = 0;
-    let movies = this.props.movies.results.map(index => {
-      let { id, title, overview, poster_path } = this.props.movies.list[index];
-      id = id.toString();
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
+    let movies = Object.values(this.props.searchedMovies).map(movie => {
+      let { id, title, overview, poster_path } = movie;
+      let imageUrl = poster_path
+        ? "https://image.tmdb.org/t/p/w500" + poster_path
+        : `${poster}`;
       card += 1;
       return (
-        <GridListTile className={classes.tile} key={card} cols={1}>
+        <GridListTile className={classes.tile} key={card} cols={resize}>
           <MovieCard
             key={card}
             id={id}
             title={title}
             overview={overview}
             imageUrl={imageUrl}
+            handleRating={this.handleRating}
           />
         </GridListTile>
       );
@@ -128,24 +115,19 @@ class MoviesContainer extends Component {
           </GridList>
         </div>
         <Notifications>{movieErrors}</Notifications>
-        <Notifications>{clientNotifications}</Notifications>
-        <Notifications>{this.props.playlists.notifications}</Notifications>
       </>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  clientNotifications: getClientNotifications(state),
-  movies: getMovies(state),
-  playlists: state.playlists,
-  ratings: getRatings(state),
+  searchedMovies: getSearchedMovies(state),
   movieErrors: getMoviesAsErrors(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { doMoviesRequesting, doMovieSearchRequesting, doUpdateGenre, doRatingAdd }
-  )(withWidth()(withStyles(styles)(MoviesContainer)))
+    { doMovieSearchRequesting, doRatingAdd }
+  )(withWidth()(withStyles(styles)(SearchContainer)))
 );

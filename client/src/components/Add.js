@@ -1,8 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
+import {
+  doPlaylistAddMovieRequesting,
+  doPlaylistRemoveMovieRequesting
+} from "../redux/actions/playlistActions";
+import {
+  getActivePlaylist,
+  getPlaylistMovieIds,
+  getMoviesAsIds
+} from "../redux/selectors/selectors";
 //material=ui
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
+import CheckIcon from "@material-ui/icons/Check";
+import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -22,18 +33,49 @@ const styles = theme => ({
 });
 
 const Add = props => {
-  const { classes } = props;
+  const { id, classes, activePlaylist, playlistMovieIds } = props;
   return (
     <Grid item align="right">
-      <IconButton className={classes.button} align="right">
-        <AddIcon
-          className={classes.icon}
+      {playlistMovieIds.includes(+id) ? (
+        <IconButton
+          className={classes.button}
           align="right"
-          style={{ fontSize: 30 }}
-        />
-      </IconButton>
+          onClick={() => {
+            props.doPlaylistRemoveMovieRequesting(activePlaylist, id);
+          }}
+        >
+          <CheckIcon
+            className={classes.icon}
+            align="right"
+            style={{ fontSize: 30 }}
+          />
+        </IconButton>
+      ) : (
+        <IconButton
+          className={classes.button}
+          align="right"
+          onClick={() => {
+            props.doPlaylistAddMovieRequesting(activePlaylist, props.movie);
+          }}
+        >
+          <AddIcon
+            className={classes.icon}
+            align="right"
+            style={{ fontSize: 30 }}
+          />
+        </IconButton>
+      )}
     </Grid>
   );
 };
 
-export default withStyles(styles)(Add);
+const mapStateToProps = (state, props) => ({
+  activePlaylist: getActivePlaylist(state),
+  playlistMovieIds: getPlaylistMovieIds(state),
+  movie: getMoviesAsIds(state, props.id)
+});
+
+export default connect(
+  mapStateToProps,
+  { doPlaylistAddMovieRequesting, doPlaylistRemoveMovieRequesting }
+)(withStyles(styles)(Add));

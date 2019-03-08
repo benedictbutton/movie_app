@@ -21,8 +21,7 @@ const styles = theme => ({
 });
 
 const Stars = props => {
-  console.log(props.starSize);
-  const { id, classes, handleRating } = props;
+  const { id, classes } = props;
   let movieRating = props.ratings.list[id] || {
     stars: ["white", "white", "white", "white", "white"],
     score: 0

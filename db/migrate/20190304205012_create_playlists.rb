@@ -1,9 +1,9 @@
 class CreatePlaylists < ActiveRecord::Migration[5.1]
   def change
     create_table :playlists do |t|
-      t.string :name
-      t.references :user, foreign_key: true
-      t.references :movie, foreign_key: true
+      t.belongs_to :user, index: true
+      t.string :name, null: false
+      t.boolean :active, default: false
 
       t.timestamps
     end

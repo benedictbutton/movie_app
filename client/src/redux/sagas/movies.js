@@ -2,10 +2,16 @@ import { call, put } from "redux-saga/effects";
 import {
   MOVIES_SUCCESS,
   MY_MOVIES_SUCCESS,
+  MOVIE_SEARCH_SUCCESS,
   MOVIE_SUCCESS,
   MOVIES_ERROR
 } from "../constants/actionTypes";
-import { fetchMovies, fetchMyMovies, postMovie } from "../api/movies";
+import {
+  fetchMovies,
+  fetchMyMovies,
+  fetchSearch,
+  postMovie
+} from "../api/movies";
 
 function* handleFetchMovies(action) {
   const { payload } = action;
@@ -15,9 +21,15 @@ function* handleFetchMovies(action) {
 }
 
 function* handleFetchMyMovies() {
-  // const { payload } = action;
   const { responseJson, error } = yield call(fetchMyMovies);
   if (responseJson) yield put({ type: MY_MOVIES_SUCCESS, responseJson });
+  else yield put({ type: MOVIES_ERROR, error });
+}
+
+function* handleFetchSearch(query) {
+  const payload = query.query;
+  const { responseJson, error } = yield call(fetchSearch, payload);
+  if (responseJson) yield put({ type: MOVIE_SEARCH_SUCCESS, responseJson });
   else yield put({ type: MOVIES_ERROR, error });
 }
 
@@ -30,4 +42,9 @@ function* handlePostMovie(payload) {
   else yield put({ type: MOVIES_ERROR, error });
 }
 
-export { handleFetchMovies, handleFetchMyMovies, handlePostMovie };
+export {
+  handleFetchMovies,
+  handleFetchMyMovies,
+  handleFetchSearch,
+  handlePostMovie
+};

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { doSignInRequesting } from "../redux/actions/formActions";
@@ -42,6 +42,9 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main
   },
+  button: {
+    marginTop: theme.spacing.unit * 2
+  },
   form: {
     width: "100%", // Fix IE11 issue.
     marginTop: theme.spacing.unit
@@ -54,6 +57,8 @@ const styles = theme => ({
 class SignInContainer extends Component {
   render() {
     const { handleSubmit, classes, client } = this.props;
+
+    const MyLink = props => <Link to="/" {...props} />;
 
     if (client.successful) {
       return <Redirect to="/ms/movies" />;
@@ -102,6 +107,16 @@ class SignInContainer extends Component {
                 className={classes.submit}
               >
                 Sign in
+              </Button>
+              <Button
+                fullWidth
+                className={classes.button}
+                component={MyLink}
+                align="left"
+                variant="contained"
+                color="secondary"
+              >
+                Cancel
               </Button>
             </form>
           </Paper>

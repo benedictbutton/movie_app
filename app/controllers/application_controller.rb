@@ -1,7 +1,4 @@
 class ApplicationController < ActionController::API
-  require 'api_exception_serializer'
-  require 'base_exceptions'
-  require 'class_exceptions'
   require 'json_web_token'
   before_action :authenticate_request
   rescue_from ApiExceptions::BaseException,
