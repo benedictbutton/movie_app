@@ -3,6 +3,7 @@ import { reducer as formReducer } from "redux-form";
 import clientReducer from "./client";
 import userReducer from "./user";
 import moviesReducer from "./movies";
+import playlistsReducer from "./playlists";
 import ratingsReducer from "./ratings";
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   form: formReducer,
   movies: moviesReducer,
+  playlists: playlistsReducer,
   ratings: ratingsReducer
 });
 

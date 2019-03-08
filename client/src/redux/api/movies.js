@@ -58,6 +58,31 @@ async function fetchMyMovies() {
   }
 }
 
+async function fetchSearch(payload) {
+  try {
+    const { query } = payload;
+    let response = await fetch(
+      `https://api.themoviedb.org/4/search/movie?include_adult=false&page=1&language=en-US&query=${encodeURIComponent(
+        query
+      )}&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+    const data = await response.json();
+    const resolvedResponse = data.results;
+    const responseJson = normalize(resolvedResponse, [listSchema]);
+    if (!response.ok) throw new Error(responseJson.error);
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
 async function postMovie(payload) {
   try {
     let response = await fetch(
@@ -80,4 +105,4 @@ async function postMovie(payload) {
   }
 }
 
-export { fetchMovies, fetchMyMovies, postMovie };
+export { fetchMovies, fetchMyMovies, fetchSearch, postMovie };

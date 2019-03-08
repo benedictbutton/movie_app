@@ -37,7 +37,8 @@ const styles = theme => ({
   },
   title: {
     marginBottom: theme.spacing.unit * 3,
-    color: "#2F4F4F"
+    color: "#2F4F4F",
+    fontWeight: "700"
   }
 });
 
@@ -57,7 +58,7 @@ const Movie = props => {
               </Paper>
             </Grid>
             <Grid item sm={7}>
-              <Typography variant="h5" className={classes.title}>
+              <Typography variant="h4" className={classes.title}>
                 {title}
               </Typography>
               <Typography

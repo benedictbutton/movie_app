@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { doSignOut } from "../redux/actions/formActions";
-import { doRatingAdd } from "../redux/actions/ratingActions";
-import { doMyMoviesRequesting } from "../redux/actions/movieActions";
+import { doPlaylistRequesting } from "../redux/actions/playlistActions";
 import {
-  getMoviesAsErrors,
-  getRatings,
-  getRatedMovies
+  getPlaylistMovies,
+  getPlaylistErrors
 } from "../redux/selectors/selectors";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
-//material-ui
+// material-ui
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -32,23 +29,13 @@ const styles = theme => ({
   }
 });
 
-class RatingsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleRating = this.handleRating.bind(this);
-  }
-
+class PlaylistContainer extends Component {
   componentDidMount() {
-    let keys = Object.keys(this.props.ratings.list);
-    this.props.doMyMoviesRequesting(keys);
-  }
-
-  handleRating(event) {
-    this.props.doRatingAdd(event);
+    this.props.doPlaylistRequesting(this.props.match.params.id);
   }
 
   render() {
-    const { classes, width, ratedMovies, movieErrors } = this.props;
+    const { classes, width, playlistMovies, playlistErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -58,8 +45,12 @@ class RatingsContainer extends Component {
       xl: 8
     };
 
+    if (playlistErrors.code === 4044) {
+      return <Redirect to="/ms/playlists" />;
+    }
+
     let resize = 1;
-    let length = Object.keys(this.props.ratedMovies).length;
+    let length = Object.keys(this.props.playlistMovies).length;
     if (length < 3 && columns[width] >= 3) {
       switch (length) {
         case 1:
@@ -69,7 +60,7 @@ class RatingsContainer extends Component {
       }
     }
     let card = 0;
-    let movies = Object.values(ratedMovies).map(movie => {
+    let movies = Object.values(playlistMovies).map(movie => {
       let { id, title, overview, poster_path } = movie;
       let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
       card += 1;
@@ -81,18 +72,10 @@ class RatingsContainer extends Component {
             title={title}
             overview={overview}
             imageUrl={imageUrl}
-            handleRating={this.handleRating}
           />
         </GridListTile>
       );
     });
-
-    // if (movieErrors.code === 401) {
-    //   this.props.doSignOut();
-    //   sessionStorage.removeItem("jwt");
-    //   localStorage.removeItem("state");
-    //   return <Redirect to="/ms/sign-in" />;
-    // }
 
     return (
       <>
@@ -101,31 +84,20 @@ class RatingsContainer extends Component {
             {movies}
           </GridList>
         </div>
-        <Notifications>{movieErrors}</Notifications>
+        <Notifications>{playlistErrors}</Notifications>
       </>
     );
   }
 }
 
-// const getRatedMovies = createSelector(
-//   [getRatingsAsIds, getMoviesAsList],
-//   (ids, movies) =>
-//     ids
-//       .filter(id => {
-//         return movies.hasOwnProperty(id);
-//       })
-//       .map(id => getMoviesRated(movies, id))
-// );
-
-const mapStateToProps = (state, props) => ({
-  ratedMovies: getRatedMovies(state),
-  ratings: getRatings(state),
-  movieErrors: getMoviesAsErrors(state)
+const mapStateToProps = state => ({
+  playlistMovies: getPlaylistMovies(state),
+  playlistErrors: getPlaylistErrors(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { doMyMoviesRequesting, doRatingAdd, doSignOut }
-  )(withWidth()(withStyles(styles)(RatingsContainer)))
+    { doPlaylistRequesting }
+  )(withWidth()(withStyles(styles)(PlaylistContainer)))
 );
