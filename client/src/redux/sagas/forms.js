@@ -1,4 +1,4 @@
-import { call, put } from "redux-saga/effects";
+import { call, put, all } from "redux-saga/effects";
 import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
@@ -6,6 +6,7 @@ import {
   SIGNIN_ERROR
 } from "../constants/actionTypes";
 import { fetchSignUpForm, fetchSignInForm } from "../api/forms";
+import { handleFetchDefaultPlaylist } from "./playlists";
 import { handleFetchRatings } from "./ratings";
 
 function* handleFetchSignUp(payload) {
@@ -19,7 +20,7 @@ function* handleFetchSignIn(payload) {
   const { values } = payload;
   const { responseJson, error } = yield call(fetchSignInForm, values);
   if (responseJson) {
-    yield call(handleFetchRatings);
+    yield all([call(handleFetchRatings), call(handleFetchDefaultPlaylist)]);
     yield put({ type: SIGNIN_SUCCESS, responseJson });
   } else yield put({ type: SIGNIN_ERROR, error });
 }

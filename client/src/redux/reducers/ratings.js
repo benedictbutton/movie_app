@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   notifications: {}
 };
 
-const applyRatingsRequesting = (action, state) => ({
+const applyRatingsRequesting = (state, action) => ({
   ...state,
   requesting: true,
   successful: false
@@ -37,8 +37,10 @@ const applyRatingsError = (state, action) => ({
   ...state,
   notifications: {
     ...state.notifications,
-    body: action,
-    message: `${action.error.message}`
+    body: action.error,
+    message: `${action.error.message}`,
+    code: action.error.code,
+    display: true
   },
   requesting: false,
   successful: false

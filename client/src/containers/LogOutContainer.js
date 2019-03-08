@@ -3,6 +3,7 @@ import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doUnsetUser } from "../redux/actions/userActions";
 import { doSignOut } from "../redux/actions/formActions";
+import { doPlaylistsRemove } from "../redux/actions/playlistActions";
 import { doRatingsRemove } from "../redux/actions/ratingActions";
 import LogOut from "../components/LogOut";
 //material-ui
@@ -24,6 +25,7 @@ class LogOutContainer extends Component {
     this.props.doUnsetUser();
     this.props.doSignOut();
     this.props.doRatingsRemove();
+    this.props.doPlaylistsRemove();
     this.setState(() => ({ toMovies: true }));
   }
 
@@ -43,6 +45,6 @@ class LogOutContainer extends Component {
 export default withRouter(
   connect(
     null,
-    { doUnsetUser, doSignOut, doRatingsRemove }
+    { doUnsetUser, doSignOut, doPlaylistsRemove, doRatingsRemove }
   )(LogOutContainer)
 );

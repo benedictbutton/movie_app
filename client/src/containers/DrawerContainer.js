@@ -85,12 +85,12 @@ class DrawerContainer extends React.Component {
               </ListItem>
             </Link>
           )}
-          <Link to="/ms/movies" key="Playlist">
-            <ListItem button key="Playlist">
+          <Link to="/ms/playlists" key="Playlists">
+            <ListItem button key="Playlists">
               <ListItemIcon>
                 <PlaylistPlayIcon />
               </ListItemIcon>
-              <ListItemText primary="Playlist" />
+              <ListItemText primary="Playlists" />
             </ListItem>
           </Link>
         </List>

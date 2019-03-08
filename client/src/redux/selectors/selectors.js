@@ -1,39 +1,37 @@
-const getClient = state => state.client;
+export const getClient = state => state.client;
 
-const getClientNotifications = state => state.client.notifications;
+export const getClientNotifications = state => state.client.notifications;
 
-const getUser = state => state.user;
+export const getUser = state => state.user;
 
-const getRatings = state => state.ratings;
+export const getRatings = state => state.ratings;
 
-const getMovies = state => state.movies;
+export const getMovies = state => state.movies;
 
-const getMoviesAsErrors = state => state.movies.notifications;
+export const getMoviesAsErrors = state => state.movies.notifications;
 
-const getMoviesAsIds = (state, id) => state.movies.list[id];
+export const getMoviesAsIds = (state, id) => {
+  return state.movies.list[id];
+};
 
-const getMoviesAsList = state => {
+export const getMoviesAsList = state => {
   return state.movies.list;
 };
 
-const getMoviesRated = (state, id) => {
+export const getActivePlaylist = state => state.playlists.active;
+
+export const getPlaylistMovieIds = state => state.playlists.playlistMovieIds;
+
+export const getPlaylistMovies = state => state.playlists.playlistMovies;
+
+export const getPlaylistErrors = state => state.playlists.notifications;
+
+export const getMoviesRated = (state, id) => {
   return state[id];
 };
 
-const getRatingsAsIds = state => Object.keys(state.ratings.list);
+export const getRatingsAsIds = state => Object.keys(state.ratings.list);
 
-const getRatedMovies = state => state.movies.ratedList;
+export const getRatedMovies = state => state.movies.ratedList;
 
-export {
-  getClient,
-  getClientNotifications,
-  getUser,
-  getMovies,
-  getMoviesAsErrors,
-  getMoviesAsIds,
-  getMoviesAsList,
-  getMoviesRated,
-  getRatings,
-  getRatingsAsIds,
-  getRatedMovies
-};
+export const getSearchedMovies = state => state.movies.searchList;

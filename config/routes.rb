@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-        resources :users, :movies, :ratings
+      resources 'playlists' do
+        collection do
+          get 'active', to: 'playlists#active', as: 'active'
+        end
+      end
+      resources :users, :movies, :ratings, :movies_playlists
     end
   end
 end

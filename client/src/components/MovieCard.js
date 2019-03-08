@@ -67,7 +67,7 @@ class MovieCard extends Component {
             id={id}
             actionPosition="right"
             titlePosition="top"
-            actionIcon={<Add id={id} starSize={starSize[width]} />}
+            actionIcon={<Add id={id} />}
             open={open}
             onClose={this.handleMouseLeave}
             starsVisible={this.state.starsVisible}

@@ -3,6 +3,8 @@ import {
   MOVIES_SUCCESS,
   MY_MOVIES_REQUESTING,
   MY_MOVIES_SUCCESS,
+  MOVIE_SEARCH_REQUESTING,
+  MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
   UPDATE_GENRE,
   TOGGLE_DISPLAY
@@ -12,6 +14,7 @@ const INITIAL_STATE = {
   results: [],
   list: {},
   ratedList: {},
+  searchList: {},
   requesting: false,
   successful: false,
   notifications: {},
@@ -29,18 +32,17 @@ const applyMoviesRequesting = (state, action) => ({
 });
 
 /*The Set data structure ensures that when navigating from Ratings to Movies, duplicate movie entries are not saved in state since both routes rely on it for displaying movies*/
-const applyMoviesSuccess = (state, action) => ({
-  ...state,
-  results: [
-    ...new Set([
-      ...state.results,
-      ...action.responseJson.entities.lists.undefined.results
-    ])
-  ],
-  list: { ...state.list, ...action.responseJson.entities.movies },
-  requesting: false,
-  successful: true
-});
+const applyMoviesSuccess = (state, action) => {
+  const { movies } = action.responseJson.entities;
+  const newResults = Object.keys(movies);
+  return {
+    ...state,
+    results: [...new Set([...state.results, ...newResults])],
+    list: { ...state.list, ...action.responseJson.entities.movies },
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyMyMoviesRequesting = (state, action) => ({
   ...state,
@@ -50,6 +52,18 @@ const applyMyMoviesRequesting = (state, action) => ({
 const applyMyMoviesSuccess = (state, action) => ({
   ...state,
   ratedList: action.responseJson.entities.movies,
+  requesting: false,
+  successful: true
+});
+
+const applyMovieSearchRequesting = (state, action) => ({
+  ...state,
+  requesting: true
+});
+
+const applyMovieSearchSuccess = (state, action) => ({
+  ...state,
+  searchList: action.responseJson.entities.lists,
   requesting: false,
   successful: true
 });
@@ -94,6 +108,10 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMyMoviesRequesting(state, action);
     case MY_MOVIES_SUCCESS:
       return applyMyMoviesSuccess(state, action);
+    case MOVIE_SEARCH_REQUESTING:
+      return applyMovieSearchRequesting(state, action);
+    case MOVIE_SEARCH_SUCCESS:
+      return applyMovieSearchSuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
     case TOGGLE_DISPLAY:
