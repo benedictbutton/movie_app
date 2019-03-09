@@ -93,19 +93,12 @@ class MoviesContainer extends Component {
 
     let card = 0;
     let movies = this.props.movies.results.map(index => {
-      let { id, title, overview, poster_path } = this.props.movies.list[index];
-      id = id.toString();
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
+      let movie = this.props.movies.list[index];
+      let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={1}>
-          <MovieCard
-            key={card}
-            id={id}
-            title={title}
-            overview={overview}
-            imageUrl={imageUrl}
-          />
+          <MovieCard key={card} movie={movie} imageUrl={imageUrl} />
         </GridListTile>
       );
     });

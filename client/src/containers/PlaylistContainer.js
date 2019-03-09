@@ -50,7 +50,7 @@ class PlaylistContainer extends Component {
     }
 
     let resize = 1;
-    let length = Object.keys(this.props.playlistMovies).length;
+    let length = Object.keys(playlistMovies).length;
     if (length < 3 && columns[width] >= 3) {
       switch (length) {
         case 1:
@@ -61,18 +61,11 @@ class PlaylistContainer extends Component {
     }
     let card = 0;
     let movies = Object.values(playlistMovies).map(movie => {
-      let { id, title, overview, poster_path } = movie;
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + poster_path;
+      let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>
-          <MovieCard
-            key={card}
-            id={id}
-            title={title}
-            overview={overview}
-            imageUrl={imageUrl}
-          />
+          <MovieCard key={card} movie={movie} imageUrl={imageUrl} />
         </GridListTile>
       );
     });

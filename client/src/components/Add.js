@@ -34,6 +34,7 @@ const styles = theme => ({
 
 const Add = props => {
   const { id, classes, activePlaylist, playlistMovieIds } = props;
+
   return (
     <Grid item align="right">
       {playlistMovieIds.includes(+id) ? (
@@ -71,8 +72,7 @@ const Add = props => {
 
 const mapStateToProps = (state, props) => ({
   activePlaylist: getActivePlaylist(state),
-  playlistMovieIds: getPlaylistMovieIds(state),
-  movie: getMoviesAsIds(state, props.id)
+  playlistMovieIds: getPlaylistMovieIds(state)
 });
 
 export default connect(

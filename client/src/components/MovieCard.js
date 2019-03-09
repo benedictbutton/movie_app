@@ -34,10 +34,8 @@ class MovieCard extends Component {
 
   render() {
     const {
-      id,
-      title,
+      movie: { id, title, overview },
       imageUrl,
-      overview,
       width,
       handleRating,
       classes
@@ -67,7 +65,7 @@ class MovieCard extends Component {
             id={id}
             actionPosition="right"
             titlePosition="top"
-            actionIcon={<Add id={id} />}
+            actionIcon={<Add id={id} movie={this.props.movie} />}
             open={open}
             onClose={this.handleMouseLeave}
             starsVisible={this.state.starsVisible}
@@ -91,6 +89,7 @@ class MovieCard extends Component {
             actionIcon={
               <Stars
                 id={id}
+                movie={this.props.movie}
                 handleRating={handleRating}
                 starSize={starSize[width]}
               />

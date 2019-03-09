@@ -66,8 +66,7 @@ const Stars = props => {
 };
 
 const mapStateToProps = (state, props) => ({
-  ratings: getRatings(state),
-  movie: getMoviesAsIds(state, props.id)
+  ratings: getRatings(state)
 });
 
 export default connect(

@@ -56,7 +56,7 @@ class SearchContainer extends Component {
   }
 
   render() {
-    const { classes, width, ratedMovies, movieErrors } = this.props;
+    const { classes, width, searchedMovies, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -67,7 +67,7 @@ class SearchContainer extends Component {
     };
 
     let resize = 1;
-    let length = Object.keys(this.props.searchedMovies).length;
+    let length = Object.keys(searchedMovies).length;
     if (length < 3 && columns[width] >= 3) {
       switch (length) {
         case 1:
@@ -77,19 +77,16 @@ class SearchContainer extends Component {
       }
     }
     let card = 0;
-    let movies = Object.values(this.props.searchedMovies).map(movie => {
+    let movies = Object.values(searchedMovies).map(movie => {
       let { id, title, overview, poster_path } = movie;
       let imageUrl = poster_path
-        ? "https://image.tmdb.org/t/p/w500" + poster_path
+        ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
         : `${poster}`;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>
           <MovieCard
-            key={card}
-            id={id}
-            title={title}
-            overview={overview}
+            movie={movie}
             imageUrl={imageUrl}
             handleRating={this.handleRating}
           />
