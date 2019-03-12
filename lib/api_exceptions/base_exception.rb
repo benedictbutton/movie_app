@@ -9,10 +9,10 @@ module ApiExceptions
       'AuthorizationError::EmailDuplicate' =>
         ERROR_DESCRIPTION.call(400, 'Email has already been used to setup account. Please use a different email.'),
       'AuthorizationError::InvalidToken' =>
-        ERROR_DESCRIPTION.call(401, 'Invalid or expired token. Please sign-in again.'),
-        'PlaylistError::NoExistingPlaylist' =>  ERROR_DESCRIPTION.call(404, 'You have not yet created a playlist to add movies to.'),
-        'PlaylistError::PlaylistEmpty' =>  ERROR_DESCRIPTION.call(4044, 'Playlist is empty'),
-
+        ERROR_DESCRIPTION.call(4011, 'Invalid or expired token. Please sign-in again.'),
+      'PlaylistError::NoExistingPlaylist' =>  ERROR_DESCRIPTION.call(4044, 'You have not yet created a playlist to add movies to.'),
+      'PlaylistError::PlaylistEmpty' =>  ERROR_DESCRIPTION.call(4044, 'Playlist is empty'),
+      'PlaylistError::NoActivePlaylist' =>  ERROR_DESCRIPTION.call(4044, 'You have no active playlists'),
     }.freeze
 
     def initialize

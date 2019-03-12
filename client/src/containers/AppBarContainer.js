@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { doMovieSearchRequesting } from "../redux/actions/movieActions";
 import SearchField from "../components/SearchField";
@@ -60,9 +59,4 @@ const searchForm = {
 };
 
 AppBarContainer = reduxForm(searchForm)(AppBarContainer);
-export default withRouter(
-  connect(
-    null,
-    null
-  )(withStyles(styles)(AppBarContainer))
-);
+export default withRouter(withStyles(styles)(AppBarContainer));

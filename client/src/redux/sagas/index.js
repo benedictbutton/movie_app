@@ -11,6 +11,7 @@ import {
   PLAYLIST_ADD_REQUESTING,
   PLAYLIST_ADD_MOVIE_REQUESTING,
   PLAYLIST_REMOVE_MOVIE_REQUESTING,
+  PLAYLIST_UPDATE_ACTIVE_REQUESTING,
   MOVIE_POSTING
 } from "../constants/actionTypes";
 import { handleFetchSignUp, handleFetchSignIn } from "./forms";
@@ -26,6 +27,7 @@ import {
   handleFetchPlaylist,
   handlePostPlaylist,
   handlePostPlaylistMovie,
+  handleUpdateActivePlaylist,
   handleDitchPlaylistMovie
 } from "./playlists";
 
@@ -42,7 +44,8 @@ function* watchAll() {
     takeLatest(PLAYLIST_REQUESTING, handleFetchPlaylist),
     takeLatest(PLAYLIST_ADD_REQUESTING, handlePostPlaylist),
     takeLatest(PLAYLIST_ADD_MOVIE_REQUESTING, handlePostPlaylistMovie),
-    takeLatest(PLAYLIST_REMOVE_MOVIE_REQUESTING, handleDitchPlaylistMovie)
+    takeLatest(PLAYLIST_REMOVE_MOVIE_REQUESTING, handleDitchPlaylistMovie),
+    takeLatest(PLAYLIST_UPDATE_ACTIVE_REQUESTING, handleUpdateActivePlaylist)
   ]);
 }
 

@@ -9,7 +9,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources 'playlists' do
         collection do
-          get 'active', to: 'playlists#active', as: 'active'
+          put 'active', to: 'playlists#active', as: 'active'
+        end
+        collection do
+          get 'setup', to: 'playlists#setup', as: 'setup'
         end
       end
       resources :users, :movies, :ratings, :movies_playlists

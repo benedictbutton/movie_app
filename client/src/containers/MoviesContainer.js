@@ -13,6 +13,7 @@ import {
   getRatings,
   getMoviesAsErrors
 } from "../redux/selectors/selectors";
+import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import AppBarContainer from "./AppBarContainer";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
@@ -33,9 +34,9 @@ const styles = theme => ({
     alignItems: "center",
     margin: theme.spacing.unit * 6
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 6
+  genre: {
+    paddingTop: 0,
+    paddingBottom: 0
   },
   tile: {
     height: "0",
@@ -106,7 +107,10 @@ class MoviesContainer extends Component {
     return (
       <>
         <div className={classes.root}>
-          <Grid container justify="space-between">
+          <Grid container spacing={0} alignItems="center" justify="flex-start">
+            <ActivePlaylistContainer />
+          </Grid>
+          <Grid container justify="space-between" alignItems="flex-start">
             <Grid item>
               <ListSubheader component="div">
                 <GenreContainer />
