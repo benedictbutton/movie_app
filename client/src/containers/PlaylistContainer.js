@@ -45,9 +45,9 @@ class PlaylistContainer extends Component {
       xl: 8
     };
 
-    if (playlistErrors.code === 4044) {
-      return <Redirect to="/ms/playlists" />;
-    }
+    // if (playlistErrors.code === 4044) {
+    //   return <Redirect to="/ms/playlists" />;
+    // }
 
     let resize = 1;
     let length = Object.keys(playlistMovies).length;

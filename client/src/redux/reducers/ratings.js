@@ -7,7 +7,7 @@ import {
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
-let id = "id";
+const id = "id";
 const INITIAL_STATE = {
   list: {
     [id]: { stars: ["white", "white", "white", "white", "white"], score: 0 }

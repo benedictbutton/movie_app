@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   doPlaylistAddMovieRequesting,
@@ -33,22 +34,34 @@ const styles = theme => ({
 });
 
 const Add = props => {
+  let playlistId;
   const { id, classes, activePlaylist, playlistMovieIds } = props;
+
+  // I should pass the appropriate key down from the containers instead of grabbing it from the store. Pain in my bug. TBC.
+  if (
+    props.location.pathname === "/ms/search" ||
+    props.location.pathname === "/ms/ratings"
+  )
+    playlistId = "none";
+  else if (props.location.pathname === "/ms/movies" && activePlaylist)
+    playlistId = activePlaylist;
+  else if (props.match.params.id) playlistId = props.match.params.id;
+  else playlistId = "none";
 
   return (
     <Grid item align="right">
-      {playlistMovieIds.includes(+id) ? (
+      {playlistMovieIds[playlistId].includes(+id) ? (
         <IconButton
           className={classes.button}
           align="right"
           onClick={() => {
-            props.doPlaylistRemoveMovieRequesting(activePlaylist, id);
+            props.doPlaylistRemoveMovieRequesting(playlistId, id);
           }}
         >
           <CheckIcon
             className={classes.icon}
             align="right"
-            style={{ fontSize: 30 }}
+            style={{ fontSize: 32 }}
           />
         </IconButton>
       ) : (
@@ -56,13 +69,13 @@ const Add = props => {
           className={classes.button}
           align="right"
           onClick={() => {
-            props.doPlaylistAddMovieRequesting(activePlaylist, props.movie);
+            props.doPlaylistAddMovieRequesting(playlistId, props.movie);
           }}
         >
           <AddIcon
             className={classes.icon}
             align="right"
-            style={{ fontSize: 30 }}
+            style={{ fontSize: 32 }}
           />
         </IconButton>
       )}
@@ -75,7 +88,9 @@ const mapStateToProps = (state, props) => ({
   playlistMovieIds: getPlaylistMovieIds(state)
 });
 
-export default connect(
-  mapStateToProps,
-  { doPlaylistAddMovieRequesting, doPlaylistRemoveMovieRequesting }
-)(withStyles(styles)(Add));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { doPlaylistAddMovieRequesting, doPlaylistRemoveMovieRequesting }
+  )(withStyles(styles)(Add))
+);

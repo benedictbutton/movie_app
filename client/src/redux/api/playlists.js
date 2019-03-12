@@ -40,7 +40,12 @@ async function fetchPlaylist(query) {
     let resolvedResponse = await response.json();
     if (!response.ok)
       throw new CustomError(resolvedResponse.message, resolvedResponse.code);
-    const responseJson = normalize(resolvedResponse, [movieSchema]);
+    const movies = normalize(resolvedResponse.movies, [movieSchema]);
+    const playlistId = resolvedResponse.playlistId;
+    const responseJson = {
+      movies: movies,
+      playlistId: playlistId
+    };
     return { responseJson };
   } catch (error) {
     return { error };
@@ -50,7 +55,7 @@ async function fetchPlaylist(query) {
 async function fetchDefaultPlaylist() {
   try {
     let response = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/v1/playlists/active`,
+      `${process.env.REACT_APP_API_URL}/api/v1/playlists/setup`,
       {
         credentials: "same-origin",
         method: "GET",
@@ -58,6 +63,29 @@ async function fetchDefaultPlaylist() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${sessionStorage.jwt}`
         }
+      }
+    );
+    let responseJson = await response.json();
+    if (!response.ok)
+      throw new CustomError(responseJson.message, responseJson.code);
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
+async function updateActivePlaylist(payload) {
+  try {
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/v1/playlists/active.json`,
+      {
+        credentials: "same-origin",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.jwt}`
+        },
+        body: JSON.stringify(payload)
       }
     );
     let responseJson = await response.json();
@@ -93,7 +121,7 @@ async function postPlaylist(payload) {
 
 async function postPlaylistMovie(payload) {
   try {
-    let id = payload.id;
+    let id = payload.payload.id;
     let response = await fetch(
       `${process.env.REACT_APP_API_URL}/api/v1/playlists/${id}.json`,
       {
@@ -145,5 +173,6 @@ export {
   fetchDefaultPlaylist,
   postPlaylist,
   postPlaylistMovie,
+  updateActivePlaylist,
   ditchPlaylistMovie
 };

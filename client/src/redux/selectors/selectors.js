@@ -4,6 +4,8 @@ export const getClientNotifications = state => state.client.notifications;
 
 export const getUser = state => state.user;
 
+export const getPlaylists = state => state.playlists.lists;
+
 export const getRatings = state => state.ratings;
 
 export const getMovies = state => state.movies;

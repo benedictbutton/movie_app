@@ -9,16 +9,19 @@ import {
   PLAYLIST_ADD_MOVIE_SUCCESS,
   PLAYLIST_REMOVE_MOVIE_REQUESTING,
   PLAYLIST_REMOVE_MOVIE_SUCCESS,
+  PLAYLIST_UPDATE_ACTIVE_REQUESTING,
+  PLAYLIST_UPDATE_ACTIVE_SUCCESS,
   PLAYLIST_INITIALIZE,
   PLAYLISTS_ERROR,
   PLAYLISTS_REMOVE,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
+const none = "none";
 const INITIAL_STATE = {
   active: null,
   lists: [],
-  playlistMovieIds: [],
+  playlistMovieIds: { [none]: [] },
   playlistMovies: {},
   requesting: false,
   successful: false,
@@ -45,9 +48,14 @@ const applyPlaylistRequesting = (state, action) => ({
 });
 
 const applyPlaylistSuccess = (state, action) => {
+  const playlistId = action.responseJson.playlistId;
   return {
     ...state,
-    playlistMovies: action.responseJson.entities.movies,
+    playlistMovieIds: {
+      ...state.playlistMovieIds,
+      [playlistId]: action.responseJson.movies.result
+    },
+    playlistMovies: action.responseJson.movies.entities.movies,
     requesting: false,
     successful: true
   };
@@ -78,12 +86,20 @@ const applyPlaylistAddMovieRequesting = (state, action) => ({
   successful: false
 });
 
-const applyPlaylistAddMovieSuccess = (state, action) => ({
-  ...state,
-  playlistMovieIds: [...state.playlistMovieIds, action.responseJson],
-  requesting: false,
-  successful: true
-});
+const applyPlaylistAddMovieSuccess = (state, action) => {
+  const playlistId = action.responseJson.playlistId;
+  const movieId = action.responseJson.movieId;
+  return {
+    ...state,
+    playlistMovieIds: {
+      ...state.playlistMovieIds,
+      [playlistId]: [...state.playlistMovieIds[playlistId], movieId],
+      [none]: [...state.playlistMovieIds[playlistId], movieId]
+    },
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyPlaylistRemoveMovieRequesting = (state, action) => ({
   ...state,
@@ -92,8 +108,9 @@ const applyPlaylistRemoveMovieRequesting = (state, action) => ({
 });
 
 const applyPlaylistRemoveMovieSuccess = (state, action) => {
-  const movieId = action.responseJson;
-  const index = state.playlistMovieIds.indexOf(movieId);
+  const playlistId = action.responseJson.playlistId;
+  const movieId = action.responseJson.movieId;
+  const index = state.playlistMovieIds[playlistId].indexOf(movieId);
   const newState = Object.keys(state.playlistMovies).reduce((object, key) => {
     if (+key !== movieId) object[key] = state.playlistMovies[key];
 
@@ -102,24 +119,66 @@ const applyPlaylistRemoveMovieSuccess = (state, action) => {
 
   return {
     ...state,
-    playlistMovieIds: [
-      ...state.playlistMovieIds.slice(0, index),
-      ...state.playlistMovieIds.slice(index + 1)
-    ],
+    playlistMovieIds: {
+      ...state.playlistMovieIds,
+      [playlistId]: [
+        ...state.playlistMovieIds[playlistId].slice(0, index),
+        ...state.playlistMovieIds[playlistId].slice(index + 1)
+      ],
+      [none]: [
+        ...state.playlistMovieIds[playlistId].slice(0, index),
+        ...state.playlistMovieIds[playlistId].slice(index + 1)
+      ]
+    },
     playlistMovies: newState,
     requesting: false,
     successful: true
   };
 };
 
-const applyPlaylistInitialize = (state, action) => {
+const applyPlaylistUpdateActiveRequesting = (state, action) => ({
+  ...state,
+  requesting: true,
+  successful: false
+});
+
+const applyPlaylistUpdateActiveSuccess = (state, action) => {
+  let activePlaylist = action.responseJson.playlist;
   let movieIds = action.responseJson.movies;
-  let playlist = action.responseJson.playlist;
+  return {
+    ...state,
+    active: activePlaylist,
+    playlistMovieIds: { ...state.playlistMovieIds, [activePlaylist]: movieIds },
+    requesting: false,
+    successful: true
+  };
+};
+
+const applyPlaylistInitialize = (state, action) => {
+  const allMovies = action.responseJson.all_movies;
+
+  let playlists = [];
+  let playlistMovies = {};
+  let activePlaylist = null;
+  if (playlists) {
+    playlists = action.responseJson.playlists;
+    activePlaylist = action.responseJson.playlists.find(
+      playlist => playlist.active === true
+    );
+    if (activePlaylist) {
+      let id = activePlaylist.id;
+      playlistMovies = { [id]: action.responseJson.movies };
+    }
+  }
 
   return {
     ...state,
-    active: playlist.id,
-    playlistMovieIds: [...state.playlistMovieIds, ...movieIds],
+    active: activePlaylist.id,
+    lists: playlists,
+    playlistMovieIds: {
+      ...{ ...state.playlistMovies, [none]: allMovies },
+      ...playlistMovies
+    },
     requesting: false,
     successful: true
   };
@@ -171,6 +230,10 @@ function playlistsReducer(state = INITIAL_STATE, action) {
       return applyPlaylistRemoveMovieRequesting(state, action);
     case PLAYLIST_REMOVE_MOVIE_SUCCESS:
       return applyPlaylistRemoveMovieSuccess(state, action);
+    case PLAYLIST_UPDATE_ACTIVE_REQUESTING:
+      return applyPlaylistUpdateActiveRequesting(state, action);
+    case PLAYLIST_UPDATE_ACTIVE_SUCCESS:
+      return applyPlaylistUpdateActiveSuccess(state, action);
     case PLAYLIST_INITIALIZE:
       return applyPlaylistInitialize(state, action);
     case PLAYLISTS_ERROR:

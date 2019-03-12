@@ -125,6 +125,6 @@ const mapStateToProps = (state, props) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { doMovieSearchRequesting, doRatingAdd }
+    { doMovieSearchRequesting, doRatingAdd, dispatch: reset }
   )(withWidth()(withStyles(styles)(SearchContainer)))
 );

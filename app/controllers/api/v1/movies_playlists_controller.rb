@@ -1,11 +1,11 @@
 class Api::V1::MoviesPlaylistsController < ApplicationController
 
   def destroy
-    playlist = params[:payload][:playlistId]
-    movie = params[:payload][:movieId]
+    playlistId = params[:payload][:playlistId]
+    movieId = params[:payload][:movieId]
+    
+    Playlist.find(playlistId).movies.delete(movieId)
 
-    Playlist.find(playlist).movies.delete(movie)
-
-    render json: movie, status: :accepted
+    render json: {playlistId: playlistId, movieId: movieId}, status: :accepted
   end
 end
