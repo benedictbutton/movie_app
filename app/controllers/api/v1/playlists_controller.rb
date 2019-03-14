@@ -1,4 +1,5 @@
 class Api::V1::PlaylistsController < ApplicationController
+  include PlaylistsMovies
 
   def index
     @playlists = current_user.playlists
@@ -59,26 +60,7 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def setup
-    if !current_user.playlists.empty?
-      playlists = current_user.playlists
-      all_movies = []
-      playlists.each do |playlist|
-        all_movies += playlist.movies.pluck(:id)
-      end
-      all_movies.uniq!
-      if playlists.find_by(active: true)
-        playlist = playlists.find_by(active: true)
-        activeId = playlist.id
-        movies = playlist.movies.pluck(:id)
-      else
-        movies = playlists.find_by(active: false).movies.pluck(:id)
-      end
-    else
-      activeId = nil
-      all_movies = []
-      playlists = []
-      movies = []
-    end
-      render json: {activeId: activeId, all_movies: all_movies, playlists: playlists, movies: movies}, status: :accepted
+    existing_playlists_data = Playlist.signin_setup(current_user)
+    render json: existing_playlists_data, status: :accepted
   end
 end

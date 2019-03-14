@@ -155,28 +155,16 @@ const applyPlaylistUpdateActiveSuccess = (state, action) => {
 };
 
 const applyPlaylistInitialize = (state, action) => {
-  const allMovies = action.responseJson.all_movies;
-
-  let playlists = [];
+  const { active_id, all_movies, movies, playlists } = action.responseJson;
   let playlistMovies = {};
-  let activePlaylist = null;
-  if (playlists) {
-    playlists = action.responseJson.playlists;
-    activePlaylist = action.responseJson.playlists.find(
-      playlist => playlist.active === true
-    );
-    if (activePlaylist) {
-      let id = activePlaylist.id;
-      playlistMovies = { [id]: action.responseJson.movies };
-    }
-  }
+  if (active_id) playlistMovies = { [active_id]: movies };
 
   return {
     ...state,
-    active: activePlaylist.id,
+    active: active_id,
     lists: playlists,
     playlistMovieIds: {
-      ...{ ...state.playlistMovies, [none]: allMovies },
+      ...{ ...state.playlistMovies, [none]: all_movies },
       ...playlistMovies
     },
     requesting: false,
@@ -189,7 +177,7 @@ const applyPlaylistsError = (state, action) => ({
   notifications: {
     ...state.notifications,
     body: action.error,
-    message: `${action.error.message}`,
+    message: `${action.error.message}` || "something went wrong",
     code: action.error.code,
     display: true
   },

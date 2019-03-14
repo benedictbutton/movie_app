@@ -9,7 +9,7 @@ const FormCheckbox = props => {
     <FormControlLabel
       control={
         <Checkbox
-          checked={input.value ? true : false}
+          checked={input.value ? false : true}
           onChange={input.onChange}
           color="primary"
         />
