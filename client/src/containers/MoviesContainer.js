@@ -13,12 +13,12 @@ import {
   getRatings,
   getMoviesAsErrors
 } from "../redux/selectors/selectors";
-import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import AppBarContainer from "./AppBarContainer";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 // material-ui
+import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -32,7 +32,12 @@ const styles = theme => ({
     flexWrap: "wrap",
     justify: "space-around",
     alignItems: "center",
+    marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
+  },
+  bar: {
+    background: "transparent",
+    position: "relative"
   },
   genre: {
     paddingTop: 0,
@@ -107,19 +112,18 @@ class MoviesContainer extends Component {
     return (
       <>
         <div className={classes.root}>
-          <Grid container spacing={0} alignItems="center" justify="flex-start">
-            <ActivePlaylistContainer />
-          </Grid>
-          <Grid container justify="space-between" alignItems="flex-start">
-            <Grid item>
-              <ListSubheader component="div">
-                <GenreContainer />
-              </ListSubheader>
+          <AppBar className={classes.bar}>
+            <Grid container justify="space-between" alignItems="flex-start">
+              <Grid item>
+                <ListSubheader component="div">
+                  <GenreContainer />
+                </ListSubheader>
+              </Grid>
+              <Grid item>
+                <AppBarContainer handleSearch={this.handleSearch} />
+              </Grid>
             </Grid>
-            <Grid item>
-              <AppBarContainer handleSearch={this.handleSearch} />
-            </Grid>
-          </Grid>
+          </AppBar>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>

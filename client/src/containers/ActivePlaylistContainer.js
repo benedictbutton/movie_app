@@ -84,7 +84,7 @@ class ActivePlaylistContainer extends Component {
             <em>Active Playlist:</em>
           </Typography>
         </Grid>
-        <Grid item xs={2} align="center">
+        <Grid item xs={2} align="left">
           <FormControl className={classes.formControl}>
             <Select
               classes={{ icon: classes.icon }}
