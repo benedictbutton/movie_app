@@ -7,9 +7,9 @@ module PlaylistsMovies
       setup = {}
       @user = user
       setup[:active_id] = active_playlist_id
-      setup[:all_movies] = all_playlists_movies || []
-      setup[:movies] = active_playlist_movies || []
-      setup[:playlists] = user.playlists || []
+      setup[:all_movies] = all_playlists_movies
+      setup[:movies] = active_playlist_movies
+      setup[:playlists] = user.playlists
       return setup
     end
 
