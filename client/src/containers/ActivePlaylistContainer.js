@@ -49,7 +49,9 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
-      backgroundImage: `url(${Image})`
+      backgroundImage: `url(${Image})`,
+      borderStyle: "solid",
+      borderColor: "#ecca00"
     }
   }
 };
@@ -68,7 +70,7 @@ class ActivePlaylistContainer extends Component {
       return (
         <MenuItem
           key={playlist.id}
-          color="#ecca00"
+          color="primary"
           value={playlist}
           className={classes.medium}
         >
@@ -100,7 +102,7 @@ class ActivePlaylistContainer extends Component {
               MenuProps={MenuProps}
             >
               <MenuItem disabled value="">
-                <Typography className={classes.font} variant="h6">
+                <Typography variant="h6">
                   <em>None</em>
                 </Typography>
               </MenuItem>

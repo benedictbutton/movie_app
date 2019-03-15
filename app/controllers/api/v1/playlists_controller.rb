@@ -16,11 +16,11 @@ class Api::V1::PlaylistsController < ApplicationController
   def create
     #move method to model tomorrow
     Playlist.switch_off_current_active_playlist if params[:active]
-    @playlist = Playlist.new(name: params[:title], user_id: current_user.id, active: params[:active])
-    if @playlist.save!
-      render json: @playlist, status: :created
+    playlist = Playlist.new(name: params[:title], user_id: current_user.id, active: params[:active])
+    if playlist.save!
+      render json: playlist, status: :created
     else
-      render json: @playlist.errors, status: :unprocessable_entity
+      render json: playlist.errors, status: :unprocessable_entity
     end
   end
 

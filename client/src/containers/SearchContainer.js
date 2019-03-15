@@ -48,7 +48,6 @@ class SearchContainer extends Component {
 
   handleSearch = event => {
     this.props.doMovieSearchRequesting(event);
-    this.props.dispatch(reset("search"));
   };
 
   handleRating(event) {
@@ -125,6 +124,6 @@ const mapStateToProps = (state, props) => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { doMovieSearchRequesting, doRatingAdd, dispatch: reset }
+    { doMovieSearchRequesting, doRatingAdd, dispatch: reset("search") }
   )(withWidth()(withStyles(styles)(SearchContainer)))
 );

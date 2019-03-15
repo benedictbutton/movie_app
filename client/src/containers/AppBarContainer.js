@@ -39,7 +39,7 @@ class AppBarContainer extends Component {
     return (
       <>
         <div className={classes.root}>
-          <Toolbar backgroundColor="primary">
+          <Toolbar>
             <div className={classes.grow} />
             <div className={classes.search}>
               <form onSubmit={handleSubmit(this.props.handleSearch)}>

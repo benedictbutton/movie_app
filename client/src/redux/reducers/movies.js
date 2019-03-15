@@ -61,12 +61,26 @@ const applyMovieSearchRequesting = (state, action) => ({
   requesting: true
 });
 
-const applyMovieSearchSuccess = (state, action) => ({
-  ...state,
-  searchList: action.responseJson.entities.lists,
-  requesting: false,
-  successful: true
-});
+const applyMovieSearchSuccess = (state, action) => {
+  if (Boolean(action.responseJson.entities.lists) === false) {
+    const results = [];
+    return {
+      ...state,
+      searchList: { ...state.searchList, results },
+      notifications: {
+        message: `No results`,
+        code: null,
+        display: true
+      }
+    };
+  }
+  return {
+    ...state,
+    searchList: action.responseJson.entities.lists,
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyMoviesError = (state, action) => ({
   ...state,
