@@ -15,10 +15,7 @@ class Api::V1::PlaylistsController < ApplicationController
 
   def create
     #move method to model tomorrow
-    if params[:active] == true && current_user.playlists.exists? && current_user.playlists.find_by(active: true)
-      prior_active = Playlist.find_by(user_id: current_user.id, active: true)
-      prior_active.update(active: false)
-    end
+    Playlist.switch_off_current_active_playlist if params[:active]
     @playlist = Playlist.new(name: params[:title], user_id: current_user.id, active: params[:active])
     if @playlist.save!
       render json: @playlist, status: :created

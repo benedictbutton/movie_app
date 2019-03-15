@@ -75,6 +75,7 @@ const applyPlaylistAddSuccess = (state, action) => {
     ...state,
     active: activeId,
     lists: [...state.lists, responseJson],
+    playlistMovieIds: { ...state.playlistMovieIds, [responseJson.id]: [] },
     requesting: false,
     successful: true
   };
