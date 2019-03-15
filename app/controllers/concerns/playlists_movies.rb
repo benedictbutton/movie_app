@@ -32,6 +32,21 @@ module PlaylistsMovies
       @user.playlists.find_by(active: true)&.id
     end
 
+    def switch_active_playlist(user, id)
+      @user = user
+      @id = id
+      switch_off_current_active_playlist
+      Playlist.find(@id).update(active: true)
+    end
+
+    def switch_off_current_active_playlist
+      old_id = active_playlist_id
+      if old_id
+      prior_active = Playlist.find(old_id)
+      prior_active.update(active: false)
+      end
+    end
+
     def playlists?
       !@user.playlists.empty?
     end
@@ -41,39 +56,3 @@ module PlaylistsMovies
     end
   end
 end
-
-
-
-
-
-#     def self.calculate(line_item, vendor, time)
-#
-# new(line_item, vendor, time).calculate
-#
-# end
-#
-# attr_reader :line_item, :vendor, :time
-#
-# def initialize(line_item, vendor, time)
-#
-# @line_item = line_item
-#
-# @vendor = vendor
-#
-# @time = time
-#
-# @payout = 0
-#
-# end
-#
-# def calculate
-#
-# total_from_license if payable_from_music_license?
-#
-# add_fees if line_item.fees.any?
-#
-# rounded_total
-#
-# end
-# 					etc.
-#

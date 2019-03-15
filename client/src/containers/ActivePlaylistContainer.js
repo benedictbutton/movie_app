@@ -13,9 +13,10 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
-  font: { color: "#ecca00" },
+  font: {
+    color: "#ecca00"
+  },
   formControl: {
-    margin: theme.spacing.unit,
     minWidth: 120,
     maxWidth: 300
   },

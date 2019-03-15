@@ -43,19 +43,9 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def active
-    if current_user.playlists.find_by(active: true)
-      prior_active = Playlist.find_by(user_id: current_user.id, active: true)
-      prior_active.update(active: false)
-    end
-    playlists = current_user.playlists
     id = params[:playlist][:id]
-    Playlist.find(id).update(active: true)
-    if playlists.find_by(active: true).movies
-    movies = playlists.find_by(active: true).movies.pluck(:id)
-    else
-    movies = []
-    end
-
+    Playlist.switch_active_playlist(current_user, id)
+    movies = Playlist.active_playlist_movies || []
     render json: {playlist: id, movies: movies}, status: :accepted
   end
 
