@@ -14,6 +14,7 @@ import {
   getMoviesAsErrors
 } from "../redux/selectors/selectors";
 import AppBarContainer from "./AppBarContainer";
+import CategorySearchContainer from "./CategorySearchContainer";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
@@ -51,6 +52,7 @@ const styles = theme => ({
 
 class MoviesContainer extends Component {
   state = {
+    display: false,
     search: false
   };
   componentDidMount() {
@@ -84,6 +86,12 @@ class MoviesContainer extends Component {
     this.props.history.push("search");
   };
 
+  handleSelect = event => {
+    event.target.value === "genre"
+      ? this.setState({ display: true })
+      : this.setState({ display: false });
+  };
+
   render() {
     // if (this.state.search) return <Redirect to="/ms/search" />;
 
@@ -115,9 +123,22 @@ class MoviesContainer extends Component {
           <AppBar className={classes.bar}>
             <Grid container justify="space-between" alignItems="flex-start">
               <Grid item>
-                <ListSubheader component="div">
-                  <GenreContainer />
-                </ListSubheader>
+                <Grid container justify="flex-start">
+                  <Grid item>
+                    <ListSubheader component="div">
+                      <CategorySearchContainer
+                        handleSelect={this.handleSelect}
+                      />
+                    </ListSubheader>
+                  </Grid>
+                  <Grid item>
+                    {this.state.display ? (
+                      <ListSubheader component="div">
+                        <GenreContainer />
+                      </ListSubheader>
+                    ) : null}
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item>
                 <AppBarContainer handleSearch={this.handleSearch} />

@@ -10,10 +10,12 @@ import {
 } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
+import CategorySearchContainer from "./CategorySearchContainer";
 import GenreContainer from "./GenreContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 //material-ui
+import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -27,7 +29,16 @@ const styles = theme => ({
     flexWrap: "wrap",
     justify: "space-around",
     alignItems: "center",
+    marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
+  },
+  bar: {
+    background: "transparent",
+    position: "relative"
+  },
+  genre: {
+    paddingTop: 0,
+    paddingBottom: 0
   },
   tile: {
     height: 0,
@@ -39,6 +50,10 @@ const styles = theme => ({
 class SearchContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      display: false,
+      search: false
+    };
     this.handleRating = this.handleRating.bind(this);
   }
 
@@ -46,13 +61,27 @@ class SearchContainer extends Component {
   //   this.props.doMovieSearchRequesting();
   // }
 
-  handleSearch = event => {
-    this.props.doMovieSearchRequesting(event);
-  };
+  // handleSearch = event => {
+  //   this.props.doMovieSearchRequesting(event);
+  // };
 
   handleRating(event) {
     this.props.doRatingAdd(event);
   }
+
+  handleSearch = event => {
+    this.setState(prevState => {
+      return { ...this.state.search, search: true };
+    });
+    this.props.doMovieSearchRequesting(event);
+    this.props.history.push("search");
+  };
+
+  handleSelect = event => {
+    event.target.value === "genre"
+      ? this.setState({ display: true })
+      : this.setState({ display: false });
+  };
 
   render() {
     const { classes, width, searchedMovies, movieErrors } = this.props;
@@ -75,11 +104,14 @@ class SearchContainer extends Component {
           break;
       }
     }
+
     let card = 0;
     let movies = Object.values(searchedMovies).map(movie => {
       let { id, title, overview, poster_path } = movie;
       let imageUrl = poster_path
         ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
+        : movie.profile_path
+        ? "https://image.tmdb.org/t/p/w500" + movie.profile_path
         : `${poster}`;
       card += 1;
       return (
@@ -96,16 +128,31 @@ class SearchContainer extends Component {
     return (
       <>
         <div className={classes.root}>
-          <Grid container justify="space-between">
-            <Grid item>
-              <ListSubheader component="div">
-                <GenreContainer />
-              </ListSubheader>
+          <AppBar className={classes.bar}>
+            <Grid container justify="space-between" alignItems="flex-start">
+              <Grid item>
+                <Grid container justify="flex-start">
+                  <Grid item>
+                    <ListSubheader component="div">
+                      <CategorySearchContainer
+                        handleSelect={this.handleSelect}
+                      />
+                    </ListSubheader>
+                  </Grid>
+                  <Grid item>
+                    {this.state.display ? (
+                      <ListSubheader component="div">
+                        <GenreContainer />
+                      </ListSubheader>
+                    ) : null}
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <AppBarContainer handleSearch={this.handleSearch} />
+              </Grid>
             </Grid>
-            <Grid item>
-              <AppBarContainer handleSearch={this.handleSearch} />
-            </Grid>
-          </Grid>
+          </AppBar>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>

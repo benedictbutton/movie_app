@@ -4,6 +4,8 @@ import {
   MY_MOVIES_REQUESTING,
   MY_MOVIES_SUCCESS,
   MOVIE_SEARCH_REQUESTING,
+  MOVIE_CATEGORY_REQUESTING,
+  MOVIE_CATEGORY_SUCCESS,
   MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
   UPDATE_GENRE,
@@ -82,6 +84,23 @@ const applyMovieSearchSuccess = (state, action) => {
   };
 };
 
+const applyMovieCategoryRequesting = (state, action) => ({
+  ...state,
+  requesting: true
+});
+
+const applyMovieCategorySuccess = (state, action) => {
+  const movies = action.responseJson.entities.lists;
+  const movieIds = action.responseJson.result;
+  return {
+    ...state,
+    results: movieIds,
+    list: { ...state.list, ...movies },
+    requesting: false,
+    successful: true
+  };
+};
+
 const applyMoviesError = (state, action) => ({
   ...state,
   notifications: {
@@ -126,6 +145,10 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMovieSearchRequesting(state, action);
     case MOVIE_SEARCH_SUCCESS:
       return applyMovieSearchSuccess(state, action);
+    case MOVIE_CATEGORY_REQUESTING:
+      return applyMovieSearchRequesting(state, action);
+    case MOVIE_CATEGORY_SUCCESS:
+      return applyMovieCategorySuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
     case TOGGLE_DISPLAY:

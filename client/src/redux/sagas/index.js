@@ -6,6 +6,7 @@ import {
   MOVIES_REQUESTING,
   MY_MOVIES_REQUESTING,
   MOVIE_SEARCH_REQUESTING,
+  MOVIE_CATEGORY_REQUESTING,
   PLAYLISTS_REQUESTING,
   PLAYLIST_REQUESTING,
   PLAYLIST_ADD_REQUESTING,
@@ -20,6 +21,7 @@ import {
   handleFetchMovies,
   handleFetchMyMovies,
   handleFetchSearch,
+  handleFetchCategory,
   handlePostMovie
 } from "./movies";
 import {
@@ -39,6 +41,7 @@ function* watchAll() {
     takeLatest(MOVIES_REQUESTING, handleFetchMovies),
     takeLatest(MY_MOVIES_REQUESTING, handleFetchMyMovies),
     takeLatest(MOVIE_SEARCH_REQUESTING, handleFetchSearch),
+    takeLatest(MOVIE_CATEGORY_REQUESTING, handleFetchCategory),
     takeLatest(MOVIE_POSTING, handlePostMovie),
     takeLatest(PLAYLISTS_REQUESTING, handleFetchPlaylists),
     takeLatest(PLAYLIST_REQUESTING, handleFetchPlaylist),
