@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import DrawerContainer from "./DrawerContainer";
 import Title from "../components/Title";
 //material-ui
@@ -10,6 +11,9 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
   root: {
     flexGrow: 1
+  },
+  active: {
+    marginTop: theme.spacing.unit * 1
   },
   appBar: {
     position: "relative",
@@ -38,6 +42,15 @@ const HeaderContainer = props => {
         </Grid>
         <Title />
       </Paper>
+      <Grid
+        container
+        spacing={0}
+        className={classes.active}
+        alignItems="center"
+        justify="flex-start"
+      >
+        <ActivePlaylistContainer />
+      </Grid>
     </>
   );
 };

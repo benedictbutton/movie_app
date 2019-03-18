@@ -13,9 +13,10 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
-  font: { color: "#ecca00" },
+  font: {
+    color: "#ecca00"
+  },
   formControl: {
-    margin: theme.spacing.unit,
     minWidth: 120,
     maxWidth: 300
   },
@@ -48,7 +49,9 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
-      backgroundImage: `url(${Image})`
+      backgroundImage: `url(${Image})`,
+      borderStyle: "solid",
+      borderColor: "#ecca00"
     }
   }
 };
@@ -67,7 +70,7 @@ class ActivePlaylistContainer extends Component {
       return (
         <MenuItem
           key={playlist.id}
-          color="#ecca00"
+          color="primary"
           value={playlist}
           className={classes.medium}
         >
@@ -84,7 +87,7 @@ class ActivePlaylistContainer extends Component {
             <em>Active Playlist:</em>
           </Typography>
         </Grid>
-        <Grid item xs={2} align="center">
+        <Grid item xs={2} align="left">
           <FormControl className={classes.formControl}>
             <Select
               classes={{ icon: classes.icon }}
@@ -99,7 +102,7 @@ class ActivePlaylistContainer extends Component {
               MenuProps={MenuProps}
             >
               <MenuItem disabled value="">
-                <Typography className={classes.font} variant="h6">
+                <Typography variant="h6">
                   <em>None</em>
                 </Typography>
               </MenuItem>

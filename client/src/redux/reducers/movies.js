@@ -4,6 +4,8 @@ import {
   MY_MOVIES_REQUESTING,
   MY_MOVIES_SUCCESS,
   MOVIE_SEARCH_REQUESTING,
+  MOVIE_CATEGORY_REQUESTING,
+  MOVIE_CATEGORY_SUCCESS,
   MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
   UPDATE_GENRE,
@@ -61,19 +63,50 @@ const applyMovieSearchRequesting = (state, action) => ({
   requesting: true
 });
 
-const applyMovieSearchSuccess = (state, action) => ({
+const applyMovieSearchSuccess = (state, action) => {
+  if (Boolean(action.responseJson.entities.lists) === false) {
+    const results = [];
+    return {
+      ...state,
+      searchList: { ...state.searchList, results },
+      notifications: {
+        message: `No results`,
+        code: null,
+        display: true
+      }
+    };
+  }
+  return {
+    ...state,
+    searchList: action.responseJson.entities.lists,
+    requesting: false,
+    successful: true
+  };
+};
+
+const applyMovieCategoryRequesting = (state, action) => ({
   ...state,
-  searchList: action.responseJson.entities.lists,
-  requesting: false,
-  successful: true
+  requesting: true
 });
+
+const applyMovieCategorySuccess = (state, action) => {
+  const movies = action.responseJson.entities.lists;
+  const movieIds = action.responseJson.result;
+  return {
+    ...state,
+    results: movieIds,
+    list: { ...state.list, ...movies },
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyMoviesError = (state, action) => ({
   ...state,
   notifications: {
     ...state.notifications,
     body: action.error,
-    message: `${action.error.message}`,
+    message: `${action.error.message}` || "something went wrong",
     code: action.error.code,
     display: true
   },
@@ -112,6 +145,10 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMovieSearchRequesting(state, action);
     case MOVIE_SEARCH_SUCCESS:
       return applyMovieSearchSuccess(state, action);
+    case MOVIE_CATEGORY_REQUESTING:
+      return applyMovieSearchRequesting(state, action);
+    case MOVIE_CATEGORY_SUCCESS:
+      return applyMovieCategorySuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
     case TOGGLE_DISPLAY:

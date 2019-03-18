@@ -49,7 +49,7 @@ class App extends Component {
             <Route path="/ms/sign-in" component={SignInContainer} />
             <Route path="/ms/movies" component={MoviesContainer} />
             <Route path="/ms/movie/:id" component={MovieContainer} />
-            <Route path="/ms/search" component={SearchContainer} />
+            <Route path="/ms/search/" component={SearchContainer} />
             <Route path="/ms/ratings" component={RatingsContainer} />
             <Route path="/ms/playlists" component={PlaylistsContainer} />
             <Route path="/ms/playlist/:id" component={PlaylistContainer} />

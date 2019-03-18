@@ -38,7 +38,7 @@ const applyRatingsError = (state, action) => ({
   notifications: {
     ...state.notifications,
     body: action.error,
-    message: `${action.error.message}`,
+    message: `${action.error.message}` || "something went wrong",
     code: action.error.code,
     display: true
   },

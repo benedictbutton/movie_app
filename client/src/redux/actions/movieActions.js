@@ -2,6 +2,7 @@ import {
   MOVIES_REQUESTING,
   MY_MOVIES_REQUESTING,
   MOVIE_SEARCH_REQUESTING,
+  MOVIE_CATEGORY_REQUESTING,
   MOVIE_POSTING,
   UPDATE_GENRE
 } from "../constants/actionTypes";
@@ -31,10 +32,16 @@ const doMovieSearchRequesting = query => ({
   query
 });
 
+const doMovieCategoryRequesting = query => ({
+  type: MOVIE_CATEGORY_REQUESTING,
+  query
+});
+
 export {
   doMoviesRequesting,
   doMyMoviesRequesting,
   doMovieSearchRequesting,
+  doMovieCategoryRequesting,
   doMoviePosting,
   doUpdateGenre
 };

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  doMoviesRequesting,
-  doUpdateGenre
-} from "../redux/actions/movieActions";
+import { doMovieCategoryRequesting } from "../redux/actions/movieActions";
+import { doPlaylistUpdateActiveRequesting } from "../redux/actions/playlistActions";
+import { getPlaylists, getActivePlaylist } from "../redux/selectors/selectors";
 import Image from "../assets/brushed-metal.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";
-import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -58,45 +58,43 @@ const MenuProps = {
   }
 };
 
-const genreList = {
-  18: "Drama",
-  53: "Thriller",
-  10749: "Romance",
-  35: "Comedy",
-  28: "Action",
-  99: "Documentary",
-  878: "SciFi",
-  27: "Horror"
-};
+class CategorySearchContainer extends Component {
+  state = {
+    categoryName: ""
+  };
 
-class GenreContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      genreName: ""
-    };
-  }
-
-  handleChange(event) {
-    this.setState({ genreName: event.target.value });
-    let payload = { page: 0, genre: event.target.value };
-    this.props.doUpdateGenre(payload);
-    this.props.doMoviesRequesting(payload);
-  }
+  handleChange = event => {
+    this.setState({ categoryName: event.target.value });
+    if (event.target.value !== "genre") {
+      this.props.doMovieCategoryRequesting(event.target.value);
+      this.props.history.push("search");
+    }
+  };
 
   render() {
     const { classes } = this.props;
-    let genres = Object.keys(genreList).map(genre => {
+
+    const categoryList = {
+      genre: "Genre",
+      "trending/all/week": "Trending",
+      "movie/top_rated": "Top Rated",
+      "movie/popular": "Popular",
+      "movie/now_playing": "In Theaters",
+      "movie/upcoming": "Upcoming"
+    };
+
+    // "movie/latest": "Latest",
+
+    let list = Object.keys(categoryList).map((category, index) => {
       return (
         <MenuItem
-          key={genre}
-          color="#ecca00"
-          value={genre}
+          key={index}
+          color="primary"
+          value={category}
           className={classes.medium}
         >
-          <Typography color="primary" variant="h6">
-            {genreList[genre]}
+          <Typography className={classes.type} color="primary" variant="h6">
+            {categoryList[category]}
           </Typography>
         </MenuItem>
       );
@@ -110,18 +108,21 @@ class GenreContainer extends Component {
                 classes={{ icon: classes.icon }}
                 displayEmpty
                 className={classes.select}
-                value={this.state.genreName}
-                onChange={this.handleChange}
+                value={this.state.categoryName}
+                onChange={event => {
+                  this.handleChange(event);
+                  this.props.handleSelect(event);
+                }}
                 onSelect={this.handleSelect}
                 input={<Input id="select-multiple-placeholder" />}
                 MenuProps={MenuProps}
               >
                 <MenuItem disabled value="">
                   <Typography className={classes.font} variant="h6">
-                    <em>Select</em>
+                    <em>Search</em>
                   </Typography>
                 </MenuItem>
-                {genres}
+                {list}
               </Select>
             </FormControl>
           </Grid>
@@ -131,7 +132,14 @@ class GenreContainer extends Component {
   }
 }
 
-export default connect(
-  null,
-  { doMoviesRequesting, doUpdateGenre }
-)(withStyles(styles)(GenreContainer));
+const mapStateToProps = state => ({
+  playlists: getPlaylists(state),
+  activePlaylist: getActivePlaylist(state)
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { doMovieCategoryRequesting, doPlaylistUpdateActiveRequesting }
+  )(withStyles(styles)(CategorySearchContainer))
+);

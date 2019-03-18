@@ -4,7 +4,6 @@ import { reduxForm, Field } from "redux-form";
 import { doMovieSearchRequesting } from "../redux/actions/movieActions";
 import SearchField from "../components/SearchField";
 // material-ui
-import AppBar from "@material-ui/core/AppBar";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Toolbar from "@material-ui/core/Toolbar";
 import { withStyles } from "@material-ui/core/styles";
