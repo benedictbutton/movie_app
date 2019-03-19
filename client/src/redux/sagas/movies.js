@@ -28,8 +28,7 @@ function* handleFetchMyMovies() {
   else yield put({ type: MOVIES_ERROR, error });
 }
 
-function* handleFetchSearch(query) {
-  const payload = query.query;
+function* handleFetchSearch(payload) {
   const { responseJson, error } = yield call(fetchSearch, payload);
   if (responseJson) yield put({ type: MOVIE_SEARCH_SUCCESS, responseJson });
   else yield put({ type: MOVIES_ERROR, error });
@@ -38,7 +37,7 @@ function* handleFetchSearch(query) {
 function* handleFetchCategory(query) {
   const payload = query.query;
   const { responseJson, error } = yield call(fetchCategory, payload);
-  if (responseJson) yield put({ type: MOVIE_SEARCH_SUCCESS, responseJson });
+  if (responseJson) yield put({ type: MOVIE_CATEGORY_SUCCESS, responseJson });
   else yield put({ type: MOVIES_ERROR, error });
 }
 

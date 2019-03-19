@@ -20,7 +20,7 @@ const INITIAL_STATE = {
   requesting: false,
   successful: false,
   notifications: {},
-  query: { page: 0, genre: "18" }
+  query: { type: "discover", page: 0, tag: "18" }
 };
 
 const applyMoviesRequesting = (state, action) => ({
@@ -28,8 +28,9 @@ const applyMoviesRequesting = (state, action) => ({
   requesting: true,
   query: {
     ...state.query,
+    type: action.payload.type,
     page: action.payload.page,
-    genre: action.payload.genre
+    tag: action.payload.tag
   }
 });
 
@@ -60,15 +61,19 @@ const applyMyMoviesSuccess = (state, action) => ({
 
 const applyMovieSearchRequesting = (state, action) => ({
   ...state,
+  query: {
+    ...state.query,
+    type: action.query.type,
+    page: action.query.page,
+    tag: action.query.tag
+  },
   requesting: true
 });
 
 const applyMovieSearchSuccess = (state, action) => {
   if (Boolean(action.responseJson.entities.lists) === false) {
-    const results = [];
     return {
       ...state,
-      searchList: { ...state.searchList, results },
       notifications: {
         message: `No results`,
         code: null,
@@ -76,9 +81,11 @@ const applyMovieSearchSuccess = (state, action) => {
       }
     };
   }
+
   return {
     ...state,
-    searchList: action.responseJson.entities.lists,
+    results: action.responseJson.result,
+    list: { ...state.list, ...action.responseJson.entities.lists },
     requesting: false,
     successful: true
   };
@@ -86,7 +93,13 @@ const applyMovieSearchSuccess = (state, action) => {
 
 const applyMovieCategoryRequesting = (state, action) => ({
   ...state,
-  requesting: true
+  requesting: true,
+  query: {
+    ...state.query,
+    type: action.query.type,
+    page: action.query.page,
+    tag: action.query.tag
+  }
 });
 
 const applyMovieCategorySuccess = (state, action) => {
@@ -94,7 +107,7 @@ const applyMovieCategorySuccess = (state, action) => {
   const movieIds = action.responseJson.result;
   return {
     ...state,
-    results: movieIds,
+    results: [...new Set([...state.results, ...movieIds])],
     list: { ...state.list, ...movies },
     requesting: false,
     successful: true
@@ -128,7 +141,10 @@ const applyToggleDisplay = (state, action) => ({
 const applyUpdateGenre = (state, action) => ({
   ...state,
   results: [],
-  query: { ...state.query, page: 0, genre: action.query.genre }
+  query: {
+    ...state.query,
+    page: 0
+  }
 });
 
 function moviesReducer(state = INITIAL_STATE, action) {
@@ -146,7 +162,7 @@ function moviesReducer(state = INITIAL_STATE, action) {
     case MOVIE_SEARCH_SUCCESS:
       return applyMovieSearchSuccess(state, action);
     case MOVIE_CATEGORY_REQUESTING:
-      return applyMovieSearchRequesting(state, action);
+      return applyMovieCategoryRequesting(state, action);
     case MOVIE_CATEGORY_SUCCESS:
       return applyMovieCategorySuccess(state, action);
     case MOVIES_ERROR:
