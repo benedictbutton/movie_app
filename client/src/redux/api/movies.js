@@ -4,22 +4,35 @@ import CustomError from "../../util/CustomError";
 
 const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
 
+const tmdbUrl = query => {
+  const base = `https://api.themoviedb.org/3/`;
+  const middle = query => {
+    // let genreId = parseInt(query.tag, 10);
+    const appendage =
+      query.type === "discover"
+        ? `discover/movie?with_genres=${query.tag}`
+        : query.type === "search"
+        ? `&query=${encodeURIComponent(query.tag)}`
+        : `${query.tag}`;
+    return appendage;
+  };
+  const postfix = `&sort_by=popularity.desc&include_adult=false&language=en-US&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`;
+  return base + middle(query) + postfix;
+};
+
 async function fetchMovies(query) {
+  let compiledUrl = tmdbUrl(query);
   try {
-    let genreId = parseInt(query.genre, 10);
     let array = [1, 2, 3];
     let ids = array.map(num => num + query.page);
     const promises = ids.map(id => {
-      return fetch(
-        `https://api.themoviedb.org/4/discover/movie?with_genres=${genreId}&sort_by=popularity.desc&page=${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
-          }
+      return fetch(`${compiledUrl}&page=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+          // Authorization: `Bearer ${accessToken}`
         }
-      );
+      });
     });
     const results = await Promise.all(promises);
     const data = await Promise.all(
@@ -58,12 +71,11 @@ async function fetchMyMovies() {
   }
 }
 
-async function fetchSearch(payload) {
+async function fetchSearch(query) {
   try {
-    const { query } = payload;
     let response = await fetch(
       `https://api.themoviedb.org/3/search/multi?include_adult=false&page=1&language=en-US&query=${encodeURIComponent(
-        query
+        query.query.tag
       )}&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
       {
         method: "GET",
@@ -86,7 +98,9 @@ async function fetchSearch(payload) {
 async function fetchCategory(query) {
   try {
     let response = await fetch(
-      `https://api.themoviedb.org/3/${query}?include_adult=false&page=1&language=en-US&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+      `https://api.themoviedb.org/3/${query.tag}?include_adult=false&page=${
+        query.page
+      }&language=en-US&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
       {
         method: "GET",
         headers: {

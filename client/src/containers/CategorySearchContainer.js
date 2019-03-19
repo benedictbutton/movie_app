@@ -59,18 +59,6 @@ const MenuProps = {
 };
 
 class CategorySearchContainer extends Component {
-  state = {
-    categoryName: ""
-  };
-
-  handleChange = event => {
-    this.setState({ categoryName: event.target.value });
-    if (event.target.value !== "genre") {
-      this.props.doMovieCategoryRequesting(event.target.value);
-      this.props.history.push("search");
-    }
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -108,11 +96,8 @@ class CategorySearchContainer extends Component {
                 classes={{ icon: classes.icon }}
                 displayEmpty
                 className={classes.select}
-                value={this.state.categoryName}
-                onChange={event => {
-                  this.handleChange(event);
-                  this.props.handleSelect(event);
-                }}
+                value={this.props.categoryName}
+                onChange={this.props.handleChange}
                 onSelect={this.handleSelect}
                 input={<Input id="select-multiple-placeholder" />}
                 MenuProps={MenuProps}

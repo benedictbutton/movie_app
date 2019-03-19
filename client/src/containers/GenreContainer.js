@@ -1,9 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-  doMoviesRequesting,
-  doUpdateGenre
-} from "../redux/actions/movieActions";
 import Image from "../assets/brushed-metal.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
@@ -70,21 +65,6 @@ const genreList = {
 };
 
 class GenreContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      genreName: ""
-    };
-  }
-
-  handleChange(event) {
-    this.setState({ genreName: event.target.value });
-    let payload = { page: 0, genre: event.target.value };
-    this.props.doUpdateGenre(payload);
-    this.props.doMoviesRequesting(payload);
-  }
-
   render() {
     const { classes } = this.props;
     let genres = Object.keys(genreList).map(genre => {
@@ -102,36 +82,37 @@ class GenreContainer extends Component {
       );
     });
     return (
-      <div className={classes.root}>
-        <Grid container>
-          <Grid item>
-            <FormControl className={classes.formControl}>
-              <Select
-                classes={{ icon: classes.icon }}
-                displayEmpty
-                className={classes.select}
-                value={this.state.genreName}
-                onChange={this.handleChange}
-                onSelect={this.handleSelect}
-                input={<Input id="select-multiple-placeholder" />}
-                MenuProps={MenuProps}
-              >
-                <MenuItem disabled value="">
-                  <Typography className={classes.font} variant="h6">
-                    <em>Select</em>
-                  </Typography>
-                </MenuItem>
-                {genres}
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
+      <div>
+        {this.props.display ? (
+          <div className={classes.root}>
+            <Grid container>
+              <Grid item>
+                <FormControl className={classes.formControl}>
+                  <Select
+                    classes={{ icon: classes.icon }}
+                    displayEmpty
+                    className={classes.select}
+                    value={this.props.genreName}
+                    onChange={this.props.handleGenre}
+                    onSelect={this.handleSelect}
+                    input={<Input id="select-multiple-placeholder" />}
+                    MenuProps={MenuProps}
+                  >
+                    <MenuItem disabled value="">
+                      <Typography className={classes.font} variant="h6">
+                        <em>Select</em>
+                      </Typography>
+                    </MenuItem>
+                    {genres}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+          </div>
+        ) : null}
       </div>
     );
   }
 }
 
-export default connect(
-  null,
-  { doMoviesRequesting, doUpdateGenre }
-)(withStyles(styles)(GenreContainer));
+export default withStyles(styles)(GenreContainer);

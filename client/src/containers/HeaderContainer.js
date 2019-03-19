@@ -13,6 +13,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   active: {
+    display: "flex",
     marginTop: theme.spacing.unit * 1
   },
   appBar: {
@@ -44,7 +45,7 @@ const HeaderContainer = props => {
       </Paper>
       <Grid
         container
-        spacing={0}
+        spacing={8}
         className={classes.active}
         alignItems="center"
         justify="flex-start"
