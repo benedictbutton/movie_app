@@ -17,7 +17,11 @@ async function fetchPlaylists() {
     );
     let responseJson = await response.json();
     if (!response.ok)
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };
@@ -39,7 +43,11 @@ async function fetchPlaylist(query) {
     );
     let resolvedResponse = await response.json();
     if (!response.ok)
-      throw new CustomError(resolvedResponse.message, resolvedResponse.code);
+      throw new CustomError(
+        resolvedResponse.message,
+        resolvedResponse.code,
+        resolvedResponse.status
+      );
     const movies = normalize(resolvedResponse.movies, [movieSchema]);
     const playlistId = resolvedResponse.playlistId;
     const responseJson = {
@@ -67,7 +75,11 @@ async function fetchDefaultPlaylist() {
     );
     let responseJson = await response.json();
     if (!response.ok)
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };
@@ -90,7 +102,11 @@ async function updateActivePlaylist(payload) {
     );
     let responseJson = await response.json();
     if (!response.ok)
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };
@@ -136,7 +152,11 @@ async function postPlaylistMovie(payload) {
     );
     let responseJson = await response.json();
     if (!response.ok)
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };
@@ -160,7 +180,11 @@ async function ditchPlaylistMovie(payload) {
     );
     let responseJson = await response.json();
     if (!response.ok)
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };

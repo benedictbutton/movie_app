@@ -3,7 +3,7 @@ module ApiExceptions
     include ActiveModel::Serialization
     attr_reader :status, :code, :message
 
-    ERROR_DESCRIPTION = proc { |code, message| { status: 'error | failure', code: code, message: message } }
+    ERROR_DESCRIPTION = proc { |code, message| { status: 'error', code: code, message: message } }
     ERROR_CODE_MAP = {
       'AuthenticationError::InvalidCredentials' =>  ERROR_DESCRIPTION.call(401, 'Incorrect email and/or password. Please try again.'),
       'AuthorizationError::EmailDuplicate' =>
