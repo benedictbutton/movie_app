@@ -36,7 +36,11 @@ async function fetchSignInForm(query) {
     );
     let responseJson = await response.json();
     if (!response.ok) {
-      throw new CustomError(responseJson.message, responseJson.code);
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     }
     sessionStorage.setItem("jwt", responseJson.auth_token);
     return { responseJson };

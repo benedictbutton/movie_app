@@ -98,9 +98,8 @@ class ActivePlaylistContainer extends Component {
             title={
               <React.Fragment>
                 <Typography variant="body1" color="textPrimary">
-                  Pressing the + icon that displays when hovering over a movie
-                  will automatically add that title to the current Active
-                  Playlist selected here
+                  Pressing the + icon over a movie automatically adds the title
+                  to the current Active Playlist selected here
                 </Typography>
               </React.Fragment>
             }
@@ -120,7 +119,7 @@ class ActivePlaylistContainer extends Component {
                 MenuProps={MenuProps}
               >
                 <MenuItem disabled value="">
-                  <Typography variant="h6">
+                  <Typography variant="h6" color="primary">
                     <em>None</em>
                   </Typography>
                 </MenuItem>

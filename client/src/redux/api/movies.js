@@ -63,7 +63,11 @@ async function fetchMyMovies() {
     );
     let resolvedResponse = await response.json();
     if (!response.ok)
-      throw new CustomError(resolvedResponse.message, resolvedResponse.code);
+      throw new CustomError(
+        resolvedResponse.message,
+        resolvedResponse.code,
+        resolvedResponse.status
+      );
     const responseJson = normalize(resolvedResponse, [movieSchema]);
     return { responseJson };
   } catch (error) {
