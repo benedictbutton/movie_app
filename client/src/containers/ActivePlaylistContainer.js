@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -36,6 +37,10 @@ const styles = theme => ({
   },
   medium: {
     fontWeight: theme.typography.fontWeightMedium
+  },
+  lightTooltip: {
+    backgroundColor: theme.palette.common.white,
+    boxShadow: theme.shadows[1]
   },
   type: {
     marginBottom: 0
@@ -88,27 +93,41 @@ class ActivePlaylistContainer extends Component {
           </Typography>
         </Grid>
         <Grid item xs={2} align="left">
-          <FormControl className={classes.formControl}>
-            <Select
-              classes={{ icon: classes.icon }}
-              displayEmpty
-              className={classes.select}
-              value={playlists[activePlaylistIndex] || empty}
-              onChange={this.handleChange}
-              onSelect={this.handleSelect}
-              input={
-                <Input id="select-multiple-placeholder" disableUnderline />
-              }
-              MenuProps={MenuProps}
-            >
-              <MenuItem disabled value="">
-                <Typography variant="h6">
-                  <em>None</em>
+          <Tooltip
+            classes={{ tooltip: classes.lightTooltip }}
+            title={
+              <React.Fragment>
+                <Typography variant="body1" color="textPrimary">
+                  Pressing the + icon that displays when hovering over a movie
+                  will automatically add that title to the current Active
+                  Playlist selected here
                 </Typography>
-              </MenuItem>
-              {list}
-            </Select>
-          </FormControl>
+              </React.Fragment>
+            }
+            placement="right-end"
+          >
+            <FormControl className={classes.formControl}>
+              <Select
+                classes={{ icon: classes.icon }}
+                displayEmpty
+                className={classes.select}
+                value={playlists[activePlaylistIndex] || empty}
+                onChange={this.handleChange}
+                onSelect={this.handleSelect}
+                input={
+                  <Input id="select-multiple-placeholder" disableUnderline />
+                }
+                MenuProps={MenuProps}
+              >
+                <MenuItem disabled value="">
+                  <Typography variant="h6">
+                    <em>None</em>
+                  </Typography>
+                </MenuItem>
+                {list}
+              </Select>
+            </FormControl>
+          </Tooltip>
         </Grid>
       </>
     );

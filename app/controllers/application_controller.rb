@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  require 'json_web_token'
   before_action :authenticate_request
   rescue_from ApiExceptions::BaseException,
     :with => :render_error_response
