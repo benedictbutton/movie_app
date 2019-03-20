@@ -26,6 +26,7 @@ module MovieApp
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join("lib")
 
 #     config.action_dispatch.default_headers = {
 #       'X-Frame-Options' => 'SAMEORIGIN',
