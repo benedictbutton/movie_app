@@ -14,7 +14,8 @@ const styles = theme => ({
   root: {
     flex: 1,
     flexWrap: "wrap",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   },
   paper: {
     display: "table-cell",

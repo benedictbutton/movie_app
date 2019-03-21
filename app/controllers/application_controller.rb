@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
     attr_reader :current_user
 
   def render_error_response(error)
-    render json: error, serializer: ApiExceptionSerializer, status: 3000
+    render json: error, serializer: ApiExceptionSerializer, status: 200
   end
 
     private
