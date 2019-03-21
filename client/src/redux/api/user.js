@@ -14,7 +14,7 @@ async function fetchUser() {
       }
     );
     let responseJson = await response.json();
-    if (!response.ok)
+    if (!response.ok || responseJson.status === "error")
       throw new CustomError(
         responseJson.message,
         responseJson.code,
