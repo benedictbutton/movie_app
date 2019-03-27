@@ -19,6 +19,7 @@ import AppBarContainer from "./AppBarContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 // material-ui
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -33,6 +34,9 @@ const styles = theme => ({
     alignItems: "center",
     marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
+  },
+  progress: {
+    color: "#ecca00"
   },
   tile: {
     height: "0",
@@ -113,6 +117,11 @@ class MoviesContainer extends Component {
       <>
         <AppBarContainer />
         <div className={classes.root}>
+          <div>
+            {this.props.movies.requesting && !this.props.movies.successful ? (
+              <CircularProgress className={classes.progress} />
+            ) : null}
+          </div>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>
