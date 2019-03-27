@@ -3,6 +3,7 @@ import Image from "../assets/brushed-metal.jpg";
 //material-ui
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -35,6 +36,9 @@ const styles = theme => ({
     zIndex: 10,
     position: "absolute",
     width: "50%"
+  },
+  progress: {
+    color: "#ecca00"
   },
   type: {
     fontFamily: "'NewTimesRoman', serif",
@@ -150,6 +154,11 @@ const User = props => {
                 </Grid>
               </Paper>
             </Grid>
+            <div>
+              {props.user.requesting && !props.user.successful ? (
+                <CircularProgress className={classes.progress} />
+              ) : null}
+            </div>
           </Grid>
         </div>
       </Grid>

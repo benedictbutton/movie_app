@@ -40,7 +40,6 @@ class PlaylistsContainer extends Component {
       handleSubmit,
       input,
       pristine,
-      reset,
       submitting,
       valid,
       playlistErrors

@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { doUnSetError } from "../redux/actions/notificationActions";
 //material-ui
-import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 function rand() {

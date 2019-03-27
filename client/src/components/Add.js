@@ -7,8 +7,7 @@ import {
 } from "../redux/actions/playlistActions";
 import {
   getActivePlaylist,
-  getPlaylistMovieIds,
-  getMoviesAsIds
+  getPlaylistMovieIds
 } from "../redux/selectors/selectors";
 //material=ui
 import Grid from "@material-ui/core/Grid";
