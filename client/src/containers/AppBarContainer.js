@@ -6,7 +6,8 @@ import {
   doMoviesRequesting,
   doMovieCategoryRequesting,
   doMovieSearchRequesting,
-  doUpdateGenre
+  doUpdateGenre,
+  doUpdateSearch
 } from "../redux/actions/movieActions";
 import CategorySearchContainer from "./CategorySearchContainer";
 import GenreContainer from "./GenreContainer";
@@ -79,7 +80,7 @@ class AppBarContainer extends Component {
   handleSearch = event => {
     const payload = { type: "search", page: 0, tag: event.query };
     this.props.reset("search");
-    this.props.doUpdateGenre(payload);
+    this.props.doUpdateSearch(payload);
     this.props.doMovieSearchRequesting(payload);
   };
 
@@ -145,6 +146,7 @@ export default withRouter(
       doMovieCategoryRequesting,
       doMovieSearchRequesting,
       doUpdateGenre,
+      doUpdateSearch,
       dispatch: reset("search")
     }
   )(withStyles(styles)(AppBarContainer))

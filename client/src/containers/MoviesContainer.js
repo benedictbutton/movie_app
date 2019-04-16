@@ -47,9 +47,12 @@ const styles = theme => ({
 class MoviesContainer extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.onScroll, false);
-    this.props.movies.query.type === "discover"
-      ? this.props.doMoviesRequesting(this.props.movies.query)
-      : this.props.doMovieCategoryRequesting(this.props.movies.query);
+    if (this.props.movies.query.type === "discover")
+      this.props.doMoviesRequesting(this.props.movies.query);
+    if (this.props.movies.query.type === "multi")
+      this.props.doMovieCategoryRequesting(this.props.movies.query);
+    if (this.props.movies.query.type === "search")
+      this.props.doMovieSearchRequesting(this.props.movies.query);
   }
 
   componentWillUnmount() {

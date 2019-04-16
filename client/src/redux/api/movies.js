@@ -73,8 +73,8 @@ async function fetchSearch(query) {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`
+          "Content-Type": "application/json"
+          // Authorization: `Bearer ${accessToken}`
         }
       }
     );

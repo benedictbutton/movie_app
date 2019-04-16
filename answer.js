@@ -68,40 +68,55 @@
 // }
 // && result.length !== 0
 
-function difference(str, k) {
-  const testSubStr = (array, limit) => {
-    array = array.split("");
-    let newStrArr = [];
-    let brkPt = array.length;
-    while (newStrArr.length !== brkPt) {
-      let x = array.filter(letter => array[0] !== letter);
-      newStrArr.push(x);
-    }
-    if (newStrArr.length < k) return false;
-    return true;
-  };
+// function difference(str, k) {
+//   const testSubStr = (array, limit) => {
+//     array = array.split("");
+//     let newStrArr = [];
+//     let brkPt = array.length;
+//     while (newStrArr.length !== brkPt) {
+//       let x = array.filter(letter => array[0] !== letter);
+//       newStrArr.push(x);
+//     }
+//     if (newStrArr.length < k) return false;
+//     return true;
+//   };
+//
+//   let result = [];
+//   str = str.split("");
+//   let idx = 1;
+//   while (str.length > 0) {
+//     let stop = false;
+//     let idx = 0;
+//     let subStr = "";
+//     while (!stop) {
+//       const letter = str.shift();
+//       idx++;
+//       subStr += letter;
+//       // find how many of each letter type in subString
+//       // ***array of arrays should equal subStr.lengt***
+//       console.log("subStr is:  " + subStr);
+//       stop = testSubStr(subStr, k);
+//     }
+//
+//     result.push(subStr);
+//     // str = str.slice(idx);
+//   }
+//   return result;
+// }
+//
+// console.log(difference("aacddddaccbc", 3));
 
-  let result = [];
-  str = str.split("");
-  let idx = 1;
-  while (str.length > 0) {
-    let stop = false;
-    let idx = 0;
-    let subStr = "";
-    while (!stop) {
-      const letter = str.shift();
-      idx++;
-      subStr += letter;
-      // find how many of each letter type in subString
-      // ***array of arrays should equal subStr.lengt***
-      console.log("subStr is:  " + subStr);
-      stop = testSubStr(subStr, k);
-    }
-
-    result.push(subStr);
-    // str = str.slice(idx);
+function camelCaseSeparation(words, variableName) {
+  const variableArray = variableName.split("");
+  let idxes = [];
+  for (let i = 0; i < variableArray.length; i++) {
+    if (variableArray[i] === variableArray[i].toUpperCase()) idxes.push(i);
   }
-  return result;
+
+  return idxes;
 }
 
-console.log(difference("aacddddaccbc", 3));
+const words = ["is", "valid", "right"];
+const variableName = "isValid";
+
+console.log(camelCaseSeparation(words, variableName));
