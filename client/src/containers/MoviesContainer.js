@@ -6,7 +6,9 @@ import { doRatingAdd } from "../redux/actions/ratingActions";
 import {
   doMoviesRequesting,
   doMovieCategoryRequesting,
-  doMovieSearchRequesting
+  doMovieSearchRequesting,
+  doUpdateGenre,
+  doUpdateSearch
 } from "../redux/actions/movieActions";
 import {
   getClientNotifications,
@@ -47,6 +49,8 @@ const styles = theme => ({
 class MoviesContainer extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.onScroll, false);
+
+    // In the event a user refreshes the page
     if (this.props.movies.query.type === "discover")
       this.props.doMoviesRequesting(this.props.movies.query);
     if (this.props.movies.query.type === "multi")
@@ -57,6 +61,38 @@ class MoviesContainer extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.onScroll, false);
+  }
+
+  componentDidUpdate(prevProps) {
+    /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
+    const match = `${this.props.match.url}`.match(
+      /((^\/\w+\/\w+)\/(\w+)\/(.+))/
+    );
+
+    if (
+      prevProps.match.url !== this.props.match.url &&
+      this.props.match.url !== "/ms/movies/multi/genre"
+    ) {
+      let payload = {
+        type: match[3],
+        page: 1,
+        tag: match[4]
+      };
+
+      if (match[3] === "discover") {
+        this.props.doUpdateGenre(payload);
+        this.props.doMoviesRequesting(payload);
+      }
+      if (match[3] === "multi") {
+        this.props.doUpdateGenre(payload);
+        this.props.doMovieCategoryRequesting(payload);
+      }
+
+      if (match[3] === "search") {
+        this.props.doUpdateSearch(payload);
+        this.props.doMovieSearchRequesting(payload);
+      }
+    }
   }
 
   onScroll = () => {
@@ -145,15 +181,15 @@ const mapStateToProps = (state, props) => ({
   movieErrors: getMoviesAsErrors(state)
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      doMoviesRequesting,
-      doMovieCategoryRequesting,
-      doMovieSearchRequesting,
-      doRatingAdd,
-      dispatch: reset("search")
-    }
-  )(withWidth()(withStyles(styles)(MoviesContainer)))
-);
+export default connect(
+  mapStateToProps,
+  {
+    doMoviesRequesting,
+    doMovieCategoryRequesting,
+    doMovieSearchRequesting,
+    doUpdateGenre,
+    doUpdateSearch,
+    doRatingAdd,
+    dispatch: reset("search")
+  }
+)(withWidth()(withStyles(styles)(MoviesContainer)));

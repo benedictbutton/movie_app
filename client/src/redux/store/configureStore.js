@@ -25,7 +25,8 @@ store.subscribe(
         client: store.getState().client,
         user: store.getState().user,
         ratings: store.getState().ratings,
-        playlists: store.getState().playlists
+        playlists: store.getState().playlists,
+        movies: store.getState().movies
       });
     }
   }, 1000)
