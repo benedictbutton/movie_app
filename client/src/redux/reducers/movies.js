@@ -9,6 +9,7 @@ import {
   MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
   UPDATE_GENRE,
+  UPDATE_SEARCH,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
@@ -52,12 +53,29 @@ const applyMyMoviesRequesting = (state, action) => ({
   requesting: true
 });
 
-const applyMyMoviesSuccess = (state, action) => ({
-  ...state,
-  ratedList: action.responseJson.entities.movies,
-  requesting: false,
-  successful: true
-});
+const applyMyMoviesSuccess = (state, action) => {
+  let movies = action.responseJson.entities.movies;
+  const renameKeys = (keysMap, obj) =>
+    Object.keys(obj).reduce(
+      (acc, key) => ({
+        ...acc,
+        ...{ [keysMap[key] || key]: obj[key] }
+      }),
+      {}
+    );
+
+  const newObj = {};
+  for (let key in movies) {
+    newObj[key] = renameKeys({ description: "overview" }, movies[key]);
+  }
+
+  return {
+    ...state,
+    ratedList: newObj,
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyMovieSearchRequesting = (state, action) => ({
   ...state,
@@ -147,6 +165,17 @@ const applyUpdateGenre = (state, action) => ({
   }
 });
 
+const applyUpdateSearch = (state, action) => ({
+  ...state,
+  results: [],
+  query: {
+    ...state.query,
+    type: action.query.type,
+    page: action.query.page,
+    tag: action.query.tag
+  }
+});
+
 function moviesReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case MOVIES_REQUESTING:
@@ -171,6 +200,8 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyToggleDisplay(state);
     case UPDATE_GENRE:
       return applyUpdateGenre(state, action);
+    case UPDATE_SEARCH:
+      return applyUpdateSearch(state, action);
 
     default:
       return state;

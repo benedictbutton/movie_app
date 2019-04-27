@@ -65,6 +65,7 @@ class ActivePlaylistContainer extends Component {
   handleChange = event => {
     this.props.doPlaylistUpdateActiveRequesting(event.target.value);
   };
+
   render() {
     const { classes, playlists, activePlaylist } = this.props;
     let empty = "";

@@ -71,8 +71,6 @@ class CategorySearchContainer extends Component {
       "movie/upcoming": "Upcoming"
     };
 
-    // "movie/latest": "Latest",
-
     let list = Object.keys(categoryList).map((category, index) => {
       return (
         <MenuItem

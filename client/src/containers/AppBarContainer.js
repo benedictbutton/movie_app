@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm, reset, Field } from "redux-form";
 import {
   doMoviesRequesting,
   doMovieCategoryRequesting,
   doMovieSearchRequesting,
-  doUpdateGenre
+  doUpdateGenre,
+  doUpdateSearch
 } from "../redux/actions/movieActions";
 import CategorySearchContainer from "./CategorySearchContainer";
 import GenreContainer from "./GenreContainer";
@@ -67,6 +68,7 @@ class AppBarContainer extends Component {
       this.props.doUpdateGenre(payload);
       this.props.doMovieCategoryRequesting(payload);
     } else this.setState({ display: true });
+    this.props.history.push(`/ms/movies/multi/${payload.tag}`);
   };
 
   handleGenre = event => {
@@ -74,13 +76,15 @@ class AppBarContainer extends Component {
     const payload = { type: "discover", page: 0, tag: event.target.value };
     this.props.doUpdateGenre(payload);
     this.props.doMoviesRequesting(payload);
+    this.props.history.push(`/ms/movies/discover/${payload.tag}`);
   };
 
   handleSearch = event => {
     const payload = { type: "search", page: 0, tag: event.query };
     this.props.reset("search");
-    this.props.doUpdateGenre(payload);
+    this.props.doUpdateSearch(payload);
     this.props.doMovieSearchRequesting(payload);
+    this.props.history.push(`/ms/movies/search/${payload.tag}`);
   };
 
   render() {
@@ -145,6 +149,7 @@ export default withRouter(
       doMovieCategoryRequesting,
       doMovieSearchRequesting,
       doUpdateGenre,
+      doUpdateSearch,
       dispatch: reset("search")
     }
   )(withStyles(styles)(AppBarContainer))

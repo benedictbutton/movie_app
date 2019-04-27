@@ -68,40 +68,94 @@
 // }
 // && result.length !== 0
 
-function difference(str, k) {
-  const testSubStr = (array, limit) => {
-    array = array.split("");
-    let newStrArr = [];
-    let brkPt = array.length;
-    while (newStrArr.length !== brkPt) {
-      let x = array.filter(letter => array[0] !== letter);
-      newStrArr.push(x);
-    }
-    if (newStrArr.length < k) return false;
-    return true;
-  };
+// function difference(str, k) {
+//   const testSubStr = (array, limit) => {
+//     array = array.split("");
+//     let newStrArr = [];
+//     let brkPt = array.length;
+//     while (newStrArr.length !== brkPt) {
+//       let x = array.filter(letter => array[0] !== letter);
+//       newStrArr.push(x);
+//     }
+//     if (newStrArr.length < k) return false;
+//     return true;
+//   };
+//
+//   let result = [];
+//   str = str.split("");
+//   let idx = 1;
+//   while (str.length > 0) {
+//     let stop = false;
+//     let idx = 0;
+//     let subStr = "";
+//     while (!stop) {
+//       const letter = str.shift();
+//       idx++;
+//       subStr += letter;
+//       // find how many of each letter type in subString
+//       // ***array of arrays should equal subStr.lengt***
+//       console.log("subStr is:  " + subStr);
+//       stop = testSubStr(subStr, k);
+//     }
+//
+//     result.push(subStr);
+//     // str = str.slice(idx);
+//   }
+//   return result;
+// }
+//
+// console.log(difference("aacddddaccbc", 3));
 
-  let result = [];
-  str = str.split("");
-  let idx = 1;
-  while (str.length > 0) {
-    let stop = false;
-    let idx = 0;
-    let subStr = "";
-    while (!stop) {
-      const letter = str.shift();
-      idx++;
-      subStr += letter;
-      // find how many of each letter type in subString
-      // ***array of arrays should equal subStr.lengt***
-      console.log("subStr is:  " + subStr);
-      stop = testSubStr(subStr, k);
-    }
+// function camelCaseSeparation(words, variableName) {
+//   const variableArray = variableName.split("");
+//   let idxes = [];
+//   for (let i = 0; i < variableArray.length; i++) {
+//     if (variableArray[i] === variableArray[i].toUpperCase()) idxes.push(i);
+//   }
+//
+//   return idxes;
+// }
+//
+// const words = ["is", "valid", "right"];
+// const variableName = "isValid";
+//
+// console.log(camelCaseSeparation(words, variableName));
 
-    result.push(subStr);
-    // str = str.slice(idx);
-  }
-  return result;
+function sequenceElement(a, n) {
+  // const value = a => {
+  //   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
+  //   return result;
+  // };
+  //
+  // let count = 4;
+  // while (count < n) {
+  //   a[5] = value(a);
+  //   a.shift();
+  //   count++;
+  // }
+  // console.log(a);
+  // return a[a.length - 1];
+  // let count = 4;
+  // const value = (a, count, n) => {
+  //   // console.log(count + "///" + n + "///" + a);
+  //   if (count === n) return a[4];
+  //   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
+  //   a.push(result);
+  //   a.shift();
+  //   return value(a, count + 1, n);
+  // };
+  // return value(a, count, n);
+  // if (count === n) return result;
 }
+// const a = [7, 5, 4, 4, 8];
+// const n = 521687676;
+// const a = [1, 2, 3, 4, 5];
+// const n = 9;
+// console.log(sequenceElement(a, n));
+// ((^\w+)\/(.+))
+const string = "ms/movies/multi/trending/all/week";
+// const string = "ms/movies/multi/movie/top_rated";
+// const match = string.match(/(\w+)[^\/]\w+/, "g");
+const match = string.match(/((^\w+\/\w+)\/(\w+)\/(.+))/);
 
-console.log(difference("aacddddaccbc", 3));
+console.log(match);

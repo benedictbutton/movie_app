@@ -35,17 +35,17 @@ const styles = theme => ({
 const Add = props => {
   let playlistId;
   const { id, classes, activePlaylist, playlistMovieIds } = props;
-
+  const match = `${props.match.url}`.match(/((^\/\w+\/\w+)\/(\w+)\/(.+))/);
   // I should pass the appropriate key down from the containers instead of grabbing it from the store. Pain in my bug. TBC.
-  if (
-    props.location.pathname === "/ms/search" ||
-    props.location.pathname === "/ms/ratings"
-  )
-    playlistId = "none";
-  else if (props.location.pathname === "/ms/movies" && activePlaylist)
-    playlistId = activePlaylist;
-  else if (props.match.params.id) playlistId = props.match.params.id;
-  else playlistId = "none";
+  if (match) {
+    if (match[2] === "/ms/search" || match[2] === "/ms/ratings")
+      playlistId = "none";
+    if (match[2] === "/ms/movies" && activePlaylist)
+      playlistId = activePlaylist;
+  } else {
+    if (props.match.params.id) playlistId = props.match.params.id;
+    else playlistId = "none";
+  }
 
   return (
     <Grid item align="right">

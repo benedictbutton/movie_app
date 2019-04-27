@@ -4,7 +4,8 @@ import {
   MOVIE_SEARCH_REQUESTING,
   MOVIE_CATEGORY_REQUESTING,
   MOVIE_POSTING,
-  UPDATE_GENRE
+  UPDATE_GENRE,
+  UPDATE_SEARCH
 } from "../constants/actionTypes";
 
 const doMoviesRequesting = movies => ({
@@ -27,6 +28,11 @@ const doUpdateGenre = query => ({
   query
 });
 
+const doUpdateSearch = query => ({
+  type: UPDATE_SEARCH,
+  query
+});
+
 const doMovieSearchRequesting = query => ({
   type: MOVIE_SEARCH_REQUESTING,
   query
@@ -43,5 +49,6 @@ export {
   doMovieSearchRequesting,
   doMovieCategoryRequesting,
   doMoviePosting,
-  doUpdateGenre
+  doUpdateGenre,
+  doUpdateSearch
 };

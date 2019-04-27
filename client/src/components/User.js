@@ -58,6 +58,11 @@ const User = props => {
 
   return (
     <>
+      <div>
+        {props.user.requesting && !props.user.successful ? (
+          <CircularProgress className={classes.progress} />
+        ) : null}
+      </div>
       <Grid container className={classes.root}>
         <div position="absolute">
           <AccountCircleIcon
@@ -154,11 +159,6 @@ const User = props => {
                 </Grid>
               </Paper>
             </Grid>
-            <div>
-              {props.user.requesting && !props.user.successful ? (
-                <CircularProgress className={classes.progress} />
-              ) : null}
-            </div>
           </Grid>
         </div>
       </Grid>

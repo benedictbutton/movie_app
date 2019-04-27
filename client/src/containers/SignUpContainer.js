@@ -74,7 +74,7 @@ class SignUpContainer extends Component {
     } = this.props;
 
     if (this.props.client.successful) {
-      return <Redirect to="/ms/movies" />;
+      return <Redirect to="/ms/movies/discover/18" />;
     }
     return (
       <>

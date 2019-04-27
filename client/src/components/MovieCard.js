@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Add from "./Add";
 import Stars from "./Stars";
 import ActionIconsContainer from "../containers/ActionIconsContainer";
@@ -104,4 +104,4 @@ class MovieCard extends Component {
   }
 }
 
-export default withRouter(withWidth()(withStyles(styles)(MovieCard)));
+export default withWidth()(withStyles(styles)(MovieCard));
