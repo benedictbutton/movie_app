@@ -20,6 +20,7 @@ import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
+import withInfiniteScroll from "../HOC/withInfiniteScroll";
 // material-ui
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
@@ -47,22 +48,7 @@ const styles = theme => ({
 });
 
 class MoviesContainer extends Component {
-  componentDidMount() {
-    window.addEventListener("scroll", this.onScroll, false);
-
-    // In the event a user refreshes the page
-    if (this.props.movies.query.type === "discover")
-      this.props.doMoviesRequesting(this.props.movies.query);
-    if (this.props.movies.query.type === "multi")
-      this.props.doMovieCategoryRequesting(this.props.movies.query);
-    if (this.props.movies.query.type === "search")
-      this.props.doMovieSearchRequesting(this.props.movies.query);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.onScroll, false);
-  }
-
+  // integrates browser navigation with url
   componentDidUpdate(prevProps) {
     /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
     const match = `${this.props.match.url}`.match(
@@ -94,24 +80,6 @@ class MoviesContainer extends Component {
       }
     }
   }
-
-  onScroll = () => {
-    if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      this.props.movies.results.length &&
-      !this.props.movies.requesting &&
-      this.props.movies.query.type !== "search"
-    ) {
-      let payload = {
-        type: this.props.movies.query.type,
-        page: this.props.movies.query.page + 1,
-        tag: this.props.movies.query.tag
-      };
-      this.props.movies.query.type === "discover"
-        ? this.props.doMoviesRequesting(payload)
-        : this.props.doMovieCategoryRequesting(payload);
-    }
-  };
 
   render() {
     const { classes, width, clientNotifications, movieErrors } = this.props;
@@ -192,4 +160,4 @@ export default connect(
     doRatingAdd,
     dispatch: reset("search")
   }
-)(withWidth()(withStyles(styles)(MoviesContainer)));
+)(withWidth()(withStyles(styles)(withInfiniteScroll(MoviesContainer))));
