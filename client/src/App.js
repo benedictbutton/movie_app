@@ -21,7 +21,7 @@ import MoviesContainer from "./containers/MoviesContainer";
 import RatingsContainer from "./containers/RatingsContainer";
 import PlaylistContainer from "./containers/PlaylistContainer";
 import PlaylistsContainer from "./containers/PlaylistsContainer";
-import SearchContainer from "./containers/SearchContainer";
+import PrivateRoute from "./HOC/PrivateRoute";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
@@ -46,16 +46,18 @@ class App extends Component {
           <Switch>
             <Route path="/ms/sign-up" component={SignUpContainer} />
             <Route path="/ms/sign-in" component={SignInContainer} />
-            <Route
+            <PrivateRoute
               path="/ms/movies/:type/:query?/:desc?/:end?"
               component={MoviesContainer}
             />
-            <Route path="/ms/movie/:id" component={MovieContainer} />
-            <Route path="/ms/ratings" component={RatingsContainer} />
-            <Route path="/ms/search" component={SearchContainer} />
-            <Route path="/ms/playlists" component={PlaylistsContainer} />
-            <Route path="/ms/playlist/:id" component={PlaylistContainer} />
-            <Route path="/ms/users/:id" component={UserContainer} />
+            <PrivateRoute path="/ms/movie/:id" component={MovieContainer} />
+            <PrivateRoute path="/ms/ratings" component={RatingsContainer} />
+            <PrivateRoute path="/ms/playlists" component={PlaylistsContainer} />
+            <PrivateRoute
+              path="/ms/playlist/:id"
+              component={PlaylistContainer}
+            />
+            <PrivateRoute path="/ms/users/:id" component={UserContainer} />
           </Switch>
         </header>
       </div>

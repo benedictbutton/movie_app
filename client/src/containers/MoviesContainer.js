@@ -10,6 +10,7 @@ import {
   doUpdateGenre,
   doUpdateSearch
 } from "../redux/actions/movieActions";
+import { doUnSetError } from "../redux/actions/notificationActions";
 import {
   getClientNotifications,
   getMovies,
@@ -23,9 +24,11 @@ import Notifications from "../components/Notifications";
 import withInfiniteScroll from "../HOC/withInfiniteScroll";
 // material-ui
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import Snackbar from "@material-ui/core/Snackbar";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -41,6 +44,10 @@ const styles = theme => ({
   progress: {
     color: "#ecca00"
   },
+  snack: {
+    color: "white",
+    backgroundColor: theme.palette.primary.dark
+  },
   tile: {
     height: "0",
     paddingTop: "56.25%"
@@ -48,6 +55,12 @@ const styles = theme => ({
 });
 
 class MoviesContainer extends Component {
+  state = {
+    open: false,
+    vertical: "bottom",
+    horizontal: "left"
+  };
+
   // integrates browser navigation with url
   componentDidUpdate(prevProps) {
     /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
@@ -81,8 +94,17 @@ class MoviesContainer extends Component {
     }
   }
 
+  handleClick = state => () => {
+    this.setState({ open: true, ...state });
+  };
+
+  handleClose = event => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes, width, clientNotifications, movieErrors } = this.props;
+    const { vertical, horizontal, open } = this.state;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -115,7 +137,12 @@ class MoviesContainer extends Component {
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>
-          <MovieCard key={card} movie={movie} imageUrl={imageUrl} />
+          <MovieCard
+            key={card}
+            movie={movie}
+            imageUrl={imageUrl}
+            errors={movieErrors}
+          />
         </GridListTile>
       );
     });
@@ -133,8 +160,20 @@ class MoviesContainer extends Component {
             {movies}
           </GridList>
         </div>
+        <Snackbar
+          className={classes.snack}
+          anchorOrigin={{ vertical, horizontal }}
+          autoHideDuration={3000}
+          open={clientNotifications.display}
+          onClose={this.props.doUnSetError}
+          ContentProps={{
+            "aria-describedby": "message-id",
+            className: classes.snack
+          }}
+          TransitionComponent={Fade}
+          message={<span id="message-id">{clientNotifications.message}</span>}
+        />
         <Notifications>{movieErrors}</Notifications>
-        <Notifications>{clientNotifications}</Notifications>
         <Notifications>{this.props.playlists.notifications}</Notifications>
       </>
     );
@@ -149,15 +188,18 @@ const mapStateToProps = (state, props) => ({
   movieErrors: getMoviesAsErrors(state)
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    doMoviesRequesting,
-    doMovieCategoryRequesting,
-    doMovieSearchRequesting,
-    doUpdateGenre,
-    doUpdateSearch,
-    doRatingAdd,
-    dispatch: reset("search")
-  }
-)(withWidth()(withStyles(styles)(withInfiniteScroll(MoviesContainer))));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      doMoviesRequesting,
+      doMovieCategoryRequesting,
+      doMovieSearchRequesting,
+      doUpdateGenre,
+      doUpdateSearch,
+      doRatingAdd,
+      doUnSetError,
+      dispatch: reset("search")
+    }
+  )(withWidth()(withStyles(styles)(withInfiniteScroll(MoviesContainer))))
+);

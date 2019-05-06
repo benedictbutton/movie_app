@@ -23,11 +23,11 @@ function camelCase(words, variableName) {
     }
   }
   console.log(collectWords);
-  for (let i = 1; i < collectWords.length; i++) {
+  for (let i = 0; i < collectWords.length; i++) {
     // first make sure word is in approved words array
     if (!words.includes(collectWords[i].toLowerCase())) return false;
-    return true;
   }
+  return true;
 }
 
 const words = ["is", "valid", "today"];

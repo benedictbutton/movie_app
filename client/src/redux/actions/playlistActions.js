@@ -5,6 +5,7 @@ import {
   PLAYLIST_ADD_MOVIE_REQUESTING,
   PLAYLIST_REMOVE_MOVIE_REQUESTING,
   PLAYLIST_UPDATE_ACTIVE_REQUESTING,
+  PLAYLIST_DELETE_REQUESTING,
   PLAYLIST_INITIALIZE,
   PLAYLISTS_REMOVE
 } from "../constants/actionTypes";
@@ -38,6 +39,11 @@ const doPlaylistUpdateActiveRequesting = playlist => ({
   playlist
 });
 
+const doPlaylistDeleteRequesting = playlistId => ({
+  type: PLAYLIST_DELETE_REQUESTING,
+  payload: playlistId
+});
+
 const doPlaylistsRemove = () => ({
   type: PLAYLISTS_REMOVE
 });
@@ -53,6 +59,7 @@ export {
   doPlaylistAddMovieRequesting,
   doPlaylistRemoveMovieRequesting,
   doPlaylistUpdateActiveRequesting,
+  doPlaylistDeleteRequesting,
   doPlaylistInitialize,
   doPlaylistsRemove
 };

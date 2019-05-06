@@ -93,7 +93,7 @@
 //       idx++;
 //       subStr += letter;
 //       // find how many of each letter type in subString
-//       // ***array of arrays should equal subStr.lengt***
+//       // ***array of arrays should equal subStr.length***
 //       console.log("subStr is:  " + subStr);
 //       stop = testSubStr(subStr, k);
 //     }
@@ -121,41 +121,93 @@
 //
 // console.log(camelCaseSeparation(words, variableName));
 
-function sequenceElement(a, n) {
-  // const value = a => {
-  //   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
-  //   return result;
-  // };
-  //
-  // let count = 4;
-  // while (count < n) {
-  //   a[5] = value(a);
-  //   a.shift();
-  //   count++;
-  // }
-  // console.log(a);
-  // return a[a.length - 1];
-  // let count = 4;
-  // const value = (a, count, n) => {
-  //   // console.log(count + "///" + n + "///" + a);
-  //   if (count === n) return a[4];
-  //   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
-  //   a.push(result);
-  //   a.shift();
-  //   return value(a, count + 1, n);
-  // };
-  // return value(a, count, n);
-  // if (count === n) return result;
-}
+// /function sequenceElement(a, n) {
+// const value = a => {
+//   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
+//   return result;
+// };
+//
+// let count = 4;
+// while (count < n) {
+//   a[5] = value(a);
+//   a.shift();
+//   count++;
+// }
+// console.log(a);
+// return a[a.length - 1];
+// let count = 4;
+// const value = (a, count, n) => {
+//   // console.log(count + "///" + n + "///" + a);
+//   if (count === n) return a[4];
+//   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
+//   a.push(result);
+//   a.shift();
+//   return value(a, count + 1, n);
+// };
+// return value(a, count, n);
+// if (count === n) return result;
+// }
 // const a = [7, 5, 4, 4, 8];
 // const n = 521687676;
 // const a = [1, 2, 3, 4, 5];
 // const n = 9;
 // console.log(sequenceElement(a, n));
 // ((^\w+)\/(.+))
-const string = "ms/movies/multi/trending/all/week";
+// const string = "ms/movies/multi/trending/all/week";
 // const string = "ms/movies/multi/movie/top_rated";
 // const match = string.match(/(\w+)[^\/]\w+/, "g");
-const match = string.match(/((^\w+\/\w+)\/(\w+)\/(.+))/);
+// const match = string.match(/((^\w+\/\w+)\/(\w+)\/(.+))/);
 
-console.log(match);
+// let array = [27, 10, 12, 25, 34, 16, 15, 31];
+//
+// const partition = (array, left, right) => {
+//   let i = left;
+//   let j = right;
+//   let pivot = array[Math.floor((i + j) / 2)];
+//
+//   while (i <= j) {
+//     while (array[i] < pivot) i++;
+//     while (array[j] > pivot) j--;
+//     if (i <= j) {
+//       [array[i], array[j]] = [array[j], array[i]];
+//       i++;
+//       j--;
+//     }
+//   }
+//   return i;
+// };
+//
+// const quick = (array, left, right) => {
+//   if (array.length > 1) {
+//     index = partition(array, left, right);
+//     if (left < index - 1) quick(array, left, index - 1);
+//     if (index < right) quick(array, index, right);
+//   }
+//   return array;
+// };
+//
+// const quickSort = array => quick(array, 0, array.length - 1);
+// console.log(quickSort(array));
+
+const sums = a => {
+  let results = [];
+  for (let i = 0, j = 0; i < a.length; i++) {
+    for (let j = 0; j < a.length; j++) {
+      let s = "";
+      s = a[i] + a[j].toString();
+      results.push(s);
+    }
+  }
+  console.log(results);
+  let answer = results.reduce((acc, curr, initialValue = 0) => {
+    console.log(acc);
+    return parseInt(acc, 10) + parseInt(curr, 10);
+  });
+  return answer;
+};
+
+const a = [1000000, 1000000, 1000000, 1000000];
+console.log(sums(a));
+
+// Expected Output:
+// 160000016000000

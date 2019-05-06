@@ -11,6 +11,8 @@ import {
   PLAYLIST_REMOVE_MOVIE_SUCCESS,
   PLAYLIST_UPDATE_ACTIVE_REQUESTING,
   PLAYLIST_UPDATE_ACTIVE_SUCCESS,
+  PLAYLIST_DELETE_REQUESTING,
+  PLAYLIST_DELETE_SUCCESS,
   PLAYLIST_INITIALIZE,
   PLAYLISTS_ERROR,
   PLAYLISTS_REMOVE,
@@ -149,17 +151,49 @@ const applyPlaylistUpdateActiveSuccess = (state, action) => {
   return {
     ...state,
     active: activePlaylist,
-    playlistMovieIds: { ...state.playlistMovieIds, [activePlaylist]: movieIds },
+    requesting: false,
+    successful: true
+  };
+};
+
+const applyPlaylistDeleteRequesting = (state, action) => ({
+  ...state,
+  requesting: true,
+  successful: false
+});
+
+const applyPlaylistDeleteSuccess = (state, action) => {
+  let removedPlaylistId = action.responseJson.removedPlaylistId;
+  let activePlaylist =
+    state.active === +removedPlaylistId ? null : state.active;
+  let newList = state.lists.filter(playlist => {
+    return playlist.id !== +removedPlaylistId;
+  });
+  let newObj = Object.keys(state.playlistMovieIds).reduce((acc, key) => {
+    if (key !== removedPlaylistId) {
+      return { ...acc, [key]: state.playlistMovieIds[key] };
+    }
+    return acc;
+  }, {});
+  return {
+    ...state,
+    active: activePlaylist,
+    lists: newList,
+    playlistMovieIds: newObj,
     requesting: false,
     successful: true
   };
 };
 
 const applyPlaylistInitialize = (state, action) => {
-  const { active_id, all_movies, movies, playlists } = action.responseJson;
-  let playlistMovies = {};
-  if (active_id) playlistMovies = { [active_id]: movies };
-
+  const {
+    active_id,
+    all_movies,
+    movies,
+    playlists,
+    playlist_movies_by_id
+  } = action.responseJson;
+  let playlistMovies = playlist_movies_by_id;
   return {
     ...state,
     active: active_id,
@@ -223,6 +257,10 @@ function playlistsReducer(state = INITIAL_STATE, action) {
       return applyPlaylistUpdateActiveRequesting(state, action);
     case PLAYLIST_UPDATE_ACTIVE_SUCCESS:
       return applyPlaylistUpdateActiveSuccess(state, action);
+    case PLAYLIST_DELETE_REQUESTING:
+      return applyPlaylistDeleteRequesting(state, action);
+    case PLAYLIST_DELETE_SUCCESS:
+      return applyPlaylistDeleteSuccess(state, action);
     case PLAYLIST_INITIALIZE:
       return applyPlaylistInitialize(state, action);
     case PLAYLISTS_ERROR:

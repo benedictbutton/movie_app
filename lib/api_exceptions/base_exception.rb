@@ -12,7 +12,7 @@ module ApiExceptions
         ERROR_DESCRIPTION.call(4011, 'Invalid or expired token. Please sign-in again.'),
       'PlaylistError::NoExistingPlaylist' =>  ERROR_DESCRIPTION.call(4044, 'You have not yet created a playlist to add movies to.'),
       'PlaylistError::PlaylistEmpty' =>  ERROR_DESCRIPTION.call(4044, 'Playlist is empty'),
-      'PlaylistError::NoActivePlaylist' =>  ERROR_DESCRIPTION.call(4044, 'You have no active playlists'),
+      'PlaylistError::NoActivePlaylist' =>  ERROR_DESCRIPTION.call(4044, 'You must first select an active playlist from the Active Playlist dropdown menu'),
     }.freeze
 
     def initialize

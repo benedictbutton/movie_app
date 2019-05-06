@@ -39,6 +39,13 @@ class Api::V1::PlaylistsController < ApplicationController
     render json: {playlistId: playlist, movieId: id}, status: :accepted
   end
 
+  def destroy
+    removedPlaylistId = params['payload']
+    playlist = Playlist.find(removedPlaylistId)
+    playlist.destroy
+    render json: {removedPlaylistId: removedPlaylistId}
+  end
+
   def active
     id = params[:playlist][:id]
     Playlist.switch_active_playlist(current_user, id)
