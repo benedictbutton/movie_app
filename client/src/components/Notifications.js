@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { doUnSetError } from "../redux/actions/notificationActions";
 //material-ui
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -22,6 +24,12 @@ function getModalStyle() {
 }
 
 const styles = theme => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing.unit,
+    top: theme.spacing.unit,
+    color: theme.palette.grey[500]
+  },
   paper: {
     position: "absolute",
     width: theme.spacing.unit * 50,
@@ -33,7 +41,6 @@ const styles = theme => ({
 
 const Notifications = props => {
   const { children, classes } = props;
-
   return (
     <div>
       {children ? (
@@ -44,6 +51,13 @@ const Notifications = props => {
           onClose={props.doUnSetError}
         >
           <div style={getModalStyle()} className={classes.paper}>
+            <IconButton
+              aria-label="Close"
+              className={classes.closeButton}
+              onClick={props.doUnSetError}
+            >
+              <CloseIcon />
+            </IconButton>
             <Typography variant="h6" id="modal-title" align="center">
               {children.message}
             </Typography>

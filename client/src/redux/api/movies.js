@@ -127,7 +127,12 @@ async function postMovie(payload) {
       }
     );
     let responseJson = await response.json();
-    if (!response.ok) throw new Error(responseJson.error);
+    if (!response.ok|| responseJson.status === "error")
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     return { responseJson };
   } catch (error) {
     return { error };

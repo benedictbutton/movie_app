@@ -191,6 +191,34 @@ async function ditchPlaylistMovie(payload) {
   }
 }
 
+async function deletePlaylist(payload) {
+  try {
+    let id = payload.payload;
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/v1/playlists/${id}.json`,
+      {
+        credentials: "same-origin",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.jwt}`
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+    let responseJson = await response.json();
+    if (!response.ok || responseJson.status === "error")
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
 export {
   fetchPlaylists,
   fetchPlaylist,
@@ -198,5 +226,6 @@ export {
   postPlaylist,
   postPlaylistMovie,
   updateActivePlaylist,
-  ditchPlaylistMovie
+  ditchPlaylistMovie,
+  deletePlaylist
 };

@@ -42,14 +42,16 @@ const Add = props => {
       playlistId = "none";
     if (match[2] === "/ms/movies" && activePlaylist)
       playlistId = activePlaylist;
-  } else {
+  }
+
+  if (!playlistId) {
     if (props.match.params.id) playlistId = props.match.params.id;
     else playlistId = "none";
   }
 
   return (
     <Grid item align="right">
-      {playlistMovieIds[playlistId].includes(+id) ? (
+      {playlistId !== "none" && playlistMovieIds[playlistId].includes(+id) ? (
         <IconButton
           className={classes.button}
           align="right"

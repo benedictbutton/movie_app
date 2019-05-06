@@ -6,6 +6,7 @@ import {
   PLAYLIST_ADD_MOVIE_SUCCESS,
   PLAYLIST_REMOVE_MOVIE_SUCCESS,
   PLAYLIST_UPDATE_ACTIVE_SUCCESS,
+  PLAYLIST_DELETE_SUCCESS,
   PLAYLIST_INITIALIZE,
   PLAYLISTS_ERROR
 } from "../constants/actionTypes";
@@ -16,7 +17,8 @@ import {
   postPlaylist,
   postPlaylistMovie,
   updateActivePlaylist,
-  ditchPlaylistMovie
+  ditchPlaylistMovie,
+  deletePlaylist
 } from "../api/playlists";
 
 function* handleFetchPlaylists() {
@@ -66,6 +68,12 @@ function* handleDitchPlaylistMovie(payload) {
   else yield put({ type: PLAYLISTS_ERROR, error });
 }
 
+function* handleDeletePlaylist(payload) {
+  const { responseJson, error } = yield call(deletePlaylist, payload);
+  if (responseJson) yield put({ type: PLAYLIST_DELETE_SUCCESS, responseJson });
+  else yield put({ type: PLAYLISTS_ERROR, error });
+}
+
 export {
   handleFetchPlaylists,
   handleFetchPlaylist,
@@ -73,5 +81,6 @@ export {
   handlePostPlaylist,
   handlePostPlaylistMovie,
   handleUpdateActivePlaylist,
-  handleDitchPlaylistMovie
+  handleDitchPlaylistMovie,
+  handleDeletePlaylist
 };

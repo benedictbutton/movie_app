@@ -10,6 +10,7 @@ module PlaylistsMovies
       setup[:all_movies] = all_playlists_movies
       setup[:movies] = active_playlist_movies
       setup[:playlists] = user.playlists
+      setup[:playlist_movies_by_id] = playlist_movies_by_id
       return setup
     end
 
@@ -30,6 +31,16 @@ module PlaylistsMovies
 
     def active_playlist_id
       @user.playlists.find_by(active: true)&.id
+    end
+
+    def playlist_movies_by_id
+      playlist_movies = {}
+      playlistIds = @user.playlists.pluck(:id)
+      playlistIds.each do |id|
+      movies = Playlist.find(id).movies
+      playlist_movies[id] = movies
+    end
+      playlist_movies
     end
 
     def switch_active_playlist(user, id)

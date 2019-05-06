@@ -47,7 +47,10 @@ class PlaylistsContainer extends Component {
 
     return (
       <>
-        <PlaylistCards handleClickOpen={this.handleClickOpen} />
+        <PlaylistCards
+          playlists={this.props.playlists}
+          handleClickOpen={this.handleClickOpen}
+        />
         <div>
           <Dialog
             open={this.state.open}
@@ -98,10 +101,14 @@ const playlistForm = {
 PlaylistsContainer = reduxForm(playlistForm)(PlaylistsContainer);
 
 const mapStateToProps = state => ({
+  playlists: state.playlists,
   playlistErrors: getPlaylistErrors(state)
 });
 
 export default connect(
   mapStateToProps,
-  { onSubmit: doPlaylistAddRequesting, doPlaylistsRequesting }
+  {
+    onSubmit: doPlaylistAddRequesting,
+    doPlaylistsRequesting
+  }
 )(PlaylistsContainer);

@@ -120,9 +120,7 @@ const mapStateToProps = (state, props) => ({
   movieErrors: getMoviesAsErrors(state)
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { doMyMoviesRequesting, doRatingAdd, doSignOut }
-  )(withWidth()(withStyles(styles)(RatingsContainer)))
-);
+export default connect(
+  mapStateToProps,
+  { doMyMoviesRequesting, doRatingAdd, doSignOut }
+)(withWidth()(withStyles(styles)(RatingsContainer)));
