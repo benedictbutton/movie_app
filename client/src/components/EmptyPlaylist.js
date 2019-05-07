@@ -67,6 +67,7 @@ class EmptyPlaylist extends Component {
               id={id}
               playlistName={playlistName}
               hover={this.state.hover}
+              handleMouseLeave={this.handleMouseLeave}
             />
           </Grid>
         </Grid>

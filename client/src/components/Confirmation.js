@@ -20,11 +20,19 @@ const Confirmation = props => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="primary">
+        <Button
+          onClick={event => {
+            event.preventDefault();
+            props.handleClose();
+            props.handleMouseLeave();
+          }}
+          color="primary"
+        >
           Cancel
         </Button>
         <Button
-          onClick={() => {
+          onClick={event => {
+            event.preventDefault();
             props.handleDelete(props.id);
           }}
           color="primary"

@@ -36,13 +36,17 @@ class DeletePlaylist extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.listItemSecondaryAction}>
         {this.props.hover ? (
-          <Tooltip title="delete" placement="bottom-end">
-            <IconButton aria-label="Delete" onClick={this.handleOpen}>
-              <DeleteIcon style={{ color: "red" }} />
-            </IconButton>
-          </Tooltip>
+          <IconButton
+            aria-label="Delete"
+            onClick={event => {
+              event.preventDefault();
+              this.handleOpen();
+            }}
+          >
+            <DeleteIcon style={{ color: "red" }} />
+          </IconButton>
         ) : (
           <Grid item className={classes.grid}>
             {"   "}
@@ -55,6 +59,7 @@ class DeletePlaylist extends Component {
           handleOpen={this.handleOpen}
           handleClose={this.handleClose}
           handleDelete={this.handleDelete}
+          handleMouseLeave={this.props.handleMouseLeave}
         />
       </div>
     );
