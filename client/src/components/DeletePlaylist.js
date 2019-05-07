@@ -3,9 +3,17 @@ import { connect } from "react-redux";
 import { doPlaylistDeleteRequesting } from "../redux/actions/playlistActions";
 import Confirmation from "./Confirmation";
 // material-ui
+import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  grid: {
+    marginBottom: theme.spacing.unit * 7
+  }
+});
 
 class DeletePlaylist extends Component {
   state = {
@@ -26,6 +34,7 @@ class DeletePlaylist extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         {this.props.hover ? (
@@ -34,7 +43,11 @@ class DeletePlaylist extends Component {
               <DeleteIcon style={{ color: "red" }} />
             </IconButton>
           </Tooltip>
-        ) : null}
+        ) : (
+          <Grid item className={classes.grid}>
+            {"   "}
+          </Grid>
+        )}
         <Confirmation
           id={this.props.id}
           playlistName={this.props.playlistName}
@@ -51,4 +64,4 @@ class DeletePlaylist extends Component {
 export default connect(
   null,
   { doPlaylistDeleteRequesting }
-)(DeletePlaylist);
+)(withStyles(styles)(DeletePlaylist));
