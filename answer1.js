@@ -43,3 +43,47 @@ const variableName = "IsValId";
 // const variableName = "lg";
 
 console.log(camelCase(words, variableName));
+
+function mergeStrings(s1, s2) {
+  let result = "";
+  const array1 = s1.split("");
+  const array2 = s2.split("");
+
+  const set1 = {};
+  const set2 = {};
+
+  array1.map(el => {
+    if (!set1[el]) return (set1[el] = 1);
+    else return (set1[el] = set1[el] + 1);
+  });
+  array2.map(el => {
+    if (!set2[el]) return (set2[el] = 1);
+    else return (set2[el] = set2[el] + 1);
+  });
+
+  let i = 0;
+  let j = 0;
+  while (i < array1.length && j < array2.length) {
+    if (set1[array1[i]] < set2[array2[j]]) {
+      result += array1[i];
+      i++;
+    } else if (set1[array1[i]] > set2[array2[j]]) {
+      result += array2[j];
+      j++;
+    } else if (set1[array1[i]] === set2[array2[j]] && array1[i] < array2[j]) {
+      result += array1[i];
+      i++;
+    } else if (set1[array1[i]] === set2[array2[j]] && array1[i] > array2[j]) {
+      result += array2[j];
+      j++;
+    } else {
+      result += array1[i];
+      i++;
+    }
+  }
+
+  if (i < array1.length) result += array1.join("").slice(i, array1.length);
+  if (j < array2.length) result += array2.join("").slice(j, array2.length);
+
+  return result;
+}

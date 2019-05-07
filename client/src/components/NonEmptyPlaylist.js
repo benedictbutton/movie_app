@@ -41,7 +41,7 @@ class NonEmptyPlaylist extends Component {
   }
 
   render() {
-    const { classes, id } = this.props;
+    const { classes, id, playlistName } = this.props;
     return (
       <>
         <div
@@ -53,7 +53,11 @@ class NonEmptyPlaylist extends Component {
               {this.props.playlistName}
             </Typography>
           </Paper>
-          <DeletePlaylist id={id} hover={this.state.hover} />
+          <DeletePlaylist
+            id={id}
+            playlistName={playlistName}
+            hover={this.state.hover}
+          />
         </div>
       </>
     );

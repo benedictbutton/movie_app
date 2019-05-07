@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DeletePlaylist from "./DeletePlaylist";
 import Image from "../assets/brushed-metal.jpg";
+// material-ui
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -40,7 +41,7 @@ class EmptyPlaylist extends Component {
   }
 
   render() {
-    const { classes, id } = this.props;
+    const { classes, id, playlistName } = this.props;
     return (
       <>
         <div
@@ -59,7 +60,11 @@ class EmptyPlaylist extends Component {
               {this.props.playlistName}
             </Typography>
           </ButtonBase>
-          <DeletePlaylist id={id} hover={this.state.hover} />
+          <DeletePlaylist
+            id={id}
+            playlistName={playlistName}
+            hover={this.state.hover}
+          />
         </div>
       </>
     );
