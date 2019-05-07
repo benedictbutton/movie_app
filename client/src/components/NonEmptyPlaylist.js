@@ -44,21 +44,25 @@ class NonEmptyPlaylist extends Component {
     const { classes, id, playlistName } = this.props;
     return (
       <>
-        <div
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <Paper className={classes.paper}>
-            <Typography variant="h4" align="center">
-              {this.props.playlistName}
-            </Typography>
-          </Paper>
-          <DeletePlaylist
-            id={id}
-            playlistName={playlistName}
-            hover={this.state.hover}
-          />
-        </div>
+        <Grid container justify="center">
+          <Grid
+            item
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+          >
+            <Paper className={classes.paper}>
+              <Typography variant="h4" align="center">
+                {this.props.playlistName}
+              </Typography>
+            </Paper>
+            <DeletePlaylist
+              id={id}
+              playlistName={playlistName}
+              hover={this.state.hover}
+              handleMouseLeave={this.handleMouseLeave}
+            />
+          </Grid>
+        </Grid>
       </>
     );
   }

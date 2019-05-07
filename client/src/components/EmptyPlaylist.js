@@ -3,6 +3,7 @@ import DeletePlaylist from "./DeletePlaylist";
 import Image from "../assets/brushed-metal.jpg";
 // material-ui
 import ButtonBase from "@material-ui/core/ButtonBase";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -44,28 +45,32 @@ class EmptyPlaylist extends Component {
     const { classes, id, playlistName } = this.props;
     return (
       <>
-        <div
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <ButtonBase
-            className={classes.paper}
-            component={Paper}
-            onClick={this.props.handleClick({
-              vertical: "bottom",
-              horizontal: "left"
-            })}
+        <Grid container justify="center">
+          <Grid
+            item
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
           >
-            <Typography variant="h4" align="center">
-              {this.props.playlistName}
-            </Typography>
-          </ButtonBase>
-          <DeletePlaylist
-            id={id}
-            playlistName={playlistName}
-            hover={this.state.hover}
-          />
-        </div>
+            <ButtonBase
+              className={classes.paper}
+              component={Paper}
+              onClick={this.props.handleClick({
+                vertical: "bottom",
+                horizontal: "left"
+              })}
+            >
+              <Typography variant="h4" align="center">
+                {this.props.playlistName}
+              </Typography>
+            </ButtonBase>
+            <DeletePlaylist
+              id={id}
+              playlistName={playlistName}
+              hover={this.state.hover}
+              handleMouseLeave={this.handleMouseLeave}
+            />
+          </Grid>
+        </Grid>
       </>
     );
   }
