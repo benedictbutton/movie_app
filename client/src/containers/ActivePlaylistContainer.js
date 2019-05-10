@@ -2,48 +2,37 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { doPlaylistUpdateActiveRequesting } from "../redux/actions/playlistActions";
 import { getPlaylists, getActivePlaylist } from "../redux/selectors/selectors";
-import Image from "../assets/brushed-metal.jpg";
-//material-ui
-import Input from "@material-ui/core/Input";
-import Grid from "@material-ui/core/Grid";
-import MenuItem from "@material-ui/core/MenuItem";
+// material-ui
+import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import PlaylistPlayOutlinedIcon from "@material-ui/icons/PlaylistPlayOutlined";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
-  font: {
-    color: "#ecca00"
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap"
   },
-  formControl: {
-    minWidth: 120,
-    maxWidth: 300
-  },
-  noLabel: {
-    marginTop: theme.spacing.unit * 3
-  },
-  select: {
-    borderStyle: "solid",
-    borderColor: "#ecca00",
-    paddingLeft: theme.spacing.unit
-  },
-  icon: {
-    color: "#ecca00"
-  },
-  regular: {
-    fontWeight: theme.typography.fontWeightRegular
-  },
-  medium: {
-    fontWeight: theme.typography.fontWeightMedium
+  chip: {
+    margin: theme.spacing.unit,
+    color: "yellow",
+    backgroundColor: "#0b0b0b",
+    border: "solid"
   },
   lightTooltip: {
     backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[1]
-  },
-  type: {
-    marginBottom: 0
   }
 });
 
@@ -62,8 +51,24 @@ const MenuProps = {
 };
 
 class ActivePlaylistContainer extends Component {
-  handleChange = event => {
-    this.props.doPlaylistUpdateActiveRequesting(event.target.value);
+  state = {
+    open: false
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleChange = (event, playlists) => {
+    let playlist = playlists.filter(
+      playlist => playlist.name === event.target.value
+    );
+    this.props.doPlaylistUpdateActiveRequesting(playlist[0]);
+    this.handleClose();
   };
 
   render() {
@@ -74,26 +79,18 @@ class ActivePlaylistContainer extends Component {
     let list = playlists.map((playlist, index) => {
       if (activePlaylist === playlist.id) activePlaylistIndex = index;
       return (
-        <MenuItem
+        <FormControlLabel
+          value={playlist.name}
           key={playlist.id}
-          color="primary"
-          value={playlist}
-          className={classes.medium}
-        >
-          <Typography className={classes.type} color="primary" variant="h6">
-            {playlist.name}
-          </Typography>
-        </MenuItem>
+          control={<Radio checked={activePlaylist === playlist.id} />}
+          label={playlist.name}
+        />
       );
     });
+
     return (
       <>
-        <Grid item xs={2}>
-          <Typography variant="h6" className={classes.font}>
-            <em>Active Playlist:</em>
-          </Typography>
-        </Grid>
-        <Grid item xs={2} align="left">
+        <div className={classes.root}>
           <Tooltip
             classes={{ tooltip: classes.lightTooltip }}
             title={
@@ -105,30 +102,44 @@ class ActivePlaylistContainer extends Component {
               </React.Fragment>
             }
             placement="right-end"
+            disableFocusListener
           >
-            <FormControl className={classes.formControl}>
-              <Select
-                classes={{ icon: classes.icon }}
-                displayEmpty
-                className={classes.select}
-                value={playlists[activePlaylistIndex] || empty}
-                onChange={this.handleChange}
-                onSelect={this.handleSelect}
-                input={
-                  <Input id="select-multiple-placeholder" disableUnderline />
-                }
-                MenuProps={MenuProps}
-              >
-                <MenuItem disabled value="">
-                  <Typography variant="h6" color="primary">
-                    <em>None</em>
-                  </Typography>
-                </MenuItem>
-                {list}
-              </Select>
-            </FormControl>
+            <Chip
+              icon={<PlaylistPlayOutlinedIcon style={{ color: "#ecca00" }} />}
+              label={`Active Playlist: ${playlists[activePlaylistIndex].name ||
+                empty}`}
+              clickable
+              className={classes.chip}
+              onClick={this.handleClickOpen}
+              variant="outlined"
+            />
           </Tooltip>
-        </Grid>
+        </div>
+        <Dialog
+          disableBackdropClick
+          disableEscapeKeyDown
+          open={this.state.open}
+        >
+          <DialogTitle>Select Active Playlist</DialogTitle>
+          <DialogContent>
+            <FormControl>
+              <RadioGroup
+                aria-label="active playlist"
+                name="active playlist"
+                onChange={event => {
+                  this.handleChange(event, playlists);
+                }}
+              >
+                {list}
+              </RadioGroup>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </>
     );
   }

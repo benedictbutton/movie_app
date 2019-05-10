@@ -121,43 +121,6 @@
 //
 // console.log(camelCaseSeparation(words, variableName));
 
-// /function sequenceElement(a, n) {
-// const value = a => {
-//   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
-//   return result;
-// };
-//
-// let count = 4;
-// while (count < n) {
-//   a[5] = value(a);
-//   a.shift();
-//   count++;
-// }
-// console.log(a);
-// return a[a.length - 1];
-// let count = 4;
-// const value = (a, count, n) => {
-//   // console.log(count + "///" + n + "///" + a);
-//   if (count === n) return a[4];
-//   let result = (a[0] + a[1] + a[2] + a[3] + a[4]) % 10;
-//   a.push(result);
-//   a.shift();
-//   return value(a, count + 1, n);
-// };
-// return value(a, count, n);
-// if (count === n) return result;
-// }
-// const a = [7, 5, 4, 4, 8];
-// const n = 521687676;
-// const a = [1, 2, 3, 4, 5];
-// const n = 9;
-// console.log(sequenceElement(a, n));
-// ((^\w+)\/(.+))
-// const string = "ms/movies/multi/trending/all/week";
-// const string = "ms/movies/multi/movie/top_rated";
-// const match = string.match(/(\w+)[^\/]\w+/, "g");
-// const match = string.match(/((^\w+\/\w+)\/(\w+)\/(.+))/);
-
 // let array = [27, 10, 12, 25, 34, 16, 15, 31];
 //
 // const partition = (array, left, right) => {
