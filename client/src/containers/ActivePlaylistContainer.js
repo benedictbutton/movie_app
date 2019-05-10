@@ -73,11 +73,11 @@ class ActivePlaylistContainer extends Component {
 
   render() {
     const { classes, playlists, activePlaylist } = this.props;
-    let empty = "";
-    let activePlaylistIndex;
+    let activeIdx;
 
     let list = playlists.map((playlist, index) => {
-      if (activePlaylist === playlist.id) activePlaylistIndex = index;
+      if (activePlaylist === playlist.id) activeIdx = index;
+
       return (
         <FormControlLabel
           value={playlist.name}
@@ -106,8 +106,9 @@ class ActivePlaylistContainer extends Component {
           >
             <Chip
               icon={<PlaylistPlayOutlinedIcon style={{ color: "#ecca00" }} />}
-              label={`Active Playlist: ${playlists[activePlaylistIndex].name ||
-                empty}`}
+              label={`Active Playlist: ${
+                activePlaylist ? playlists[activeIdx].name : ""
+              }`}
               clickable
               className={classes.chip}
               onClick={this.handleClickOpen}
