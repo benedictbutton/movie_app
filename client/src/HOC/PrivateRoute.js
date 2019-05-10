@@ -12,6 +12,7 @@ import {
 import Notifications from "../components/Notifications";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  // debugger;
   let error =
     rest.userError.code === 4011 ||
     rest.playlistError.code === 4011 ||

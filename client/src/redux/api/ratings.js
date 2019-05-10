@@ -1,5 +1,6 @@
 import { normalize } from "normalizr";
 import { ratingSchema } from "../schemas/schema";
+import CustomError from "../../util/CustomError";
 
 async function fetchRatings() {
   try {
@@ -15,7 +16,12 @@ async function fetchRatings() {
       }
     );
     let data = await response.json();
-    if (!response.ok) throw new Error(data.error);
+    if (!response.ok || response.status === "error")
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
     data = data.ratings;
     if (data.length === 0) {
       let responseJson = { entities: { rating: {} } };
