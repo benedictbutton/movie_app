@@ -37,7 +37,6 @@ const Add = props => {
   const { id, classes, activePlaylist, playlistMovieIds } = props;
   const match = `${props.match.url}`.match(/(^\/\w+\/\w+)/);
   // I should pass the appropriate key down from the containers instead of grabbing it from the store. Pain in my bug. TBC.
-  // ((^\/\w+\/\w+)\/(\w+)\/(.+))/);
   if (match) {
     if (match[1] === "/ms/search") playlistId = "none";
     if (
