@@ -12,6 +12,7 @@ const styles = theme => ({
   paper: {
     display: "table-cell",
     background: `url(${Image})`,
+    maxWidth: 225,
     width: 225,
     height: 300,
     verticalAlign: "middle",

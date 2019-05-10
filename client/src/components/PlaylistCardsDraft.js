@@ -9,36 +9,35 @@ import NonEmptyPlaylist from "./NonEmptyPlaylist";
 // material-ui
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Fade from "@material-ui/core/Fade";
-import Grid from "@material-ui/core/Grid";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import IconButton from "@material-ui/core/IconButton";
-import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
-    flex: 1,
-    margin: theme.spacing.unit * 3
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden"
   },
   grid: {
-    marginBottom: theme.spacing.unit * 7
+    width: 500,
+    height: 450
   },
-  paper: {
-    display: "table-cell",
+  snack: {
+    color: "white",
+    backgroundColor: theme.palette.primary.dark
+  },
+  tile: {
     background: `url(${Image})`,
-    width: 225,
-    height: 300,
-    verticalAlign: "middle",
     "&:hover": {
       borderStyle: "solid",
       borderColor: "#ecca00",
       borderWidth: 5
     }
-  },
-  snack: {
-    color: "white",
-    backgroundColor: theme.palette.primary.dark
   },
   type: {
     margin: theme.spacing.unit * 3
@@ -69,64 +68,41 @@ class PlaylistCards extends Component {
     const { vertical, horizontal, open } = this.state;
     let playlists = this.props.playlists.lists.map(playlist => {
       let id = playlist.id.toString();
-      return (
-        <Grid
-          item
-          xs={6}
-          md={4}
-          lg={3}
-          key={id}
-          className={classes.grid}
-          align="center"
-        >
-          {playlistMovieIds[id].length !== 0 ? (
-            <>
-              <Link
-                to={`/ms/playlist/${id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <NonEmptyPlaylist id={id} playlistName={playlist.name} />
-              </Link>
-            </>
-          ) : (
-            <EmptyPlaylist
-              id={id}
-              playlistName={playlist.name}
-              handleClick={this.handleClick}
-            />
-          )}
-        </Grid>
+      return playlistMovieIds[id].length !== 0 ? (
+        <>
+          <Link to={`/ms/playlist/${id}`} style={{ textDecoration: "none" }}>
+            <NonEmptyPlaylist id={id} playlistName={playlist.name} />
+          </Link>
+        </>
+      ) : (
+        <EmptyPlaylist
+          id={id}
+          playlistName={playlist.name}
+          handleClick={this.handleClick}
+        />
       );
     }, this.props.playlists.playlistMovieIds);
 
     return (
       <>
-        <Grid
-          container
-          spacing={16}
-          className={classes.root}
-          justify="flex-start"
-          alignItems="flex-start"
-        >
-          <Grid
-            item
-            xs={6}
-            md={4}
-            lg={3}
+        <div className={classes.root}>
+          <GridList
             className={classes.grid}
-            align="center"
+            cellHeight={220}
+            spacing={10}
+            cols={2}
           >
-            <Paper className={classes.paper}>
+            <GridListTile className={classes.tile} col={1}>
               <Typography className={classes.type} variant="h3" align="center">
                 Create Playlist
               </Typography>
-              <IconButton className={classes.button} onClick={handleClickOpen}>
+              <IconButton onClick={handleClickOpen}>
                 <AddCircleIcon color="primary" fontSize="large" />
               </IconButton>
-            </Paper>
-          </Grid>
-          {playlists}
-        </Grid>
+            </GridListTile>
+            {playlists}
+          </GridList>
+        </div>
         <Snackbar
           className={classes.snack}
           anchorOrigin={{ vertical, horizontal }}

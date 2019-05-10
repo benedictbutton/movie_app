@@ -29,20 +29,13 @@ function camelCase(words, variableName) {
   }
   return true;
 }
+//
+// const words = ["is", "valid", "today"];
+// const variableName = "IsValId";
+//
+// console.log(camelCase(words, variableName));
 
-const words = ["is", "valid", "today"];
-const variableName = "IsValId";
-
-// const words = ["ea"];
-// const variableName = "Ea";
-
-// const words = ["a"];
-// const variableName = "AAAAAAAAAAAAAAAAAAAAA";
-
-// const words = ["paxltbm", "hhbut", "ehqn", "odqetasf", "zt"];
-// const variableName = "lg";
-
-console.log(camelCase(words, variableName));
+///////////////////////////////////////////////////////
 
 function mergeStrings(s1, s2) {
   let result = "";
@@ -87,3 +80,140 @@ function mergeStrings(s1, s2) {
 
   return result;
 }
+
+///////////////////////////////////////////////////////
+
+function upToKDifferences(str, k) {
+  let obj = [];
+  const result = [];
+
+  const array = str.split("");
+  let s = "";
+  for (let i = 0; i < array.length; i++) {
+    if (!obj.includes(array[i]) && obj.length + 1 > k) {
+      obj = [];
+      obj.push(array[i]);
+      result.push(s);
+      if (i + 1 === array.length) {
+        result.push(array[i]);
+        break;
+      }
+      s = "";
+      s += array[i];
+      continue;
+    }
+    if (i + 1 === array.length) {
+      s += array[i];
+      result.push(s);
+      continue;
+    }
+    if (obj.includes(array[i])) {
+      s += array[i];
+      continue;
+    } else {
+      obj.push(array[i]);
+      s += array[i];
+    }
+  }
+  return result.length;
+}
+
+///////////////////////////////////////////////////////
+
+function alternatingSort(a) {
+  const b = [];
+
+  let i = 0;
+  let k = 0;
+  let l = 1;
+  let len = a.length;
+
+  while (i < len) {
+    if (i % 2 === 0) {
+      b[i] = a[k];
+      k++;
+      i++;
+    } else {
+      b[i] = a[a.length - l];
+      l++;
+      i++;
+    }
+  }
+
+  return b.every((el, idx) => {
+    return el < b[idx + 1] || b[idx + 1] === undefined;
+  });
+}
+
+///////////////////////////////////////////////////////
+
+const subStringF = (string, k) => {
+  // const set1 = {};
+  // const set2 = {};
+  // const kValues = {};
+  // i = 0, j = k+1;
+  // q = k+2, t = sting.length;
+  // k = 1
+  // a b a c a b a
+  //
+  // a
+  //
+  // let i = 0;
+  // let j = k+1;
+  // let q = k + 2;
+  // let t = string.length;
+
+  // i = 0 ===== j = limit;
+  //
+  // q=limit+1 ===== t=length-1
+  //
+  // i=0
+  // q=limit+1
+
+  let set = {};
+  for (let char of string) set[char] = set[char] + 1 || 1;
+
+  let kValues = {};
+  let idxes = [];
+  for (let idx in string) {
+    if (set[string[idx]] === 1) {
+      kValues[idx] = string[idx];
+      idxes.push(idx);
+    }
+  }
+
+  let kCount = 0;
+  let limit = Math.floor(string.length / 2);
+  let results = [];
+  for (let start = 0; start < limit - 1; start++) {
+    let i = start;
+    let j = limit;
+    let q = limit + 1;
+    let t = string.length - 1;
+    const idxesCopy = [...idxes];
+    let s1 = "";
+    let s2 = "";
+    let differences = 0;
+    while (differences < k * 2 && i < limit) {
+      if (string[i] === string[q]) {
+        s1 += string[i];
+        s2 += string[q];
+        i++;
+        q++;
+      } else {
+        s1 += string[i];
+        s2 += string[q];
+        i++;
+        q++;
+        differences += 2;
+      }
+    }
+    results.push(s1 + "///" + s2);
+  }
+  return results;
+};
+// !!!!!!!!differ at their k character!!!!!!!!!
+let string = "abacaba";
+let k = 1;
+
+console.log(subStringF(string, k));
