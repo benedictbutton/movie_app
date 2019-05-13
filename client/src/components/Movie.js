@@ -1,10 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import Stars from "./Stars";
 import Image from "../assets/brushed-metal.jpg";
 //material-ui
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import CheckIcon from "@material-ui/icons/Check";
+import ClearIcon from "@material-ui/icons/Clear";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -13,6 +19,14 @@ const styles = theme => ({
     flex: 1,
     justifyContent: "space-around",
     alignItems: "flex-start"
+  },
+  buttonOne: {
+    color: "#E8E8E8",
+    backgroundColor: "#E50000"
+  },
+  buttonTwo: {
+    color: "#E8E8E8",
+    backgroundColor: "#4B0082"
   },
   layout: {
     padding: theme.spacing.unit * 3,
@@ -43,8 +57,16 @@ const styles = theme => ({
 });
 
 const Movie = props => {
-  const { classes } = props;
-  let { id, title, imageUrl, overview } = props.location.state;
+  const {
+    classes,
+    movie,
+    imageUrl,
+    check,
+    handlePlaylistClick,
+    handleRatingClick,
+    activePlaylist,
+    playlistMovieIds
+  } = props;
 
   return (
     <Grid container display="flex">
@@ -54,19 +76,54 @@ const Movie = props => {
             <Grid item xs={12} sm={5} className={classes.grid}>
               <img src={imageUrl} className={classes.media} />
               <Paper className={classes.stars}>
-                <Stars id={id} starSize={20} />
+                <Stars id={movie.id} movie={movie} starSize={20} />
               </Paper>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Tooltip title="Clear rating" placement="bottom">
+                    <Button
+                      className={classes.buttonOne}
+                      component={Paper}
+                      alt="clear rating"
+                      fullWidth
+                      onClick={() => {
+                        handleRatingClick(movie);
+                      }}
+                    >
+                      <ClearIcon />
+                    </Button>
+                  </Tooltip>
+                </Grid>
+                <Grid item xs={6}>
+                  <Tooltip
+                    title={check ? "Remove from playlist" : "Add to playlist"}
+                    placement="bottom"
+                  >
+                    <Button
+                      className={classes.buttonTwo}
+                      component={Paper}
+                      alt="clear rating"
+                      fullWidth
+                      onClick={() => {
+                        handlePlaylistClick(check, activePlaylist, movie);
+                      }}
+                    >
+                      {check ? <CheckIcon /> : <AddIcon />}
+                    </Button>
+                  </Tooltip>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item sm={7}>
               <Typography variant="h4" className={classes.title}>
-                {title}
+                {movie.title}
               </Typography>
               <Typography
                 component="p"
                 align="center"
                 className={classes.overview}
               >
-                {overview}
+                {movie.overview}
               </Typography>
             </Grid>
           </Grid>
@@ -76,4 +133,4 @@ const Movie = props => {
   );
 };
 
-export default withRouter(withStyles(styles)(Movie));
+export default withStyles(styles)(Movie);

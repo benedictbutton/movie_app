@@ -33,13 +33,7 @@ class MovieCard extends Component {
   };
 
   render() {
-    const {
-      movie: { id, title, overview },
-      imageUrl,
-      width,
-      handleRating,
-      classes
-    } = this.props;
+    const { movie, imageUrl, width, classes } = this.props;
 
     const starSize = {
       xs: 14,
@@ -56,43 +50,36 @@ class MovieCard extends Component {
       <>
         <div
           className={classes.root}
-          aria-owns={open ? id : undefined}
+          aria-owns={open ? movie.id : undefined}
           aria-haspopup="true"
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         >
           <ActionIconsContainer
-            id={id}
+            id={movie.id}
             actionPosition="right"
             titlePosition="top"
-            actionIcon={<Add id={id} movie={this.props.movie} />}
+            actionIcon={<Add id={movie.id} movie={movie} />}
             open={open}
             onClose={this.handleMouseLeave}
             starsVisible={this.state.starsVisible}
           />
           <Link
             to={{
-              pathname: `/ms/movie/${id}`,
+              pathname: `/ms/movie/${movie.id}`,
               state: {
-                id: id,
-                title: title,
                 imageUrl: imageUrl,
-                overview: overview
+                movie: movie
               }
             }}
           >
             <img src={imageUrl} alt="test" width="100%" height="100%" />
           </Link>
           <ActionIconsContainer
-            id={id}
+            id={movie.id}
             actionPosition="left"
             actionIcon={
-              <Stars
-                id={id}
-                movie={this.props.movie}
-                handleRating={handleRating}
-                starSize={starSize[width]}
-              />
+              <Stars id={movie.id} movie={movie} starSize={starSize[width]} />
             }
             open={open}
             onClose={this.handleMouseLeave}

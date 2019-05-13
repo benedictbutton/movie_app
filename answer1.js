@@ -147,6 +147,31 @@ function alternatingSort(a) {
 
 ///////////////////////////////////////////////////////
 
+function meanGroups(a) {
+  let means = [];
+  for (let i = 0; i < a.length; i++) {
+    let sum = a[i].reduce((acc, curr, intialValue = 0) => acc + curr);
+    let mean = sum / a[i].length;
+    means.push(mean);
+  }
+
+  let results = [];
+  let checked = [];
+  for (let i = 0; i < means.length; i++) {
+    let result = [];
+    if (checked.includes(means[i])) continue;
+    checked.push(means[i]);
+    result.push(i);
+    for (let j = i + 1; j < means.length; j++) {
+      if (means[j] === means[i]) result.push(j);
+    }
+    results.push(result);
+  }
+  return results;
+}
+
+///////////////////////////////////////////////////////
+
 const subStringF = (string, k) => {
   // const set1 = {};
   // const set2 = {};

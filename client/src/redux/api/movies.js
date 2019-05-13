@@ -127,7 +127,7 @@ async function postMovie(payload) {
       }
     );
     let responseJson = await response.json();
-    if (!response.ok|| responseJson.status === "error")
+    if (!response.ok || responseJson.status === "error")
       throw new CustomError(
         responseJson.message,
         responseJson.code,

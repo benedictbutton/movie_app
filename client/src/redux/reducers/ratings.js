@@ -1,6 +1,8 @@
 import {
   RATINGS_REQUESTING,
   RATINGS_SUCCESS,
+  RATING_REMOVE_REQUESTING,
+  RATING_REMOVE_SUCCESS,
   RATINGS_ERROR,
   RATING_ADD,
   RATINGS_REMOVE,
@@ -30,6 +32,31 @@ const applyRatingsSuccess = (state, action) => {
     list: { ...state.list, ...ratings },
     requesting: false,
     successful: true
+  };
+};
+
+const applyRatingRemoveRequesting = (state, action) => ({
+  ...state,
+  requesting: true,
+  successful: false
+});
+
+const applyRatingRemoveSuccess = (state, action) => {
+  let movieId = action.responseJson.movieId;
+  // const { [parentKey]: parentValue, ...noChild } = deep;
+  const { list: parentValue, ...noChild } = state;
+  // const { [childKey]: removedValue, ...childWithout } = parentValue;
+  const { [movieId]: removedValue, ...childWithout } = parentValue;
+  // const withoutThird = { ...noChild, [parentKey]: childWithout };
+  const withoutRating = {
+    ...noChild,
+    list: childWithout,
+    requesting: false,
+    successful: true
+  };
+  return {
+    ...state,
+    ...withoutRating
   };
 };
 
@@ -85,6 +112,10 @@ function ratingsReducer(state = INITIAL_STATE, action) {
       return applyRatingsRequesting(state, action);
     case RATINGS_SUCCESS:
       return applyRatingsSuccess(state, action);
+    case RATING_REMOVE_REQUESTING:
+      return applyRatingRemoveRequesting(state, action);
+    case RATING_REMOVE_SUCCESS:
+      return applyRatingRemoveSuccess(state, action);
     case RATINGS_ERROR:
       return applyRatingsError(state, action);
     case TOGGLE_DISPLAY:

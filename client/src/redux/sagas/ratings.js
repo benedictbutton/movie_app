@@ -1,6 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { RATINGS_SUCCESS, RATINGS_ERROR } from "../constants/actionTypes";
-import { fetchRatings } from "../api/ratings";
+import {
+  RATINGS_SUCCESS,
+  RATING_REMOVE_SUCCESS,
+  RATINGS_ERROR
+} from "../constants/actionTypes";
+import { fetchRatings, ditchRating } from "../api/ratings";
 
 function* handleFetchRatings(action) {
   const { responseJson, error } = yield call(fetchRatings, action);
@@ -8,4 +12,10 @@ function* handleFetchRatings(action) {
   else yield put({ type: RATINGS_ERROR, error });
 }
 
-export { handleFetchRatings };
+function* handleDitchRating(payload) {
+  const { responseJson, error } = yield call(ditchRating, payload);
+  if (responseJson) yield put({ type: RATING_REMOVE_SUCCESS, responseJson });
+  else yield put({ type: RATINGS_ERROR, error });
+}
+
+export { handleFetchRatings, handleDitchRating };

@@ -1,20 +1,76 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getMovies } from "../redux/selectors/selectors";
+import { withRouter } from "react-router-dom";
+import {
+  doPlaylistAddMovieRequesting,
+  doPlaylistRemoveMovieRequesting
+} from "../redux/actions/playlistActions";
+import { doRatingRemoveRequesting } from "../redux/actions/ratingActions";
+import {
+  getRatingsList,
+  getActivePlaylist,
+  getPlaylistMovieIds
+} from "../redux/selectors/selectors";
 import Movie from "../components/Movie";
 
-const MovieContainer = props => {
-  return <Movie movie={props.location.state} />;
-};
+class MovieContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.handleRatingClick = this.handleRatingClick.bind(this);
+  }
 
-const mapStateToProps = state => ({
-  movies: getMovies(state)
+  handlePlaylistClick = (check, activePlaylist, movie) => {
+    check
+      ? this.props.doPlaylistRemoveMovieRequesting(activePlaylist, movie.id)
+      : this.props.doPlaylistAddMovieRequesting(activePlaylist, movie);
+  };
+
+  handleRatingClick(movie) {
+    let movieId = movie.id;
+    this.props.doRatingRemoveRequesting(movieId);
+  }
+
+  render() {
+    const {
+      ratingsList,
+      activePlaylist,
+      playlistMovieIds,
+      doPlaylistRemoveMovieRequesting,
+      doPlaylistAddMovieRequesting,
+      doRatingRemoveRequesting,
+      doMovieDitching
+    } = this.props;
+    const { movie, imageUrl } = this.props.location.state;
+    let check =
+      activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
+
+    return (
+      <Movie
+        movie={movie}
+        imageUrl={imageUrl}
+        check={check}
+        handlePlaylistClick={this.handlePlaylistClick}
+        handleRatingClick={this.handleRatingClick}
+        activePlaylist={activePlaylist}
+        playlistMovieIds={playlistMovieIds}
+      />
+    );
+  }
+}
+
+const mapStateToProps = (state, props) => ({
+  ratingsList: getRatingsList(state),
+  activePlaylist: getActivePlaylist(state),
+  playlistMovieIds: getPlaylistMovieIds(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    {
+      doRatingRemoveRequesting,
+      doPlaylistAddMovieRequesting,
+      doPlaylistRemoveMovieRequesting
+    }
   )(MovieContainer)
 );

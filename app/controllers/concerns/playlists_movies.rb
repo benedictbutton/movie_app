@@ -37,7 +37,7 @@ module PlaylistsMovies
       playlist_movies = {}
       playlistIds = @user.playlists.pluck(:id)
       playlistIds.each do |id|
-      movies = Playlist.find(id).movies
+      movies = Playlist.find(id).movies.pluck(:id)
       playlist_movies[id] = movies
     end
       playlist_movies

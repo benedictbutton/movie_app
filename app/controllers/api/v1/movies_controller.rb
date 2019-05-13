@@ -34,7 +34,6 @@ class Api::V1::MoviesController < ApplicationController
     end
   end
 
-
 private
 
   def movie_params
