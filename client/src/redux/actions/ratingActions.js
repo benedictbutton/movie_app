@@ -1,5 +1,6 @@
 import {
   RATINGS_REQUESTING,
+  RATING_REMOVE_REQUESTING,
   RATING_ADD,
   RATINGS_REMOVE
 } from "../constants/actionTypes";
@@ -7,6 +8,11 @@ import {
 const doRatingsRequesting = values => ({
   type: RATINGS_REQUESTING,
   values
+});
+
+const doRatingRemoveRequesting = (movieId, ratingId) => ({
+  type: RATING_REMOVE_REQUESTING,
+  movieId
 });
 
 const doRatingAdd = event => ({
@@ -18,4 +24,9 @@ const doRatingsRemove = () => ({
   type: RATINGS_REMOVE
 });
 
-export { doRatingsRequesting, doRatingAdd, doRatingsRemove };
+export {
+  doRatingsRequesting,
+  doRatingRemoveRequesting,
+  doRatingAdd,
+  doRatingsRemove
+};

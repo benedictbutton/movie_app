@@ -34,4 +34,32 @@ async function fetchRatings() {
   }
 }
 
-export { fetchRatings };
+async function ditchRating(payload) {
+  try {
+    const { movieId } = payload;
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL}/api/v1/ratings/${movieId}`,
+      {
+        credentials: "same-origin",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.jwt}`
+        },
+        body: JSON.stringify(movieId)
+      }
+    );
+    let responseJson = await response.json();
+    if (!response.ok || responseJson.status === "error")
+      throw new CustomError(
+        responseJson.message,
+        responseJson.code,
+        responseJson.status
+      );
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export { fetchRatings, ditchRating };

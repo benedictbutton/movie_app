@@ -34,6 +34,8 @@ export const getMoviesRated = (state, id) => {
 
 export const getRatingsAsIds = state => Object.keys(state.ratings.list);
 
+export const getRatingsList = state => state.ratings.list;
+
 export const getRatedMovies = state => state.movies.ratedList;
 
 export const getSearchedMovies = state => state.movies.searchList;

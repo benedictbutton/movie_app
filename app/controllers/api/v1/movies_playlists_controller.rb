@@ -4,7 +4,7 @@ class Api::V1::MoviesPlaylistsController < ApplicationController
     playlistId = params[:payload][:playlistId]
     movieId = params[:payload][:movieId]
 
-    Playlist.find(playlistId).movies.delete(movieId)
+    Playlist.find(playlistId).movies.destroy(movieId)
 
     render json: {playlistId: playlistId, movieId: movieId}, status: :accepted
   end

@@ -35,12 +35,14 @@ const styles = theme => ({
 const Add = props => {
   let playlistId;
   const { id, classes, activePlaylist, playlistMovieIds } = props;
-  const match = `${props.match.url}`.match(/(^\/\w+\/\w+)/);
+  let match = `${props.match.url}`.match(/(^\/\w+\/\w+)/);
   // I should pass the appropriate key down from the containers instead of grabbing it from the store. Pain in my bug. TBC.
   if (match) {
     if (match[1] === "/ms/search") playlistId = "none";
     if (
-      (match[1] === "/ms/movies" || match[1] === "/ms/ratings") &&
+      (match[1] === "/ms/movies" ||
+        match[1] === "/ms/ratings" ||
+        match[1] === "/ms/movie") &&
       activePlaylist
     )
       playlistId = activePlaylist;
