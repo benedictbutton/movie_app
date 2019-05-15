@@ -5,6 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import { doSignInRequesting } from "../redux/actions/formActions";
 import { getClient } from "../redux/selectors/selectors";
 import FormInput from "../components/FormInput";
+import LoadingIndicator from "../components/LoadingIndicator";
 import Notifications from "../components/Notifications";
 //material-ui
 import Avatar from "@material-ui/core/Avatar";
@@ -67,6 +68,7 @@ class SignInContainer extends Component {
     return (
       <>
         <main className={classes.layout}>
+          <LoadingIndicator>{client}</LoadingIndicator>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />
