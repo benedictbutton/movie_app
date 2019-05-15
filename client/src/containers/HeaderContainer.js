@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import DrawerContainer from "./DrawerContainer";
@@ -31,7 +32,7 @@ const styles = theme => ({
 });
 
 const HeaderContainer = props => {
-  const { classes } = props;
+  const { classes, client } = props;
 
   return (
     <>
@@ -50,10 +51,19 @@ const HeaderContainer = props => {
         alignItems="center"
         justify="flex-start"
       >
-        <ActivePlaylistContainer />
+        {client.successful && <ActivePlaylistContainer />}
       </Grid>
     </>
   );
 };
 
-export default withRouter(withStyles(styles)(HeaderContainer));
+const mapStateToProps = state => ({
+  client: state.client
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    null
+  )(withStyles(styles)(HeaderContainer))
+);
