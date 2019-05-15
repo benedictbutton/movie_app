@@ -1,6 +1,5 @@
 class Api::V1::MoviesController < ApplicationController
-  include Stars
-  # skip_before_action :authenticate_request, only: %i[new create] (authenticating might be useful)
+    # skip_before_action :authenticate_request, only: %i[new create] (authenticating might be useful)
 
   def index
     movies = []
@@ -12,24 +11,16 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    score = params[:score]
-    stars = Rating.add_stars(score)
     if Movie.exists?(params[:id])
-      @movie = Movie.find(params[:id])
-      if @movie.ratings.find_by(user_id: @current_user.id)
-        @rating = @movie.ratings.find_by(user_id: @current_user.id)
-        @rating.update(score: params[:score], stars: stars)
-      else
-        @rating = @movie.ratings.create!(movie_id: @movie.id, user_id: @current_user.id, score: params[:score], stars: stars)
-      end
-      render json: @rating, status: :created
+      rating = Movie.existing_movie_rated(params, current_user)
+      render json: rating, status: :created
     else
-      @movie = Movie.new(id: params[:id], title: params[:title], poster_path: params[:poster_path], release_date: params[:release_date], description: params[:description], vote_count: params[:vote_count], vote_rating: params[:vote_rating])
-      if @movie.save
-        @rating = @movie.ratings.create(movie_id: @movie.id, user_id: @current_user.id, score: params[:score], stars: stars)
-        render json: @rating, status: :created
+      movie = Movie.create_new_movie(params)
+      if movie.save
+        rating = Movie.create_new_rating(params, movie, current_user)
+        render json: rating, status: :created
       else
-        render json: @movie.errors, status: :unprocessable_entity
+        render json: movie.errors, status: :unprocessable_entity
       end
     end
   end

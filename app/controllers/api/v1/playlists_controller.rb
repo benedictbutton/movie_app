@@ -1,5 +1,4 @@
 class Api::V1::PlaylistsController < ApplicationController
-  include PlaylistsMovies
 
   def index
     @playlists = current_user.playlists

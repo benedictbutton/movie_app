@@ -1,0 +1,34 @@
+module MovieRating
+  extend ActiveSupport::Concern
+  include Stars
+
+  module ClassMethods
+
+    def create_new_movie(params)
+      Movie.new(id: params[:id], title: params[:title], poster_path: params[:poster_path], release_date: params[:release_date], description: params[:description], vote_count: params[:vote_count], vote_rating: params[:vote_rating])
+    end
+
+    def existing_movie_rated(params, user)
+      movie = Movie.find(params[:id])
+      if movie.ratings.find_by(user_id: user.id)
+        rating = update_existing_rating(params, movie, user)
+      else
+        rating = create_new_rating(params, movie, user)
+      end
+      rating
+    end
+
+    def update_existing_rating(params, movie, user)
+      stars = add_stars(params[:score])
+      rating = movie.ratings.find_by(user_id: user.id)
+      rating.update(score: params[:score], stars: stars)
+      rating
+    end
+
+    def create_new_rating(params, movie, user)
+      stars = add_stars(params[:score])
+      rating = movie.ratings.create!(movie_id: movie.id, user_id: user.id, score: params[:score], stars: stars)
+      rating
+    end
+  end
+end
