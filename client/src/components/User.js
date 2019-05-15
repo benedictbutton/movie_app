@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "../assets/brushed-metal.jpg";
+import LoadingIndicator from "./LoadingIndicator";
 //material-ui
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -37,9 +37,6 @@ const styles = theme => ({
     position: "absolute",
     width: "50%"
   },
-  progress: {
-    color: "#ecca00"
-  },
   type: {
     fontFamily: "'NewTimesRoman', serif",
     fontWeight: "700",
@@ -58,18 +55,13 @@ const User = props => {
 
   return (
     <>
-      <div>
-        {props.user.requesting && !props.user.successful ? (
-          <CircularProgress className={classes.progress} />
-        ) : null}
-      </div>
       <Grid container className={classes.root}>
+        <LoadingIndicator>{props.user}</LoadingIndicator>
         <div position="absolute">
           <AccountCircleIcon
             className={classes.icon}
             style={{ fontSize: 200 }}
           />
-
           <Grid container alignItems="center" justify="center">
             <Grid item xs={5}>
               <Paper className={classes.paper} align="center">

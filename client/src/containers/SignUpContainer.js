@@ -5,6 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import { doSignUpRequesting } from "../redux/actions/formActions";
 import { getClient } from "../redux/selectors/selectors";
 import FormInput from "../components/FormInput";
+import LoadingIndicator from "../components/LoadingIndicator";
 import Notifications from "../components/Notifications";
 import {
   required,
@@ -79,6 +80,7 @@ class SignUpContainer extends Component {
     return (
       <>
         <main className={classes.layout}>
+          <LoadingIndicator>{this.props.client}</LoadingIndicator>
           <Paper className={classes.paper}>
             <Grid container spacing={24} justify="center">
               <Grid item xs={4} align="center">

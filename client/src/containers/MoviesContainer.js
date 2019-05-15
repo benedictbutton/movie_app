@@ -19,11 +19,11 @@ import {
 } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
+import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 import withInfiniteScroll from "../HOC/withInfiniteScroll";
 // material-ui
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
@@ -40,9 +40,6 @@ const styles = theme => ({
     alignItems: "center",
     marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
-  },
-  progress: {
-    color: "#ecca00"
   },
   snack: {
     color: "white",
@@ -151,11 +148,7 @@ class MoviesContainer extends Component {
       <>
         <AppBarContainer />
         <div className={classes.root}>
-          <div>
-            {this.props.movies.requesting && !this.props.movies.successful ? (
-              <CircularProgress className={classes.progress} />
-            ) : null}
-          </div>
+          <LoadingIndicator>{this.props.movies}</LoadingIndicator>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>
