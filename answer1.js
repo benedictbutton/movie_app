@@ -471,6 +471,14 @@ function substringPairs(s, k) {
 // a/0      a/2
 // ab
 
+// *** set key to s1 and value to s2 !!!
+
+min is F, which is 5
+
+F attached to B by 3
+
+
+
 let string = "abacaba";
 let k = 1;
 

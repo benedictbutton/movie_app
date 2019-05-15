@@ -50,7 +50,8 @@ module PlaylistsMovies
       Playlist.find(@id).update(active: true)
     end
 
-    def switch_off_current_active_playlist
+    def switch_off_current_active_playlist(user)
+      @user ||= user
       old_id = active_playlist_id
       if old_id
       prior_active = Playlist.find(old_id)
