@@ -152,25 +152,115 @@
 // const quickSort = array => quick(array, 0, array.length - 1);
 // console.log(quickSort(array));
 
-const sums = a => {
-  let results = [];
-  for (let i = 0, j = 0; i < a.length; i++) {
-    for (let j = 0; j < a.length; j++) {
-      let s = "";
-      s = a[i] + a[j].toString();
-      results.push(s);
-    }
-  }
-  console.log(results);
-  let answer = results.reduce((acc, curr, initialValue = 0) => {
-    console.log(acc);
-    return parseInt(acc, 10) + parseInt(curr, 10);
-  });
-  return answer;
-};
-
-const a = [1000000, 1000000, 1000000, 1000000];
-console.log(sums(a));
-
 // Expected Output:
 // 160000016000000
+
+function substringPairs(s, k) {
+  let set = {};
+
+  // for (let i = 0; i < s.length; i++) {
+  for (let i = 0, j = k + 1; j < s.length - k; j++) {
+    console.log("j is: " + j);
+    if (s[i] !== s[j]) continue;
+    let x = i;
+    let y = j;
+    let s1 = "";
+    let s2 = "";
+
+    const addLetters = () => {
+      console.log("test is: " + s1);
+      while (x !== k && s[x] === s[y]) {
+        s1 += s[x];
+        s2 += s[y];
+        console.log(y);
+        x++;
+        y++;
+      }
+      console.log(s2 + "???" + s1);
+    };
+    console.log("x is: " + x);
+    addLetters();
+    console.log("x: " + x);
+    if (x === k) {
+      console.log("set is: " + set);
+      s1 += s[x];
+      s2 += s[y];
+      if (set[s1] && s[x + 1] === s[y + 1]) {
+        console.log("2nd time around");
+        x++;
+        y++;
+        addLetters();
+      } else {
+        set[s1] = s2;
+        j--;
+      }
+    }
+    console.log(s1 + "-----" + s2);
+    if (!set[s1] && s1.length > k) set[s1] = s2;
+  }
+  console.log(set);
+}
+// }
+let string = "abacaba";
+let k = 1;
+
+// let string = "doqzcmbcpzrzepz";
+// let k = 6;
+
+console.log(substringPairs(string, k));
+
+
+function hashMap(queryType, query) {
+    hash = {};
+    let count = 0;
+    
+    const insert = (x, y) => {
+        hash[x] = y;
+    }
+
+    const get = (x, count) => {
+         count += hash[x];
+    }
+
+    const addToKey = (oldProp, newProp, { [oldProp]: old, ...others }) => {
+        return {
+          [newProp]: old,
+          ...others
+    };
+  };
+
+    }
+
+    const addToValue = (obj, y) => {
+        for (let key in obj) {
+            obj[key] = obj[key] + y;
+        }
+    }
+
+    let len = query.length;
+
+    for (let i = 0; i < len; i++) {
+        if (queryType === 'insert') {
+            insert(query[i]);
+            continue;
+        }
+        if (queryType === 'get') {
+            get(query[i]);
+            continue;
+        }
+        if (queryType === 'addToKey') {
+            for (let key in hash) {
+                let old = hash[key]
+                let newProp = key+query[i][0];
+                addToKey(key,newProp, { [key]: old, ...others } )
+            }
+            continue;
+        }
+        if (queryType === 'addToValue') {
+            addToKey(hash, query[i]);
+            continue;
+        }
+
+    }
+    return count;
+}
