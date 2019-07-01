@@ -497,6 +497,59 @@ function substringPairs(s, k) {
   console.log(set1 + "///" + set2);
 }
 
+// function substringPairs(s, k) {
+//   let reults = [];
+//
+//   let i = 0;
+//   let q = k + 1;
+//   let j = k + 2;
+//   let t = s.length - 1;
+//
+//   let s1 = "";
+//   let s2 = "";
+//   const set1 = [];
+//   const set2 = [];
+//   let count = 0;
+//
+//   for (; j < s.length - k && i !== j; i++) {
+//     console.log(i);
+//     if (s[i] !== s[j]) continue;
+//
+//     let x = i;
+//     let y = j;
+//
+//     const addLetters = () => {
+//       while (s[x] === s[y]) {
+//         s1 += s[x];
+//         s2 += s[y];
+//         x++;
+//         y++;
+//       }
+//     };
+//     console.log(x + "+++" + y + s1);
+//     addLetters();
+//     console.log(x + "..." + y + s2);
+//     if (x === k && s[x] !== s[y]) {
+//       s1 += s[x];
+//       s2 += s[y];
+//       x++;
+//       y++;
+//     }
+//
+//     if (s1.length > k && (!set1.includes(s1) || !set2.includes(s2))) {
+//       set1.push(s1);
+//       set2.push(s2);
+//       j--;
+//       i--;
+//       continue;
+//     }
+//
+//     if (s[x] === s[y]) addLetters();
+//   }
+//   console.log(set1 + "///" + set2);
+// }
+
+
 // k+1, half;
 //
 // 0 to k+1; k+2 to end
@@ -511,10 +564,56 @@ function substringPairs(s, k) {
 
 // min is F, which is 5
 
+
 // F attached to B by 3
 
-let string = "abacaba";
-let k = 1;
+//
+// F attached to B by 3
+
+// let string = "doqzcmbcpzrzepz";
+// let k = 6;
+
+function substringPairs(s, k) {
+  let set = {};
+
+  for (let i = 0, j = k + 1; j < s.length - k; i++, j++) {
+    let s1 = "";
+    let s2 = "";
+    let z = 0;
+
+    if (s.length <= k + 1) return 0;
+    let x = i;
+    let y = j;
+
+    const addLetter = () => {
+      while ((s[x] === s[y] || x - i === k) && s1.length < k + z) {
+        s1 += s[x];
+        s2 += s[y];
+        x++;
+        y++;
+      }
+      console.log("s1: " + s1 + "///" + " s2: " + s2);
+      if (s1.length > k) set[s1] = s2;
+    };
+
+    while (z < Math.floor(s.length / 2)) {
+      addLetter();
+      z++;
+    }
+  }
+  console.log(set);
+  return set;
+
+  // let result = Object.values(set).length;
+  // return result * 4;
+}
+
+let string = "acbbcbbaabcccbabcabb";
+let k = 3;
+// answer is 4
+// let string = "abacaba";
+// let k = 1;
+
 
 let string = "doqzcmbcpzrzepz";
 let k = 6;
@@ -550,3 +649,4 @@ n // i !== j (do not add to strings, set) and break for new course
 
 adding 1 to i
 adding 1 to j
+

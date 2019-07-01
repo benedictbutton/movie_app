@@ -46,7 +46,7 @@ module PlaylistsMovies
     def switch_active_playlist(user, id)
       @user = user
       @id = id
-      switch_off_current_active_playlist
+      switch_off_current_active_playlist(user)
       Playlist.find(@id).update(active: true)
     end
 
