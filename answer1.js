@@ -176,10 +176,39 @@ function countTinyPairs(a, b, k) {
   let count = 0;
   for (let i = 0, j = b.length - 1; i < a.length; i++, j--) {
     let string = a[i].toString() + b[j].toString();
-    console.log(a[i] + b[j]);
     if (parseInt(string, 10) < k) count++;
   }
   return count;
+}
+
+///////////////////////////////////////////////////////
+
+// Needs optimization
+function concatenationsSum(a) {
+    let array = [];
+    for (let i = 0; i < a.length; i++) {
+        for (let j=0; j < a.length; j++) {
+         array.push(a[i].toString() + a[j].toString());
+        }
+    }
+    let sum = array.reduce((acc, curr, intialValue=0) => parseInt(acc, 10) + parseInt(curr, 10));
+
+    return parseInt(sum, 10);
+}
+
+///////////////////////////////////////////////////////
+
+function mutateTheArray(n, a) {
+    b = [];
+
+    if (a.length === 1) return a;
+
+    for (let i = 0; i < a.length; i++) {
+       if (i === 0) b[i] = a[i] + a[i+1];
+       else if (i === a.length-1) b[i] = a[i-1] + a[i];
+       else b[i] = a[i-1] + a[i] + a[i+1];
+    }
+    return b;
 }
 
 ///////////////////////////////////////////////////////
@@ -409,6 +438,65 @@ function countTinyPairs(a, b, k) {
 //   return results;
 // }
 
+function substringPairs(s, k) {
+  let reults = [];
+
+  let i = 0;
+  let q = k + 1; // 2
+  let j = k + 1; // 2
+  let t = s.length - 1;
+
+  let s1 = "";
+  let s2 = "";
+  const set1 = [];
+  const set2 = [];
+  let count = 0;
+
+  // ("ab ac ab a");
+  for (; j <= s.length - k; i++, j++) {
+    let k = i;
+    let x = i;
+    let y = j;
+    while (i !== j) {
+      console.log(i);
+      if (s[x] !== s[y]) break;
+      console.log(i);
+
+      const addLetters = () => {
+        console.log("test");
+        while (s[x] === s[y]) {
+          s1 += s[x];
+          s2 += s[y];
+          x++;
+          y++;
+        }
+      };
+      // console.log(x + "+++" + y + s1);
+      addLetters();
+      // console.log(x + "..." + y + s2);
+      if (x === k && s[x] !== s[y]) {
+        s1 += s[x];
+        s2 += s[y];
+        x++;
+        y++;
+      }
+
+      if (s1.length > k && (!set1.includes(s1) || !set2.includes(s2))) {
+        set1.push(s1);
+        set2.push(s2);
+        j--;
+        i--;
+        continue;
+      }
+
+      if (s[x] === s[y]) addLetters();
+      i++;
+    }
+    i = k;
+  }
+  console.log(set1 + "///" + set2);
+}
+
 // function substringPairs(s, k) {
 //   let reults = [];
 //
@@ -461,6 +549,7 @@ function countTinyPairs(a, b, k) {
 //   console.log(set1 + "///" + set2);
 // }
 
+
 // k+1, half;
 //
 // 0 to k+1; k+2 to end
@@ -474,6 +563,10 @@ function countTinyPairs(a, b, k) {
 // *** set key to s1 and value to s2 !!!
 
 // min is F, which is 5
+
+
+// F attached to B by 3
+
 //
 // F attached to B by 3
 
@@ -521,7 +614,39 @@ let k = 3;
 // let string = "abacaba";
 // let k = 1;
 
+
+let string = "doqzcmbcpzrzepz";
+let k = 6;
 console.log(substringPairs(string, k));
-// ab ac aba
-//
-// j = s.length-k
+
+
+
+"abacaba"
+
+
+let i = 0;
+let j = k+1;
+A B
+A C A B A
+
+doqzcmbcpzrzepz
+D O Q Z C M B C P Z R Z E P Z
+
+add to i by adding to k, but don't increment i;
+then add to i by subtracting from end, so 2 for loops;
+s.length -k ensures j is at least k length;
+
+y // are i and j  = (s1 = A; s2 = A)
+y // i is k (s1 = AB; s2 = AC)
+add to set; restart;
+second time around // set includes (s1 = AB; s2 = AC) so go back to while
+y // are i and j = (s1 = ABA, s2 = ACA) note i and j overlap;
+n // i !== j (do not add to strings, set) and break for new course
+
+
+
+}
+
+adding 1 to i
+adding 1 to j
+
