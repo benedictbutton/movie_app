@@ -116,14 +116,14 @@ const Movie = props => {
             </Grid>
             <Grid item sm={7}>
               <Typography variant="h4" className={classes.title}>
-                {movie.title}
+                {movie.title || movie.name}
               </Typography>
               <Typography
                 component="p"
                 align="center"
                 className={classes.overview}
               >
-                {movie.overview}
+                {movie.overview || movie.description}
               </Typography>
             </Grid>
           </Grid>

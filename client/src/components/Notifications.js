@@ -39,7 +39,7 @@ const styles = theme => ({
   }
 });
 
-const Notifications = props => {
+export const Notifications = props => {
   const { children, classes } = props;
   return (
     <div>
