@@ -38,47 +38,44 @@ function camelCase(words, variableName) {
 ///////////////////////////////////////////////////////
 
 function mergeStrings(s1, s2) {
-  let result = "";
-  const array1 = s1.split("");
-  const array2 = s2.split("");
+    result = '';
+    const set1 = {};
+    const set2 = {};
 
-  const set1 = {};
-  const set2 = {};
-
-  array1.map(el => {
-    if (!set1[el]) return (set1[el] = 1);
-    else return (set1[el] = set1[el] + 1);
-  });
-  array2.map(el => {
-    if (!set2[el]) return (set2[el] = 1);
-    else return (set2[el] = set2[el] + 1);
-  });
-
-  let i = 0;
-  let j = 0;
-  while (i < array1.length && j < array2.length) {
-    if (set1[array1[i]] < set2[array2[j]]) {
-      result += array1[i];
-      i++;
-    } else if (set1[array1[i]] > set2[array2[j]]) {
-      result += array2[j];
-      j++;
-    } else if (set1[array1[i]] === set2[array2[j]] && array1[i] < array2[j]) {
-      result += array1[i];
-      i++;
-    } else if (set1[array1[i]] === set2[array2[j]] && array1[i] > array2[j]) {
-      result += array2[j];
-      j++;
-    } else {
-      result += array1[i];
-      i++;
+    for (char of s1) {
+        set1[char] = set1[char] + 1 || 1;
     }
-  }
 
-  if (i < array1.length) result += array1.join("").slice(i, array1.length);
-  if (j < array2.length) result += array2.join("").slice(j, array2.length);
+    for (char of s2) {
+        set2[char] = set2[char] + 1 || 1;
+    }
 
-  return result;
+    let i = 0;
+    let j = 0;
+
+    while (i < s1.length && j < s2.length) {
+        if (set1[s1[i]] < set2[s2[j]]) {
+            result += s1[i];
+            i++;
+        } else if (set1[s1[i]] > set2[s2[j]]) {
+            result += s2[j];
+            j++
+        } else if ((set1[s1[i]] === set2[s2[j]]) && s1[i] < s2[j]) {
+            result += s1[i];
+            i++;
+        } else if ((set1[s1[i]] === set2[s2[j]]) && s1[i] > s2[j]) {
+            result += s2[j];
+            j++;
+        } else {
+            result += s1[i];
+            i++;
+        }
+    }
+
+    if (i < s1.length) result += s1.slice(i, s1.length);
+    if (j < s2.length) result += s2.slice(j, s2.length);
+
+    return result;
 }
 
 ///////////////////////////////////////////////////////
@@ -649,4 +646,3 @@ n // i !== j (do not add to strings, set) and break for new course
 
 adding 1 to i
 adding 1 to j
-

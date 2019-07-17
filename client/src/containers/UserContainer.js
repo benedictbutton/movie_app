@@ -7,7 +7,7 @@ import { getUser } from "../redux/selectors/selectors";
 import Notifications from "../components/Notifications";
 import User from "../components/User";
 
-class UserContainer extends Component {
+export class UserContainer extends Component {
   componentDidMount() {
     this.props.dispatch(doUserRequesting());
   }

@@ -5,7 +5,10 @@ module MovieRating
   module ClassMethods
 
     def create_new_movie(params)
-      Movie.new(id: params[:id], title: params[:title], poster_path: params[:poster_path], release_date: params[:release_date], description: params[:description], vote_count: params[:vote_count], vote_rating: params[:vote_rating])
+      if params[:title] then title = params[:title] else title = params[:name] end
+      if params[:description] then description = params[:description] else description = params[:overview] end
+
+      Movie.new(id: params[:id], title: title, poster_path: params[:poster_path], release_date: params[:release_date], description: description, vote_count: params[:vote_count], vote_rating: params[:vote_rating])
     end
 
     def existing_movie_rated(params, user)
