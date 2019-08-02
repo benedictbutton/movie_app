@@ -22,8 +22,10 @@ import AppBarContainer from "./AppBarContainer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
+import ScrollButton from "../components/ScrollButton";
 import withInfiniteScroll from "../HOC/withInfiniteScroll";
 // material-ui
+import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
@@ -40,6 +42,15 @@ const styles = theme => ({
     alignItems: "center",
     marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
+  },
+  fab: {
+    position: "absolute",
+    top: 0,
+    right: 10,
+    zIndex: 1
+  },
+  grid: {
+    position: "relative"
   },
   snack: {
     color: "white",
@@ -149,7 +160,17 @@ class MoviesContainer extends Component {
         <AppBarContainer />
         <div className={classes.root}>
           <LoadingIndicator>{this.props.movies}</LoadingIndicator>
-          <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
+          <ScrollButton
+            className={classes.fab}
+            scrollStepInPx="50"
+            delayInMs="16.66"
+          />
+          <GridList
+            className={classes.grid}
+            cellHeight="auto"
+            spacing={10}
+            cols={columns[width]}
+          >
             {movies}
           </GridList>
         </div>
