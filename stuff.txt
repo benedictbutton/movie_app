@@ -26,7 +26,6 @@ return "?";
 }
 
 
-
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -220,7 +219,7 @@ const SignUp = props => {
     </form>
   );
 };
-
+//////////////////////////////////////////////////////
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(doShowUser(data))
 });
