@@ -43,12 +43,6 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
   },
-  fab: {
-    position: "absolute",
-    top: 0,
-    right: 10,
-    zIndex: 1
-  },
   grid: {
     position: "relative"
   },
@@ -160,11 +154,7 @@ class MoviesContainer extends Component {
         <AppBarContainer />
         <div className={classes.root}>
           <LoadingIndicator>{this.props.movies}</LoadingIndicator>
-          <ScrollButton
-            className={classes.fab}
-            scrollStepInPx="50"
-            delayInMs="16.66"
-          />
+          <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
           <GridList
             className={classes.grid}
             cellHeight="auto"
