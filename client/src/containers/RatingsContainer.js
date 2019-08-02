@@ -9,8 +9,10 @@ import {
   getRatings,
   getRatedMovies
 } from "../redux/selectors/selectors";
+import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
+import ScrollButton from "../components/ScrollButton";
 //material-ui
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -94,6 +96,8 @@ class RatingsContainer extends Component {
     return (
       <>
         <div className={classes.root}>
+          <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
+          <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>

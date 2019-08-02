@@ -12,7 +12,7 @@ function withInfiniteScroll(Component, props) {
       // if (this.props.movies.query.type === "search")
       //   this.props.doMovieSearchRequesting(this.props.movies.query);
 
-      /* until I'm sure of the limits of localStorage, this is my workaround to  persisting movies state through a refresh */
+      /* until I'm sure of localStorage memory limits, this is my workaround to  persisting movies state through a refresh */
       const match = `${this.props.match.url}`.match(
         /((^\/\w+\/\w+)\/(\w+)\/(.+))/
       );

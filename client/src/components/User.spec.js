@@ -1,17 +1,50 @@
 import React from "react";
 // import { createMount } from "@material-ui/core/test-utils";
 import User from "./User";
-// import Notifications from "./Notifications";
-// import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
+import { UserContainer } from "../containers/UserContainer";
+import toJson from "enzyme-to-json";
+import Notifications from "./Notifications";
+import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
 // import { doUserRequesting } from "../redux/actions/userActions";
 // import { getUser } from "../redux/selectors/selectors";
-// import configureStore from "redux-mock-store";
-// const mockStore = configureStore();
+import configureStore from "redux-mock-store";
+
+const props = {
+  user: {
+    profile: {
+      firstName: "test",
+      lastName: "user",
+      username: "testuser",
+      email: "testuser@email.com"
+    },
+    notifications: {
+      message: "test"
+    }
+  }
+};
+
+const mockStore = configureStore();
+const initialState = {};
+const store = mockStore(initialState);
 
 describe("User", () => {
-  test("renders()", () => {
+  test("render()", () => {
     const wrapper = shallow(<User />);
     console.log(wrapper.debug());
     expect(wrapper.exists()).toBe(true);
+  });
+
+  test("renders consistently", () => {
+    const wrapper = shallow(<User {...props} />);
+    const component = wrapper.dive();
+    expect(toJson(component)).toMatchSnapshot();
+  });
+});
+
+describe("UserContainer", () => {
+  test("render()", () => {
+    const wrapper = mount(<UserContainer store={store} {...props} />);
+    expect(wrapper.find(User)).toHaveLength(1);
+    wrapper.unmount();
   });
 });
