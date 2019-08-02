@@ -219,7 +219,7 @@ const SignUp = props => {
     </form>
   );
 };
-//////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 const mapDispatchToProps = dispatch => ({
   onSubmit: data => dispatch(doShowUser(data))
 });

@@ -4,6 +4,7 @@ import Fab from "@material-ui/core/Fab";
 import UpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { withStyles } from "@material-ui/core/styles";
 
+// fix size issue
 const styles = theme => ({
   fab: {
     backgroundColor: "black",
