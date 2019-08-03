@@ -4,7 +4,7 @@ function withInfiniteScroll(Component, props) {
   return class extends Component {
     componentDidMount() {
       window.addEventListener("scroll", this.onScroll, false);
-      /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
+      /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag). */
       // if (this.props.movies.query.type === "discover")
       //   this.props.doMoviesRequesting(this.props.movies.query);
       // if (this.props.movies.query.type === "multi")
