@@ -85,9 +85,9 @@ const applyToggleDisplay = (state, action) => ({
 });
 
 const applyRatingAdd = (state, action) => {
-  let rating = action.event.currentTarget.value.toString();
+  let rating = parseInt(action.event.currentTarget.value, 10) + 1;
   let newStars = [0, 1, 2, 3, 4].map((star, index) => {
-    if (index <= rating) {
+    if (index < rating) {
       star = "yellow";
       return star;
     }

@@ -3,17 +3,23 @@ import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doSignOut } from "../redux/actions/formActions";
 import { doRatingAdd } from "../redux/actions/ratingActions";
-import { doMyMoviesRequesting } from "../redux/actions/movieActions";
+import {
+  doFilterMovieRatings,
+  doMyMoviesRequesting
+} from "../redux/actions/movieActions";
 import {
   getMoviesAsErrors,
   getRatings,
-  getRatedMovies
+  getFilteredRatings
 } from "../redux/selectors/selectors";
+import FilterContainer from "./FilterContainer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 import ScrollButton from "../components/ScrollButton";
+import StarList from "../components/StarList";
 //material-ui
+import AppBar from "@material-ui/core/AppBar";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { withStyles } from "@material-ui/core/styles";
@@ -27,6 +33,10 @@ const styles = theme => ({
     alignItems: "center",
     margin: theme.spacing.unit * 6
   },
+  bar: {
+    background: "transparent",
+    position: "relative"
+  },
   tile: {
     height: 0,
     padding: "56.25% 0 0 0",
@@ -34,20 +44,37 @@ const styles = theme => ({
   }
 });
 
+const starList = {
+  all: "All",
+  oneStar: <StarList rating="1" />,
+  twoStar: <StarList rating="2" />,
+  threeStar: <StarList rating="3" />,
+  fourStar: <StarList rating="4" />,
+  fiveStar: <StarList rating="5" />
+};
+
 class RatingsContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      starName: ""
+    };
     this.handleRating = this.handleRating.bind(this);
   }
 
   componentDidMount() {
-    let keys = Object.keys(this.props.ratings.list);
+    let keys = Object.keys(this.props.ratedMovies);
     this.props.doMyMoviesRequesting(keys);
   }
 
   handleRating(event) {
     this.props.doRatingAdd(event);
   }
+
+  handleStar = event => {
+    this.props.doFilterMovieRatings(event.target.value);
+    this.setState({ starName: event.target.value });
+  };
 
   render() {
     const { classes, width, ratedMovies, movieErrors } = this.props;
@@ -61,7 +88,7 @@ class RatingsContainer extends Component {
     };
 
     let resize = 1;
-    let length = Object.keys(ratedMovies).length;
+    let length = this.props.ratedMovies.length;
     if (length < 3 && columns[width] >= 3) {
       switch (length) {
         case 1:
@@ -71,7 +98,7 @@ class RatingsContainer extends Component {
       }
     }
     let card = 0;
-    let movies = Object.values(ratedMovies).map(movie => {
+    let movies = this.props.ratedMovies.map(movie => {
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (
@@ -86,15 +113,19 @@ class RatingsContainer extends Component {
       );
     });
 
-    // if (movieErrors.code === 401) {
-    //   this.props.doSignOut();
-    //   sessionStorage.removeItem("jwt");
-    //   localStorage.removeItem("state");
-    //   return <Redirect to="/ms/sign-in" />;
-    // }
-
     return (
       <>
+        <AppBar className={classes.bar}>
+          <FilterContainer
+            specificList={starList}
+            listName={this.state.starName}
+            handleList={this.handleStar}
+            display={true}
+            color="primary"
+            choice="Filter"
+            handleSelect={this.props.handleSelect}
+          />
+        </AppBar>
         <div className={classes.root}>
           <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
           <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
@@ -119,12 +150,12 @@ class RatingsContainer extends Component {
 // );
 
 const mapStateToProps = (state, props) => ({
-  ratedMovies: getRatedMovies(state),
+  ratedMovies: getFilteredRatings(state),
   ratings: getRatings(state),
   movieErrors: getMoviesAsErrors(state)
 });
 
 export default connect(
   mapStateToProps,
-  { doMyMoviesRequesting, doRatingAdd, doSignOut }
+  { doFilterMovieRatings, doMyMoviesRequesting, doRatingAdd, doSignOut }
 )(withWidth()(withStyles(styles)(RatingsContainer)));

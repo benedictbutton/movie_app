@@ -8,6 +8,7 @@ import {
   MOVIE_CATEGORY_SUCCESS,
   MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
+  FILTER_MOVIE_RATINGS,
   UPDATE_GENRE,
   UPDATE_SEARCH,
   TOGGLE_DISPLAY
@@ -21,7 +22,8 @@ const INITIAL_STATE = {
   requesting: false,
   successful: false,
   notifications: {},
-  query: { type: "discover", page: 0, tag: "18" }
+  query: { type: "discover", page: 0, tag: "18" },
+  filter: "all"
 };
 
 const applyMoviesRequesting = (state, action) => ({
@@ -145,6 +147,11 @@ const applyMoviesError = (state, action) => ({
   successful: false
 });
 
+const applyFilterMovieRatings = (state, action) => ({
+  ...state,
+  filter: action.filter
+});
+
 const applyToggleDisplay = (state, action) => ({
   ...state,
   notifications: {
@@ -196,6 +203,8 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMovieCategorySuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
+    case FILTER_MOVIE_RATINGS:
+      return applyFilterMovieRatings(state, action);
     case TOGGLE_DISPLAY:
       return applyToggleDisplay(state);
     case UPDATE_GENRE:

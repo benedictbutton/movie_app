@@ -9,8 +9,7 @@ import {
   doUpdateGenre,
   doUpdateSearch
 } from "../redux/actions/movieActions";
-import CategorySearchContainer from "./CategorySearchContainer";
-import GenreContainer from "./GenreContainer";
+import FilterContainer from "./FilterContainer";
 import SearchField from "../components/SearchField";
 // material-ui
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -53,6 +52,26 @@ const styles = theme => ({
   }
 });
 
+const categoryList = {
+  genre: "Genre",
+  "trending/all/week": "Trending",
+  "movie/top_rated": "Top Rated",
+  "movie/popular": "Popular",
+  "movie/now_playing": "In Theaters",
+  "movie/upcoming": "Upcoming"
+};
+
+const genreList = {
+  18: "Drama",
+  53: "Thriller",
+  10749: "Romance",
+  35: "Comedy",
+  28: "Action",
+  99: "Documentary",
+  878: "SciFi",
+  27: "Horror"
+};
+
 class AppBarContainer extends Component {
   state = {
     categoryName: "",
@@ -60,7 +79,7 @@ class AppBarContainer extends Component {
     display: false
   };
 
-  handleChange = event => {
+  handleCategory = event => {
     this.setState({ categoryName: event.target.value });
     const payload = { type: "multi", page: 1, tag: event.target.value };
     if (event.target.value !== "genre") {
@@ -98,19 +117,26 @@ class AppBarContainer extends Component {
               <Grid container justify="flex-start">
                 <Grid item>
                   <ListSubheader component="div">
-                    <CategorySearchContainer
-                      categoryName={this.state.categoryName}
-                      handleChange={this.handleChange}
+                    <FilterContainer
+                      specificList={categoryList}
+                      listName={this.state.categoryName}
+                      handleList={this.handleCategory}
+                      display={true}
+                      color="primary"
+                      choice="Search"
                       handleSelect={this.props.handleSelect}
                     />
                   </ListSubheader>
                 </Grid>
                 <Grid item>
                   <ListSubheader component="div">
-                    <GenreContainer
+                    <FilterContainer
+                      specificList={genreList}
+                      listName={this.state.genreName}
+                      handleList={this.handleGenre}
                       display={this.state.display}
-                      genreName={this.state.genreName}
-                      handleGenre={this.handleGenre}
+                      color="#ecca00"
+                      choice="Select"
                       handleSelect={this.props.handleSelect}
                     />
                   </ListSubheader>
