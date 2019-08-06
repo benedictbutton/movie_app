@@ -1,3 +1,5 @@
+import { createSelector } from "reselect";
+
 export const getClient = state => state.client;
 
 export const getClientNotifications = state => state.client.notifications;
@@ -39,3 +41,37 @@ export const getRatingsList = state => state.ratings.list;
 export const getRatedMovies = state => state.movies.ratedList;
 
 export const getSearchedMovies = state => state.movies.searchList;
+
+export const getMovieFilter = state => state.movies.filter;
+
+export const getFilteredRatings = createSelector(
+  [getRatedMovies, getMovieFilter, getRatingsList],
+  (ratedMovies, filter, ratingsList) => {
+    switch (filter) {
+      case "all":
+        return Object.values(ratedMovies);
+      case "fiveStar":
+        return Object.values(ratedMovies).filter(
+          movie => ratingsList[movie.id].score === 5
+        );
+      case "fourStar":
+        return Object.values(ratedMovies).filter(
+          movie => ratingsList[movie.id].score === 4
+        );
+      case "threeStar":
+        return Object.values(ratedMovies).filter(
+          movie => ratingsList[movie.id].score === 3
+        );
+      case "twoStar":
+        return Object.values(ratedMovies).filter(
+          movie => ratingsList[movie.id].score === 2
+        );
+      case "oneStar":
+        return Object.values(ratedMovies).filter(
+          movie => ratingsList[movie.id].score === 1
+        );
+      default:
+        return Object.values(ratedMovies);
+    }
+  }
+);

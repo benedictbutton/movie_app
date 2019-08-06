@@ -4,6 +4,7 @@ import {
   MOVIE_SEARCH_REQUESTING,
   MOVIE_CATEGORY_REQUESTING,
   MOVIE_POSTING,
+  FILTER_MOVIE_RATINGS,
   UPDATE_GENRE,
   UPDATE_SEARCH
 } from "../constants/actionTypes";
@@ -21,6 +22,11 @@ const doMoviePosting = (rating, movie) => ({
   type: MOVIE_POSTING,
   movie: movie,
   score: rating.currentTarget.value
+});
+
+const doFilterMovieRatings = filter => ({
+  type: FILTER_MOVIE_RATINGS,
+  filter: filter
 });
 
 const doUpdateGenre = query => ({
@@ -49,6 +55,7 @@ export {
   doMovieSearchRequesting,
   doMovieCategoryRequesting,
   doMoviePosting,
+  doFilterMovieRatings,
   doUpdateGenre,
   doUpdateSearch
 };

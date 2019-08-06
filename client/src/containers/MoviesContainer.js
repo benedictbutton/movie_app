@@ -154,7 +154,7 @@ class MoviesContainer extends Component {
         <AppBarContainer />
         <div className={classes.root}>
           <LoadingIndicator>{this.props.movies}</LoadingIndicator>
-          <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
+          <ScrollButton scrollStepInPx="75" delayInMs="16.66" />
           <GridList
             className={classes.grid}
             cellHeight="auto"

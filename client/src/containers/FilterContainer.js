@@ -53,30 +53,20 @@ const MenuProps = {
   }
 };
 
-const genreList = {
-  18: "Drama",
-  53: "Thriller",
-  10749: "Romance",
-  35: "Comedy",
-  28: "Action",
-  99: "Documentary",
-  878: "SciFi",
-  27: "Horror"
-};
-
-class GenreContainer extends Component {
+// specificList, display?, listName, handleList, color
+class FilterContainer extends Component {
   render() {
     const { classes } = this.props;
-    let genres = Object.keys(genreList).map(genre => {
+    let list = Object.keys(this.props.specificList).map((item, idx) => {
       return (
         <MenuItem
-          key={genre}
-          color="#ecca00"
-          value={genre}
+          key={idx}
+          color={this.props.color}
+          value={item}
           className={classes.medium}
         >
           <Typography color="primary" variant="h6">
-            {genreList[genre]}
+            {this.props.specificList[item]}
           </Typography>
         </MenuItem>
       );
@@ -92,18 +82,18 @@ class GenreContainer extends Component {
                     classes={{ icon: classes.icon }}
                     displayEmpty
                     className={classes.select}
-                    value={this.props.genreName}
-                    onChange={this.props.handleGenre}
+                    value={this.props.listName}
+                    onChange={this.props.handleList}
                     onSelect={this.handleSelect}
                     input={<Input id="select-multiple-placeholder" />}
                     MenuProps={MenuProps}
                   >
                     <MenuItem disabled value="">
                       <Typography className={classes.font} variant="h6">
-                        <em>Select</em>
+                        <em>{this.props.choice}</em>
                       </Typography>
                     </MenuItem>
-                    {genres}
+                    {list}
                   </Select>
                 </FormControl>
               </Grid>
@@ -115,4 +105,4 @@ class GenreContainer extends Component {
   }
 }
 
-export default withStyles(styles)(GenreContainer);
+export default withStyles(styles)(FilterContainer);
