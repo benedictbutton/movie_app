@@ -15,7 +15,6 @@ import {
   PLAYLIST_DELETE_SUCCESS,
   PLAYLIST_INITIALIZE,
   PLAYLISTS_ERROR,
-  PLAYLISTS_REMOVE,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
@@ -265,8 +264,6 @@ function playlistsReducer(state = INITIAL_STATE, action) {
       return applyPlaylistInitialize(state, action);
     case PLAYLISTS_ERROR:
       return applyPlaylistsError(state, action);
-    case PLAYLISTS_REMOVE:
-      return INITIAL_STATE;
     case TOGGLE_DISPLAY:
       return applyToggleDisplay(state);
     default:

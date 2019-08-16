@@ -5,7 +5,6 @@ import {
   SIGNIN_REQUESTING,
   SIGNIN_SUCCESS,
   SIGNIN_ERROR,
-  SIGN_OUT,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
@@ -77,12 +76,6 @@ const applySignInError = (state, action) => ({
   successful: false
 });
 
-const applySignOut = () => {
-  window.localStorage.clear();
-
-  return INITIAL_STATE;
-};
-
 const applyToggleDisplay = (state, action) => ({
   ...state,
   notifications: {
@@ -108,8 +101,6 @@ function clientReducer(state = INITIAL_STATE, action) {
       return applySignInSuccess(state, action);
     case SIGNIN_ERROR:
       return applySignInError(state, action);
-    case SIGN_OUT:
-      return applySignOut();
     case TOGGLE_DISPLAY:
       return applyToggleDisplay(state);
 

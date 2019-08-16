@@ -5,7 +5,6 @@ import {
   RATING_REMOVE_SUCCESS,
   RATINGS_ERROR,
   RATING_ADD,
-  RATINGS_REMOVE,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
@@ -122,8 +121,6 @@ function ratingsReducer(state = INITIAL_STATE, action) {
       return applyToggleDisplay(state);
     case RATING_ADD:
       return applyRatingAdd(state, action);
-    case RATINGS_REMOVE:
-      return INITIAL_STATE;
 
     default:
       return state;

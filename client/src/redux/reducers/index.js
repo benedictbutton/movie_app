@@ -6,7 +6,7 @@ import moviesReducer from "./movies";
 import playlistsReducer from "./playlists";
 import ratingsReducer from "./ratings";
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   client: clientReducer,
   user: userReducer,
   form: formReducer,
@@ -14,5 +14,14 @@ const rootReducer = combineReducers({
   playlists: playlistsReducer,
   ratings: ratingsReducer
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === "SIGN_OUT") {
+    sessionStorage.removeItem("jwt");
+    localStorage.removeItem("state");
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 export default rootReducer;
