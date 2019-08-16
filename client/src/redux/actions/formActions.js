@@ -14,7 +14,7 @@ const doSignInRequesting = values => ({
   values
 });
 
-const doSignOut = value => ({
+const doSignOut = () => ({
   type: SIGN_OUT
 });
 

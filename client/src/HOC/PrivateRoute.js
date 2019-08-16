@@ -1,10 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { doUnsetUser } from "../redux/actions/userActions";
 import { doSignOut } from "../redux/actions/formActions";
-import { doPlaylistsRemove } from "../redux/actions/playlistActions";
-import { doRatingsRemove } from "../redux/actions/ratingActions";
 import {
   getMoviesAsErrors,
   getPlaylistErrors
@@ -12,7 +9,7 @@ import {
 import Notifications from "../components/Notifications";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // debugger;
+  // TD: create an error/notifications reducer to reduce all this duplication
   let error =
     rest.userError.code === 4011 ||
     rest.playlistError.code === 4011 ||
@@ -23,12 +20,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       : false;
 
   if (error) {
-    sessionStorage.removeItem("jwt");
-    localStorage.removeItem("state");
-    rest.doUnsetUser();
     rest.doSignOut();
-    rest.doRatingsRemove();
-    rest.doPlaylistsRemove();
+    // rest.doUnsetUser();
+    // rest.doSignOut();
+    // rest.doRatingsRemove();
+    // rest.doPlaylistsRemove();
   }
 
   return (
@@ -60,5 +56,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { doUnsetUser, doSignOut, doRatingsRemove, doPlaylistsRemove }
+  { doSignOut }
 )(PrivateRoute);

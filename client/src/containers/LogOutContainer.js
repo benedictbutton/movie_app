@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { doUnsetUser } from "../redux/actions/userActions";
 import { doSignOut } from "../redux/actions/formActions";
-import { doPlaylistsRemove } from "../redux/actions/playlistActions";
-import { doRatingsRemove } from "../redux/actions/ratingActions";
 import LogOut from "../components/LogOut";
 //material-ui
 import Divider from "@material-ui/core/Divider";
@@ -20,12 +17,7 @@ class LogOutContainer extends Component {
 
   handleLogOut(event) {
     event.preventDefault();
-    sessionStorage.removeItem("jwt");
-    localStorage.removeItem("state");
-    this.props.doUnsetUser();
     this.props.doSignOut();
-    this.props.doRatingsRemove();
-    this.props.doPlaylistsRemove();
     this.setState(() => ({ toMovies: true }));
   }
 
@@ -45,6 +37,6 @@ class LogOutContainer extends Component {
 export default withRouter(
   connect(
     null,
-    { doUnsetUser, doSignOut, doPlaylistsRemove, doRatingsRemove }
+    { doSignOut }
   )(LogOutContainer)
 );

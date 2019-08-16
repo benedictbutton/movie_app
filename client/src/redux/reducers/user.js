@@ -2,7 +2,6 @@ import {
   USER_REQUESTING,
   USER_SUCCESS,
   USER_ERROR,
-  UNSET_USER,
   TOGGLE_DISPLAY
 } from "../constants/actionTypes";
 
@@ -73,8 +72,7 @@ function userReducer(state = INITIAL_STATE, action) {
       return applyUserError(state, action);
     case TOGGLE_DISPLAY:
       return applyToggleDisplay(state);
-    case UNSET_USER:
-      return INITIAL_STATE;
+
     default:
       return state;
   }
