@@ -49,4 +49,27 @@ async function fetchSignInForm(query) {
   }
 }
 
-export { fetchSignUpForm, fetchSignInForm };
+async function fetchResetForm(payload) {
+  try {
+    let response = await fetch(
+      `${process.env.REACT_APP_API_URL}/change_password.json`,
+      {
+        credentials: "same-origin",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${payload.pass}`
+        },
+        body: JSON.stringify(payload)
+      }
+    );
+
+    let responseJson = await response.json();
+    if (!response.ok) throw responseJson;
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export { fetchSignUpForm, fetchSignInForm, fetchResetForm };

@@ -22,6 +22,7 @@ import RatingsContainer from "./containers/RatingsContainer";
 import PlaylistContainer from "./containers/PlaylistContainer";
 import PlaylistsContainer from "./containers/PlaylistsContainer";
 import PrivateRoute from "./HOC/PrivateRoute";
+import ResetPasswordContainer from "./containers/ResetPasswordContainer";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
@@ -46,6 +47,10 @@ class App extends Component {
           <Switch>
             <Route path="/ms/sign-up" component={SignUpContainer} />
             <Route path="/ms/sign-in" component={SignInContainer} />
+            <Route
+              path="/ms/reset_password/:id/:pass"
+              component={ResetPasswordContainer}
+            />
             <PrivateRoute
               path="/ms/movies/:type/:query?/:desc?/:end?"
               component={MoviesContainer}

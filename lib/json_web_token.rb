@@ -11,5 +11,15 @@ class JsonWebToken
     rescue
       nil
     end
+
+    def encode_temp(secret, payload, exp = 1.hours.from_now)
+      payload[:exp] = exp.to_i
+      JWT.encode(payload, secret )
+    end
+
+    def decode_temp(secret, token)
+      body = JWT.decode(token, secret)[0]
+      HashWithIndifferentAccess.new body
+    end
   end
 end

@@ -1,6 +1,7 @@
 import {
   SIGNUP_REQUESTING,
   SIGNIN_REQUESTING,
+  RESET_REQUESTING,
   SIGN_OUT
 } from "../constants/actionTypes";
 
@@ -14,8 +15,13 @@ const doSignInRequesting = values => ({
   values
 });
 
+const doResetRequesting = values => ({
+  type: RESET_REQUESTING,
+  values
+});
+
 const doSignOut = () => ({
   type: SIGN_OUT
 });
 
-export { doSignUpRequesting, doSignInRequesting, doSignOut };
+export { doSignUpRequesting, doSignInRequesting, doResetRequesting, doSignOut };
