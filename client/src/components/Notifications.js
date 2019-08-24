@@ -41,6 +41,7 @@ const styles = theme => ({
 
 export const Notifications = props => {
   const { children, classes } = props;
+
   return (
     <div>
       {children ? (

@@ -5,6 +5,9 @@ export const SIGNUP_ERROR = "SIGNUP_ERROR";
 export const SIGNIN_REQUESTING = "SIGNIN_REQUESTING";
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_ERROR = "SIGNIN_ERROR";
+export const RESET_REQUESTING = "RESET_REQUESTING";
+export const RESET_SUCCESS = "RESET_SUCCESS";
+export const RESET_ERROR = "RESET_ERROR";
 export const SIGN_OUT = "SIGN_OUT";
 // User
 export const USER_REQUESTING = "USER_REQUESTING";

@@ -2,6 +2,7 @@ import { takeEvery, takeLatest, all } from "redux-saga/effects";
 import {
   SIGNUP_REQUESTING,
   SIGNIN_REQUESTING,
+  RESET_REQUESTING,
   USER_REQUESTING,
   MOVIES_REQUESTING,
   MY_MOVIES_REQUESTING,
@@ -17,7 +18,11 @@ import {
   RATING_REMOVE_REQUESTING,
   MOVIE_POSTING
 } from "../constants/actionTypes";
-import { handleFetchSignUp, handleFetchSignIn } from "./forms";
+import {
+  handleFetchSignUp,
+  handleFetchSignIn,
+  handleFetchReset
+} from "./forms";
 import { handleFetchUser } from "./user";
 import {
   handleFetchMovies,
@@ -41,6 +46,7 @@ function* watchAll() {
   yield all([
     takeLatest(SIGNUP_REQUESTING, handleFetchSignUp),
     takeEvery(SIGNIN_REQUESTING, handleFetchSignIn),
+    takeLatest(RESET_REQUESTING, handleFetchReset),
     takeLatest(USER_REQUESTING, handleFetchUser),
     takeLatest(MOVIES_REQUESTING, handleFetchMovies),
     takeLatest(MY_MOVIES_REQUESTING, handleFetchMyMovies),

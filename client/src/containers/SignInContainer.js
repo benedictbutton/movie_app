@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { doSignInRequesting } from "../redux/actions/formActions";
 import { getClient } from "../redux/selectors/selectors";
+import ForgotPassword from "../components/ForgotPassword";
 import FormInput from "../components/FormInput";
 import LoadingIndicator from "../components/LoadingIndicator";
 import Notifications from "../components/Notifications";
@@ -12,6 +13,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -56,6 +58,18 @@ const styles = theme => ({
 });
 
 class SignInContainer extends Component {
+  state = {
+    open: false
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { handleSubmit, classes, client } = this.props;
 
@@ -76,7 +90,10 @@ class SignInContainer extends Component {
             <Typography component="h1" variant="h5">
               Sign In
             </Typography>
-            <form className={classes.form} onSubmit={handleSubmit}>
+            <form
+              className={classes.form}
+              onSubmit={this.state.open ? null : handleSubmit}
+            >
               <FormControl margin="normal" required fullWidth>
                 <Field
                   type="text"
@@ -97,16 +114,24 @@ class SignInContainer extends Component {
                   component={FormInput}
                 />
               </FormControl>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+              <Grid container justify="space-around" alignItems="center">
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <ForgotPassword
+                  open={this.state.open}
+                  handleOpen={this.handleOpen}
+                  handleClose={this.handleClose}
+                />
+              </Grid>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                disabled={this.state.open}
               >
                 Sign in
               </Button>
@@ -117,6 +142,7 @@ class SignInContainer extends Component {
                 align="left"
                 variant="contained"
                 color="secondary"
+                disabled={this.state.open}
               >
                 Cancel
               </Button>

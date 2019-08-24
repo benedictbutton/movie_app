@@ -19,13 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       ? true
       : false;
 
-  if (error) {
-    rest.doSignOut();
-    // rest.doUnsetUser();
-    // rest.doSignOut();
-    // rest.doRatingsRemove();
-    // rest.doPlaylistsRemove();
-  }
+  if (error) rest.doSignOut();
 
   return (
     <Route

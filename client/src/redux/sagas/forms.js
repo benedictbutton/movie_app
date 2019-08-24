@@ -3,9 +3,11 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
   SIGNIN_SUCCESS,
-  SIGNIN_ERROR
+  SIGNIN_ERROR,
+  RESET_SUCCESS,
+  RESET_ERROR
 } from "../constants/actionTypes";
-import { fetchSignUpForm, fetchSignInForm } from "../api/forms";
+import { fetchSignUpForm, fetchSignInForm, fetchResetForm } from "../api/forms";
 import { handleFetchDefaultPlaylist } from "./playlists";
 import { handleFetchRatings } from "./ratings";
 
@@ -25,4 +27,11 @@ function* handleFetchSignIn(payload) {
   } else yield put({ type: SIGNIN_ERROR, error });
 }
 
-export { handleFetchSignUp, handleFetchSignIn };
+function* handleFetchReset(payload) {
+  const { values } = payload;
+  const { responseJson, error } = yield call(fetchResetForm, values);
+  if (responseJson) yield put({ type: RESET_SUCCESS, responseJson });
+  else yield put({ type: RESET_ERROR, error });
+}
+
+export { handleFetchSignUp, handleFetchSignIn, handleFetchReset };
