@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { doMoviePosting } from "../redux/actions/movieActions";
 import { doRatingAdd } from "../redux/actions/ratingActions";
-import { getMoviesAsIds, getRatings } from "../redux/selectors/selectors";
+import { getRatings } from "../redux/selectors/selectors";
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";

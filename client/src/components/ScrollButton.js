@@ -23,7 +23,7 @@ const styles = theme => ({
   }
 });
 
-class ScrollButton extends React.Component {
+class ScrollButton extends Component {
   state = {
     intervalId: 0
   };
@@ -44,7 +44,7 @@ class ScrollButton extends React.Component {
   };
 
   render() {
-    const { classes, width } = this.props;
+    const { classes } = this.props;
 
     return (
       <Fab onClick={this.scrollToTop} className={classes.fab}>

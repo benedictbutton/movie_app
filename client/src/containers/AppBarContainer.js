@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm, reset, Field } from "redux-form";
 import {
@@ -107,7 +107,7 @@ class AppBarContainer extends Component {
   };
 
   render() {
-    const { classes, handleSubmit, reset } = this.props;
+    const { classes, handleSubmit } = this.props;
 
     return (
       <>

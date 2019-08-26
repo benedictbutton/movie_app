@@ -1,5 +1,5 @@
 import { normalize } from "normalizr";
-import { listSchema, movieSchema } from "../schemas/schema";
+import { movieSchema } from "../schemas/schema";
 import CustomError from "../../util/CustomError";
 
 async function fetchPlaylists() {

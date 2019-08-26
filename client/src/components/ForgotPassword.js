@@ -1,5 +1,4 @@
 import React, { useState, useReducer, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useForgot } from "../util/CustomHooks";
 // material-ui
 import Button from "@material-ui/core/Button";
@@ -9,7 +8,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
