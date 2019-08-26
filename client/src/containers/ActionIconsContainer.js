@@ -26,14 +26,7 @@ export const styles = theme => ({
 });
 
 const ActionIconsContainer = props => {
-  const {
-    starsVisible,
-    actionIcon,
-    actionPosition,
-    classes,
-    className: classNameProp,
-    titlePosition
-  } = props;
+  const { starsVisible, actionIcon, classes, titlePosition } = props;
 
   const className = classNames(classes.root, {
     [classes.titlePositionBottom]: titlePosition === "bottom",

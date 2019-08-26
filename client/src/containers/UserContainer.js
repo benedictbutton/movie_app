@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { doSignOut } from "../redux/actions/formActions";
 import { doUserRequesting } from "../redux/actions/userActions";
 import { getUser } from "../redux/selectors/selectors";
 import Notifications from "../components/Notifications";

@@ -16,12 +16,8 @@ async function fetchRatings() {
       }
     );
     let data = await response.json();
-    if (!response.ok || response.status === "error")
-      throw new CustomError(
-        responseJson.message,
-        responseJson.code,
-        responseJson.status
-      );
+    if (!response.ok || data.status === "error")
+      throw new CustomError(data.message, data.code, data.status);
     data = data.ratings;
     if (data.length === 0) {
       let responseJson = { entities: { rating: {} } };

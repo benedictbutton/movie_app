@@ -9,9 +9,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import Notifications from "../components/Notifications";
 import {
   required,
-  maxLength,
   maxLength15,
-  minLength,
   minLength5,
   minLength7,
   email,
@@ -70,11 +68,11 @@ class SignUpContainer extends Component {
       pristine,
       submitting,
       valid,
-      client: { requesting, successful, notifications, display },
+      client: { successful, notifications },
       classes
     } = this.props;
 
-    if (this.props.client.successful) {
+    if (successful) {
       return <Redirect to="/ms/movies/discover/18" />;
     }
     return (

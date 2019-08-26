@@ -2,7 +2,6 @@ import React from "react";
 import Image from "../assets/brushed-metal.jpg";
 import LoadingIndicator from "./LoadingIndicator";
 //material-ui
-import Avatar from "@material-ui/core/Avatar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";

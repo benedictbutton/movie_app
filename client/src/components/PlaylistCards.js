@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPlaylistMovieIds } from "../redux/selectors/selectors";
-import DeletePlaylist from "./DeletePlaylist";
 import EmptyPlaylist from "./EmptyPlaylist";
 import Image from "../assets/brushed-metal.jpg";
 import NonEmptyPlaylist from "./NonEmptyPlaylist";

@@ -146,7 +146,7 @@ const applyPlaylistUpdateActiveRequesting = (state, action) => ({
 
 const applyPlaylistUpdateActiveSuccess = (state, action) => {
   let activePlaylist = action.responseJson.playlist;
-  let movieIds = action.responseJson.movies;
+  // let movieIds = action.responseJson.movies;
   return {
     ...state,
     active: activePlaylist,
@@ -188,7 +188,6 @@ const applyPlaylistInitialize = (state, action) => {
   const {
     active_id,
     all_movies,
-    movies,
     playlists,
     playlist_movies_by_id
   } = action.responseJson;

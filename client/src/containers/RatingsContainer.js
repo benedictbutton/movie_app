@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doSignOut } from "../redux/actions/formActions";
 import { doRatingAdd } from "../redux/actions/ratingActions";
@@ -88,17 +87,19 @@ class RatingsContainer extends Component {
     };
 
     let resize = 1;
-    let length = this.props.ratedMovies.length;
+    let length = ratedMovies.length;
     if (length < 3 && columns[width] >= 3) {
       switch (length) {
         case 1:
         case 2:
           resize = 3;
           break;
+        default:
+          break;
       }
     }
     let card = 0;
-    let movies = this.props.ratedMovies.map(movie => {
+    let movies = ratedMovies.map(movie => {
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
       card += 1;
       return (

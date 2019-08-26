@@ -7,7 +7,6 @@ import { getClient } from "../redux/selectors/selectors";
 import FormInput from "../components/FormInput";
 import {
   required,
-  alphaNumeric,
   maxLength15,
   minLength7,
   passwordLowercase,
@@ -23,7 +22,6 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import HomeContainer from "./HomeContainer";
 const styles = theme => ({
   layout: {
     width: "auto",
@@ -88,7 +86,6 @@ class ResetPasswordContainer extends Component {
         );
         let responseJson = await response.json();
         if (!response.ok || responseJson.status === "error") {
-          debugger;
           this.props.dispatch({
             type: "RESET_ERROR",
             error: {
@@ -101,7 +98,6 @@ class ResetPasswordContainer extends Component {
             authenticated: false
           }))();
           throw responseJson;
-          this.handleError();
         }
         this.setState((prevState, props) => ({
           authenticated: true
@@ -120,15 +116,15 @@ class ResetPasswordContainer extends Component {
       pristine,
       submitting,
       valid,
-      client: { requesting, successful, notifications, display },
-      classes
+      classes,
+      client
     } = this.props;
 
     if (this.state.authenticated === false || this.state.redirect) {
       return <Redirect to="/" />;
     }
 
-    if (this.props.client.reset) {
+    if (client.reset) {
       this.props.doSignOut();
       this.props.dispatch({
         type: "RESET_ERROR",

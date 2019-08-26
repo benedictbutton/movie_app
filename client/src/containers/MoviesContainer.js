@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reset } from "redux-form";
 import { doRatingAdd } from "../redux/actions/ratingActions";
@@ -25,9 +25,7 @@ import Notifications from "../components/Notifications";
 import ScrollButton from "../components/ScrollButton";
 import withInfiniteScroll from "../HOC/withInfiniteScroll";
 // material-ui
-import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
-import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -58,7 +56,6 @@ const styles = theme => ({
 
 class MoviesContainer extends Component {
   state = {
-    open: false,
     vertical: "bottom",
     horizontal: "left"
   };
@@ -96,17 +93,9 @@ class MoviesContainer extends Component {
     }
   }
 
-  handleClick = state => () => {
-    this.setState({ open: true, ...state });
-  };
-
-  handleClose = event => {
-    this.setState({ open: false });
-  };
-
   render() {
     const { classes, width, clientNotifications, movieErrors } = this.props;
-    const { vertical, horizontal, open } = this.state;
+    const { vertical, horizontal } = this.state;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -123,6 +112,8 @@ class MoviesContainer extends Component {
         case 1:
         case 2:
           resize = 3;
+          break;
+        default:
           break;
       }
     }

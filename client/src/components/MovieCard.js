@@ -4,7 +4,6 @@ import Add from "./Add";
 import Stars from "./Stars";
 import ActionIconsContainer from "../containers/ActionIconsContainer";
 //material-ui
-import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 

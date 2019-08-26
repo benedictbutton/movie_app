@@ -38,7 +38,6 @@ class PlaylistsContainer extends Component {
   render() {
     const {
       handleSubmit,
-      input,
       pristine,
       submitting,
       valid,

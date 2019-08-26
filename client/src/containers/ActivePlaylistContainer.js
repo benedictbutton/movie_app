@@ -36,20 +36,6 @@ const styles = theme => ({
   }
 });
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-      backgroundImage: `url(${Image})`,
-      borderStyle: "solid",
-      borderColor: "#ecca00"
-    }
-  }
-};
-
 class ActivePlaylistContainer extends Component {
   state = {
     open: false

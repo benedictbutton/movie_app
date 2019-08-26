@@ -1,6 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import Stars from "./Stars";
 import Image from "../assets/brushed-metal.jpg";
 //material-ui
@@ -64,8 +62,7 @@ const Movie = props => {
     check,
     handlePlaylistClick,
     handleRatingClick,
-    activePlaylist,
-    playlistMovieIds
+    activePlaylist
   } = props;
 
   return (
@@ -74,7 +71,11 @@ const Movie = props => {
         <Paper className={classes.layout}>
           <Grid container className={classes.root} spacing={16}>
             <Grid item xs={12} sm={5} className={classes.grid}>
-              <img src={imageUrl} className={classes.media} />
+              <img
+                src={imageUrl}
+                className={classes.media}
+                alt="movie poster"
+              />
               <Paper className={classes.stars}>
                 <Stars id={movie.id} movie={movie} starSize={20} />
               </Paper>

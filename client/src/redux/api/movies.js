@@ -6,7 +6,7 @@ const accessToken = process.env.REACT_APP_MOVIEDB_TOKEN;
 
 async function fetchMovies(query) {
   try {
-    let genreId = parseInt(query.genre, 10);
+    // let genreId = parseInt(query.genre, 10);
     let array = [1, 2, 3];
     let ids = array.map(num => num + query.page);
     const promises = ids.map(id => {

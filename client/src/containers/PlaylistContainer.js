@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { doPlaylistRequesting } from "../redux/actions/playlistActions";
 import {
@@ -56,6 +56,8 @@ class PlaylistContainer extends Component {
         case 1:
         case 2:
           resize = 3;
+          break;
+        default:
           break;
       }
     }
