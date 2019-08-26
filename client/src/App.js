@@ -48,7 +48,7 @@ class App extends Component {
             <Route path="/ms/sign-up" component={SignUpContainer} />
             <Route path="/ms/sign-in" component={SignInContainer} />
             <Route
-              path="/ms/reset_password/:id/:pass"
+              path="/ms/reset_password/:id?/:pass?"
               component={ResetPasswordContainer}
             />
             <PrivateRoute
