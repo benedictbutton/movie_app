@@ -87,11 +87,21 @@ class ResetPasswordContainer extends Component {
           }
         );
         let responseJson = await response.json();
-        if (!response.ok || response.status === "error") {
+        if (!response.ok || responseJson.status === "error") {
+          debugger;
+          this.props.dispatch({
+            type: "RESET_ERROR",
+            error: {
+              body: null,
+              message: responseJson.message,
+              code: null
+            }
+          });
           this.setState((prevState, props) => ({
             authenticated: false
           }))();
           throw responseJson;
+          this.handleError();
         }
         this.setState((prevState, props) => ({
           authenticated: true
@@ -115,15 +125,6 @@ class ResetPasswordContainer extends Component {
     } = this.props;
 
     if (this.state.authenticated === false || this.state.redirect) {
-      this.props.dispatch({
-        type: "RESET_ERROR",
-        error: {
-          body: null,
-          message:
-            "Reset Password Link has expired. To receive a new one, please resubmit your account email through the  'Forgot Password' link on the Sign-In page.",
-          code: null
-        }
-      });
       return <Redirect to="/" />;
     }
 
