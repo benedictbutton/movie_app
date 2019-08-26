@@ -23,7 +23,6 @@ class VerifyTempPassword
     client = User.find(@id)
     secret = client.password_digest + '-' + client.created_at.strftime('%3N')
     @decoded_auth_token ||= JsonWebToken.decode_temp(secret, http_auth_header)
-    raise ApiExceptions::AuthenticationError::ExpiredLink.new unless @decoded_auth_token
   end
 
   def http_auth_header
