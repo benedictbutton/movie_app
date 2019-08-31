@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
 import Image from "../assets/brushed-metal.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
@@ -53,56 +54,57 @@ const MenuProps = {
   }
 };
 
-// specificList, display?, listName, handleList, color
-class FilterContainer extends Component {
-  render() {
-    const { classes } = this.props;
-    let list = Object.keys(this.props.specificList).map((item, idx) => {
-      return (
-        <MenuItem
-          key={idx}
-          color={this.props.color}
-          value={item}
-          className={classes.medium}
-        >
-          <Typography color="primary" variant="h6">
-            {this.props.specificList[item]}
-          </Typography>
-        </MenuItem>
-      );
-    });
-    return (
-      <div>
-        {this.props.display ? (
-          <div className={classes.root}>
-            <Grid container>
-              <Grid item>
-                <FormControl className={classes.formControl}>
-                  <Select
-                    classes={{ icon: classes.icon }}
-                    displayEmpty
-                    className={classes.select}
-                    value={this.props.listName}
-                    onChange={this.props.handleList}
-                    onSelect={this.handleSelect}
-                    input={<Input id="select-multiple-placeholder" />}
-                    MenuProps={MenuProps}
-                  >
-                    <MenuItem disabled value="">
-                      <Typography className={classes.font} variant="h6">
-                        <em>{this.props.choice}</em>
-                      </Typography>
-                    </MenuItem>
-                    {list}
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-}
+const FilterContainer = props => {
+  const { classes } = props;
 
-export default withStyles(styles)(FilterContainer);
+  let list = Object.keys(props.specificList).map((key, idx) => {
+    return (
+      <MenuItem
+        key={idx}
+        color={props.color}
+        value={key}
+        className={classes.medium}
+        name={props.name}
+      >
+        <Typography color="primary" variant="h6">
+          {props.specificList[key]}
+        </Typography>
+      </MenuItem>
+    );
+  });
+
+  return (
+    <div>
+      {props.display ? (
+        <div className={classes.root}>
+          <Grid container>
+            <Grid item>
+              <FormControl className={classes.formControl}>
+                <Select
+                  classes={{ icon: classes.icon }}
+                  displayEmpty
+                  className={classes.select}
+                  value={props.menuItem}
+                  onChange={props.handleList}
+                  inputProps={{
+                    id: "select-multiple-placeholder"
+                  }}
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem disabled value="">
+                    <Typography className={classes.font} variant="h6">
+                      <em>{props.choice}</em>
+                    </Typography>
+                  </MenuItem>
+                  {list}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default withRouter(withStyles(styles)(FilterContainer));

@@ -60,39 +60,6 @@ class MoviesContainer extends Component {
     horizontal: "left"
   };
 
-  // integrates browser navigation with url
-  componentDidUpdate(prevProps) {
-    /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
-    const match = `${this.props.match.url}`.match(
-      /((^\/\w+\/\w+)\/(\w+)\/(.+))/
-    );
-
-    if (
-      prevProps.match.url !== this.props.match.url &&
-      this.props.match.url !== "/ms/movies/multi/genre"
-    ) {
-      let payload = {
-        type: match[3],
-        page: 1,
-        tag: match[4]
-      };
-
-      if (match[3] === "discover") {
-        this.props.doUpdateGenre(payload);
-        this.props.doMoviesRequesting(payload);
-      }
-      if (match[3] === "multi") {
-        this.props.doUpdateGenre(payload);
-        this.props.doMovieCategoryRequesting(payload);
-      }
-
-      if (match[3] === "search") {
-        this.props.doUpdateSearch(payload);
-        this.props.doMovieSearchRequesting(payload);
-      }
-    }
-  }
-
   render() {
     const { classes, width, clientNotifications, movieErrors } = this.props;
     const { vertical, horizontal } = this.state;
@@ -142,7 +109,10 @@ class MoviesContainer extends Component {
 
     return (
       <>
-        <AppBarContainer />
+        <AppBarContainer
+          menuItem={this.props.movies.query.tag}
+          display={this.props.display}
+        />
         <div className={classes.root}>
           <LoadingIndicator>{this.props.movies}</LoadingIndicator>
           <ScrollButton scrollStepInPx="75" delayInMs="16.66" />

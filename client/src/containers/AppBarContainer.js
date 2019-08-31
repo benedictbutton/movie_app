@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm, reset, Field } from "redux-form";
-import {
-  doMoviesRequesting,
-  doMovieCategoryRequesting,
-  doMovieSearchRequesting,
-  doUpdateGenre,
-  doUpdateSearch
-} from "../redux/actions/movieActions";
 import FilterContainer from "./FilterContainer";
 import SearchField from "../components/SearchField";
 // material-ui
@@ -54,9 +47,9 @@ const styles = theme => ({
 
 const categoryList = {
   genre: "Genre",
+  "movie/popular": "Popular",
   "trending/all/week": "Trending",
   "movie/top_rated": "Top Rated",
-  "movie/popular": "Popular",
   "movie/now_playing": "In Theaters",
   "movie/upcoming": "Upcoming"
 };
@@ -73,41 +66,27 @@ const genreList = {
 };
 
 class AppBarContainer extends Component {
-  state = {
-    categoryName: "",
-    genreName: "",
-    display: false
-  };
-
   handleCategory = event => {
-    this.setState({ categoryName: event.target.value });
-    const payload = { type: "multi", page: 1, tag: event.target.value };
-    if (event.target.value !== "genre") {
-      this.setState({ display: false });
-      this.props.doUpdateGenre(payload);
-      this.props.doMovieCategoryRequesting(payload);
-    } else this.setState({ display: true });
-    this.props.history.push(`/ms/movies/multi/${payload.tag}`);
+    this.props.history.push(`/ms/movies/multi/${event.target.value}`);
   };
 
   handleGenre = event => {
-    this.setState({ genreName: event.target.value });
-    const payload = { type: "discover", page: 0, tag: event.target.value };
-    this.props.doUpdateGenre(payload);
-    this.props.doMoviesRequesting(payload);
-    this.props.history.push(`/ms/movies/discover/${payload.tag}`);
+    this.props.history.push(`/ms/movies/discover/${event.target.value}`);
   };
 
   handleSearch = event => {
-    const payload = { type: "search", page: 0, tag: event.query };
     this.props.reset("search");
-    this.props.doUpdateSearch(payload);
-    this.props.doMovieSearchRequesting(payload);
-    this.props.history.push(`/ms/movies/search/${payload.tag}`);
+    this.props.history.push(`/ms/movies/search/${event.query}`);
   };
 
   render() {
-    const { classes, handleSubmit } = this.props;
+    const {
+      classes,
+      handleSubmit,
+      match: {
+        params: { type }
+      }
+    } = this.props;
 
     return (
       <>
@@ -119,12 +98,14 @@ class AppBarContainer extends Component {
                   <ListSubheader component="div">
                     <FilterContainer
                       specificList={categoryList}
-                      listName={this.state.categoryName}
                       handleList={this.handleCategory}
                       display={true}
                       color="primary"
                       choice="Search"
-                      handleSelect={this.props.handleSelect}
+                      name="categoryName"
+                      menuItem={
+                        this.props.display ? "genre" : this.props.menuItem
+                      }
                     />
                   </ListSubheader>
                 </Grid>
@@ -132,12 +113,12 @@ class AppBarContainer extends Component {
                   <ListSubheader component="div">
                     <FilterContainer
                       specificList={genreList}
-                      listName={this.state.genreName}
                       handleList={this.handleGenre}
-                      display={this.state.display}
+                      display={this.props.display}
                       color="#ecca00"
                       choice="Select"
-                      handleSelect={this.props.handleSelect}
+                      name="genreName"
+                      menuItem={type === "multi" ? "" : this.props.menuItem}
                     />
                   </ListSubheader>
                 </Grid>
@@ -171,11 +152,6 @@ export default withRouter(
   connect(
     null,
     {
-      doMoviesRequesting,
-      doMovieCategoryRequesting,
-      doMovieSearchRequesting,
-      doUpdateGenre,
-      doUpdateSearch,
       dispatch: reset("search")
     }
   )(withStyles(styles)(AppBarContainer))

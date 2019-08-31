@@ -19,6 +19,8 @@ class MovieContainer extends Component {
     this.handleRatingClick = this.handleRatingClick.bind(this);
   }
 
+  componentDidMount() {}
+
   handlePlaylistClick = (check, activePlaylist, movie) => {
     check
       ? this.props.doPlaylistRemoveMovieRequesting(activePlaylist, movie.id)

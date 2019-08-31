@@ -1,5 +1,7 @@
 import React from "react";
 // import { createMount } from "@material-ui/core/test-utils";
+import { doUserRequesting } from "../redux/actions/userActions";
+import { doUnSetError } from "../redux/actions/notificationActions";
 import User from "./User";
 import { UserContainer } from "../containers/UserContainer";
 import toJson from "enzyme-to-json";
@@ -27,6 +29,9 @@ const mockStore = configureStore();
 const initialState = {};
 const store = mockStore(initialState);
 
+// Dispatch the action
+store.dispatch(doUserRequesting());
+
 describe("User", () => {
   test("render()", () => {
     const wrapper = shallow(<User />);
@@ -43,7 +48,7 @@ describe("User", () => {
 
 describe("UserContainer", () => {
   test("render()", () => {
-    const wrapper = mount(<UserContainer store={store} {...props} />);
+    const wrapper = mount(<UserContainer {...props} />);
     expect(wrapper.find(User)).toHaveLength(1);
     wrapper.unmount();
   });
