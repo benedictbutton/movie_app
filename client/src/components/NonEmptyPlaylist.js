@@ -53,7 +53,7 @@ class NonEmptyPlaylist extends Component {
           >
             <Paper className={classes.paper}>
               <Typography variant="h4" align="center">
-                {this.props.playlistName}
+                {playlistName}
               </Typography>
             </Paper>
             <DeletePlaylist

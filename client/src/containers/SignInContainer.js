@@ -76,7 +76,7 @@ class SignInContainer extends Component {
     const MyLink = props => <Link to="/" {...props} />;
 
     if (client.successful) {
-      return <Redirect to="/ms/movies/discover/18" />;
+      return <Redirect to="/ms/movies/multi/trending/all/week" />;
     }
 
     return (

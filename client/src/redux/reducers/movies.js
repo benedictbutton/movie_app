@@ -3,9 +3,9 @@ import {
   MOVIES_SUCCESS,
   MY_MOVIES_REQUESTING,
   MY_MOVIES_SUCCESS,
-  MOVIE_SEARCH_REQUESTING,
   MOVIE_CATEGORY_REQUESTING,
   MOVIE_CATEGORY_SUCCESS,
+  MOVIE_SEARCH_REQUESTING,
   MOVIE_SEARCH_SUCCESS,
   MOVIES_ERROR,
   FILTER_MOVIE_RATINGS,
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   requesting: false,
   successful: false,
   notifications: {},
-  query: { type: "discover", page: 0, tag: "18" },
+  query: { type: "multi", page: 1, tag: "movie/popular" },
   filter: "all"
 };
 
@@ -44,7 +44,7 @@ const applyMoviesSuccess = (state, action) => {
   return {
     ...state,
     results: [...new Set([...state.results, ...newResults])],
-    list: { ...state.list, ...action.responseJson.entities.movies },
+    list: { ...state.list, ...movies },
     requesting: false,
     successful: true
   };

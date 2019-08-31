@@ -24,7 +24,7 @@ const styles = theme => ({
   }
 });
 
-const HomeContainer = props => {
+export const HomeContainer = props => {
   const { classes, clientErrors } = props;
 
   return (
