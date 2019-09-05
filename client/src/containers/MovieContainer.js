@@ -33,7 +33,7 @@ class MovieContainer extends Component {
 
   render() {
     const { activePlaylist, playlistMovieIds } = this.props;
-    const { movie, imageUrl, scrollPosition } = this.props.location.state;
+    const { movie, imageUrl } = this.props.location.state;
     let check =
       activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
 

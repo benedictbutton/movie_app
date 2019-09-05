@@ -26,7 +26,7 @@ async function fetchMovies(query) {
     const results = await Promise.all(promises);
     const data = await Promise.all(
       results.map(r => {
-        if (!r.ok) throw new Error(r.json());
+        if (!r.ok) throw new Error(r);
         return r.json();
       })
     );

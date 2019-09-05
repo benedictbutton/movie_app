@@ -109,7 +109,6 @@ class MoviesContainer extends Component {
             movie={movie}
             imageUrl={imageUrl}
             errors={movieErrors}
-            scrollPosition={this.props.scrollPosition}
           />
         </GridListTile>
       );
