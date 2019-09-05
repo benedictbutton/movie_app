@@ -61,7 +61,15 @@ class MoviesContainer extends Component {
   };
 
   render() {
-    const { classes, width, clientNotifications, movieErrors } = this.props;
+    const {
+      classes,
+      width,
+      clientNotifications,
+      movieErrors,
+      movies,
+      playlists,
+      display
+    } = this.props;
     const { vertical, horizontal } = this.state;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
@@ -84,10 +92,9 @@ class MoviesContainer extends Component {
           break;
       }
     }
-
     let card = 0;
-    let movies = this.props.movies.results.map(index => {
-      let movie = this.props.movies.list[index];
+    let films = movies.results.map(index => {
+      let movie = movies.list[index];
 
       let imageUrl = movie.poster_path
         ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
@@ -109,12 +116,9 @@ class MoviesContainer extends Component {
 
     return (
       <>
-        <AppBarContainer
-          menuItem={this.props.movies.query.tag}
-          display={this.props.display}
-        />
+        <AppBarContainer menuItem={movies.query.tag} display={display} />
         <div className={classes.root}>
-          <LoadingIndicator>{this.props.movies}</LoadingIndicator>
+          <LoadingIndicator>{movies}</LoadingIndicator>
           <ScrollButton scrollStepInPx="75" delayInMs="16.66" />
           <GridList
             className={classes.grid}
@@ -122,7 +126,7 @@ class MoviesContainer extends Component {
             spacing={10}
             cols={columns[width]}
           >
-            {movies}
+            {films}
           </GridList>
         </div>
         <Snackbar
@@ -139,7 +143,7 @@ class MoviesContainer extends Component {
           message={<span id="message-id">{clientNotifications.message}</span>}
         />
         <Notifications>{movieErrors}</Notifications>
-        <Notifications>{this.props.playlists.notifications}</Notifications>
+        <Notifications>{playlists.notifications}</Notifications>
       </>
     );
   }

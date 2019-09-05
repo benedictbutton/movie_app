@@ -60,7 +60,7 @@ class DrawerContainer extends React.Component {
               <ListItemText primary="Profile" />
             </ListItem>
           </Link>
-          <Link to="/ms/movies/discover/18" key="Movies">
+          <Link to="/ms/movies/multi/trending/all/week" key="Movies">
             <ListItem button key="Movies">
               <ListItemIcon>
                 <FontAwesomeIcon icon="film" />

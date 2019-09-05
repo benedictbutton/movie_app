@@ -16,10 +16,9 @@ import Movie from "../components/Movie";
 class MovieContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = { video: "" };
     this.handleRatingClick = this.handleRatingClick.bind(this);
   }
-
-  componentDidMount() {}
 
   handlePlaylistClick = (check, activePlaylist, movie) => {
     check
