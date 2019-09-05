@@ -11,7 +11,7 @@ async function fetchMovies(query) {
     let ids = array.map(num => num + query.page);
     const promises = ids.map(id => {
       return fetch(
-        `https://api.themoviedb.org/4/discover/movie?with_genres=${
+        `https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/4/discover/movie?with_genres=${
           query.tag
         }&sort_by=popularity.desc&page=${id}`,
         {
@@ -24,9 +24,10 @@ async function fetchMovies(query) {
       );
     });
     const results = await Promise.all(promises);
+    debugger;
     const data = await Promise.all(
       results.map(r => {
-        if (!r.ok) throw new Error(r);
+        if (!r.ok) throw new Error(r.json());
         return r.json();
       })
     );

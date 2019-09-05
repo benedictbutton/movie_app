@@ -4,7 +4,7 @@ function withInfiniteScroll(Component) {
   return class extends Component {
     constructor(props) {
       super(props);
-      this.state = { display: false };
+      this.state = { display: false, scrollPosition: 0 };
       this.handleChange = this.handleChange.bind(this);
     }
 
@@ -68,7 +68,7 @@ function withInfiniteScroll(Component) {
 
     // integrates browser navigation with url
     componentDidUpdate(prevProps) {
-      //   /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
+      /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag) */
       if (prevProps.match.url !== this.props.match.url) {
         // TBD: I am unsure how performant using regex is versus relying on match.param values
         const match = `${this.props.match.url}`.match(
@@ -114,6 +114,7 @@ function withInfiniteScroll(Component) {
         !this.props.movies.requesting &&
         this.props.movies.query.type !== "search"
       ) {
+        this.setState({ scrollPosition: window.scrollY });
         let payload = {
           type: this.props.movies.query.type,
           page: this.props.movies.query.page + 1,
@@ -129,6 +130,7 @@ function withInfiniteScroll(Component) {
       return (
         <Component
           display={this.state.display}
+          scrollPosition={this.state.scrollPosition}
           handleChange={this.handleChange}
           {...this.props}
         />

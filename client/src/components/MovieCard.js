@@ -68,7 +68,8 @@ class MovieCard extends Component {
               pathname: `/ms/movie/${movie.id}`,
               state: {
                 imageUrl: imageUrl,
-                movie: movie
+                movie: movie,
+                scrollPosition: this.props.scrollPosition
               }
             }}
           >

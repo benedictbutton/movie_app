@@ -16,10 +16,9 @@ import Movie from "../components/Movie";
 class MovieContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = { video: "" };
     this.handleRatingClick = this.handleRatingClick.bind(this);
   }
-
-  componentDidMount() {}
 
   handlePlaylistClick = (check, activePlaylist, movie) => {
     check
@@ -34,7 +33,7 @@ class MovieContainer extends Component {
 
   render() {
     const { activePlaylist, playlistMovieIds } = this.props;
-    const { movie, imageUrl } = this.props.location.state;
+    const { movie, imageUrl, scrollPosition } = this.props.location.state;
     let check =
       activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
 

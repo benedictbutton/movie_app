@@ -82,10 +82,12 @@ class AppBarContainer extends Component {
   render() {
     const {
       classes,
+      display,
       handleSubmit,
       match: {
         params: { type }
-      }
+      },
+      menuItem
     } = this.props;
 
     return (
@@ -103,9 +105,7 @@ class AppBarContainer extends Component {
                       color="primary"
                       choice="Search"
                       name="categoryName"
-                      menuItem={
-                        this.props.display ? "genre" : this.props.menuItem
-                      }
+                      menuItem={display ? "genre" : menuItem}
                     />
                   </ListSubheader>
                 </Grid>
@@ -114,11 +114,11 @@ class AppBarContainer extends Component {
                     <FilterContainer
                       specificList={genreList}
                       handleList={this.handleGenre}
-                      display={this.props.display}
+                      display={display}
                       color="#ecca00"
                       choice="Select"
                       name="genreName"
-                      menuItem={type === "multi" ? "" : this.props.menuItem}
+                      menuItem={type === "multi" ? "" : menuItem}
                     />
                   </ListSubheader>
                 </Grid>
