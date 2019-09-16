@@ -10,7 +10,7 @@ import FormCheckbox from "../components/FormCheckbox";
 import FormInput from "../components/FormInput";
 import Notifications from "../components/Notifications";
 import PlaylistCards from "../components/PlaylistCards";
-import { maxLength15 } from "../util/validations";
+import { formatLength, maxLength36 } from "../util/validations";
 // material-ui
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -66,7 +66,7 @@ class PlaylistsContainer extends Component {
                   type="text"
                   component={FormInput}
                   label="Title"
-                  validate={[maxLength15]}
+                  validate={[formatLength, maxLength36]}
                 />
                 <Field name="active" component={FormCheckbox} />
               </DialogContent>
@@ -94,7 +94,8 @@ class PlaylistsContainer extends Component {
 
 const playlistForm = {
   form: `playlist`,
-  onSubmit: doPlaylistAddRequesting
+  onSubmit: doPlaylistAddRequesting,
+  touchOnChange: true
 };
 
 PlaylistsContainer = reduxForm(playlistForm)(PlaylistsContainer);

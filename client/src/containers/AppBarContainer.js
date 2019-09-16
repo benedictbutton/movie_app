@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { reduxForm, reset, Field } from "redux-form";
+import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import FilterContainer from "./FilterContainer";
 import SearchField from "../components/SearchField";
 // material-ui
@@ -93,7 +94,7 @@ class AppBarContainer extends Component {
     return (
       <>
         <AppBar className={classes.bar}>
-          <Grid container justify="space-between" alignItems="flex-start">
+          <Grid container justify="space-between" alignItems="center">
             <Grid item>
               <Grid container justify="flex-start">
                 <Grid item>
@@ -123,6 +124,9 @@ class AppBarContainer extends Component {
                   </ListSubheader>
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item>
+              <ActivePlaylistContainer />
             </Grid>
             <Grid item>
               <div className={classes.root}>

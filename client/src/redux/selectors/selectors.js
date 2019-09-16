@@ -2,6 +2,8 @@ import { createSelector } from "reselect";
 
 export const getClient = state => state.client;
 
+export const getAdmin = state => state.client.admin;
+
 export const getClientNotifications = state => state.client.notifications;
 
 export const getUser = state => state.user;

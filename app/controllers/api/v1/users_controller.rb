@@ -2,7 +2,16 @@ class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_request, only: %i[new create]
 
   def index
-    @users = User.all
+    if @current_user.admin?
+      @users = User.all
+    else
+      @users = []
+      count = 1
+      User.all.each do |user|
+        @users << {id: count, username: 'sampleUser', email: 'sample@email.com'}
+        count += 1
+      end
+    end
     render json: { users: @users }
   end
 
@@ -18,6 +27,13 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    params[:records].each do |record|
+      User.find(record).destroy unless !@current_user.admin?
+    end
+    render json: :ok
   end
 
   private

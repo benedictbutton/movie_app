@@ -11,6 +11,7 @@ module PlaylistsMovies
       setup[:movies] = active_playlist_movies
       setup[:playlists] = user.playlists
       setup[:playlist_movies_by_id] = playlist_movies_by_id
+
       return setup
     end
 
