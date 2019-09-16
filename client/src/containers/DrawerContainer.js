@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getRatings } from "../redux/selectors/selectors";
+import { getRatings, getAdmin } from "../redux/selectors/selectors";
 import LogOutContainer from "./LogOutContainer";
 //material-ui
 import Drawer from "@material-ui/core/Drawer";
@@ -46,12 +46,21 @@ class DrawerContainer extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const rating = Object.entries(this.props.ratings.list)[0];
+    const { admin, ratings, classes } = this.props;
+    const rating = Object.entries(ratings.list)[0];
+    const isAdmin = admin ? "Admin" : "Admin (Demo)";
 
     const sideList = (
       <div className={classes.list}>
         <List>
+          <Link to="/ms/admin" key="Admin">
+            <ListItem button key="Profile">
+              <ListItemIcon>
+                <FontAwesomeIcon icon="lock" />
+              </ListItemIcon>
+              <ListItemText primary={isAdmin} />
+            </ListItem>
+          </Link>
           <Link to="/ms/users/:id" key="Profile">
             <ListItem button key="Profile">
               <ListItemIcon>
@@ -132,7 +141,8 @@ class DrawerContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ratings: getRatings(state)
+  ratings: getRatings(state),
+  admin: getAdmin(state)
 });
 
 export default withRouter(

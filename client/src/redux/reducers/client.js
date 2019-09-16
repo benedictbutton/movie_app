@@ -14,6 +14,7 @@ import {
 const INITIAL_STATE = {
   requesting: false,
   successful: false,
+  admin: false,
   reset: false,
   notifications: {}
 };
@@ -58,6 +59,7 @@ const applySignInSuccess = (state, action) => ({
   ...state,
   requesting: false,
   successful: true,
+  admin: action.responseJson.user === "admin",
   notifications: {
     ...state.notifications,
     body: null,

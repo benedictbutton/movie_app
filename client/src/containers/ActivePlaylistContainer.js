@@ -25,7 +25,6 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   chip: {
-    margin: theme.spacing.unit,
     color: "yellow",
     backgroundColor: "#0b0b0b",
     border: "solid"

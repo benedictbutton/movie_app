@@ -50,9 +50,7 @@ const HeaderContainer = props => {
         className={classes.active}
         alignItems="center"
         justify="flex-start"
-      >
-        {client.successful && <ActivePlaylistContainer />}
-      </Grid>
+      />
     </>
   );
 };

@@ -71,7 +71,8 @@ class PlaylistCards extends Component {
       return (
         <Grid
           item
-          xs={6}
+          xs={12}
+          sm={6}
           md={4}
           lg={3}
           key={id}
@@ -109,7 +110,8 @@ class PlaylistCards extends Component {
         >
           <Grid
             item
-            xs={6}
+            xs={12}
+            sm={6}
             md={4}
             lg={3}
             className={classes.grid}

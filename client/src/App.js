@@ -6,6 +6,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSignOutAlt,
   faBars,
+  faLock,
   faUser,
   faFilm,
   faStar,
@@ -13,6 +14,7 @@ import {
   faPlay
 } from "@fortawesome/free-solid-svg-icons";
 //App Components
+import Admin from "./components/Admin";
 import HeaderContainer from "./containers/HeaderContainer";
 import HomeContainer from "./containers/HomeContainer";
 import MovieContainer from "./containers/MovieContainer";
@@ -30,6 +32,7 @@ library.add(
   faSignOutAlt,
   faBars,
   faUser,
+  faLock,
   faFilm,
   faStar,
   faStepForward,
@@ -50,6 +53,7 @@ class App extends Component {
               path="/ms/reset_password/:id/:pass"
               component={ResetPasswordContainer}
             />
+            <PrivateRoute path="/ms/admin" component={Admin} />
             <PrivateRoute
               path="/ms/movies/:type/:query?/:desc?/:end?"
               component={MoviesContainer}

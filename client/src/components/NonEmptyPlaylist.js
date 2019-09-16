@@ -12,7 +12,7 @@ const styles = theme => ({
     display: "table-cell",
     background: `url(${Image})`,
     maxWidth: 225,
-    width: 225,
+    minWidth: 225,
     height: 300,
     verticalAlign: "middle",
     "&:hover": {
@@ -56,6 +56,7 @@ class NonEmptyPlaylist extends Component {
                 {playlistName}
               </Typography>
             </Paper>
+
             <DeletePlaylist
               id={id}
               playlistName={playlistName}

@@ -30,11 +30,13 @@ const styles = theme => ({
     flexWrap: "wrap",
     justify: "space-around",
     alignItems: "center",
+    marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
   },
   bar: {
     background: "transparent",
-    position: "relative"
+    position: "relative",
+    marginLeft: theme.spacing.unit * 5
   },
   tile: {
     height: 0,
@@ -125,6 +127,7 @@ class RatingsContainer extends Component {
             color="primary"
             choice="Filter"
             handleSelect={this.props.handleSelect}
+            menuItem={this.state.starName}
           />
         </AppBar>
         <div className={classes.root}>
