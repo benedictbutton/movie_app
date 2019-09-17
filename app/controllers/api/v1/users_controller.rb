@@ -6,10 +6,10 @@ class Api::V1::UsersController < ApplicationController
       @users = User.all
     else
       @users = []
-      count = 1
-      User.all.each do |user|
-        @users << {id: count, username: 'sampleUser', email: 'sample@email.com'}
-        count += 1
+      count = 15
+      while count > 0
+        @users << {id: count, username: "sampleUser#{count}", email: "sampleUser#{count}@email.com"}
+        count -= 1
       end
     end
     render json: { users: @users }
