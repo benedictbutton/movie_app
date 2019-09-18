@@ -65,7 +65,7 @@ class MoviesContainer extends Component {
       playlists,
       display
     } = this.props;
-    const { vertical, horizontal } = this.state;
+
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
