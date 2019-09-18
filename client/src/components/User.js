@@ -94,14 +94,13 @@ const styles = theme => ({
 
 const User = props => {
   const { classes } = props;
+  const { firstName, lastName, username, email } = props.user.profile;
 
   const [open, setOpen] = useState(false);
 
   const stars = [1, 2, 3, 4, 5].map(el => (
     <StarIcon key={el} size={20} style={{ color: "yellow" }} />
   ));
-
-  const position = { vertical: "top", horizontal: "right" };
 
   return (
     <Grid container className={classes.root}>
@@ -150,7 +149,7 @@ const User = props => {
                   <TextField
                     id="outlined-read-only-input"
                     label="Username"
-                    defaultValue="Username"
+                    defaultValue={username}
                     className={classes.textField}
                     margin="normal"
                     InputLabelProps={{
@@ -175,7 +174,7 @@ const User = props => {
                   <TextField
                     id="outlined-read-only-input"
                     label="Email"
-                    defaultValue="Email"
+                    defaultValue={email}
                     className={classes.textField}
                     margin="normal"
                     InputLabelProps={{
