@@ -1,159 +1,268 @@
-import React from "react";
-import Image from "../assets/brushed-metal.jpg";
-import LoadingIndicator from "./LoadingIndicator";
-//material-ui
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import backgroundImage from "../assets/dark-grey-metal.jpg";
+import userImage from "../assets/no-poster.jpg";
+// material-ui
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import CheckIcon from "@material-ui/icons/Check";
+import ClearIcon from "@material-ui/icons/Clear";
+import EditIcon from "@material-ui/icons/Edit";
+import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Snackbar from "@material-ui/core/Snackbar";
+import StarIcon from "@material-ui/icons/Star";
+import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
-    marginLeft: theme.spacing.unit * 6,
-    jusify: "flex-start",
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#eeeeee"
+  },
+  main: {
+    flex: 1,
+    justifyContent: "space-around",
     alignItems: "flex-start"
   },
-  icon: {
-    color: "#ecca00",
-    zIndex: 20,
-    position: "absolute"
+  layout: {
+    padding: theme.spacing.unit * 3,
+    margin: theme.spacing.unit * 3,
+    background: `url(${backgroundImage})`
   },
-  paper: {
-    backgroundImage: `url(${Image})`,
-    borderStyle: "ridge",
-    borderWidth: 15,
-    marginTop: theme.spacing.unit * 20,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(800 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 20,
-      marginBottom: theme.spacing.unit * 8
-    },
-    zIndex: 10,
-    position: "absolute",
-    width: "50%"
+  grid: {
+    height: "auto",
+    padding: "56.25% 0 0 0",
+    maxWidth: 300
   },
-  type: {
-    fontFamily: "'NewTimesRoman', serif",
-    fontWeight: "700",
-    color: "#272727"
+  media: {
+    width: "100%",
+    height: "100%"
   },
-  info: {
-    fontFamily: "'NewTimesRoman', serif",
-    fontWeight: "500",
+  btnMargin: {
+    marginTop: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  starGrid: {
+    flex: 1
+  },
+  stars: {
+    background: "rgba(0, 0, 0, 0.5)",
+    maxHeight: 48
+  },
+  overview: {
     color: "#343434"
+  },
+  input: {
+    color: "white",
+    borderColor: "white"
+  },
+  cssLabel: {
+    color: "white"
+  },
+  cssOutlinedInput: {
+    "&$cssFocused $notchedOutline": {
+      borderColor: "white !important"
+    }
+  },
+  notchedOutline: {
+    borderWidth: "2px",
+    borderColor: "white !important"
+  },
+  cssFocused: { borderWidth: "2px", borderColor: "white" },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  },
+  title: {
+    marginBottom: theme.spacing.unit * 3,
+    color: "#2F4F4F",
+    fontWeight: "700"
+  },
+  snack: {
+    color: "white",
+    backgroundColor: theme.palette.primary.dark
   }
 });
 
 const User = props => {
   const { classes } = props;
-  const { firstName, lastName, username, email } = props.user.profile;
+
+  const [open, setOpen] = useState(false);
+
+  const stars = [1, 2, 3, 4, 5].map(el => (
+    <StarIcon key={el} size={20} style={{ color: "yellow" }} />
+  ));
+
+  const position = { vertical: "top", horizontal: "right" };
 
   return (
-    <>
-      <Grid container className={classes.root}>
-        <LoadingIndicator>{props.user}</LoadingIndicator>
-        <div position="absolute">
-          <AccountCircleIcon
-            className={classes.icon}
-            style={{ fontSize: 200 }}
-          />
-          <Grid container alignItems="center" justify="center">
-            <Grid item xs={5}>
-              <Paper className={classes.paper} align="center">
-                <Typography variant="h2" gutterBottom className={classes.type}>
-                  Profile
-                </Typography>
+    <Grid container className={classes.root}>
+      <Grid item xs={12} md={8}>
+        <Paper className={classes.layout}>
+          <Grid container className={classes.main} spacing={16}>
+            <Grid item xs={12} sm={5} className={classes.grid}>
+              <img
+                src={userImage}
+                className={classes.media}
+                alt="movie poster"
+              />
+              <Paper className={classes.stars}>
                 <Grid
                   container
-                  spacing={24}
-                  justify="space-around"
-                  alignItems="flex-start"
+                  className={classes.starGrid}
+                  alignItems="center"
+                  justify="space-evenly"
                 >
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h4"
-                      className={classes.type}
-                    >
-                      First Name
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      className={classes.info}
-                    >
-                      {firstName}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h4"
-                      className={classes.type}
-                    >
-                      Last Name
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      className={classes.info}
-                    >
-                      {lastName}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h4"
-                      className={classes.type}
-                    >
-                      Username
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      className={classes.info}
-                    >
-                      {username}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h4"
-                      className={classes.type}
-                    >
-                      Email
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={5} align="left">
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      className={classes.info}
-                      noWrap
-                    >
-                      {email}
-                    </Typography>
-                  </Grid>
+                  {stars}
                 </Grid>
               </Paper>
+              <Grid container className={classes.btnMargin}>
+                <Grid item xs={12}>
+                  <Tooltip title="Clear rating" placement="bottom">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      alt="clear rating"
+                      fullWidth
+                      onClick={() => setOpen(true)}
+                    >
+                      Upload Image
+                      <FontAwesomeIcon
+                        className={classes.rightIcon}
+                        icon="upload"
+                      />
+                    </Button>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item sm={7}>
+              <Grid container>
+                <Grid item xs={6}>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Username"
+                    defaultValue="Username"
+                    className={classes.textField}
+                    margin="normal"
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    InputProps={{
+                      readOnly: true,
+                      classes: {
+                        input: classes.input,
+                        root: classes.cssOutlinedInput,
+                        notchedOutline: classes.notchedOutline,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Email"
+                    defaultValue="Email"
+                    className={classes.textField}
+                    margin="normal"
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    InputProps={{
+                      readOnly: true,
+                      classes: {
+                        input: classes.input,
+                        root: classes.cssOutlinedInput,
+                        notchedOutline: classes.notchedOutline,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    id="outlined-read-only-input"
+                    label="Password"
+                    defaultValue="**********"
+                    className={classes.textField}
+                    margin="normal"
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    InputProps={{
+                      readOnly: true,
+                      classes: {
+                        input: classes.input,
+                        root: classes.cssOutlinedInput,
+                        notchedOutline: classes.notchedOutline,
+                        focused: classes.cssFocused
+                      }
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid
+                  container
+                  className={classes.btnMargin}
+                  justify="flex-end"
+                >
+                  <Grid item xs={4}>
+                    <Tooltip
+                      title={true ? "Remove from playlist" : "Add to playlist"}
+                      placement="bottom"
+                    >
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        alt="clear rating"
+                        fullWidth
+                        onClick={() => setOpen(true)}
+                      >
+                        <EditIcon style={{ color: "white" }} />
+                      </Button>
+                    </Tooltip>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </div>
-      </Grid>
-    </>
+        </Paper>
+      </Grid>{" "}
+      <Snackbar
+        className={classes.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        autoHideDuration={5000}
+        open={open}
+        onClose={() => setOpen(false)}
+        ContentProps={{
+          "aria-describedby": "message-id",
+          className: classes.snack
+        }}
+        TransitionComponent={Fade}
+        message={<span id="message-id"> TBD - Coming soon</span>}
+      />
+    </Grid>
   );
 };
 

@@ -11,7 +11,8 @@ import {
   faFilm,
   faStar,
   faStepForward,
-  faPlay
+  faPlay,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 //App Components
 import Admin from "./components/Admin";
@@ -36,7 +37,8 @@ library.add(
   faFilm,
   faStar,
   faStepForward,
-  faPlay
+  faPlay,
+  faUpload
 );
 
 class App extends Component {

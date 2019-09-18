@@ -5,6 +5,7 @@ import { reduxForm, reset, Field } from "redux-form";
 import ActivePlaylistContainer from "./ActivePlaylistContainer";
 import FilterContainer from "./FilterContainer";
 import SearchField from "../components/SearchField";
+import StarList from "../components/StarList";
 // material-ui
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import AppBar from "@material-ui/core/AppBar";
@@ -20,7 +21,8 @@ const styles = theme => ({
   },
   bar: {
     background: "transparent",
-    position: "relative"
+    position: "relative",
+    marginTop: theme.spacing.unit * 2
   },
   genre: {
     paddingTop: 0,
@@ -66,6 +68,15 @@ const genreList = {
   27: "Horror"
 };
 
+const starList = {
+  all: "All",
+  oneStar: <StarList rating="1" />,
+  twoStar: <StarList rating="2" />,
+  threeStar: <StarList rating="3" />,
+  fourStar: <StarList rating="4" />,
+  fiveStar: <StarList rating="5" />
+};
+
 class AppBarContainer extends Component {
   handleCategory = event => {
     this.props.history.push(`/ms/movies/multi/${event.target.value}`);
@@ -88,8 +99,33 @@ class AppBarContainer extends Component {
       match: {
         params: { type }
       },
-      menuItem
+      menuItem,
+      handleStar,
+      starName
     } = this.props;
+
+    const filterType = type ? (
+      <FilterContainer
+        specificList={categoryList}
+        handleList={this.handleCategory}
+        display={true}
+        color="primary"
+        choice="Search"
+        name="categoryName"
+        menuItem={display ? "genre" : menuItem}
+      />
+    ) : (
+      <FilterContainer
+        specificList={starList}
+        listName={starName}
+        handleList={handleStar}
+        display={true}
+        color="primary"
+        choice="Filter"
+        handleSelect={this.props.handleSelect}
+        menuItem={starName}
+      />
+    );
 
     return (
       <>
@@ -98,17 +134,7 @@ class AppBarContainer extends Component {
             <Grid item>
               <Grid container justify="flex-start">
                 <Grid item>
-                  <ListSubheader component="div">
-                    <FilterContainer
-                      specificList={categoryList}
-                      handleList={this.handleCategory}
-                      display={true}
-                      color="primary"
-                      choice="Search"
-                      name="categoryName"
-                      menuItem={display ? "genre" : menuItem}
-                    />
-                  </ListSubheader>
+                  <ListSubheader component="div">{filterType}</ListSubheader>
                 </Grid>
                 <Grid item>
                   <ListSubheader component="div">
@@ -150,6 +176,8 @@ class AppBarContainer extends Component {
 const searchForm = {
   form: `search`
 };
+
+const mapStateToProps = (state, props) => ({});
 
 AppBarContainer = reduxForm(searchForm)(AppBarContainer);
 export default withRouter(

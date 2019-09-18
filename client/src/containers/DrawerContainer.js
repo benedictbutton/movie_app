@@ -5,14 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getRatings, getAdmin } from "../redux/selectors/selectors";
 import LogOutContainer from "./LogOutContainer";
 //material-ui
-import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
+import Drawer from "@material-ui/core/Drawer";
+import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import Snackbar from "@material-ui/core/Snackbar";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -27,6 +29,10 @@ const styles = theme => ({
   },
   fullList: {
     width: "auto"
+  },
+  snack: {
+    color: "white",
+    backgroundColor: theme.palette.primary.dark
   }
 });
 
@@ -36,7 +42,9 @@ class DrawerContainer extends React.Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
   state = {
-    left: false
+    left: false,
+    open: false,
+    openSnackbar: false
   };
 
   toggleDrawer = (side, open) => () => {
@@ -45,8 +53,17 @@ class DrawerContainer extends React.Component {
     });
   };
 
+  handleClick = event => {
+    this.setState({ openSnackbar: true });
+  };
+
+  handleClose = event => {
+    this.setState({ openSnackbar: false });
+  };
+
   render() {
     const { admin, ratings, classes } = this.props;
+    const { open, openSnackbar } = this.state;
     const rating = Object.entries(ratings.list)[0];
     const isAdmin = admin ? "Admin" : "Admin (Demo)";
 
@@ -78,7 +95,7 @@ class DrawerContainer extends React.Component {
             </ListItem>
           </Link>
           {rating[0] === "id" ? (
-            <ListItem button key="Ratings">
+            <ListItem button key="Ratings" onClick={this.handleClick}>
               <ListItemIcon>
                 <FontAwesomeIcon icon="star" />
               </ListItemIcon>
@@ -135,6 +152,21 @@ class DrawerContainer extends React.Component {
             {sideList}
           </div>
         </Drawer>
+        <Snackbar
+          className={classes.snack}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          autoHideDuration={5000}
+          open={openSnackbar}
+          onClose={this.handleClose}
+          ContentProps={{
+            "aria-describedby": "message-id",
+            className: classes.snack
+          }}
+          TransitionComponent={Fade}
+          message={
+            <span id="message-id"> You haven't rated any movies yet</span>
+          }
+        />
       </div>
     );
   }

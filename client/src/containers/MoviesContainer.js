@@ -55,11 +55,6 @@ const styles = theme => ({
 });
 
 class MoviesContainer extends Component {
-  state = {
-    vertical: "bottom",
-    horizontal: "left"
-  };
-
   render() {
     const {
       classes,
@@ -131,7 +126,7 @@ class MoviesContainer extends Component {
         </div>
         <Snackbar
           className={classes.snack}
-          anchorOrigin={{ vertical, horizontal }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           autoHideDuration={3000}
           open={clientNotifications.display}
           onClose={this.props.doUnSetError}

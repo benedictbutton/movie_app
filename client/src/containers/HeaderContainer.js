@@ -10,20 +10,6 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  active: {
-    display: "flex",
-    marginTop: theme.spacing.unit * 1
-  },
-  appBar: {
-    position: "relative",
-    backgroundColor: "#0b0b0b"
-  },
-  heroUnit: {
-    backgroundColor: theme.palette.background.paper
-  },
   heroContent: {
     width: "100%",
     margin: "0 auto",
@@ -44,16 +30,17 @@ const HeaderContainer = props => {
         </Grid>
         <Title />
       </Paper>
-      <Grid
-        container
-        spacing={8}
-        className={classes.active}
-        alignItems="center"
-        justify="flex-start"
-      />
     </>
   );
 };
+
+// <Grid
+//   container
+//   spacing={8}
+//   className={classes.active}
+//   alignItems="center"
+//   justify="flex-start"
+// />
 
 const mapStateToProps = state => ({
   client: state.client

@@ -11,13 +11,12 @@ import {
   getRatings,
   getFilteredRatings
 } from "../redux/selectors/selectors";
+import AppBarContainer from "./AppBarContainer";
 import FilterContainer from "./FilterContainer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 import ScrollButton from "../components/ScrollButton";
-import StarList from "../components/StarList";
-//material-ui
 import AppBar from "@material-ui/core/AppBar";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -44,15 +43,6 @@ const styles = theme => ({
     maxWidth: 500
   }
 });
-
-const starList = {
-  all: "All",
-  oneStar: <StarList rating="1" />,
-  twoStar: <StarList rating="2" />,
-  threeStar: <StarList rating="3" />,
-  fourStar: <StarList rating="4" />,
-  fiveStar: <StarList rating="5" />
-};
 
 class RatingsContainer extends Component {
   constructor(props) {
@@ -88,6 +78,8 @@ class RatingsContainer extends Component {
       xl: 8
     };
 
+    let display = false;
+
     let resize = 1;
     let length = ratedMovies.length;
     if (length < 3 && columns[width] >= 3) {
@@ -118,18 +110,11 @@ class RatingsContainer extends Component {
 
     return (
       <>
-        <AppBar className={classes.bar}>
-          <FilterContainer
-            specificList={starList}
-            listName={this.state.starName}
-            handleList={this.handleStar}
-            display={true}
-            color="primary"
-            choice="Filter"
-            handleSelect={this.props.handleSelect}
-            menuItem={this.state.starName}
-          />
-        </AppBar>
+        <AppBarContainer
+          handleStar={this.handleStar}
+          starName={this.state.starName}
+          display={display}
+        />
         <div className={classes.root}>
           <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
           <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
@@ -142,16 +127,6 @@ class RatingsContainer extends Component {
     );
   }
 }
-
-// const getRatedMovies = createSelector(
-//   [getRatingsAsIds, getMoviesAsList],
-//   (ids, movies) =>
-//     ids
-//       .filter(id => {
-//         return movies.hasOwnProperty(id);
-//       })
-//       .map(id => getMoviesRated(movies, id))
-// );
 
 const mapStateToProps = (state, props) => ({
   ratedMovies: getFilteredRatings(state),
