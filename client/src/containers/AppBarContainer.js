@@ -8,7 +8,6 @@ import SearchField from "../components/SearchField";
 import StarList from "../components/StarList";
 // material-ui
 import { fade } from "@material-ui/core/styles/colorManipulator";
-import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,9 +19,9 @@ const styles = theme => ({
     width: "100%"
   },
   bar: {
-    background: "transparent",
-    position: "relative",
-    marginTop: theme.spacing.unit * 2
+    background: "#0b0b0b",
+    width: "100%",
+    paddingTop: theme.spacing.unit
   },
   genre: {
     paddingTop: 0,
@@ -32,6 +31,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   search: {
+    color: "#ecca00",
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -128,47 +128,45 @@ class AppBarContainer extends Component {
     );
 
     return (
-      <>
-        <AppBar className={classes.bar}>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item>
-              <Grid container justify="flex-start">
-                <Grid item>
-                  <ListSubheader component="div">{filterType}</ListSubheader>
-                </Grid>
-                <Grid item>
-                  <ListSubheader component="div">
-                    <FilterContainer
-                      specificList={genreList}
-                      handleList={this.handleGenre}
-                      display={display}
-                      color="#ecca00"
-                      choice="Select"
-                      name="genreName"
-                      menuItem={type === "multi" ? "" : menuItem}
-                    />
-                  </ListSubheader>
-                </Grid>
+      <Toolbar id="toolbar" className={classes.bar}>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item>
+            <Grid container justify="flex-start">
+              <Grid item>
+                <ListSubheader component="div">{filterType}</ListSubheader>
+              </Grid>
+              <Grid item>
+                <ListSubheader component="div">
+                  <FilterContainer
+                    specificList={genreList}
+                    handleList={this.handleGenre}
+                    display={display}
+                    color="#ecca00"
+                    choice="Select"
+                    name="genreName"
+                    menuItem={type === "multi" ? "" : menuItem}
+                  />
+                </ListSubheader>
               </Grid>
             </Grid>
-            <Grid item>
-              <ActivePlaylistContainer />
-            </Grid>
-            <Grid item>
-              <div className={classes.root}>
-                <Toolbar className={classes.root}>
-                  <div className={classes.grow} />
-                  <div className={classes.search}>
-                    <form onSubmit={handleSubmit(this.handleSearch)}>
-                      <Field name="query" type="text" component={SearchField} />
-                    </form>
-                  </div>
-                </Toolbar>
-              </div>
-            </Grid>
           </Grid>
-        </AppBar>
-      </>
+          <Grid item>
+            <ActivePlaylistContainer />
+          </Grid>
+          <Grid item>
+            <div className={classes.root}>
+              <Toolbar className={classes.root}>
+                <div className={classes.grow} />
+                <div className={classes.search}>
+                  <form onSubmit={handleSubmit(this.handleSearch)}>
+                    <Field name="query" type="text" component={SearchField} />
+                  </form>
+                </div>
+              </Toolbar>
+            </div>
+          </Grid>
+        </Grid>
+      </Toolbar>
     );
   }
 }

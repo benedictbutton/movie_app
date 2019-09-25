@@ -20,6 +20,8 @@ import ScrollButton from "../components/ScrollButton";
 import AppBar from "@material-ui/core/AppBar";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import { StickyContainer, StickyBoundary } from "../HOC/Sticky";
+import withSticky from "../HOC/Sticky";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -43,6 +45,8 @@ const styles = theme => ({
     maxWidth: 500
   }
 });
+
+const StickyAppBar = withSticky(AppBarContainer);
 
 class RatingsContainer extends Component {
   constructor(props) {
@@ -109,21 +113,23 @@ class RatingsContainer extends Component {
     });
 
     return (
-      <>
-        <AppBarContainer
+      <StickyContainer>
+        <StickyAppBar
           handleStar={this.handleStar}
           starName={this.state.starName}
           display={display}
         />
-        <div className={classes.root}>
-          <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
-          <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
-          <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
-            {movies}
-          </GridList>
-        </div>
-        <Notifications>{movieErrors}</Notifications>
-      </>
+        <StickyBoundary>
+          <div className={classes.root}>
+            <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
+            <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
+            <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
+              {movies}
+            </GridList>
+          </div>
+          <Notifications>{movieErrors}</Notifications>
+        </StickyBoundary>
+      </StickyContainer>
     );
   }
 }

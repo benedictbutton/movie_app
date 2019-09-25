@@ -27,7 +27,8 @@ const styles = theme => ({
   chip: {
     color: "yellow",
     backgroundColor: "#0b0b0b",
-    border: "solid"
+    border: "solid",
+    marginLeft: theme.spacing.unit * 2
   },
   lightTooltip: {
     backgroundColor: theme.palette.common.white,

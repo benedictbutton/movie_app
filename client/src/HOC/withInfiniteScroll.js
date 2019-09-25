@@ -4,8 +4,16 @@ function withInfiniteScroll(Component) {
   return class extends Component {
     constructor(props) {
       super(props);
-      this.state = { display: false };
+      this.state = {
+        display: false
+        // mode: "is-top",
+        // deviceMediumMinWidthInPixels: 500,
+        // stickyBoxEl: null
+      };
+      // this.myRef = React.createRef();
       this.handleChange = this.handleChange.bind(this);
+      // this.onResize = this.onResize.bind(this);
+      this.onScroll = this.onScroll.bind(this);
     }
 
     handleChange() {
@@ -27,6 +35,7 @@ function withInfiniteScroll(Component) {
       const match = `${this.props.match.url}`.match(
         /((^\/\w+\/\w+)\/(\w+)\/(.+))/
       );
+
       /* if navigating back from a movie/:id page, this code prevents a new api fetch call and instead reloads the page with the existing props from before; the page !== 0 conditional ensures the component does mount at least once (a page value of greater than 1 guarantess there was previous activity) */
       if (
         this.props.movies.query.page > 1 &&
@@ -83,22 +92,17 @@ function withInfiniteScroll(Component) {
           if (!this.state.display) this.handleChange();
           this.props.doUpdateGenre(payload);
           this.props.doMoviesRequesting(payload);
-          return;
-        }
-        if (match[4] === "genre") {
+        } else if (match[4] === "genre") {
           if (!this.state.display) this.handleChange();
-          return;
-        }
-        if (match[3] === "multi") {
+        } else if (match[3] === "multi") {
           if (this.state.display) this.handleChange();
           this.props.doUpdateGenre(payload);
           this.props.doMovieCategoryRequesting(payload);
-          return;
-        }
-        if (match[3] === "search") {
+        } else if (match[3] === "search") {
           this.props.doUpdateSearch(payload);
           this.props.doMovieSearchRequesting(payload);
         }
+        window.scrollTo(0, 0);
       }
     }
 
@@ -106,13 +110,14 @@ function withInfiniteScroll(Component) {
       window.removeEventListener("scroll", this.onScroll, false);
     }
 
-    onScroll = () => {
+    onScroll() {
       if (
         window.innerHeight + window.scrollY >=
           document.body.offsetHeight - 500 &&
         this.props.movies.results.length &&
         !this.props.movies.requesting &&
-        this.props.movies.query.type !== "search"
+        this.props.movies.query.type !== "search" &&
+        !this.props.movies.requesting
       ) {
         let payload = {
           type: this.props.movies.query.type,
@@ -123,15 +128,17 @@ function withInfiniteScroll(Component) {
           ? this.props.doMoviesRequesting(payload)
           : this.props.doMovieCategoryRequesting(payload);
       }
-    };
+    }
 
     render() {
       return (
-        <Component
-          display={this.state.display}
-          handleChange={this.handleChange}
-          {...this.props}
-        />
+        <>
+          <Component
+            display={this.state.display}
+            handleChange={this.handleChange}
+            {...this.props}
+          />
+        </>
       );
     }
   };
