@@ -45,31 +45,28 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Route exact path="/" component={HomeContainer} />
         <header className="App-header">
-          <Route exact path="/" component={HomeContainer} />
           <Route path="/ms" component={HeaderContainer} />
-          <Switch>
-            <Route path="/ms/sign-up" component={SignUpContainer} />
-            <Route path="/ms/sign-in" component={SignInContainer} />
-            <Route
-              path="/ms/reset_password/:id/:pass"
-              component={ResetPasswordContainer}
-            />
-            <PrivateRoute path="/ms/admin" component={Admin} />
-            <PrivateRoute
-              path="/ms/movies/:type/:query?/:desc?/:end?"
-              component={MoviesContainer}
-            />
-            <PrivateRoute path="/ms/movie/:id" component={MovieContainer} />
-            <PrivateRoute path="/ms/ratings" component={RatingsContainer} />
-            <PrivateRoute path="/ms/playlists" component={PlaylistsContainer} />
-            <PrivateRoute
-              path="/ms/playlist/:id"
-              component={PlaylistContainer}
-            />
-            <PrivateRoute path="/ms/users/:id" component={UserContainer} />
-          </Switch>
         </header>
+        <Switch>
+          <Route path="/ms/sign-up" component={SignUpContainer} />
+          <Route path="/ms/sign-in" component={SignInContainer} />
+          <Route
+            path="/ms/reset_password/:id/:pass"
+            component={ResetPasswordContainer}
+          />
+          <PrivateRoute path="/ms/admin" component={Admin} />
+          <PrivateRoute
+            path="/ms/movies/:type/:query?/:desc?/:end?"
+            component={MoviesContainer}
+          />
+          <PrivateRoute path="/ms/movie/:id" component={MovieContainer} />
+          <PrivateRoute path="/ms/ratings" component={RatingsContainer} />
+          <PrivateRoute path="/ms/playlists" component={PlaylistsContainer} />
+          <PrivateRoute path="/ms/playlist/:id" component={PlaylistContainer} />
+          <PrivateRoute path="/ms/users/:id" component={UserContainer} />
+        </Switch>
       </div>
     );
   }

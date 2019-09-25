@@ -9,9 +9,11 @@ import { doRatingRemoveRequesting } from "../redux/actions/ratingActions";
 import {
   getRatingsList,
   getActivePlaylist,
-  getPlaylistMovieIds
+  getPlaylistMovieIds,
+  getPlaylistErrors
 } from "../redux/selectors/selectors";
 import Movie from "../components/Movie";
+import Notifications from "../components/Notifications";
 
 class MovieContainer extends Component {
   constructor(props) {
@@ -32,21 +34,24 @@ class MovieContainer extends Component {
   }
 
   render() {
-    const { activePlaylist, playlistMovieIds } = this.props;
+    const { activePlaylist, playlistMovieIds, playlistErrors } = this.props;
     const { movie, imageUrl } = this.props.location.state;
     let check =
       activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
 
     return (
-      <Movie
-        movie={movie}
-        imageUrl={imageUrl}
-        check={check}
-        handlePlaylistClick={this.handlePlaylistClick}
-        handleRatingClick={this.handleRatingClick}
-        activePlaylist={activePlaylist}
-        playlistMovieIds={playlistMovieIds}
-      />
+      <>
+        <Movie
+          movie={movie}
+          imageUrl={imageUrl}
+          check={check}
+          handlePlaylistClick={this.handlePlaylistClick}
+          handleRatingClick={this.handleRatingClick}
+          activePlaylist={activePlaylist}
+          playlistMovieIds={playlistMovieIds}
+        />
+        <Notifications>{playlistErrors}</Notifications>
+      </>
     );
   }
 }
@@ -54,7 +59,8 @@ class MovieContainer extends Component {
 const mapStateToProps = (state, props) => ({
   ratingsList: getRatingsList(state),
   activePlaylist: getActivePlaylist(state),
-  playlistMovieIds: getPlaylistMovieIds(state)
+  playlistMovieIds: getPlaylistMovieIds(state),
+  playlistErrors: getPlaylistErrors(state)
 });
 
 export default withRouter(

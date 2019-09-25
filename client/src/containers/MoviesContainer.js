@@ -28,6 +28,8 @@ import withInfiniteScroll from "../HOC/withInfiniteScroll";
 import Fade from "@material-ui/core/Fade";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import { StickyContainer, StickyBoundary } from "../HOC/Sticky";
+import withSticky from "../HOC/Sticky";
 import Snackbar from "@material-ui/core/Snackbar";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
@@ -41,6 +43,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
     margin: theme.spacing.unit * 6
   },
+  // content: {
+  //   paddingTop: 60
+  // },
   grid: {
     position: "relative"
   },
@@ -53,6 +58,8 @@ const styles = theme => ({
     paddingTop: "56.25%"
   }
 });
+
+const StickyAppBar = withSticky(AppBarContainer);
 
 class MoviesContainer extends Component {
   render() {
@@ -109,37 +116,50 @@ class MoviesContainer extends Component {
       );
     });
 
+    // {this.props.mode === "is-bottom" && (
+    //   <StickyAppBar
+    //     display={this.props.display}
+    //     menuItem={this.props.movies.query.tag}
+    //   />
+    // )}
+
     return (
-      <>
-        <AppBarContainer menuItem={movies.query.tag} display={display} />
-        <div className={classes.root}>
-          <LoadingIndicator>{movies}</LoadingIndicator>
-          <ScrollButton scrollStepInPx="75" delayInMs="16.66" />
-          <GridList
-            className={classes.grid}
-            cellHeight="auto"
-            spacing={10}
-            cols={columns[width]}
-          >
-            {films}
-          </GridList>
-        </div>
-        <Snackbar
-          className={classes.snack}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          autoHideDuration={3000}
-          open={clientNotifications.display}
-          onClose={this.props.doUnSetError}
-          ContentProps={{
-            "aria-describedby": "message-id",
-            className: classes.snack
-          }}
-          TransitionComponent={Fade}
-          message={<span id="message-id">{clientNotifications.message}</span>}
+      <StickyContainer>
+        <StickyAppBar
+          display={this.props.display}
+          menuItem={this.props.movies.query.tag}
+          loading={this.props.movies.requesting}
         />
-        <Notifications>{movieErrors}</Notifications>
-        <Notifications>{playlists.notifications}</Notifications>
-      </>
+        <StickyBoundary>
+          <div className={classes.root}>
+            <LoadingIndicator>{movies}</LoadingIndicator>
+            <ScrollButton scrollStepInPx="300" delayInMs="16.66" />
+            <GridList
+              className={classes.grid}
+              cellHeight="auto"
+              spacing={10}
+              cols={columns[width]}
+            >
+              {films}
+            </GridList>
+          </div>
+          <Snackbar
+            className={classes.snack}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            autoHideDuration={3000}
+            open={clientNotifications.display}
+            onClose={this.props.doUnSetError}
+            ContentProps={{
+              "aria-describedby": "message-id",
+              className: classes.snack
+            }}
+            TransitionComponent={Fade}
+            message={<span id="message-id">{clientNotifications.message}</span>}
+          />
+          <Notifications>{movieErrors}</Notifications>
+          <Notifications>{playlists.notifications}</Notifications>
+        </StickyBoundary>
+      </StickyContainer>
     );
   }
 }

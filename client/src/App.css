@@ -1,4 +1,11 @@
 .App {
+  background-color: #0b0b0b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(10px + 2vmin);
   text-align: center;
 }
 
@@ -8,13 +15,7 @@
 }
 
 .App-header {
-  background-color: #0b0b0b;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
   color: white;
 }
 
@@ -50,6 +51,63 @@
   justify-content: center;
   /* direction: row;
   position: relative; */
+}
+
+.sticky-container {
+  width: 100%;
+  position: relative;
+}
+
+.sticky-boundary {
+  position: relative;
+  margin: 0;
+  min-height: 120vh;
+}
+
+.sticky-box {
+  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
+}
+
+.sticky-box.is-top {
+  top: 0px;
+}
+
+.sticky-box.is-top.is-sticky {
+  box-shadow: 0 7px 2px -2px darkgray;
+}
+
+.sticky-box.is-bottom {
+  bottom: 0px;
+}
+.sticky-box.is-bottom.is-sticky {
+  box-shadow: 0 -7px 2px -2px darkgray;
+}
+
+.u-center-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.u-center-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.u-feature-detect-sticky {
+  position: absolute;
+  position: sticky;
+
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
 }
 
 #image {
