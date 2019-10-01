@@ -16,7 +16,9 @@
 
 .App-header {
   width: 100%;
-  color: white;
+  /* color: white; */
+  border-bottom-style: solid;
+  border-color: lightgrey;
 }
 
 .App-link {

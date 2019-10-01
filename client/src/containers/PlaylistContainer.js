@@ -4,13 +4,16 @@ import { connect } from "react-redux";
 import { doPlaylistRequesting } from "../redux/actions/playlistActions";
 import {
   getPlaylistMovies,
+  getPlaylistTitle,
   getPlaylistErrors
 } from "../redux/selectors/selectors";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 // material-ui
+import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 
@@ -20,12 +23,21 @@ const styles = theme => ({
     flexWrap: "wrap",
     justify: "space-around",
     alignItems: "center",
-    margin: theme.spacing.unit * 6
+    margin: theme.spacing.unit * 6,
+    marginTop: theme.spacing.unit * 2
   },
   tile: {
     height: 0,
     padding: "56.25% 0 0 0",
     maxWidth: 500
+  },
+  grid: {
+    marginBottom: theme.spacing.unit * 5,
+    borderBottomStyle: "solid",
+    borderColor: "#ecca00"
+  },
+  type: {
+    color: "#ecca00"
   }
 });
 
@@ -35,7 +47,13 @@ class PlaylistContainer extends Component {
   }
 
   render() {
-    const { classes, width, playlistMovies, playlistErrors } = this.props;
+    const {
+      classes,
+      width,
+      playlistTitle,
+      playlistMovies,
+      playlistErrors
+    } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -75,6 +93,11 @@ class PlaylistContainer extends Component {
     return (
       <>
         <div className={classes.root}>
+          <Grid container item xs={12} className={classes.grid}>
+            <Typography component="h2" variant="h4" className={classes.type}>
+              {playlistTitle}
+            </Typography>
+          </Grid>
           <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
             {movies}
           </GridList>
@@ -85,7 +108,8 @@ class PlaylistContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+  playlistTitle: getPlaylistTitle(state, props.match.params.id),
   playlistMovies: getPlaylistMovies(state),
   playlistErrors: getPlaylistErrors(state)
 });

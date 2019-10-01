@@ -72,7 +72,7 @@ class RatingsContainer extends Component {
   };
 
   render() {
-    const { classes, width, ratedMovies, movieErrors } = this.props;
+    const { classes, width, ratings, ratedMovies, movieErrors } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -121,7 +121,7 @@ class RatingsContainer extends Component {
         />
         <StickyBoundary>
           <div className={classes.root}>
-            <LoadingIndicator>{this.props.ratedMovies}</LoadingIndicator>
+            <LoadingIndicator>{ratings}</LoadingIndicator>
             <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
             <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
               {movies}

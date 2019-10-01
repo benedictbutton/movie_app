@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import throttle from "lodash/throttle";
 
 function withInfiniteScroll(Component) {
   return class extends Component {
@@ -15,6 +16,8 @@ function withInfiniteScroll(Component) {
       // this.onResize = this.onResize.bind(this);
       this.onScroll = this.onScroll.bind(this);
     }
+
+    // this.onScrollThrottled = throttle(this.onScroll.bind(this), 500);
 
     handleChange() {
       this.setState({ display: !this.state.display });
@@ -116,8 +119,7 @@ function withInfiniteScroll(Component) {
           document.body.offsetHeight - 500 &&
         this.props.movies.results.length &&
         !this.props.movies.requesting &&
-        this.props.movies.query.type !== "search" &&
-        !this.props.movies.requesting
+        this.props.movies.query.type !== "search"
       ) {
         let payload = {
           type: this.props.movies.query.type,
