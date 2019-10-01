@@ -6,9 +6,7 @@ const LoadingIndicator = props => {
   const { children } = props;
   return (
     <div>
-      {children.requesting && !children.successful ? (
-        <CircularProgress style={{ color: "#ecca00" }} />
-      ) : null}
+      {children.requesting && <CircularProgress style={{ color: "#ecca00" }} />}
     </div>
   );
 };

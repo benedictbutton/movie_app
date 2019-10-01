@@ -30,6 +30,12 @@ export const getPlaylistMovieIds = state => state.playlists.playlistMovieIds;
 
 export const getPlaylistMovies = state => state.playlists.playlistMovies;
 
+export const getPlaylistTitle = (state, id) => {
+  let list = state.playlists.lists.filter(el => el.id === +id);
+
+  return list[0].name;
+};
+
 export const getPlaylistErrors = state => state.playlists.notifications;
 
 export const getMoviesRated = (state, id) => {

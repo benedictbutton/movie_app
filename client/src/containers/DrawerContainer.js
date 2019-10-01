@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getRatings, getAdmin } from "../redux/selectors/selectors";
+import Image from "../assets/brushed-metal.jpg";
 import LogOutContainer from "./LogOutContainer";
 //material-ui
 import Button from "@material-ui/core/Button";
@@ -33,6 +34,9 @@ const styles = theme => ({
   snack: {
     color: "white",
     backgroundColor: theme.palette.primary.dark
+  },
+  paper: {
+    backgroundImage: `url(${Image})`
   }
 });
 
@@ -142,6 +146,7 @@ class DrawerContainer extends React.Component {
         <Drawer
           open={this.state.left}
           onClose={this.toggleDrawer("left", false)}
+          PaperProps={{ classes: { root: classes.paper } }}
         >
           <div
             tabIndex={0}

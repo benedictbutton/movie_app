@@ -38,7 +38,7 @@ const styles = theme => ({
   grid: {
     height: "auto",
     padding: "56.25% 0 0 0",
-    maxWidth: 300
+    maxWidth: 200
   },
   media: {
     width: "100%",
@@ -81,6 +81,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit
   },
+
   title: {
     marginBottom: theme.spacing.unit * 3,
     color: "#2F4F4F",

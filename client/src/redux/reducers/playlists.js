@@ -50,6 +50,7 @@ const applyPlaylistRequesting = (state, action) => ({
 
 const applyPlaylistSuccess = (state, action) => {
   const playlistId = action.responseJson.playlistId;
+
   return {
     ...state,
     playlistMovieIds: {

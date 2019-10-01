@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import debounce from "lodash/debounce";
 import Add from "./Add";
 import Stars from "./Stars";
 import ActionIconsContainer from "../containers/ActionIconsContainer";
@@ -19,17 +20,23 @@ class MovieCard extends Component {
     this.state = {
       starsVisible: null
     };
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleMouseEnterDebounced = debounce(
+      this.handleMouseEnter.bind(this),
+      200
+    );
+    this.handleMouseLeaveDebounced = debounce(
+      this.handleMouseLeave.bind(this),
+      200
+    );
   }
 
-  handleMouseEnter(event) {
-    this.setState({ starsVisible: event.currentTarget });
+  handleMouseEnter(target) {
+    this.setState({ starsVisible: target });
   }
 
-  handleMouseLeave = () => {
+  handleMouseLeave() {
     this.setState({ starsVisible: null });
-  };
+  }
 
   render() {
     const { movie, imageUrl, width, classes } = this.props;
@@ -51,8 +58,11 @@ class MovieCard extends Component {
           className={classes.root}
           aria-owns={open ? movie.id : undefined}
           aria-haspopup="true"
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
+          onMouseEnter={event => {
+            let target = event.currentTarget;
+            this.handleMouseEnterDebounced(target);
+          }}
+          onMouseLeave={this.handleMouseLeaveDebounced}
         >
           <ActionIconsContainer
             id={movie.id}
@@ -60,7 +70,7 @@ class MovieCard extends Component {
             titlePosition="top"
             actionIcon={<Add id={movie.id} movie={movie} />}
             open={open}
-            onClose={this.handleMouseLeave}
+            onClose={this.handleMouseLeaveDebounced}
             starsVisible={this.state.starsVisible}
           />
           <Link
@@ -76,12 +86,12 @@ class MovieCard extends Component {
           </Link>
           <ActionIconsContainer
             id={movie.id}
-            actionPosition="left"
+            actionPosition="center"
             actionIcon={
               <Stars id={movie.id} movie={movie} starSize={starSize[width]} />
             }
             open={open}
-            onClose={this.handleMouseLeave}
+            onClose={this.handleMouseLeaveDebounced}
             starsVisible={this.state.starsVisible}
           />
         </div>

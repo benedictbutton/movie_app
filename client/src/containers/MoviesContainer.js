@@ -19,6 +19,7 @@ import {
 } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
+// import LinearProgress from "@material-ui/core/LinearProgress";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
