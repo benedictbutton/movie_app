@@ -133,7 +133,7 @@ class MoviesContainer extends Component {
         />
         <StickyBoundary>
           <div className={classes.root}>
-            <LoadingIndicator>{movies}</LoadingIndicator>
+            <LoadingIndicator>{movies.requesting}</LoadingIndicator>
             <ScrollButton scrollStepInPx="300" delayInMs="16.66" />
             <GridList
               className={classes.grid}

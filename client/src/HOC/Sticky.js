@@ -57,7 +57,7 @@ function withSticky(Component) {
       // );
 
       window.addEventListener("scroll", this.handleScroll, false);
-      window.addEventListener("resize", this.onResize);
+      // window.addEventListener("resize", this.onResize);
     }
 
     componentWillUnmount() {

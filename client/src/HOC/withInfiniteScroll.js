@@ -14,17 +14,15 @@ function withInfiniteScroll(Component) {
       // this.myRef = React.createRef();
       this.handleChange = this.handleChange.bind(this);
       // this.onResize = this.onResize.bind(this);
-      this.onScroll = this.onScroll.bind(this);
+      this.onScrollThrottled = throttle(this.onScroll.bind(this), 500);
     }
-
-    // this.onScrollThrottled = throttle(this.onScroll.bind(this), 500);
 
     handleChange() {
       this.setState({ display: !this.state.display });
     }
 
     componentDidMount() {
-      window.addEventListener("scroll", this.onScroll, false);
+      window.addEventListener("scroll", this.onScrollThrottled, false);
       /* capturing the first parameter after ms/movies as the query type and then everything that follows as the query tag - /ms/movies/(query type)/(query tag). */
 
       // if (this.props.movies.query.type === "discover")
@@ -110,7 +108,7 @@ function withInfiniteScroll(Component) {
     }
 
     componentWillUnmount() {
-      window.removeEventListener("scroll", this.onScroll, false);
+      window.removeEventListener("scroll", this.onScrollThrottled, false);
     }
 
     onScroll() {

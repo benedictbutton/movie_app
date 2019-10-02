@@ -78,7 +78,7 @@ class SignUpContainer extends Component {
     return (
       <>
         <main className={classes.layout}>
-          <LoadingIndicator>{this.props.client}</LoadingIndicator>
+          <LoadingIndicator>{this.props.client.requesting}</LoadingIndicator>
           <Paper className={classes.paper}>
             <Grid container spacing={24} justify="center">
               <Grid item xs={4} align="center">

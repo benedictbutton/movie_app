@@ -8,7 +8,7 @@ import {
 } from "../redux/actions/movieActions";
 import {
   getMoviesAsErrors,
-  getRatings,
+  getMoviesRequesting,
   getFilteredRatings
 } from "../redux/selectors/selectors";
 import AppBarContainer from "./AppBarContainer";
@@ -72,7 +72,13 @@ class RatingsContainer extends Component {
   };
 
   render() {
-    const { classes, width, ratings, ratedMovies, movieErrors } = this.props;
+    const {
+      classes,
+      width,
+      moviesRequesting,
+      ratedMovies,
+      movieErrors
+    } = this.props;
     //Provides breakpoints for number of movies per row according to screen size
     const columns = {
       xs: 2,
@@ -121,7 +127,7 @@ class RatingsContainer extends Component {
         />
         <StickyBoundary>
           <div className={classes.root}>
-            <LoadingIndicator>{ratings}</LoadingIndicator>
+            <LoadingIndicator>{moviesRequesting}</LoadingIndicator>
             <ScrollButton scrollStepInPx="50" delayInMs="16.66" />
             <GridList cellHeight="auto" spacing={10} cols={columns[width]}>
               {movies}
@@ -136,7 +142,7 @@ class RatingsContainer extends Component {
 
 const mapStateToProps = (state, props) => ({
   ratedMovies: getFilteredRatings(state),
-  ratings: getRatings(state),
+  moviesRequesting: getMoviesRequesting(state),
   movieErrors: getMoviesAsErrors(state)
 });
 

@@ -4,10 +4,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const LoadingIndicator = props => {
   const { children } = props;
+
   return (
-    <div>
-      {children.requesting && <CircularProgress style={{ color: "#ecca00" }} />}
-    </div>
+    <div>{children && <CircularProgress style={{ color: "#ecca00" }} />}</div>
   );
 };
 
