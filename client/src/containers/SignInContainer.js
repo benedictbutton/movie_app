@@ -82,7 +82,7 @@ class SignInContainer extends Component {
     return (
       <>
         <main className={classes.layout}>
-          <LoadingIndicator>{client}</LoadingIndicator>
+          <LoadingIndicator>{client.requesting}</LoadingIndicator>
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockIcon />

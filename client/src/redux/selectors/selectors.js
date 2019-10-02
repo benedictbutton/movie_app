@@ -14,6 +14,8 @@ export const getRatings = state => state.ratings;
 
 export const getMovies = state => state.movies;
 
+export const getMoviesRequesting = state => state.movies.requesting;
+
 export const getMoviesAsErrors = state => state.movies.notifications;
 
 export const getMoviesAsIds = (state, id) => {
