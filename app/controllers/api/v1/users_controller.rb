@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(first_name: params[:firstName], last_name: params[:lastName], username: params[:username], email: params[:email], password: params[:password])
     if @user.save
       command = AuthenticateUser.call(@user.email, @user.password)
-      render json: { auth_token: command.result }, status: :created
+      render json: { auth_token: command.result[:token], user: command.result[:user][:role] }, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end

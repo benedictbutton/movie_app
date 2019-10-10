@@ -16,6 +16,7 @@ async function fetchSignUpForm(payload) {
       const error = responseJson.email[0];
       throw new Error(error);
     }
+
     sessionStorage.setItem("jwt", responseJson.auth_token);
     return { responseJson };
   } catch (error) {
