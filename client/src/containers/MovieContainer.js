@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { doCastRequesting } from "../redux/actions/movieActions";
 import {
   doPlaylistAddMovieRequesting,
   doPlaylistRemoveMovieRequesting
@@ -10,7 +11,8 @@ import {
   getRatingsList,
   getActivePlaylist,
   getPlaylistMovieIds,
-  getPlaylistErrors
+  getPlaylistErrors,
+  getCast
 } from "../redux/selectors/selectors";
 import Movie from "../components/Movie";
 import Notifications from "../components/Notifications";
@@ -18,8 +20,15 @@ import Notifications from "../components/Notifications";
 class MovieContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { video: "" };
+    this.state = {
+      cast: []
+    };
     this.handleRatingClick = this.handleRatingClick.bind(this);
+  }
+
+  componentDidMount() {
+    let mediaType = this.props.location.state.movie.media_type;
+    this.props.doCastRequesting(this.props.location.state.movie.id, mediaType);
   }
 
   handlePlaylistClick = (check, activePlaylist, movie) => {
@@ -34,8 +43,13 @@ class MovieContainer extends Component {
   }
 
   render() {
-    const { activePlaylist, playlistMovieIds, playlistErrors } = this.props;
-    const { movie, imageUrl } = this.props.location.state;
+    const {
+      activePlaylist,
+      playlistMovieIds,
+      playlistErrors,
+      cast
+    } = this.props;
+    const { movie, imageUrl, profile } = this.props.location.state;
     let check =
       activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
 
@@ -43,6 +57,8 @@ class MovieContainer extends Component {
       <>
         <Movie
           movie={movie}
+          profile={profile}
+          cast={cast}
           imageUrl={imageUrl}
           check={check}
           handlePlaylistClick={this.handlePlaylistClick}
@@ -60,13 +76,15 @@ const mapStateToProps = (state, props) => ({
   ratingsList: getRatingsList(state),
   activePlaylist: getActivePlaylist(state),
   playlistMovieIds: getPlaylistMovieIds(state),
-  playlistErrors: getPlaylistErrors(state)
+  playlistErrors: getPlaylistErrors(state),
+  cast: getCast(state)
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
     {
+      doCastRequesting,
       doRatingRemoveRequesting,
       doPlaylistAddMovieRequesting,
       doPlaylistRemoveMovieRequesting

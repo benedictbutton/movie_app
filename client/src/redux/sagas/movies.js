@@ -4,6 +4,7 @@ import {
   MY_MOVIES_SUCCESS,
   MOVIE_CATEGORY_SUCCESS,
   MOVIE_SEARCH_SUCCESS,
+  CAST_SUCCESS,
   MOVIE_SUCCESS,
   MOVIES_ERROR
 } from "../constants/actionTypes";
@@ -12,6 +13,7 @@ import {
   fetchMyMovies,
   fetchSearch,
   fetchCategory,
+  fetchCast,
   postMovie
 } from "../api/movies";
 
@@ -41,6 +43,13 @@ function* handleFetchCategory(query) {
   else yield put({ type: MOVIES_ERROR, error });
 }
 
+function* handleFetchCast(query) {
+  const payload = query;
+  const { responseJson, error } = yield call(fetchCast, payload);
+  if (responseJson) yield put({ type: CAST_SUCCESS, responseJson });
+  else yield put({ type: MOVIES_ERROR, error });
+}
+
 function* handlePostMovie(payload) {
   const { movie } = payload;
   // offsets array's zero index
@@ -58,5 +67,6 @@ export {
   handleFetchMyMovies,
   handleFetchSearch,
   handleFetchCategory,
+  handleFetchCast,
   handlePostMovie
 };

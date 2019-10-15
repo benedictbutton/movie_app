@@ -39,7 +39,7 @@ class MovieCard extends Component {
   }
 
   render() {
-    const { movie, imageUrl, width, classes } = this.props;
+    const { movie, imageUrl, width, classes, profile } = this.props;
 
     const starSize = {
       xs: 14,
@@ -68,7 +68,7 @@ class MovieCard extends Component {
             id={movie.id}
             actionPosition="right"
             titlePosition="top"
-            actionIcon={<Add id={movie.id} movie={movie} />}
+            actionIcon={!profile ? <Add id={movie.id} movie={movie} /> : null}
             open={open}
             onClose={this.handleMouseLeaveDebounced}
             starsVisible={this.state.starsVisible}
@@ -78,7 +78,8 @@ class MovieCard extends Component {
               pathname: `/ms/movie/${movie.id}`,
               state: {
                 imageUrl: imageUrl,
-                movie: movie
+                movie: movie,
+                profile
               }
             }}
           >
@@ -88,7 +89,9 @@ class MovieCard extends Component {
             id={movie.id}
             actionPosition="center"
             actionIcon={
-              <Stars id={movie.id} movie={movie} starSize={starSize[width]} />
+              !profile ? (
+                <Stars id={movie.id} movie={movie} starSize={starSize[width]} />
+              ) : null
             }
             open={open}
             onClose={this.handleMouseLeaveDebounced}

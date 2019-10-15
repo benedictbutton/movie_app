@@ -26,6 +26,8 @@ export const getMoviesAsList = state => {
   return state.movies.list;
 };
 
+export const getCast = state => state.movies.cast;
+
 export const getActivePlaylist = state => state.playlists.active;
 
 export const getPlaylistMovieIds = state => state.playlists.playlistMovieIds;

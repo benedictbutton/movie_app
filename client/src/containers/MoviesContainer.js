@@ -98,6 +98,7 @@ class MoviesContainer extends Component {
     let card = 0;
     let films = movies.results.map(index => {
       let movie = movies.list[index];
+      let profile = movie.poster_path ? false : true;
 
       let imageUrl = movie.poster_path
         ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
@@ -110,6 +111,7 @@ class MoviesContainer extends Component {
           <MovieCard
             key={card}
             movie={movie}
+            profile={profile}
             imageUrl={imageUrl}
             errors={movieErrors}
           />

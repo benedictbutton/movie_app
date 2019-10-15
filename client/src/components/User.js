@@ -41,8 +41,8 @@ const styles = theme => ({
     maxWidth: 200
   },
   media: {
-    width: "100%",
-    height: "100%"
+    width: "75%",
+    height: "50%"
   },
   btnMargin: {
     marginTop: theme.spacing.unit
@@ -95,7 +95,7 @@ const styles = theme => ({
 
 const User = props => {
   const { classes } = props;
-  const { firstName, lastName, username, email } = props.user.profile;
+  const { username, email } = props.user.profile;
 
   const [open, setOpen] = useState(false);
 
@@ -112,7 +112,7 @@ const User = props => {
               <img
                 src={userImage}
                 className={classes.media}
-                alt="movie poster"
+                alt="avatar image"
               />
               <Paper className={classes.stars}>
                 <Grid
@@ -150,7 +150,7 @@ const User = props => {
                   <TextField
                     id="outlined-read-only-input"
                     label="Username"
-                    defaultValue={username}
+                    value={username}
                     className={classes.textField}
                     margin="normal"
                     InputLabelProps={{
@@ -175,7 +175,7 @@ const User = props => {
                   <TextField
                     id="outlined-read-only-input"
                     label="Email"
-                    defaultValue={email}
+                    value={email}
                     className={classes.textField}
                     margin="normal"
                     InputLabelProps={{
