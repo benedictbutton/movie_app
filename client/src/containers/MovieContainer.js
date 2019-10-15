@@ -27,7 +27,9 @@ class MovieContainer extends Component {
   }
 
   componentDidMount() {
-    let mediaType = this.props.location.state.movie.media_type;
+    let mediaType = this.props.location.state.movie.media_type
+      ? this.props.location.state.movie.media_type
+      : "movie";
     this.props.doCastRequesting(this.props.location.state.movie.id, mediaType);
   }
 
