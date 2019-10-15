@@ -3,6 +3,7 @@ import {
   MY_MOVIES_REQUESTING,
   MOVIE_SEARCH_REQUESTING,
   MOVIE_CATEGORY_REQUESTING,
+  CAST_REQUESTING,
   MOVIE_POSTING,
   FILTER_MOVIE_RATINGS,
   UPDATE_GENRE,
@@ -16,6 +17,12 @@ const doMoviesRequesting = movies => ({
 
 const doMyMoviesRequesting = () => ({
   type: MY_MOVIES_REQUESTING
+});
+
+const doCastRequesting = (id, mediaType) => ({
+  type: CAST_REQUESTING,
+  id,
+  mediaType
 });
 
 const doMoviePosting = (rating, movie) => ({
@@ -54,6 +61,7 @@ export {
   doMyMoviesRequesting,
   doMovieSearchRequesting,
   doMovieCategoryRequesting,
+  doCastRequesting,
   doMoviePosting,
   doFilterMovieRatings,
   doUpdateGenre,

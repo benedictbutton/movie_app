@@ -11,6 +11,7 @@ import {
   getMoviesRequesting,
   getFilteredRatings
 } from "../redux/selectors/selectors";
+import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
 import FilterContainer from "./FilterContainer";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -104,7 +105,11 @@ class RatingsContainer extends Component {
     }
     let card = 0;
     let movies = ratedMovies.map(movie => {
-      let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+      let imageUrl = movie.poster_path
+        ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
+        : movie.profile_path
+        ? "https://image.tmdb.org/t/p/w500" + movie.profile_path
+        : `${poster}`;
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>

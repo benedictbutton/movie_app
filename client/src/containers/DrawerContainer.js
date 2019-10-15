@@ -74,7 +74,7 @@ class DrawerContainer extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
-          <Link to="/ms/admin" key="Admin">
+          <Link to="/ms/admin" key="Admin" style={{ textDecoration: "none" }}>
             <ListItem button key="Profile">
               <ListItemIcon>
                 <FontAwesomeIcon icon="lock" />
@@ -82,7 +82,11 @@ class DrawerContainer extends React.Component {
               <ListItemText primary={isAdmin} />
             </ListItem>
           </Link>
-          <Link to="/ms/users/:id" key="Profile">
+          <Link
+            to="/ms/users/:id"
+            key="Profile"
+            style={{ textDecoration: "none" }}
+          >
             <ListItem button key="Profile">
               <ListItemIcon>
                 <FontAwesomeIcon icon="user" />
@@ -90,7 +94,11 @@ class DrawerContainer extends React.Component {
               <ListItemText primary="Profile" />
             </ListItem>
           </Link>
-          <Link to="/ms/movies/multi/trending/all/week" key="Movies">
+          <Link
+            to="/ms/movies/multi/trending/all/week"
+            key="Movies"
+            style={{ textDecoration: "none" }}
+          >
             <ListItem button key="Movies">
               <ListItemIcon>
                 <FontAwesomeIcon icon="film" />
@@ -106,7 +114,11 @@ class DrawerContainer extends React.Component {
               <ListItemText primary="Ratings" />
             </ListItem>
           ) : (
-            <Link to="/ms/ratings" key="Ratings">
+            <Link
+              to="/ms/ratings"
+              key="Ratings"
+              style={{ textDecoration: "none" }}
+            >
               <ListItem button key="Ratings">
                 <ListItemIcon>
                   <FontAwesomeIcon icon="star" />
@@ -115,7 +127,11 @@ class DrawerContainer extends React.Component {
               </ListItem>
             </Link>
           )}
-          <Link to="/ms/playlists" key="Playlists">
+          <Link
+            to="/ms/playlists"
+            key="Playlists"
+            style={{ textDecoration: "none" }}
+          >
             <ListItem button key="Playlists">
               <ListItemIcon>
                 <PlaylistPlayIcon />

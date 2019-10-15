@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import Image from "../assets/brushed-metal.jpg";
+import Image from "../assets/dark-grey-metal.jpg";
 //material-ui
 import Input from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";

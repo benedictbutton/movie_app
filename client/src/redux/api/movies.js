@@ -112,6 +112,28 @@ async function fetchCategory(query) {
   }
 }
 
+async function fetchCast(query) {
+  try {
+    let response = await fetch(
+      `https://api.themoviedb.org/3/${query.mediaType}/${
+        query.id
+      }/credits?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+          // Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+    const responseJson = await response.json();
+    if (!response.ok) throw new Error(responseJson.error);
+    return { responseJson };
+  } catch (error) {
+    return { error };
+  }
+}
+
 async function postMovie(payload) {
   try {
     let response = await fetch(
@@ -139,4 +161,11 @@ async function postMovie(payload) {
   }
 }
 
-export { fetchMovies, fetchMyMovies, fetchSearch, fetchCategory, postMovie };
+export {
+  fetchMovies,
+  fetchMyMovies,
+  fetchSearch,
+  fetchCategory,
+  fetchCast,
+  postMovie
+};

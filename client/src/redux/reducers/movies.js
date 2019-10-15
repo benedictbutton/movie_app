@@ -7,6 +7,8 @@ import {
   MOVIE_CATEGORY_SUCCESS,
   MOVIE_SEARCH_REQUESTING,
   MOVIE_SEARCH_SUCCESS,
+  CAST_REQUESTING,
+  CAST_SUCCESS,
   MOVIES_ERROR,
   FILTER_MOVIE_RATINGS,
   UPDATE_GENRE,
@@ -17,6 +19,7 @@ import {
 const INITIAL_STATE = {
   results: [],
   list: {},
+  cast: [],
   ratedList: {},
   searchList: {},
   requesting: false,
@@ -134,6 +137,21 @@ const applyMovieCategorySuccess = (state, action) => {
   };
 };
 
+const applyCastRequesting = (state, action) => ({
+  ...state,
+  requesting: true
+});
+
+const applyCastSuccess = (state, action) => {
+  let movieCast = action.responseJson.cast.map(item => item.name);
+  return {
+    ...state,
+    requesting: false,
+    successful: true,
+    cast: [...state.cast.slice(state.cast.length, -1), ...movieCast]
+  };
+};
+
 const applyMoviesError = (state, action) => ({
   ...state,
   notifications: {
@@ -201,6 +219,10 @@ function moviesReducer(state = INITIAL_STATE, action) {
       return applyMovieCategoryRequesting(state, action);
     case MOVIE_CATEGORY_SUCCESS:
       return applyMovieCategorySuccess(state, action);
+    case CAST_REQUESTING:
+      return applyCastRequesting(state, action);
+    case CAST_SUCCESS:
+      return applyCastSuccess(state, action);
     case MOVIES_ERROR:
       return applyMoviesError(state, action);
     case FILTER_MOVIE_RATINGS:
