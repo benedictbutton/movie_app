@@ -194,6 +194,7 @@ const PersonContainer = props => {
                 name={profile.name}
               />
             </GridListTile>
+            {films}
           </GridList>
         </div>
       </StickyBoundary>
