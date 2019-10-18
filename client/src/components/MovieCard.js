@@ -40,6 +40,7 @@ class MovieCard extends Component {
 
   render() {
     const { movie, imageUrl, width, classes, profile } = this.props;
+    let target = profile ? "person" : "movie";
 
     const starSize = {
       xs: 14,
@@ -75,11 +76,11 @@ class MovieCard extends Component {
           />
           <Link
             to={{
-              pathname: `/ms/movie/${movie.id}`,
+              pathname: `/ms/${target}/${movie.id}`,
               state: {
                 imageUrl: imageUrl,
                 movie: movie,
-                profile
+                profile: profile
               }
             }}
           >

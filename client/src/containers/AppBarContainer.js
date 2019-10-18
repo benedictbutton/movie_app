@@ -97,35 +97,36 @@ class AppBarContainer extends Component {
       display,
       handleSubmit,
       match: {
-        params: { type }
+        params: { type, id }
       },
       menuItem,
       handleStar,
       starName
     } = this.props;
 
-    const filterType = type ? (
-      <FilterContainer
-        specificList={categoryList}
-        handleList={this.handleCategory}
-        display={true}
-        color="primary"
-        choice="Search"
-        name="categoryName"
-        menuItem={display ? "genre" : menuItem}
-      />
-    ) : (
-      <FilterContainer
-        specificList={starList}
-        listName={starName}
-        handleList={handleStar}
-        display={true}
-        color="primary"
-        choice="Filter"
-        handleSelect={this.props.handleSelect}
-        menuItem={starName}
-      />
-    );
+    const filterType =
+      type || id ? (
+        <FilterContainer
+          specificList={categoryList}
+          handleList={this.handleCategory}
+          display={true}
+          color="primary"
+          choice="Search"
+          name="categoryName"
+          menuItem={display ? "genre" : menuItem}
+        />
+      ) : (
+        <FilterContainer
+          specificList={starList}
+          listName={starName}
+          handleList={handleStar}
+          display={true}
+          color="primary"
+          choice="Filter"
+          handleSelect={this.props.handleSelect}
+          menuItem={starName}
+        />
+      );
 
     return (
       <Toolbar id="toolbar" className={classes.bar}>

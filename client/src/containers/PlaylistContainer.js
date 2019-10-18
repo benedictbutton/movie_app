@@ -79,6 +79,7 @@ class PlaylistContainer extends Component {
           break;
       }
     }
+
     let card = 0;
     let movies = Object.values(playlistMovies).map(movie => {
       let imageUrl = "https://image.tmdb.org/t/p/w500" + movie.poster_path;

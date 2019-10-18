@@ -35,9 +35,17 @@ const FullCast = props => {
   let fullCast = cast.map((member, idx) => {
     return (
       <Grid item xs={4} key={idx} className={classes.grid}>
-        <Typography className={classes.title} color="primary">
-          {member}
-        </Typography>
+        <Link
+          to={{
+            pathname: `/ms/person/${member.id}`,
+            state: { name: member.name }
+          }}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography className={classes.title} color="primary">
+            {member.name}
+          </Typography>
+        </Link>
       </Grid>
     );
   });

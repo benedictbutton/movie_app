@@ -29,6 +29,8 @@ import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
 
+import PersonContainer from "./containers/PersonContainer";
+
 library.add(
   faSignOutAlt,
   faBars,
@@ -63,6 +65,7 @@ class App extends Component {
           />
           <PrivateRoute path="/ms/movie/:id" component={MovieContainer} />
           <PrivateRoute path="/ms/ratings" component={RatingsContainer} />
+          <PrivateRoute path="/ms/person/:id" component={PersonContainer} />
           <PrivateRoute path="/ms/playlists" component={PlaylistsContainer} />
           <PrivateRoute path="/ms/playlist/:id" component={PlaylistContainer} />
           <PrivateRoute path="/ms/users/:id" component={UserContainer} />

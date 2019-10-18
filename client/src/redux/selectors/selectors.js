@@ -18,13 +18,11 @@ export const getMoviesRequesting = state => state.movies.requesting;
 
 export const getMoviesAsErrors = state => state.movies.notifications;
 
-export const getMoviesAsIds = (state, id) => {
-  return state.movies.list[id];
-};
+export const getMoviesAsIds = (state, id) => state.movies.list[id];
 
-export const getMoviesAsList = state => {
-  return state.movies.list;
-};
+export const getMoviesAsList = state => state.movies.list;
+
+export const getMoviesAsQuery = state => state.movies.query;
 
 export const getCast = state => state.movies.cast;
 
