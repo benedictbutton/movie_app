@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 import Stars from "./Stars";
 import Image from "../assets/brushed-metal.jpg";
 import FullCast from "../components/FullCast";
@@ -65,11 +66,8 @@ const styles = theme => ({
   castLayout: {
     padding: theme.spacing.unit * 3,
     margin: theme.spacing.unit * 3,
-    background: `url(${Image})`
-  },
-  main: {
-    // flex: 1
-    // flexWrap: "nowrap"
+    background: `url(${Image})`,
+    borderRadius: 3
   }
 });
 

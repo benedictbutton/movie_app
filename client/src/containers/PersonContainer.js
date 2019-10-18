@@ -17,6 +17,7 @@ import {
   getMoviesAsErrors
 } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
+import Image from "../assets/black-brushed-metal.jpg";
 import AppBarContainer from "./AppBarContainer";
 // import LinearProgress from "@material-ui/core/LinearProgress";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -55,7 +56,8 @@ const styles = theme => ({
     borderStyle: "solid",
     borderColor: "#ecca00",
     borderWidth: 5,
-    marginBottom: theme.spacing.unit
+    marginBottom: theme.spacing.unit,
+    backgroundImage: `url(${Image})`
   }
 });
 
@@ -81,47 +83,50 @@ const PersonContainer = props => {
   const [isError, setIsError] = useState(false);
   const [length, setLength] = useState(0);
 
-  useEffect(() => {
-    let fetchData = async () => {
-      setIsError(false);
-      setIsLoading(true);
-      try {
-        const promises = ["", "combined_credits"].map(request => {
-          return fetch(
-            `https://api.themoviedb.org/3/person/${id}/${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json"
-                // Authorization: `Bearer ${accessToken}`
+  useEffect(
+    () => {
+      let fetchData = async () => {
+        setIsError(false);
+        setIsLoading(true);
+        try {
+          const promises = ["", "combined_credits"].map(request => {
+            return fetch(
+              `https://api.themoviedb.org/3/person/${id}/${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json"
+                  // Authorization: `Bearer ${accessToken}`
+                }
               }
-            }
+            );
+          });
+          const response = await Promise.all(promises);
+          const responseJson = await Promise.all(
+            response.map(r => {
+              if (!r.ok) throw new Error(r);
+              return r.json();
+            })
           );
-        });
-        const response = await Promise.all(promises);
-        const responseJson = await Promise.all(
-          response.map(r => {
-            if (!r.ok) throw new Error(r);
-            return r.json();
-          })
-        );
-        const name = responseJson[0].name.split(" ");
-        setProfile({
-          firstName: name[0],
-          lastName: name[1],
-          image: `https://image.tmdb.org/t/p/w500${
-            responseJson[0].profile_path
-          }`
-        });
-        setMovieData(responseJson[1].cast);
-        setLength(responseJson[1].cast.length);
-      } catch (error) {
-        setIsError(true);
-      }
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
+          const name = responseJson[0].name.split(" ");
+          setProfile({
+            firstName: name[0],
+            lastName: name[1],
+            image: `https://image.tmdb.org/t/p/w500${
+              responseJson[0].profile_path
+            }`
+          });
+          setMovieData(responseJson[1].cast);
+          setLength(responseJson[1].cast.length);
+        } catch (error) {
+          setIsError(true);
+        }
+        setIsLoading(false);
+      };
+      fetchData();
+    },
+    [id]
+  );
 
   const columns = {
     xs: 2,
@@ -147,7 +152,7 @@ const PersonContainer = props => {
   let card = 0;
   let films = movieData.map(movie => {
     // let movie = movies.list[index];
-    let profile = movie.poster_path ? false : true;
+    let profile = movie.media_type === "movie" ? false : true;
 
     let imageUrl = movie.poster_path
       ? "https://image.tmdb.org/t/p/w500" + movie.poster_path
