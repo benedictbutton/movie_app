@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Stars from "./Stars";
 import Image from "../assets/brushed-metal.jpg";
 import FullCast from "../components/FullCast";
@@ -89,7 +90,15 @@ const Movie = props => {
   let movieCast = firstCut.map((member, idx) => {
     return (
       <Grid item xs={4} md={12} key={idx}>
-        <Typography className={classes.members}>{member}</Typography>
+        <Link
+          to={{
+            pathname: `/ms/person/${member.id}`,
+            state: { name: member.name, imageUrl: imageUrl }
+          }}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography className={classes.members}>{member.name}</Typography>
+        </Link>
       </Grid>
     );
   });
@@ -105,50 +114,44 @@ const Movie = props => {
                 className={classes.media}
                 alt="movie poster"
               />
-              {!profile ? (
-                <>
-                  <Paper className={classes.stars}>
-                    <Stars id={movie.id} movie={movie} starSize={20} />
-                  </Paper>
-                  <Grid container>
-                    <Grid item xs={6}>
-                      <Tooltip title="Clear rating" placement="bottom">
-                        <Button
-                          className={classes.buttonOne}
-                          component={Paper}
-                          alt="clear rating"
-                          fullWidth
-                          onClick={() => {
-                            handleRatingClick(movie);
-                          }}
-                        >
-                          <ClearIcon />
-                        </Button>
-                      </Tooltip>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Tooltip
-                        title={
-                          check ? "Remove from playlist" : "Add to playlist"
-                        }
-                        placement="bottom"
-                      >
-                        <Button
-                          className={classes.buttonTwo}
-                          component={Paper}
-                          alt="clear rating"
-                          fullWidth
-                          onClick={() => {
-                            handlePlaylistClick(check, activePlaylist, movie);
-                          }}
-                        >
-                          {check ? <CheckIcon /> : <AddIcon />}
-                        </Button>
-                      </Tooltip>
-                    </Grid>
-                  </Grid>
-                </>
-              ) : null}
+              <Paper className={classes.stars}>
+                <Stars id={movie.id} movie={movie} starSize={20} />
+              </Paper>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Tooltip title="Clear rating" placement="bottom">
+                    <Button
+                      className={classes.buttonOne}
+                      component={Paper}
+                      alt="clear rating"
+                      fullWidth
+                      onClick={() => {
+                        handleRatingClick(movie);
+                      }}
+                    >
+                      <ClearIcon />
+                    </Button>
+                  </Tooltip>
+                </Grid>
+                <Grid item xs={6}>
+                  <Tooltip
+                    title={check ? "Remove from playlist" : "Add to playlist"}
+                    placement="bottom"
+                  >
+                    <Button
+                      className={classes.buttonTwo}
+                      component={Paper}
+                      alt="clear rating"
+                      fullWidth
+                      onClick={() => {
+                        handlePlaylistClick(check, activePlaylist, movie);
+                      }}
+                    >
+                      {check ? <CheckIcon /> : <AddIcon />}
+                    </Button>
+                  </Tooltip>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item sm={7}>
               <Typography variant="h4" className={classes.title}>
@@ -165,6 +168,7 @@ const Movie = props => {
           </Grid>
         </Paper>
       </Grid>
+
       <Grid item xs={12} md={3} className={classes.castLayout}>
         <Typography className={classes.cast} variant="h6" align="center">
           Cast

@@ -129,9 +129,9 @@ class MoviesContainer extends Component {
     return (
       <StickyContainer>
         <StickyAppBar
-          display={this.props.display}
-          menuItem={this.props.movies.query.tag}
-          loading={this.props.movies.requesting}
+          display={display}
+          menuItem={movies.query.tag}
+          loading={movies.requesting}
         />
         <StickyBoundary>
           <div className={classes.root}>

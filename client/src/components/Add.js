@@ -40,10 +40,10 @@ const Add = props => {
   if (match) {
     if (match[1] === "/ms/search") playlistId = "none";
     if (
-      (match[1] === "/ms/movies" ||
-        match[1] === "/ms/ratings" ||
-        match[1] === "/ms/movie") &&
-      activePlaylist
+      match[1] === "/ms/movies" ||
+      match[1] === "/ms/ratings" ||
+      match[1] === "/ms/movie" ||
+      (match[1] === "/ms/person" && activePlaylist)
     )
       playlistId = activePlaylist;
   }

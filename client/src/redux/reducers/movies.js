@@ -143,7 +143,10 @@ const applyCastRequesting = (state, action) => ({
 });
 
 const applyCastSuccess = (state, action) => {
-  let movieCast = action.responseJson.cast.map(item => item.name);
+  let movieCast = action.responseJson.cast.map(item => ({
+    id: item.id,
+    name: item.name
+  }));
   return {
     ...state,
     requesting: false,
