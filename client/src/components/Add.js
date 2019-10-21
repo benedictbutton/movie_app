@@ -40,16 +40,19 @@ const Add = props => {
   if (match) {
     if (match[1] === "/ms/search") playlistId = "none";
     if (
-      match[1] === "/ms/movies" ||
-      match[1] === "/ms/ratings" ||
-      match[1] === "/ms/movie" ||
-      (match[1] === "/ms/person" && activePlaylist)
+      (match[1] === "/ms/movies" ||
+        match[1] === "/ms/ratings" ||
+        match[1] === "/ms/movie" ||
+        match[1] === "/ms/person") &&
+      activePlaylist
     )
       playlistId = activePlaylist;
   }
 
+  // the only times you have the Add.js component && a params id is 'ms/playlist/:id' && 'ms/person:id'
   if (!playlistId) {
-    if (props.match.params.id) playlistId = props.match.params.id;
+    if (props.match.params.id && match[1] !== "/ms/person")
+      playlistId = props.match.params.id;
     else playlistId = "none";
   }
 
