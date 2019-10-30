@@ -1,24 +1,14 @@
-# README
+### Run locally
+```
+$ git clone https://github.com/benedictbutton/movie_app.git
+$ bundle install
+$ rake db:create
+$ rake db:migrate
+$ rake db:seed
+$ rails s -p 3001
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+& in a separate terminal session from the client directory:
+```
+$ yarn install
+$ yarn start
