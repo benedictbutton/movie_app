@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Stars from "./Stars";
 import Image from "../assets/brushed-metal.jpg";
 import FullCast from "../components/FullCast";
+import Trailers from "../components/Trailers";
 //material-ui
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
@@ -21,6 +22,9 @@ const styles = theme => ({
     justifyContent: "space-around",
     alignItems: "flex-start"
   },
+  // side: {
+  //   flex: 1
+  // },
   buttonOne: {
     color: "#E8E8E8",
     backgroundColor: "#E50000"
@@ -48,7 +52,8 @@ const styles = theme => ({
     maxHeight: 48
   },
   overview: {
-    color: "#343434"
+    color: "#343434",
+    marginBottom: theme.spacing.unit * 5
   },
   title: {
     marginBottom: theme.spacing.unit * 3,
