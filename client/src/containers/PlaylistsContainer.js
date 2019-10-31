@@ -95,7 +95,8 @@ class PlaylistsContainer extends Component {
 const playlistForm = {
   form: `playlist`,
   onSubmit: doPlaylistAddRequesting,
-  touchOnChange: true
+  touchOnChange: true,
+  initialValues: { active: true }
 };
 
 PlaylistsContainer = reduxForm(playlistForm)(PlaylistsContainer);
