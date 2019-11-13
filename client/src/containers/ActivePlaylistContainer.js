@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { doPlaylistUpdateActiveRequesting } from "../redux/actions/playlistActions";
 import { getPlaylists, getActivePlaylist } from "../redux/selectors/selectors";
+import Image from "../assets/dark-grey-metal.jpg";
 // material-ui
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
@@ -33,8 +34,33 @@ const styles = theme => ({
   lightTooltip: {
     backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[1]
+  },
+  title: {
+    color: "#ecca00"
+  },
+  label: {
+    color: theme.palette.primary.main,
+    fontSize: 18
+  },
+  radio: {
+    color: theme.palette.primary.main
+  },
+  button: {
+    color: "#ecca00"
   }
 });
+
+const radioStyles = theme => ({
+  root: {
+    color: theme.palette.primary.main,
+    "&$checked": {
+      color: "#ecca00"
+    }
+  },
+  checked: {}
+});
+
+const MyRadio = withStyles(radioStyles)(Radio);
 
 class ActivePlaylistContainer extends Component {
   state = {
@@ -66,9 +92,10 @@ class ActivePlaylistContainer extends Component {
 
       return (
         <FormControlLabel
+          classes={{ label: classes.label }}
           value={playlist.name}
           key={playlist.id}
-          control={<Radio checked={activePlaylist === playlist.id} />}
+          control={<MyRadio checked={activePlaylist === playlist.id} />}
           label={playlist.name}
         />
       );
@@ -103,11 +130,21 @@ class ActivePlaylistContainer extends Component {
           </Tooltip>
         </div>
         <Dialog
-          disableBackdropClick
-          disableEscapeKeyDown
           open={this.state.open}
+          onClose={this.handleClose}
+          PaperProps={{
+            style: {
+              backgroundImage: `url(${Image})`,
+              borderStyle: "solid",
+              borderColor: "#ecca00"
+            }
+          }}
         >
-          <DialogTitle>Select Active Playlist</DialogTitle>
+          <DialogTitle disableTypography>
+            <Typography className={classes.title} variant="h6">
+              Select Active Playlist
+            </Typography>
+          </DialogTitle>
           <DialogContent>
             <FormControl>
               <RadioGroup
@@ -122,7 +159,7 @@ class ActivePlaylistContainer extends Component {
             </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} className={classes.button}>
               Cancel
             </Button>
           </DialogActions>
