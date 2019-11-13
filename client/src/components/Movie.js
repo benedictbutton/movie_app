@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import Stars from "./Stars";
+import ActivePlaylistContainer from "../containers/ActivePlaylistContainer";
 import Image from "../assets/brushed-metal.jpg";
 import FullCast from "../components/FullCast";
+import Stars from "./Stars";
 import Trailers from "../components/Trailers";
 //material-ui
 import AddIcon from "@material-ui/icons/Add";
@@ -32,6 +33,15 @@ const styles = theme => ({
   buttonTwo: {
     color: "#E8E8E8",
     backgroundColor: "#4B0082"
+  },
+  chip: {
+    marginTop: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 7,
+    [theme.breakpoints.down(600)]: {
+      justifyContent: "center",
+      alignItems: "center",
+      marginLeft: 0
+    }
   },
   layout: {
     padding: theme.spacing.unit * 3,
@@ -107,79 +117,84 @@ const Movie = props => {
   });
 
   return (
-    <Grid container display="flex" justify="space-evenly">
-      <Grid item xs={12} md={8}>
-        <Paper className={classes.layout}>
-          <Grid container className={classes.root} spacing={16}>
-            <Grid item xs={12} sm={5} className={classes.grid}>
-              <img
-                src={imageUrl}
-                className={classes.media}
-                alt="movie poster"
-              />
-              <Paper className={classes.stars}>
-                <Stars id={movie.id} movie={movie} starSize={20} />
-              </Paper>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Tooltip title="Clear rating" placement="bottom">
-                    <Button
-                      className={classes.buttonOne}
-                      component={Paper}
-                      alt="clear rating"
-                      fullWidth
-                      onClick={() => {
-                        handleRatingClick(movie);
-                      }}
+    <>
+      <Grid container item xs={12} className={classes.chip}>
+        <ActivePlaylistContainer />
+      </Grid>
+      <Grid container display="flex" justify="space-evenly">
+        <Grid item xs={12} md={8}>
+          <Paper className={classes.layout}>
+            <Grid container className={classes.root} spacing={16}>
+              <Grid item xs={12} sm={5} className={classes.grid}>
+                <img
+                  src={imageUrl}
+                  className={classes.media}
+                  alt="movie poster"
+                />
+                <Paper className={classes.stars}>
+                  <Stars id={movie.id} movie={movie} starSize={20} />
+                </Paper>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Tooltip title="Clear rating" placement="bottom">
+                      <Button
+                        className={classes.buttonOne}
+                        component={Paper}
+                        alt="clear rating"
+                        fullWidth
+                        onClick={() => {
+                          handleRatingClick(movie);
+                        }}
+                      >
+                        <ClearIcon />
+                      </Button>
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Tooltip
+                      title={check ? "Remove from playlist" : "Add to playlist"}
+                      placement="bottom"
                     >
-                      <ClearIcon />
-                    </Button>
-                  </Tooltip>
-                </Grid>
-                <Grid item xs={6}>
-                  <Tooltip
-                    title={check ? "Remove from playlist" : "Add to playlist"}
-                    placement="bottom"
-                  >
-                    <Button
-                      className={classes.buttonTwo}
-                      component={Paper}
-                      alt="clear rating"
-                      fullWidth
-                      onClick={() => {
-                        handlePlaylistClick(check, activePlaylist, movie);
-                      }}
-                    >
-                      {check ? <CheckIcon /> : <AddIcon />}
-                    </Button>
-                  </Tooltip>
+                      <Button
+                        className={classes.buttonTwo}
+                        component={Paper}
+                        alt="clear rating"
+                        fullWidth
+                        onClick={() => {
+                          handlePlaylistClick(check, activePlaylist, movie);
+                        }}
+                      >
+                        {check ? <CheckIcon /> : <AddIcon />}
+                      </Button>
+                    </Tooltip>
+                  </Grid>
                 </Grid>
               </Grid>
+              <Grid item sm={7}>
+                <Typography variant="h4" className={classes.title}>
+                  {movie.title || movie.name}
+                </Typography>
+                <Typography
+                  component="p"
+                  align="center"
+                  className={classes.overview}
+                >
+                  {movie.overview || movie.description}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item sm={7}>
-              <Typography variant="h4" className={classes.title}>
-                {movie.title || movie.name}
-              </Typography>
-              <Typography
-                component="p"
-                align="center"
-                className={classes.overview}
-              >
-                {movie.overview || movie.description}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid>
+          </Paper>
+        </Grid>
 
-      <Grid item xs={12} md={3} className={classes.castLayout}>
-        <Typography className={classes.cast} variant="h6" align="center">
-          Cast
-        </Typography>
-        <Grid container>{movieCast}</Grid>
-        <FullCast movieTitle={movie.title || movie.name} cast={cast} />
+        <Grid item xs={12} md={3} className={classes.castLayout}>
+          <Typography className={classes.cast} variant="h6" align="center">
+            Cast
+          </Typography>
+          <Grid container>{movieCast}</Grid>
+          <FullCast movieTitle={movie.title || movie.name} cast={cast} />
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
