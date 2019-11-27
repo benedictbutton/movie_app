@@ -93,7 +93,7 @@ const styles = theme => ({
   }
 });
 
-const User = props => {
+export const User = props => {
   const { classes } = props;
   const { username, email } = props.user.profile;
 

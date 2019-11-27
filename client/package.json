@@ -12,7 +12,7 @@
     "lodash": "^4.17.11",
     "normalizr": "^3.3.0",
     "react": "16.8.0",
-    "react-dom": "^16.7.0",
+    "react-dom": "16.8.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.0.1",
@@ -42,6 +42,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.3.5",
+    "react-test-renderer": "16.8.0",
     "redux-mock-store": "^1.5.3"
   }
 }
