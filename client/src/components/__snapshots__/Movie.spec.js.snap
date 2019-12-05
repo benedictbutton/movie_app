@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Movie renders consistently 1`] = `
+<Fragment>
+  <WithStyles(Grid)
+    className="Movie-chip-4"
+    container={true}
+    item={true}
+    xs={12}
+  >
+    <Connect(WithStyles(ActivePlaylistContainer)) />
+  </WithStyles(Grid)>
+  <WithStyles(Grid)
+    container={true}
+    display="flex"
+    justify="space-evenly"
+  >
+    <WithStyles(Grid)
+      item={true}
+      md={8}
+      xs={12}
+    >
+      <WithStyles(Paper)
+        className="Movie-layout-5"
+      >
+        <WithStyles(Grid)
+          className="Movie-root-1"
+          container={true}
+          spacing={16}
+        >
+          <WithStyles(Grid)
+            className="Movie-grid-6"
+            item={true}
+            sm={5}
+            xs={12}
+          >
+            <img
+              alt="movie poster"
+              className="Movie-media-7"
+              src="https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg"
+            />
+            <WithStyles(Paper)
+              className="Movie-stars-8"
+            >
+              <Connect(WithStyles(Stars))
+                id={0}
+                movie={
+                  Object {
+                    "id": 0,
+                    "overview": "The never told before, true story of Gremlins",
+                  }
+                }
+                starSize={20}
+              />
+            </WithStyles(Paper)>
+            <WithStyles(Grid)
+              container={true}
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={6}
+              >
+                <WithStyles(Tooltip)
+                  placement="bottom"
+                  title="Clear rating"
+                >
+                  <WithStyles(Button)
+                    alt="clear stars"
+                    className="Movie-buttonOne-2"
+                    component={[Function]}
+                    fullWidth={true}
+                    onClick={[Function]}
+                  >
+                    <pure(ClearIcon) />
+                  </WithStyles(Button)>
+                </WithStyles(Tooltip)>
+              </WithStyles(Grid)>
+              <WithStyles(Grid)
+                item={true}
+                xs={6}
+              >
+                <WithStyles(Tooltip)
+                  placement="bottom"
+                  title="Remove from playlist"
+                >
+                  <WithStyles(Button)
+                    alt="clear playlist"
+                    className="Movie-buttonTwo-3"
+                    component={[Function]}
+                    fullWidth={true}
+                    id="btn"
+                    onClick={[Function]}
+                  >
+                    <pure(CheckIcon) />
+                  </WithStyles(Button)>
+                </WithStyles(Tooltip)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
+          <WithStyles(Grid)
+            item={true}
+            sm={7}
+          >
+            <WithStyles(Typography)
+              className="Movie-title-10"
+              variant="h4"
+            />
+            <WithStyles(Typography)
+              align="center"
+              className="Movie-overview-9"
+              component="p"
+            >
+              The never told before, true story of Gremlins
+            </WithStyles(Typography)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+      </WithStyles(Paper)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      className="Movie-castLayout-13"
+      item={true}
+      md={3}
+      xs={12}
+    >
+      <WithStyles(Typography)
+        align="center"
+        className="Movie-cast-11"
+        variant="h6"
+      >
+        Cast
+      </WithStyles(Typography)>
+      <WithStyles(Grid)
+        container={true}
+      >
+        <WithStyles(Grid)
+          item={true}
+          key="0"
+          md={12}
+          xs={4}
+        >
+          <Link
+            replace={false}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
+            to={
+              Object {
+                "pathname": "/ms/person/1",
+                "state": Object {
+                  "imageUrl": "https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg",
+                  "name": "Bill Burr",
+                },
+              }
+            }
+          >
+            <WithStyles(Typography)
+              className="Movie-members-12"
+            >
+              Bill Burr
+            </WithStyles(Typography)>
+          </Link>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          key="1"
+          md={12}
+          xs={4}
+        >
+          <Link
+            replace={false}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
+            to={
+              Object {
+                "pathname": "/ms/person/2",
+                "state": Object {
+                  "imageUrl": "https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg",
+                  "name": "Emma Stone",
+                },
+              }
+            }
+          >
+            <WithStyles(Typography)
+              className="Movie-members-12"
+            >
+              Emma Stone
+            </WithStyles(Typography)>
+          </Link>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          key="2"
+          md={12}
+          xs={4}
+        >
+          <Link
+            replace={false}
+            style={
+              Object {
+                "textDecoration": "none",
+              }
+            }
+            to={
+              Object {
+                "pathname": "/ms/person/3",
+                "state": Object {
+                  "imageUrl": "https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg",
+                  "name": "Will Ferrell",
+                },
+              }
+            }
+          >
+            <WithStyles(Typography)
+              className="Movie-members-12"
+            >
+              Will Ferrell
+            </WithStyles(Typography)>
+          </Link>
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
+      <WithStyles(FullCast)
+        cast={
+          Array [
+            Object {
+              "id": 1,
+              "name": "Bill Burr",
+            },
+            Object {
+              "id": 2,
+              "name": "Emma Stone",
+            },
+            Object {
+              "id": 3,
+              "name": "Will Ferrell",
+            },
+          ]
+        }
+      />
+    </WithStyles(Grid)>
+  </WithStyles(Grid)>
+</Fragment>
+`;

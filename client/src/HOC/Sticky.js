@@ -1,7 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import classNames from "classnames";
-// material-ui
-import LinearProgress from "@material-ui/core/LinearProgress";
 
 const rAF = window.requestAnimationFrame
   ? window.requestAnimationFrame.bind(window)

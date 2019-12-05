@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { reset } from "redux-form";
 import { doRatingAdd } from "../redux/actions/ratingActions";
@@ -10,12 +10,7 @@ import {
   doUpdateSearch
 } from "../redux/actions/movieActions";
 import { doUnSetError } from "../redux/actions/notificationActions";
-import {
-  getClientNotifications,
-  getMoviesAsQuery,
-  getRatings,
-  getMoviesAsErrors
-} from "../redux/selectors/selectors";
+import { getRatings, getMoviesAsErrors } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
 import Image from "../assets/black-brushed-metal.jpg";
 import AppBarContainer from "./AppBarContainer";
@@ -67,10 +62,7 @@ const PersonContainer = props => {
   const {
     classes,
     width,
-    clientNotifications,
-    movieQuery,
     movieErrors,
-    playlists,
     display,
     match: {
       params: { id: id }
@@ -83,50 +75,46 @@ const PersonContainer = props => {
   const [isError, setIsError] = useState(false);
   const [length, setLength] = useState(0);
 
-  useEffect(
-    () => {
-      let fetchData = async () => {
-        setIsError(false);
-        setIsLoading(true);
-        try {
-          const promises = ["", "combined_credits"].map(request => {
-            return fetch(
-              `https://api.themoviedb.org/3/person/${id}/${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json"
-                  // Authorization: `Bearer ${accessToken}`
-                }
+  useEffect(() => {
+    let fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const promises = ["", "combined_credits"].map(request => {
+          return fetch(
+            `https://api.themoviedb.org/3/person/${id}/${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json"
+                // Authorization: `Bearer ${accessToken}`
               }
-            );
-          });
-          const response = await Promise.all(promises);
-          const responseJson = await Promise.all(
-            response.map(r => {
-              if (!r.ok) throw new Error(r);
-              return r.json();
-            })
+            }
           );
-          const name = responseJson[0].name.split(" ");
-          setProfile({
-            firstName: name[0],
-            lastName: name[1],
-            image: `https://image.tmdb.org/t/p/w500${
-              responseJson[0].profile_path
-            }`
-          });
-          setMovieData(responseJson[1].cast);
-          setLength(responseJson[1].cast.length);
-        } catch (error) {
-          setIsError(true);
-        }
-        setIsLoading(false);
-      };
-      fetchData();
-    },
-    [id]
-  );
+        });
+        const response = await Promise.all(promises);
+        const responseJson = await Promise.all(
+          response.map(r => {
+            if (!r.ok) throw new Error(r);
+            return r.json();
+          })
+        );
+        const name = responseJson[0].name.split(" ");
+        setProfile({
+          firstName: name[0],
+          lastName: name[1],
+          image: `https://image.tmdb.org/t/p/w500${responseJson[0].profile_path}`
+        });
+        setMovieData(responseJson[1].cast);
+        setLength(responseJson[1].cast.length);
+      } catch (error) {
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const columns = {
     xs: 2,
@@ -208,9 +196,6 @@ const PersonContainer = props => {
 };
 
 const mapStateToProps = (state, props) => ({
-  movieQuery: getMoviesAsQuery(state),
-  clientNotifications: getClientNotifications(state),
-  playlists: state.playlists,
   ratings: getRatings(state),
   movieErrors: getMoviesAsErrors(state)
 });

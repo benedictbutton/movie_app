@@ -57,7 +57,7 @@ const styles = theme => ({
   }
 });
 
-class SignInContainer extends Component {
+export class SignInContainer extends Component {
   state = {
     open: false
   };

@@ -1,161 +1,305 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`User renders consistently 1`] = `
-<Fragment>
+exports[`User container/component User renders consistently 1`] = `
+<WithStyles(Grid)
+  className="User-root-305"
+  container={true}
+>
   <WithStyles(Grid)
-    className="User-root-1"
-    container={true}
+    item={true}
+    md={8}
+    xs={12}
   >
-    <LoadingIndicator>
-      <Component />
-    </LoadingIndicator>
-    <div
-      position="absolute"
+    <WithStyles(Paper)
+      className="User-layout-307"
     >
-      <pure(AccountCircleIcon)
-        className="User-icon-2"
-        style={
-          Object {
-            "fontSize": 200,
-          }
-        }
-      />
       <WithStyles(Grid)
-        alignItems="center"
+        className="User-main-306"
         container={true}
-        justify="center"
+        spacing={16}
       >
         <WithStyles(Grid)
+          className="User-grid-308"
           item={true}
-          xs={5}
+          sm={5}
+          xs={12}
         >
+          <img
+            alt="avatar image"
+            className="User-media-309"
+            src="no-poster.jpg"
+          />
           <WithStyles(Paper)
-            align="center"
-            className="User-paper-3"
+            className="User-stars-313"
           >
-            <WithStyles(Typography)
-              className="User-type-4"
-              gutterBottom={true}
-              variant="h2"
-            >
-              Profile
-            </WithStyles(Typography)>
             <WithStyles(Grid)
-              alignItems="flex-start"
+              alignItems="center"
+              className="User-starGrid-312"
               container={true}
-              justify="space-around"
-              spacing={24}
+              justify="space-evenly"
             >
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-type-4"
-                  component="h4"
-                  variant="h5"
-                >
-                  First Name
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-info-5"
-                  component="h3"
-                  variant="h5"
-                >
-                  test
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-type-4"
-                  component="h4"
-                  variant="h5"
-                >
-                  Last Name
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-info-5"
-                  component="h3"
-                  variant="h5"
-                >
-                  user
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-type-4"
-                  component="h4"
-                  variant="h5"
-                >
-                  Username
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-info-5"
-                  component="h3"
-                  variant="h5"
-                >
-                  testuser
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-type-4"
-                  component="h4"
-                  variant="h5"
-                >
-                  Email
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
-              <WithStyles(Grid)
-                align="left"
-                item={true}
-                xs={5}
-              >
-                <WithStyles(Typography)
-                  className="User-info-5"
-                  component="h3"
-                  noWrap={true}
-                  variant="h5"
-                >
-                  testuser@email.com
-                </WithStyles(Typography)>
-              </WithStyles(Grid)>
+              <pure(StarIcon)
+                key="1"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="2"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="3"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="4"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="5"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
             </WithStyles(Grid)>
           </WithStyles(Paper)>
+          <WithStyles(Grid)
+            className="User-btnMargin-310"
+            container={true}
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={12}
+            >
+              <WithStyles(Tooltip)
+                placement="bottom"
+                title="Clear rating"
+              >
+                <WithStyles(Button)
+                  alt="clear rating"
+                  color="primary"
+                  fullWidth={true}
+                  onClick={[Function]}
+                  variant="outlined"
+                >
+                  Upload Image
+                  <FontAwesomeIcon
+                    border={false}
+                    className="User-rightIcon-311"
+                    fixedWidth={false}
+                    flip={null}
+                    icon="upload"
+                    inverse={false}
+                    listItem={false}
+                    mask={null}
+                    pull={null}
+                    pulse={false}
+                    rotation={null}
+                    size={null}
+                    spin={false}
+                    symbol={false}
+                    title=""
+                    transform={null}
+                  />
+                </WithStyles(Button)>
+              </WithStyles(Tooltip)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          sm={7}
+        >
+          <WithStyles(Grid)
+            container={true}
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={6}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-320"
+                id="outlined-read-only-input"
+                label="Username"
+                margin="normal"
+                required={false}
+                select={false}
+                value="testuser"
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={6}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-320"
+                id="outlined-read-only-input"
+                label="Email"
+                margin="normal"
+                required={false}
+                select={false}
+                value="testuser@email.com"
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={12}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-320"
+                defaultValue="**********"
+                fullWidth={true}
+                id="outlined-read-only-input"
+                label="Password"
+                margin="normal"
+                required={false}
+                select={false}
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              className="User-btnMargin-310"
+              container={true}
+              justify="flex-end"
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={4}
+              >
+                <WithStyles(Tooltip)
+                  placement="bottom"
+                  title="Remove from playlist"
+                >
+                  <WithStyles(Button)
+                    alt="clear rating"
+                    color="primary"
+                    fullWidth={true}
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    <pure(EditIcon)
+                      style={
+                        Object {
+                          "color": "white",
+                        }
+                      }
+                    />
+                  </WithStyles(Button)>
+                </WithStyles(Tooltip)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
         </WithStyles(Grid)>
       </WithStyles(Grid)>
-    </div>
+    </WithStyles(Paper)>
   </WithStyles(Grid)>
-</Fragment>
+   
+  <WithStyles(Snackbar)
+    ContentProps={
+      Object {
+        "aria-describedby": "message-id",
+        "className": "User-snack-322",
+      }
+    }
+    TransitionComponent={[Function]}
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    autoHideDuration={5000}
+    className="User-snack-322"
+    message={
+      <span
+        id="message-id"
+      >
+         TBD - Coming soon
+      </span>
+    }
+    onClose={[Function]}
+    open={false}
+  />
+</WithStyles(Grid)>
 `;

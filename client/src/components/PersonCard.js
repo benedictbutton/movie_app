@@ -1,5 +1,4 @@
 import React from "react";
-import poster from "../assets/no-poster.jpg";
 // material-ui
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -20,7 +19,12 @@ const PersonCard = props => {
 
   return (
     <div className={classes.root}>
-      <img src={profileImage} width="75%" height="50%" />
+      <img
+        src={profileImage}
+        alt="picture of cast member"
+        width="75%"
+        height="50%"
+      />
       <Typography noWrap variant="headline" className={classes.type}>
         {firstName}
       </Typography>

@@ -140,7 +140,7 @@ const Movie = props => {
                       <Button
                         className={classes.buttonOne}
                         component={Paper}
-                        alt="clear rating"
+                        alt="clear stars"
                         fullWidth
                         onClick={() => {
                           handleRatingClick(movie);
@@ -156,9 +156,10 @@ const Movie = props => {
                       placement="bottom"
                     >
                       <Button
+                        id="btn"
                         className={classes.buttonTwo}
                         component={Paper}
-                        alt="clear rating"
+                        alt="clear playlist"
                         fullWidth
                         onClick={() => {
                           handlePlaylistClick(check, activePlaylist, movie);

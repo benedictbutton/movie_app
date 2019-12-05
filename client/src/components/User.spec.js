@@ -1,55 +1,101 @@
 import React from "react";
-// import { createMount } from "@material-ui/core/test-utils";
-import { doUserRequesting } from "../redux/actions/userActions";
-import { doUnSetError } from "../redux/actions/notificationActions";
+import renderer from "react-test-renderer";
+import toJson from "enzyme-to-json";
+import configureStore from "redux-mock-store";
+import createSagaMiddleware from "redux-saga";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
+import App from "../App";
+import Notifications from "./Notifications";
 import User from "./User";
 import { UserContainer } from "../containers/UserContainer";
-import toJson from "enzyme-to-json";
-import Notifications from "./Notifications";
-import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
-// import { doUserRequesting } from "../redux/actions/userActions";
-// import { getUser } from "../redux/selectors/selectors";
-import configureStore from "redux-mock-store";
 
-const props = {
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
+const mockStore = configureStore(middlewares);
+const initialState = {
+  client: {
+    requesting: false,
+    successful: false,
+    admin: false,
+    reset: false,
+    notifications: { message: "test" }
+  },
   user: {
     profile: {
+      id: 7,
+      firstName: "test",
+      lastName: "user",
+      username: "testuser",
+      email: "testuser@email.com"
+    },
+    requesting: false,
+    successful: false,
+    notifications: {
+      body: null,
+      message: "test",
+      code: 404,
+      display: true
+    }
+  }
+};
+
+// console.log(wrapper.debug());
+
+describe("User container/component", () => {
+  let store;
+  store = mockStore(initialState);
+  beforeEach(() => jest.resetAllMocks());
+
+  const user = {
+    profile: {
+      id: 7,
       firstName: "test",
       lastName: "user",
       username: "testuser",
       email: "testuser@email.com"
     },
     notifications: {
-      message: "test"
+      body: null,
+      message: "test",
+      code: 404,
+      display: true
     }
-  }
-};
+  };
 
-const mockStore = configureStore();
-const initialState = {};
-const store = mockStore(initialState);
+  const dispatch = store.dispatch;
 
-// Dispatch the action
-store.dispatch(doUserRequesting());
+  jest.mock("../redux/actions/userActions", () => ({
+    doUserRequesting: jest.fn()
+  }));
 
-describe("User", () => {
-  test("render()", () => {
-    const wrapper = shallow(<User />);
-    console.log(wrapper.debug());
-    expect(wrapper.exists()).toBe(true);
+  describe("UserContainer", () => {
+    it("render()", () => {
+      const wrapper = mount(
+        <Provider store={store}>
+          <UserContainer user={user} dispatch={dispatch} />
+        </Provider>
+      );
+      expect(wrapper.find(User)).toHaveLength(1);
+      const component = wrapper.find(User);
+      expect(component.props().user.profile.firstName).toEqual("test");
+      wrapper.unmount();
+    });
   });
 
-  test("renders consistently", () => {
-    const wrapper = shallow(<User {...props} />);
-    const component = wrapper.dive();
-    expect(toJson(component)).toMatchSnapshot();
-  });
-});
+  let wrapper;
+  describe("User", () => {
+    test("renders consistently", () => {
+      wrapper = shallow(<User user={user} />);
+      const component = wrapper.dive();
+      expect(toJson(component)).toMatchSnapshot();
+    });
 
-describe("UserContainer", () => {
-  test("render()", () => {
-    const wrapper = mount(<UserContainer {...props} />);
-    expect(wrapper.find(User)).toHaveLength(1);
-    wrapper.unmount();
+    it("render()", () => {
+      // const wrapper = shallow(<User user={user} />);
+      console.log(wrapper.debug());
+      expect(wrapper.exists()).toBe(true);
+      wrapper.unmount();
+    });
   });
 });

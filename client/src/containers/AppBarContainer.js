@@ -176,8 +176,6 @@ const searchForm = {
   form: `search`
 };
 
-const mapStateToProps = (state, props) => ({});
-
 AppBarContainer = reduxForm(searchForm)(AppBarContainer);
 export default withRouter(
   connect(

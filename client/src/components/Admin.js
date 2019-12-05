@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // material-ui
 import classNames from "classnames";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,8 +16,6 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { withStyles } from "@material-ui/core/styles";
@@ -131,7 +130,6 @@ const CustomTableCell = withStyles(theme => ({
 
 const Admin = props => {
   const [records, setRecords] = useState([]);
-  const [deleteRecords, setDeleteRecords] = useState([]);
   const [onDelete, setOnDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [order, setOrder] = useState("asc");
@@ -218,41 +216,38 @@ const Admin = props => {
     fetchRecords();
   }, []);
 
-  useEffect(
-    () => {
-      if (!onDelete) return;
-      const deleteRecords = async () => {
-        try {
-          setIsLoading(true);
-          let response = await fetch(
-            `${process.env.REACT_APP_API_URL}/api/v1/users/:id.json`,
-            {
-              credentials: "same-origin",
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${sessionStorage.jwt}`
-              },
-              body: JSON.stringify({ records: selected })
-            }
-          );
-          let responseJson = await response.json();
-          if (response.ok || !responseJson.status === "error") {
-            setRecords(records =>
-              records.filter(record => !selected.includes(record.id))
-            );
-            handleClearSelected();
+  useEffect(() => {
+    if (!onDelete) return;
+    const deleteRecords = async () => {
+      try {
+        setIsLoading(true);
+        let response = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/v1/users/:id.json`,
+          {
+            credentials: "same-origin",
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionStorage.jwt}`
+            },
+            body: JSON.stringify({ records: selected })
           }
-          setIsLoading(false);
-        } catch (error) {
-          return error;
+        );
+        let responseJson = await response.json();
+        if (response.ok || !responseJson.status === "error") {
+          setRecords(records =>
+            records.filter(record => !selected.includes(record.id))
+          );
+          handleClearSelected();
         }
-      };
-      deleteRecords();
-      setOnDelete(false);
-    },
-    [onDelete]
-  );
+        setIsLoading(false);
+      } catch (error) {
+        return error;
+      }
+    };
+    deleteRecords();
+    setOnDelete(false);
+  }, [onDelete]);
 
   const headers = [
     { id: "id", label: "ID", numeric: true, disablePadding: false },
@@ -323,6 +318,7 @@ const Admin = props => {
   return (
     <Grid container className={classes.main} justify="center">
       <Grid item xs={10}>
+        {isLoading && <CircularProgress />}
         <Paper className={classes.root}>
           <Toolbar
             className={classNames(classes.bar, {
