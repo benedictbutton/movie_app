@@ -3,7 +3,7 @@
 exports[`Movie renders consistently 1`] = `
 <Fragment>
   <WithStyles(Grid)
-    className="Movie-chip-181"
+    className="Movie-chip-4"
     container={true}
     item={true}
     xs={12}
@@ -21,26 +21,26 @@ exports[`Movie renders consistently 1`] = `
       xs={12}
     >
       <WithStyles(Paper)
-        className="Movie-layout-182"
+        className="Movie-layout-5"
       >
         <WithStyles(Grid)
-          className="Movie-root-178"
+          className="Movie-root-1"
           container={true}
           spacing={16}
         >
           <WithStyles(Grid)
-            className="Movie-grid-183"
+            className="Movie-grid-6"
             item={true}
             sm={5}
             xs={12}
           >
             <img
               alt="movie poster"
-              className="Movie-media-184"
+              className="Movie-media-7"
               src="https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg"
             />
             <WithStyles(Paper)
-              className="Movie-stars-185"
+              className="Movie-stars-8"
             >
               <Connect(WithStyles(Stars))
                 id={0}
@@ -66,7 +66,7 @@ exports[`Movie renders consistently 1`] = `
                 >
                   <WithStyles(Button)
                     alt="clear stars"
-                    className="Movie-buttonOne-179"
+                    className="Movie-buttonOne-2"
                     component={[Function]}
                     fullWidth={true}
                     onClick={[Function]}
@@ -85,7 +85,7 @@ exports[`Movie renders consistently 1`] = `
                 >
                   <WithStyles(Button)
                     alt="clear playlist"
-                    className="Movie-buttonTwo-180"
+                    className="Movie-buttonTwo-3"
                     component={[Function]}
                     fullWidth={true}
                     id="btn"
@@ -102,12 +102,12 @@ exports[`Movie renders consistently 1`] = `
             sm={7}
           >
             <WithStyles(Typography)
-              className="Movie-title-187"
+              className="Movie-title-10"
               variant="h4"
             />
             <WithStyles(Typography)
               align="center"
-              className="Movie-overview-186"
+              className="Movie-overview-9"
               component="p"
             >
               The never told before, true story of Gremlins
@@ -117,14 +117,14 @@ exports[`Movie renders consistently 1`] = `
       </WithStyles(Paper)>
     </WithStyles(Grid)>
     <WithStyles(Grid)
-      className="Movie-castLayout-190"
+      className="Movie-castLayout-13"
       item={true}
       md={3}
       xs={12}
     >
       <WithStyles(Typography)
         align="center"
-        className="Movie-cast-188"
+        className="Movie-cast-11"
         variant="h6"
       >
         Cast
@@ -156,7 +156,7 @@ exports[`Movie renders consistently 1`] = `
             }
           >
             <WithStyles(Typography)
-              className="Movie-members-189"
+              className="Movie-members-12"
             >
               Bill Burr
             </WithStyles(Typography)>
@@ -186,7 +186,7 @@ exports[`Movie renders consistently 1`] = `
             }
           >
             <WithStyles(Typography)
-              className="Movie-members-189"
+              className="Movie-members-12"
             >
               Emma Stone
             </WithStyles(Typography)>
@@ -216,7 +216,7 @@ exports[`Movie renders consistently 1`] = `
             }
           >
             <WithStyles(Typography)
-              className="Movie-members-189"
+              className="Movie-members-12"
             >
               Will Ferrell
             </WithStyles(Typography)>

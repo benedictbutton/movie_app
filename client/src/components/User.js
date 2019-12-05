@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import backgroundImage from "../assets/dark-grey-metal.jpg";
 import userImage from "../assets/no-poster.jpg";
 // material-ui
-import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
 import EditIcon from "@material-ui/icons/Edit";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";

@@ -13,12 +13,10 @@ import {
 } from "../redux/selectors/selectors";
 import poster from "../assets/no-poster.jpg";
 import AppBarContainer from "./AppBarContainer";
-import FilterContainer from "./FilterContainer";
 import LoadingIndicator from "../components/LoadingIndicator";
 import MovieCard from "../components/MovieCard";
 import Notifications from "../components/Notifications";
 import ScrollButton from "../components/ScrollButton";
-import AppBar from "@material-ui/core/AppBar";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import { StickyContainer, StickyBoundary } from "../HOC/Sticky";

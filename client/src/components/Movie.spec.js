@@ -4,17 +4,17 @@ import toJson from "enzyme-to-json";
 import configureStore from "redux-mock-store";
 import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, MemoryRouter } from "react-router-dom";
+import { BrowserRouter as Router, MemoryRouter, Link } from "react-router-dom";
 import App from "../App";
 import AddIcon from "@material-ui/icons/Add";
 import CheckIcon from "@material-ui/icons/Check";
 import Movie from "./Movie";
+import Typography from "@material-ui/core/Typography";
 import {
   doPlaylistAddMovieRequesting,
   doPlaylistRemoveMovieRequesting
 } from "../redux/actions/playlistActions";
 
-const mockStore = configureStore();
 const initialState = {
   client: {
     requesting: false,
@@ -70,43 +70,24 @@ const initialState = {
   }
 };
 
-describe("Movie", () => {
-  let store;
-  beforeEach(() => {
-    jest.resetAllMocks();
-    store = mockStore(initialState);
-    renderer.create(
-      <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
-      </Provider>
-    );
-  });
+const props = {
+  movie: { id: 0, overview: "The never told before, true story of Gremlins" },
+  profile: false,
+  cast: [
+    { id: 1, name: "Bill Burr" },
+    { id: 2, name: "Emma Stone" },
+    { id: 3, name: "Will Ferrell" }
+  ],
+  imageUrl: "https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg",
+  check: true,
+  activePlaylist: 1,
+  handlePlaylistClick: jest.fn(() =>
+    doPlaylistRemoveMovieRequesting(this.check, this.activePlaylist, this.movie)
+  )
+};
 
-  // handlePlaylistClick, handleRatingClick,
-  // expect(wrapper.contains(<AddIcon />)).toBe(true);
-  // store={store}
-  // .simulate("click");
-  const props = {
-    movie: { id: 0, overview: "The never told before, true story of Gremlins" },
-    profile: false,
-    cast: [
-      { id: 1, name: "Bill Burr" },
-      { id: 2, name: "Emma Stone" },
-      { id: 3, name: "Will Ferrell" }
-    ],
-    imageUrl: "https://image.tmdb.org/t/p/w500/BbNvKCuEF4SRzFXR16aK6ISFtR.jpg",
-    check: true,
-    activePlaylist: 1,
-    handlePlaylistClick: jest.fn(() =>
-      doPlaylistRemoveMovieRequesting(
-        this.check,
-        this.activePlaylist,
-        this.movie
-      )
-    )
-  };
+describe("Movie", () => {
+  beforeEach(() => jest.resetAllMocks());
 
   test("renders consistently", () => {
     const wrapper = shallow(<Movie {...props} />);
@@ -119,10 +100,19 @@ describe("Movie", () => {
     const wrapper = shallow(<Movie {...props} />).dive();
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.contains(<CheckIcon />)).toBe(true);
+    expect(wrapper.contains(<AddIcon />)).toBe(false);
     wrapper.find("#btn").simulate("click");
     expect(props.handlePlaylistClick).toHaveBeenCalled();
     wrapper.setProps({ check: false });
     expect(wrapper.contains(<AddIcon />)).toBe(true);
+    expect(
+      wrapper
+        .find(Typography)
+        .at(3)
+        .dive()
+        .dive()
+        .text()
+    ).toBe("Bill Burr");
 
     wrapper.unmount();
   });

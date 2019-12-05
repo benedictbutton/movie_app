@@ -2,7 +2,7 @@
 
 exports[`User container/component User renders consistently 1`] = `
 <WithStyles(Grid)
-  className="User-root-178"
+  className="User-root-305"
   container={true}
 >
   <WithStyles(Grid)
@@ -11,30 +11,30 @@ exports[`User container/component User renders consistently 1`] = `
     xs={12}
   >
     <WithStyles(Paper)
-      className="User-layout-180"
+      className="User-layout-307"
     >
       <WithStyles(Grid)
-        className="User-main-179"
+        className="User-main-306"
         container={true}
         spacing={16}
       >
         <WithStyles(Grid)
-          className="User-grid-181"
+          className="User-grid-308"
           item={true}
           sm={5}
           xs={12}
         >
           <img
             alt="avatar image"
-            className="User-media-182"
+            className="User-media-309"
             src="no-poster.jpg"
           />
           <WithStyles(Paper)
-            className="User-stars-186"
+            className="User-stars-313"
           >
             <WithStyles(Grid)
               alignItems="center"
-              className="User-starGrid-185"
+              className="User-starGrid-312"
               container={true}
               justify="space-evenly"
             >
@@ -86,7 +86,7 @@ exports[`User container/component User renders consistently 1`] = `
             </WithStyles(Grid)>
           </WithStyles(Paper)>
           <WithStyles(Grid)
-            className="User-btnMargin-183"
+            className="User-btnMargin-310"
             container={true}
           >
             <WithStyles(Grid)
@@ -107,7 +107,7 @@ exports[`User container/component User renders consistently 1`] = `
                   Upload Image
                   <FontAwesomeIcon
                     border={false}
-                    className="User-rightIcon-184"
+                    className="User-rightIcon-311"
                     fixedWidth={false}
                     flip={null}
                     icon="upload"
@@ -143,23 +143,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "root": "User-cssLabel-189",
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "input": "User-input-188",
-                      "notchedOutline": "User-notchedOutline-191",
-                      "root": "User-cssOutlinedInput-190",
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-193"
+                className="User-textField-320"
                 id="outlined-read-only-input"
                 label="Username"
                 margin="normal"
@@ -177,23 +177,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "root": "User-cssLabel-189",
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "input": "User-input-188",
-                      "notchedOutline": "User-notchedOutline-191",
-                      "root": "User-cssOutlinedInput-190",
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-193"
+                className="User-textField-320"
                 id="outlined-read-only-input"
                 label="Email"
                 margin="normal"
@@ -211,23 +211,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "root": "User-cssLabel-189",
+                      "focused": "User-cssFocused-319",
+                      "root": "User-cssLabel-316",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-192",
-                      "input": "User-input-188",
-                      "notchedOutline": "User-notchedOutline-191",
-                      "root": "User-cssOutlinedInput-190",
+                      "focused": "User-cssFocused-319",
+                      "input": "User-input-315",
+                      "notchedOutline": "User-notchedOutline-318",
+                      "root": "User-cssOutlinedInput-317",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-193"
+                className="User-textField-320"
                 defaultValue="**********"
                 fullWidth={true}
                 id="outlined-read-only-input"
@@ -239,7 +239,7 @@ exports[`User container/component User renders consistently 1`] = `
               />
             </WithStyles(Grid)>
             <WithStyles(Grid)
-              className="User-btnMargin-183"
+              className="User-btnMargin-310"
               container={true}
               justify="flex-end"
             >
@@ -279,7 +279,7 @@ exports[`User container/component User renders consistently 1`] = `
     ContentProps={
       Object {
         "aria-describedby": "message-id",
-        "className": "User-snack-195",
+        "className": "User-snack-322",
       }
     }
     TransitionComponent={[Function]}
@@ -290,7 +290,7 @@ exports[`User container/component User renders consistently 1`] = `
       }
     }
     autoHideDuration={5000}
-    className="User-snack-195"
+    className="User-snack-322"
     message={
       <span
         id="message-id"
