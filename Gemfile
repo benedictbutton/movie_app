@@ -27,6 +27,7 @@ gem 'active_model_serializers', '< 0.10.9', require: true
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 gem 'sendgrid-ruby'
+gem 'aws-sdk-rails'
 gem 'minitest', '~> 5.11.3'
 
 group :development, :test do
