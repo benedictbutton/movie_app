@@ -39,7 +39,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: 'email-smtp.us-east-1.amazonaws.com',
-    domain:  'mail.www.movies-scene.com',
+    domain:  ENV['SMTP_DOMAIN'],
     port: 465,
     authentication: :plain,
     user_name: ENV['SMTP_USERNAME'],
