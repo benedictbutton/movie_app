@@ -35,14 +35,27 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.delivery_method = :ses
+
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: 'localhost:3001',
+    address: 'email-smtp.us-east-1.amazonaws.com',
+    domain:  'mail.www.movies-scene.com',
+    port: 465,
     authentication: :plain,
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY']
-  }
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    enable_starttls_auto: true
+}
+
+#
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.sendgrid.net',
+  #   port: 587,
+  #   domain: 'localhost:3001',
+  #   authentication: :plain,
+  #   user_name: 'apikey',
+  #   password: ENV['SENDGRID_API_KEY']
+  # }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
