@@ -20,15 +20,18 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
+  config.action_mailer.delivery_method = :ses
+
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: 'movies-scene.com',
+    address: 'email-smtp.us-east-1.amazonaws.com',
+    domain:  ENV['SMTP_DOMAIN'],
+    port: 465,
     authentication: :plain,
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY']
+    user_name: ENV['SMTP_USERNAME'],
+    password: ENV['SMTP_PASSWORD'],
+    enable_starttls_auto: true
   }
 
 
