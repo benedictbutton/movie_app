@@ -17,11 +17,12 @@ export class UserContainer extends Component {
     return (
       <>
         <User {...this.props} />
-        <Notifications>{user.notifications}</Notifications>
       </>
     );
   }
 }
+
+// <Notifications>{user.notifications}</Notifications>;
 
 const mapStateToProps = (state, props) => ({
   user: getUser(state)

@@ -1,4 +1,4 @@
-import userReducer from "../user.js";
+import userReducer from "../user";
 import {
   USER_REQUESTING,
   USER_SUCCESS,

@@ -1,11 +1,6 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import toJson from "enzyme-to-json";
-import configureStore from "redux-mock-store";
-import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, MemoryRouter, Link } from "react-router-dom";
-import App from "../App";
 import AddIcon from "@material-ui/icons/Add";
 import CheckIcon from "@material-ui/icons/Check";
 import Movie from "./Movie";
@@ -14,61 +9,6 @@ import {
   doPlaylistAddMovieRequesting,
   doPlaylistRemoveMovieRequesting
 } from "../redux/actions/playlistActions";
-
-const initialState = {
-  client: {
-    requesting: false,
-    successful: false,
-    admin: false,
-    reset: false,
-    notifications: { message: "test" }
-  },
-  user: {
-    profile: {
-      id: 7,
-      firstName: "test",
-      lastName: "user",
-      username: "testuser",
-      email: "testuser@email.com"
-    },
-    requesting: false,
-    successful: false,
-    notifications: {
-      body: null,
-      message: "test",
-      code: 404,
-      display: true
-    }
-  },
-  movies: {
-    results: [],
-    list: {},
-    cast: [],
-    ratedList: {},
-    searchList: {},
-    requesting: false,
-    successful: false,
-    notifications: {},
-    query: { type: "multi", page: 1, tag: "movie/popular" },
-    filter: "all"
-  },
-  playlists: {
-    active: 1,
-    lists: [
-      {
-        active: true,
-        id: 0,
-        name: "Gremlins Documentary",
-        user_id: 2
-      }
-    ],
-    playlistMovieIds: { ["none"]: [], "1": [0] },
-    playlistMovies: {},
-    requesting: false,
-    successful: false,
-    notifications: {}
-  }
-};
 
 const props = {
   movie: { id: 0, overview: "The never told before, true story of Gremlins" },
