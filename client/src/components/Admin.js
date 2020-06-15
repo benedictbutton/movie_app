@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 // material-ui
 import classNames from "classnames";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import BrokenImages from "./BrokenImages";
+import BrokenImageIcon from "@material-ui/icons/BrokenImage";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
@@ -19,6 +21,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { withStyles } from "@material-ui/core/styles";
+import Image from "../assets/brushed-metal.jpg";
+import BlackImage from "../assets/grey-brushed-metal.jpg";
+import GreyImage from "../assets/grey-small.jpg";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -50,17 +55,20 @@ const styles = theme => ({
   root: {
     width: "100%",
     marginBottom: theme.spacing.unit * 2,
-    backgroundColor: "#757575",
+    backgroundImage: `url(${BlackImage})`,
+    backgroundSize: "cover",
+    // backgroundColor: "#757575",
     borderStyle: "solid",
     borderWidth: 7,
-    borderColor: "#cfd8dc"
+    borderColor: "#ecca00"
   },
   tableWrapper: {
     maxHeight: 500,
     overflowX: "auto"
   },
   bar: {
-    backgroundColor: "#263238",
+    // backgroundImage: `url(${Image})`,
+    backgroundColor: "#808080",
     paddingLeft: theme.spacing.unit * 2,
     paddingRight: theme.spacing.unit,
     position: "sticky",
@@ -70,7 +78,7 @@ const styles = theme => ({
     theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
-
+          // backgroundImage: `url(${GreyImage})`
           backgroundColor: lighten(theme.palette.secondary.light, 0.85)
         }
       : {
@@ -87,7 +95,7 @@ const styles = theme => ({
     flex: "0 0 auto"
   },
   cell: {
-    color: theme.palette.common.white,
+    color: "#ecca00",
     fontSize: 14
   },
   label: {
@@ -115,8 +123,9 @@ const styles = theme => ({
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: "#263238",
-    color: theme.palette.common.white,
+    // backgroundImage: `url(${Image})`,
+    backgroundColor: "#808080",
+    color: "#ecca00",
     fontSize: 16,
     fontWeight: 700,
     position: "sticky",
@@ -135,6 +144,7 @@ const Admin = props => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("id");
   const [selected, setSelected] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const { classes } = props;
 
@@ -247,7 +257,7 @@ const Admin = props => {
     };
     deleteRecords();
     setOnDelete(false);
-  }, [onDelete]);
+  }, [onDelete, selected]);
 
   const headers = [
     { id: "id", label: "ID", numeric: true, disablePadding: false },
@@ -295,7 +305,7 @@ const Admin = props => {
         >
           <TableCell padding="checkbox">
             <Checkbox
-              style={{ color: "white" }}
+              style={{ color: "#ecca00" }}
               checked={isItemSelected}
               inputProps={{ "aria-labelledby": labelId }}
             />
@@ -343,14 +353,30 @@ const Admin = props => {
             <div className={classes.spacer} />
             <div className={classes.actions}>
               {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => handleDelete(selected)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
+                <Grid container>
+                  {numSelected === 1 ? (
+                    <Grid item xs={6}>
+                      <Tooltip title="Broken Images">
+                        <IconButton
+                          aria-label="broken image"
+                          onClick={() => setOpen(true)}
+                        >
+                          <BrokenImageIcon style={{ color: "red" }} />
+                        </IconButton>
+                      </Tooltip>
+                    </Grid>
+                  ) : null}
+                  <Grid item xs={6}>
+                    <Tooltip title="Delete">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDelete(selected)}
+                      >
+                        <DeleteIcon style={{ color: "red" }} />
+                      </IconButton>
+                    </Tooltip>
+                  </Grid>
+                </Grid>
               ) : (
                 <Tooltip title="Filter list">
                   <IconButton aria-label="filter list">
@@ -377,6 +403,12 @@ const Admin = props => {
                   {headers}
                 </TableRow>
               </TableHead>
+              <BrokenImages
+                open={open}
+                setOpen={setOpen}
+                selected={selected}
+                records={records}
+              />
               <TableBody>{userData}</TableBody>
             </Table>
           </div>
@@ -387,5 +419,3 @@ const Admin = props => {
 };
 
 export default withStyles(styles)(Admin);
-// Helen, Patrice, Craig, Salom, Anthony
-// "i'm not bragging that i do it, i'm admitting it"

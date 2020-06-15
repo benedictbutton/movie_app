@@ -45,6 +45,11 @@ class Api::V1::PlaylistsController < ApplicationController
     render json: {removedPlaylistId: removedPlaylistId}
   end
 
+  def images
+    movie_images = Playlist.find_all_movie_images(params[:id])
+    render json: {images: movie_images}
+  end
+
   def active
     id = params[:playlist][:id]
     Playlist.switch_active_playlist(current_user, id)

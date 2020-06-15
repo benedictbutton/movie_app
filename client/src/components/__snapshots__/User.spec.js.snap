@@ -2,7 +2,7 @@
 
 exports[`User container/component User renders consistently 1`] = `
 <WithStyles(Grid)
-  className="User-root-305"
+  className="User-root-257"
   container={true}
 >
   <WithStyles(Grid)
@@ -11,30 +11,30 @@ exports[`User container/component User renders consistently 1`] = `
     xs={12}
   >
     <WithStyles(Paper)
-      className="User-layout-307"
+      className="User-layout-259"
     >
       <WithStyles(Grid)
-        className="User-main-306"
+        className="User-main-258"
         container={true}
         spacing={16}
       >
         <WithStyles(Grid)
-          className="User-grid-308"
+          className="User-grid-260"
           item={true}
           sm={5}
           xs={12}
         >
           <img
             alt="avatar image"
-            className="User-media-309"
+            className="User-media-261"
             src="no-poster.jpg"
           />
           <WithStyles(Paper)
-            className="User-stars-313"
+            className="User-stars-265"
           >
             <WithStyles(Grid)
               alignItems="center"
-              className="User-starGrid-312"
+              className="User-starGrid-264"
               container={true}
               justify="space-evenly"
             >
@@ -86,7 +86,7 @@ exports[`User container/component User renders consistently 1`] = `
             </WithStyles(Grid)>
           </WithStyles(Paper)>
           <WithStyles(Grid)
-            className="User-btnMargin-310"
+            className="User-btnMargin-262"
             container={true}
           >
             <WithStyles(Grid)
@@ -107,7 +107,7 @@ exports[`User container/component User renders consistently 1`] = `
                   Upload Image
                   <FontAwesomeIcon
                     border={false}
-                    className="User-rightIcon-311"
+                    className="User-rightIcon-263"
                     fixedWidth={false}
                     flip={null}
                     icon="upload"
@@ -143,23 +143,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "root": "User-cssLabel-316",
+                      "focused": "User-cssFocused-271",
+                      "root": "User-cssLabel-268",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "input": "User-input-315",
-                      "notchedOutline": "User-notchedOutline-318",
-                      "root": "User-cssOutlinedInput-317",
+                      "focused": "User-cssFocused-271",
+                      "input": "User-input-267",
+                      "notchedOutline": "User-notchedOutline-270",
+                      "root": "User-cssOutlinedInput-269",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-320"
+                className="User-textField-272"
                 id="outlined-read-only-input"
                 label="Username"
                 margin="normal"
@@ -177,23 +177,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "root": "User-cssLabel-316",
+                      "focused": "User-cssFocused-271",
+                      "root": "User-cssLabel-268",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "input": "User-input-315",
-                      "notchedOutline": "User-notchedOutline-318",
-                      "root": "User-cssOutlinedInput-317",
+                      "focused": "User-cssFocused-271",
+                      "input": "User-input-267",
+                      "notchedOutline": "User-notchedOutline-270",
+                      "root": "User-cssOutlinedInput-269",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-320"
+                className="User-textField-272"
                 id="outlined-read-only-input"
                 label="Email"
                 margin="normal"
@@ -211,23 +211,23 @@ exports[`User container/component User renders consistently 1`] = `
                 InputLabelProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "root": "User-cssLabel-316",
+                      "focused": "User-cssFocused-271",
+                      "root": "User-cssLabel-268",
                     },
                   }
                 }
                 InputProps={
                   Object {
                     "classes": Object {
-                      "focused": "User-cssFocused-319",
-                      "input": "User-input-315",
-                      "notchedOutline": "User-notchedOutline-318",
-                      "root": "User-cssOutlinedInput-317",
+                      "focused": "User-cssFocused-271",
+                      "input": "User-input-267",
+                      "notchedOutline": "User-notchedOutline-270",
+                      "root": "User-cssOutlinedInput-269",
                     },
                     "readOnly": true,
                   }
                 }
-                className="User-textField-320"
+                className="User-textField-272"
                 defaultValue="**********"
                 fullWidth={true}
                 id="outlined-read-only-input"
@@ -239,7 +239,7 @@ exports[`User container/component User renders consistently 1`] = `
               />
             </WithStyles(Grid)>
             <WithStyles(Grid)
-              className="User-btnMargin-310"
+              className="User-btnMargin-262"
               container={true}
               justify="flex-end"
             >
@@ -279,7 +279,7 @@ exports[`User container/component User renders consistently 1`] = `
     ContentProps={
       Object {
         "aria-describedby": "message-id",
-        "className": "User-snack-322",
+        "className": "User-snack-274",
       }
     }
     TransitionComponent={[Function]}
@@ -290,7 +290,311 @@ exports[`User container/component User renders consistently 1`] = `
       }
     }
     autoHideDuration={5000}
-    className="User-snack-322"
+    className="User-snack-274"
+    message={
+      <span
+        id="message-id"
+      >
+         TBD - Coming soon
+      </span>
+    }
+    onClose={[Function]}
+    open={false}
+  />
+</WithStyles(Grid)>
+`;
+
+exports[`User renders consistently 1`] = `
+<WithStyles(Grid)
+  className="User-root-1"
+  container={true}
+>
+  <WithStyles(Grid)
+    item={true}
+    md={8}
+    xs={12}
+  >
+    <WithStyles(Paper)
+      className="User-layout-3"
+    >
+      <WithStyles(Grid)
+        className="User-main-2"
+        container={true}
+        spacing={16}
+      >
+        <WithStyles(Grid)
+          className="User-grid-4"
+          item={true}
+          sm={5}
+          xs={12}
+        >
+          <img
+            alt="avatar image"
+            className="User-media-5"
+            src="no-poster.jpg"
+          />
+          <WithStyles(Paper)
+            className="User-stars-9"
+          >
+            <WithStyles(Grid)
+              alignItems="center"
+              className="User-starGrid-8"
+              container={true}
+              justify="space-evenly"
+            >
+              <pure(StarIcon)
+                key="1"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="2"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="3"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="4"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+              <pure(StarIcon)
+                key="5"
+                size={20}
+                style={
+                  Object {
+                    "color": "yellow",
+                  }
+                }
+              />
+            </WithStyles(Grid)>
+          </WithStyles(Paper)>
+          <WithStyles(Grid)
+            className="User-btnMargin-6"
+            container={true}
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={12}
+            >
+              <WithStyles(Tooltip)
+                placement="bottom"
+                title="Clear rating"
+              >
+                <WithStyles(Button)
+                  alt="clear rating"
+                  color="primary"
+                  fullWidth={true}
+                  onClick={[Function]}
+                  variant="outlined"
+                >
+                  Upload Image
+                  <FontAwesomeIcon
+                    border={false}
+                    className="User-rightIcon-7"
+                    fixedWidth={false}
+                    flip={null}
+                    icon="upload"
+                    inverse={false}
+                    listItem={false}
+                    mask={null}
+                    pull={null}
+                    pulse={false}
+                    rotation={null}
+                    size={null}
+                    spin={false}
+                    symbol={false}
+                    title=""
+                    transform={null}
+                  />
+                </WithStyles(Button)>
+              </WithStyles(Tooltip)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+        <WithStyles(Grid)
+          item={true}
+          sm={7}
+        >
+          <WithStyles(Grid)
+            container={true}
+          >
+            <WithStyles(Grid)
+              item={true}
+              xs={6}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "root": "User-cssLabel-12",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "input": "User-input-11",
+                      "notchedOutline": "User-notchedOutline-14",
+                      "root": "User-cssOutlinedInput-13",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-16"
+                id="outlined-read-only-input"
+                label="Username"
+                margin="normal"
+                required={false}
+                select={false}
+                value="testuser"
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={6}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "root": "User-cssLabel-12",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "input": "User-input-11",
+                      "notchedOutline": "User-notchedOutline-14",
+                      "root": "User-cssOutlinedInput-13",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-16"
+                id="outlined-read-only-input"
+                label="Email"
+                margin="normal"
+                required={false}
+                select={false}
+                value="testuser@email.com"
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              item={true}
+              xs={12}
+            >
+              <TextField
+                InputLabelProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "root": "User-cssLabel-12",
+                    },
+                  }
+                }
+                InputProps={
+                  Object {
+                    "classes": Object {
+                      "focused": "User-cssFocused-15",
+                      "input": "User-input-11",
+                      "notchedOutline": "User-notchedOutline-14",
+                      "root": "User-cssOutlinedInput-13",
+                    },
+                    "readOnly": true,
+                  }
+                }
+                className="User-textField-16"
+                defaultValue="**********"
+                fullWidth={true}
+                id="outlined-read-only-input"
+                label="Password"
+                margin="normal"
+                required={false}
+                select={false}
+                variant="outlined"
+              />
+            </WithStyles(Grid)>
+            <WithStyles(Grid)
+              className="User-btnMargin-6"
+              container={true}
+              justify="flex-end"
+            >
+              <WithStyles(Grid)
+                item={true}
+                xs={4}
+              >
+                <WithStyles(Tooltip)
+                  placement="bottom"
+                  title="Remove from playlist"
+                >
+                  <WithStyles(Button)
+                    alt="clear rating"
+                    color="primary"
+                    fullWidth={true}
+                    onClick={[Function]}
+                    variant="contained"
+                  >
+                    <pure(EditIcon)
+                      style={
+                        Object {
+                          "color": "white",
+                        }
+                      }
+                    />
+                  </WithStyles(Button)>
+                </WithStyles(Tooltip)>
+              </WithStyles(Grid)>
+            </WithStyles(Grid)>
+          </WithStyles(Grid)>
+        </WithStyles(Grid)>
+      </WithStyles(Grid)>
+    </WithStyles(Paper)>
+  </WithStyles(Grid)>
+   
+  <WithStyles(Snackbar)
+    ContentProps={
+      Object {
+        "aria-describedby": "message-id",
+        "className": "User-snack-18",
+      }
+    }
+    TransitionComponent={[Function]}
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    autoHideDuration={5000}
+    className="User-snack-18"
     message={
       <span
         id="message-id"

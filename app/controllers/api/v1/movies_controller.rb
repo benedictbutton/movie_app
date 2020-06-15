@@ -25,9 +25,22 @@ class Api::V1::MoviesController < ApplicationController
     end
   end
 
+  def update
+    movies = []
+    images = params[:images]
+    images.each do |item|
+      if item[:id]
+        movie = Movie.find(item[:id])
+        movie.update('poster_path': item[:poster_path])
+        movies << movie
+      end
+    end
+    render json: movies
+  end
+
 private
 
   def movie_params
-    params.require(:movie).permit(:id, :title, :poster, :release_date, :description, :vote_count, :vote_rating)
+    params.require(:movie).permit(:id, :title, :poster, :release_date, :description, :vote_count, :vote_rating, :images)
   end
 end

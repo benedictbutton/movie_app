@@ -35,12 +35,17 @@ const applyPlaylistsRequesting = (state, action) => ({
   successful: false
 });
 
-const applyPlaylistsSuccess = (state, action) => ({
-  ...state,
-  lists: action.responseJson,
-  requesting: false,
-  successful: true
-});
+const applyPlaylistsSuccess = (state, action) => {
+  const ids = state.lists.map(el => el.id);
+  const newList = action.responseJson.filter(el => !ids.includes(el.id));
+
+  return {
+    ...state,
+    lists: [...state.lists, ...newList],
+    requesting: false,
+    successful: true
+  };
+};
 
 const applyPlaylistRequesting = (state, action) => ({
   ...state,
@@ -48,20 +53,12 @@ const applyPlaylistRequesting = (state, action) => ({
   successful: false
 });
 
-const applyPlaylistSuccess = (state, action) => {
-  const playlistId = action.responseJson.playlistId;
-
-  return {
-    ...state,
-    playlistMovieIds: {
-      ...state.playlistMovieIds,
-      [playlistId]: action.responseJson.movies.result
-    },
-    playlistMovies: action.responseJson.movies.entities.movies,
-    requesting: false,
-    successful: true
-  };
-};
+const applyPlaylistSuccess = (state, action) => ({
+  ...state,
+  playlistMovies: action.responseJson.movies.entities.movies,
+  requesting: false,
+  successful: true
+});
 
 const applyPlaylistAddRequesting = (state, action) => ({
   ...state,

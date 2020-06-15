@@ -11,9 +11,7 @@ async function fetchMovies(query) {
     let ids = array.map(num => num + query.page);
     const promises = ids.map(id => {
       return fetch(
-        `https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/4/discover/movie?with_genres=${
-          query.tag
-        }&sort_by=popularity.desc&page=${id}`,
+        `https://cors-anywhere.herokuapp.com/https://api.themoviedb.org/4/discover/movie?with_genres=${query.tag}&sort_by=popularity.desc&page=${id}`,
         {
           method: "GET",
           headers: {
@@ -23,6 +21,7 @@ async function fetchMovies(query) {
         }
       );
     });
+    // fetch calls being made here
     const results = await Promise.all(promises);
     const data = await Promise.all(
       results.map(r => {
@@ -91,9 +90,7 @@ async function fetchSearch(query) {
 async function fetchCategory(query) {
   try {
     let response = await fetch(
-      `https://api.themoviedb.org/3/${query.tag}?include_adult=false&page=${
-        query.page
-      }&language=en-US&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+      `https://api.themoviedb.org/3/${query.tag}?include_adult=false&page=${query.page}&language=en-US&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
       {
         method: "GET",
         headers: {
@@ -115,9 +112,7 @@ async function fetchCategory(query) {
 async function fetchCast(query) {
   try {
     let response = await fetch(
-      `https://api.themoviedb.org/3/${query.mediaType}/${
-        query.id
-      }/credits?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+      `https://api.themoviedb.org/3/${query.mediaType}/${query.id}/credits?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
       {
         method: "GET",
         headers: {
