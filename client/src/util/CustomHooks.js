@@ -40,28 +40,39 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
 
   useEffect(() => {
     if (multiUrl === "") return;
+    let count = 0;
+    let len = ids.length;
+    // let bulk = ids.length
+    // const batchReqs = ids => {
+    //   const idBatch = ids.slice(count, 30);
+    //   fetchData(idBatch)
+    // }
     const fetchData = async () => {
       setIsMultiError(false);
       setIsMultiLoading(true);
+
       try {
-        const results = await Promise.all(promises);
+        const results = await Promise.all(promises.slice(count, count + 30));
 
         const data = await Promise.all(
           results.map(r => {
             if (r) return r.json();
           })
         );
-        setMultiApiData(data);
+
+        setMultiApiData([...data, ...multiApiData]);
       } catch (error) {
         setIsMultiError(true);
         return { error };
       }
+      count += 30;
+      if (ids.slice(count, count + 30).length !== 0) return fetchData();
       setIsMultiLoading(false);
       return multiApiData;
     };
     fetchData();
     setMultiUrl("");
-  }, [multiApiData, multiApiUrl, multiHeader, multiUrl, promises]);
+  }, [ids, ids.length, multiApiData, multiApiUrl, multiHeader, multiUrl, promises]);
 
   return [
     { multiApiData, isMultiLoading, isMultiError },
