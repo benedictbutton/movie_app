@@ -52,27 +52,32 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
       setIsMultiLoading(true);
 
       try {
-        const results = await Promise.all(promises.slice(count, count + 30));
-
+        const results = await Promise.all(promises);
         const data = await Promise.all(
           results.map(r => {
             if (r) return r.json();
           })
         );
-
-        setMultiApiData([...data, ...multiApiData]);
+        setMultiApiData(data);
       } catch (error) {
         setIsMultiError(true);
         return { error };
       }
-      count += 30;
-      if (ids.slice(count, count + 30).length !== 0) return fetchData();
+      return fetchData();
       setIsMultiLoading(false);
       return multiApiData;
     };
     fetchData();
     setMultiUrl("");
-  }, [ids, ids.length, multiApiData, multiApiUrl, multiHeader, multiUrl, promises]);
+  }, [
+    ids,
+    ids.length,
+    multiApiData,
+    multiApiUrl,
+    multiHeader,
+    multiUrl,
+    promises
+  ]);
 
   return [
     { multiApiData, isMultiLoading, isMultiError },

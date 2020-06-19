@@ -159,7 +159,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   }, [apiData, brokenImages, workingImages]);
 
   useEffect(() => {
-    if (!multiApiData || multiApiData.length === 0) return;
+    if (!multiApiData) return;
     const data = multiApiData.map(el => {
       return { id: el.id, poster_path: el.poster_path };
     });
@@ -177,7 +177,8 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   }, [multiApiData, doFetch, doHeader]);
 
   const handleFix = () => {
-    setIds(brokenImages.map(el => el[0]));
+    const batch = brokenImages.slice(0, 30);
+    setIds(batch.map(el => el[0]));
     doMultiFetch(multiApi);
     setProgress(true);
   };
