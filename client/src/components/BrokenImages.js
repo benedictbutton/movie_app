@@ -159,7 +159,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   }, [apiData, brokenImages, workingImages]);
 
   useEffect(() => {
-    if (!multiApiData) return;
+    if (multiApiData.length === 0) return;
     const data = multiApiData.map(el => {
       return { id: el.id, poster_path: el.poster_path };
     });
@@ -173,7 +173,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
       body: JSON.stringify({ images: data })
     });
     doFetch(`${process.env.REACT_APP_API_URL}/api/v1/movies/:id`);
-    debugger;
+    multiApiData([]);
   }, [multiApiData, doFetch, doHeader]);
 
   const handleFix = () => {

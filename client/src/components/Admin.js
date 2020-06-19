@@ -23,7 +23,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { withStyles } from "@material-ui/core/styles";
 import Image from "../assets/brushed-metal.jpg";
 import BlackImage from "../assets/grey-brushed-metal.jpg";
-import GreyImage from "../assets/grey-small.jpg";
+import GreyImage from "../assets/brushed-metal.jpg";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -57,7 +57,6 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
     backgroundImage: `url(${BlackImage})`,
     backgroundSize: "cover",
-    // backgroundColor: "#757575",
     borderStyle: "solid",
     borderWidth: 7,
     borderColor: "#ecca00"
@@ -67,39 +66,44 @@ const styles = theme => ({
     overflowX: "auto"
   },
   bar: {
-    // backgroundImage: `url(${Image})`,
-    backgroundColor: "#808080",
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit,
+    backgroundImage: `url(${GreyImage})`,
+    flex: 1,
+    padding: `${theme.spacing.unit}px  ${theme.spacing.unit}px`,
     position: "sticky",
-    top: 0
+    top: 0,
+    zIndex: 2
   },
   highlight:
     theme.palette.type === "light"
       ? {
-          color: theme.palette.secondary.main,
-          // backgroundImage: `url(${GreyImage})`
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
+          color: "red",
+          backgroundImage: `url(${BlackImage})`
         }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark
+          backgroundImage: `url(${GreyImage})`
         },
-  spacer: {
-    flex: "1 1 100%"
-  },
   actions: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    position: "sticky",
+    top: 0,
+    zIndex: 2,
+    borderStyle: "none"
   },
   title: {
-    flex: "0 0 auto"
+    flex: "0 0 auto",
+    position: "sticky",
+    top: 0,
+    zIndex: 2,
+    borderStyle: "none",
+    width: "100%"
   },
   cell: {
     color: "#ecca00",
     fontSize: 14
   },
   label: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
+    marginLeft: theme.spacing.unit * 2
   },
   table: {
     minWidth: 750
@@ -118,19 +122,22 @@ const styles = theme => ({
   },
   main: {
     marginTop: theme.spacing.unit * 5
+  },
+  row: {
+    paddingBottom: theme.spacing.unit
   }
 });
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    // backgroundImage: `url(${Image})`,
-    backgroundColor: "#808080",
-    color: "#ecca00",
+    backgroundImage: `url(${GreyImage})`,
     fontSize: 16,
     fontWeight: 700,
     position: "sticky",
-    top: 0,
-    zIndex: 2
+    top: 64,
+    zIndex: 2,
+    borderColor: "#ecca00",
+    borderBottomWidth: "medium"
   },
   body: {
     fontSize: 18
@@ -324,72 +331,70 @@ const Admin = props => {
       );
     }
   );
-
+  // <Grid container className={classes.grd} direction="column">
+  // <Grid className={classes.title} />
+  // <Grid className={classes.title} />
   return (
     <Grid container className={classes.main} justify="center">
       <Grid item xs={10}>
         {isLoading && <CircularProgress />}
         <Paper className={classes.root}>
-          <Toolbar
-            className={classNames(classes.bar, {
-              [classes.highlight]: numSelected > 0
-            })}
-          >
-            <div className={classes.title}>
-              {numSelected > 0 ? (
-                <Typography color="inherit" variant="subtitle1">
-                  {numSelected} selected
-                </Typography>
-              ) : (
-                <Typography
-                  variant="h6"
-                  id="tableTitle"
-                  className={classes.label}
-                >
-                  Users
-                </Typography>
-              )}
-            </div>
-            <div className={classes.spacer} />
-            <div className={classes.actions}>
-              {numSelected > 0 ? (
-                <Grid container>
-                  {numSelected === 1 ? (
-                    <Grid item xs={6}>
-                      <Tooltip title="Broken Images">
-                        <IconButton
-                          aria-label="broken image"
-                          onClick={() => setOpen(true)}
-                        >
-                          <BrokenImageIcon style={{ color: "red" }} />
-                        </IconButton>
-                      </Tooltip>
-                    </Grid>
-                  ) : null}
-                  <Grid item xs={6}>
-                    <Tooltip title="Delete">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => handleDelete(selected)}
-                      >
-                        <DeleteIcon style={{ color: "red" }} />
-                      </IconButton>
-                    </Tooltip>
-                  </Grid>
-                </Grid>
-              ) : (
-                <Tooltip title="Filter list">
-                  <IconButton aria-label="filter list">
-                    <FilterListIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
-            </div>
-          </Toolbar>
           <div className={classes.tableWrapper}>
+            <Grid
+              container
+              alignItems="center"
+              className={classNames(classes.bar, {
+                [classes.highlight]: numSelected > 0
+              })}
+            >
+              <Grid item xs={6} className={classes.title}>
+                {numSelected > 0 ? (
+                  <Typography color="inherit" variant="h6">
+                    {numSelected} selected
+                  </Typography>
+                ) : (
+                  <Typography
+                    variant="h5"
+                    id="tableTitle"
+                    align="left"
+                    className={classes.label}
+                  >
+                    Users
+                  </Typography>
+                )}
+              </Grid>
+              <Grid item xs={6} className={classes.actions} align="right">
+                {numSelected === 1 ? (
+                  <Tooltip title="Broken Images">
+                    <IconButton
+                      aria-label="broken image"
+                      onClick={() => setOpen(true)}
+                    >
+                      <BrokenImageIcon style={{ color: "red" }} />
+                    </IconButton>
+                  </Tooltip>
+                ) : null}
+                {numSelected > 0 ? (
+                  <Tooltip title="Delete">
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => handleDelete(selected)}
+                    >
+                      <DeleteIcon style={{ color: "red" }} />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Filter list">
+                    <IconButton aria-label="filter list">
+                      <FilterListIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </Grid>
+            </Grid>
             <Table size="small" aria-labelledby="tableTitle">
               <TableHead>
-                <TableRow>
+                <TableRow className={classes.row}>
                   <CustomTableCell padding="checkbox">
                     <Checkbox
                       style={{ color: "white" }}
@@ -403,6 +408,7 @@ const Admin = props => {
                   {headers}
                 </TableRow>
               </TableHead>
+
               <BrokenImages
                 open={open}
                 setOpen={setOpen}
