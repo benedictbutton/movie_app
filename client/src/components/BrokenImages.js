@@ -159,7 +159,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   }, [apiData, brokenImages, workingImages]);
 
   useEffect(() => {
-    if (multiApiData.length === 0) return;
+    if (!multiApiData || multiApiData.length === 0) return;
     const data = multiApiData.map(el => {
       return { id: el.id, poster_path: el.poster_path };
     });
