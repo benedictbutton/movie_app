@@ -173,7 +173,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
       body: JSON.stringify({ images: data })
     });
     doFetch(`${process.env.REACT_APP_API_URL}/api/v1/movies/:id`);
-    multiApiData();
+    setMultiApiData(null);
   }, [multiApiData, doFetch, doHeader]);
 
   const handleFix = () => {
