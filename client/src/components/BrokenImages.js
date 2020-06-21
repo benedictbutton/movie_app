@@ -43,7 +43,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
     { multiApiData, isMultiLoading, isMultiError },
     doMultiFetch,
     doMultiHeader,
-    setMutliApiData,
+    setMultiApiData,
     setIds
   ] = useMultiApi("", {});
 
@@ -174,7 +174,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
     });
     doFetch(`${process.env.REACT_APP_API_URL}/api/v1/movies/:id`);
     setMultiApiData(null);
-  }, [multiApiData, doFetch, doHeader]);
+  }, [multiApiData, doFetch, doHeader, setMultiApiData]);
 
   const handleFix = () => {
     const batch = brokenImages.slice(0, 30);
