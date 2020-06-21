@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import { useMultiApi, useApi } from "../util/CustomHooks";
 import { doUserRequesting } from "../redux/actions/userActions";
@@ -40,17 +40,19 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   ] = useApi("", {});
 
   const [
-    { multiApiData, isMultiLoading, isMultiError },
+    { multiApiData, isMultiLoading, isMultiError, count },
     doMultiFetch,
     doMultiHeader,
     setMultiApiData,
-    setIds
+    setIds,
+    setCount
   ] = useMultiApi("", {});
 
   useEffect(() => {
     if (open) return;
     return () => {
       setApiData(null);
+      setMultiApiData(null);
       setCompleted(0);
       setWorkingImages([]);
       setBrokenImages([]);
@@ -62,7 +64,8 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
     completed,
     workingImages,
     brokenImages,
-    setWorkingImages
+    setWorkingImages,
+    setMultiApiData
   ]);
 
   useEffect(() => {
@@ -173,15 +176,28 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
       body: JSON.stringify({ images: data })
     });
     doFetch(`${process.env.REACT_APP_API_URL}/api/v1/movies/:id`);
+    setCount(count => count + 30);
     setMultiApiData(null);
-  }, [multiApiData, doFetch, doHeader, setMultiApiData]);
+    if (count + 30 < brokenImages.length) return handleFix();
+    return;
+  }, [
+    multiApiData,
+    doFetch,
+    doHeader,
+    setMultiApiData,
+    count,
+    brokenImages.length,
+    setCount,
+    handleFix
+  ]);
 
-  const handleFix = () => {
-    const batch = brokenImages.slice(0, 30);
+  const handleFix = useCallback(() => {
+    // if (brokenImages.length === 0) return;
+    const batch = brokenImages.slice(count, count + 30);
     setIds(batch.map(el => el[0]));
     doMultiFetch(multiApi);
     setProgress(true);
-  };
+  });
 
   console.log(completed);
   console.log(brokenImages);

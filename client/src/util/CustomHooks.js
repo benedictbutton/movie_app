@@ -30,6 +30,7 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
   const [multiApiData, setMultiApiData] = useState();
   const [isMultiLoading, setIsMultiLoading] = useState(false);
   const [isMultiError, setIsMultiError] = useState(false);
+  const [count, setCount] = useState(0);
 
   const promises = ids.map(id => {
     return fetch(
@@ -63,7 +64,6 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
         setIsMultiError(true);
         return { error };
       }
-      return fetchData();
       setIsMultiLoading(false);
       return multiApiData;
     };
@@ -80,11 +80,12 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
   ]);
 
   return [
-    { multiApiData, isMultiLoading, isMultiError },
+    { multiApiData, isMultiLoading, isMultiError, count },
     setMultiUrl,
     setMultiHeader,
     setMultiApiData,
-    setIds
+    setIds,
+    setCount
   ];
 };
 
