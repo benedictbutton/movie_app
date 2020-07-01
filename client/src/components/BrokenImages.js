@@ -24,12 +24,16 @@ const styles = theme => ({
 });
 
 const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
-  const [progress, setProgress] = useState(false);
   const [workingImages, setWorkingImages] = useState([]);
   const [brokenImages, setBrokenImages] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [completed, setCompleted] = useState(0);
+  const [step, setStep] = useState(0);
+  const [max, setMax] = useState(10000);
   const [username, setUsername] = useState("");
+  const [buttonAction, setButtonAction] = useState("find");
+  const [isSearching, setIsSearching] = useState(false);
+  const [isFinding, setIsFinding] = useState(false);
+  const [isFixing, setIsFixing] = useState(false);
+
   // const [images, imageData] = useState();
 
   const [
@@ -53,7 +57,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
     return () => {
       setApiData(null);
       setMultiApiData(null);
-      setCompleted(0);
+      setIsSearching(false);
       setWorkingImages([]);
       setBrokenImages([]);
     };
@@ -61,7 +65,6 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
     open,
     apiData,
     setApiData,
-    completed,
     workingImages,
     brokenImages,
     setWorkingImages,
@@ -69,16 +72,16 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   ]);
 
   useEffect(() => {
-    if (records.length !== 0 && selected.length !== 0) {
-      // let stringData = localStorage.getItem("state");
-      // const data = JSON.parse(stringData);
-      // data.user.profile.username
-      // setUsername(records[selected[0]].username);
-      // for (let item in ratings) setImageData({});
-
-      const user = records.find(el => el.id === selected[0]);
-      setUsername(user.username);
-    }
+    // if (records.length !== 0 && selected.length !== 0) {
+    // let stringData = localStorage.getItem("state");
+    // const data = JSON.parse(stringData);
+    // data.user.profile.username
+    // setUsername(records[selected[0]].username);
+    // for (let item in ratings) setImageData({});
+    if (records.length === 0 && selected.length === 0) return;
+    const user = records.find(el => el.id === selected[0]);
+    setUsername(user.username);
+    // }
     doHeader(header);
     doMultiHeader(multiHeader);
   }, [
@@ -94,7 +97,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   const api = `${process.env.REACT_APP_API_URL}/api/v1/playlists/images/${
     selected[0]
   }`;
-  const multiApi = `https://api.themoviedb.org/3/movie`;
+  const multiApi = `https://api.themoviedb.org/3`;
   const header = {
     credentials: "same-origin",
     method: "GET",
@@ -112,8 +115,11 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
   };
 
   useEffect(() => {
-    if (!apiData) return;
-    setIsSearching(true);
+    if (!isSearching) return;
+
+    // setMax(apiData.images.length);
+    // setIsSearching(true);
+
     function testImage(url) {
       // Define the promise
       const imgPromise = new Promise(function imgPromise(resolve, reject) {
@@ -137,32 +143,32 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
       return imgPromise;
     }
 
-    if (workingImages.length === 0 && brokenImages.length === 0) {
-      for (let item of apiData.images) {
-        testImage(item[1]).then(
-          function fulfilled(img) {
-            console.log("That image is found and loaded", img);
-            setWorkingImages(workingImages => [item, ...workingImages]);
-            setCompleted(completed => completed + 1);
-          },
+    if (!apiData) return;
+    setMax(apiData.images.length);
+    for (let item of apiData.images) {
+      testImage(item[1]).then(
+        function fulfilled(img) {
+          console.log("That image is found and loaded", img);
+          setWorkingImages(workingImages => [item, ...workingImages]);
+          setStep(step => step + 1);
+        },
 
-          function rejected() {
-            console.log("That image was not found");
-            setBrokenImages(brokenImages => [item, ...brokenImages]);
-            setCompleted(completed => completed + 1);
-          }
-        );
-      }
+        function rejected() {
+          console.log("That image was not found");
+          setBrokenImages(brokenImages => [item, ...brokenImages]);
+          setStep(step => step + 1);
+        }
+      );
     }
     console.log(workingImages);
     console.log(brokenImages);
-    return () => {
-      setIsSearching(false);
-    };
-  }, [apiData, brokenImages, workingImages]);
+    setIsSearching(false);
+    setIsFixing(true);
+    return;
+  }, [apiData, isSearching, brokenImages, setStep, workingImages]);
 
   useEffect(() => {
-    if (!multiApiData) return;
+    if (!multiApiData || multiApiData.length === 0) return;
     const data = multiApiData.map(el => {
       return { id: el.id, poster_path: el.poster_path };
     });
@@ -176,32 +182,35 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
       body: JSON.stringify({ images: data })
     });
     doFetch(`${process.env.REACT_APP_API_URL}/api/v1/movies/:id`);
-    setCount(count => count + 30);
     setMultiApiData(null);
-    if (count + 30 < brokenImages.length) return handleFix();
-    return;
-  }, [
-    multiApiData,
-    doFetch,
-    doHeader,
-    setMultiApiData,
-    count,
-    brokenImages.length,
-    setCount,
-    handleFix
-  ]);
+  }, [multiApiData, doFetch, doHeader, setMultiApiData, brokenImages.length]);
+
+  // trigger handleFix() to continue fixing broken images
+  useEffect(() => {
+    if (!apiData || count + 30 > brokenImages.length) return;
+    handleFix();
+  }, [apiData, brokenImages.length, count, handleFix]);
+
+  // useEffect(() => {
+  //   if (!apiData) return;
+  //   if (apiData.images.length !== workingImages.length + brokenImages.length)
+  //     return;
+  //   setButtonAction("fix");
+  // }, [apiData, brokenImages.length, workingImages.length]);
 
   const handleFix = useCallback(() => {
-    // if (brokenImages.length === 0) return;
+    if (brokenImages.length === 0) return;
+    setMax(brokenImages.length);
+    setStep(count);
     const batch = brokenImages.slice(count, count + 30);
-    setIds(batch.map(el => el[0]));
+    setCount(count => count + 30);
+    setIds(batch);
     doMultiFetch(multiApi);
-    setProgress(true);
   });
 
-  console.log(completed);
   console.log(brokenImages);
-  console.log(apiData);
+  console.log("apiData: ", apiData);
+  console.log("isSearching:", isSearching);
   return (
     <Dialog
       open={open}
@@ -229,20 +238,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
             </Button>
           </Grid>
           <Grid item xs={4} align="center">
-            {completed === 0 ||
-            completed < workingImages.length + brokenImages.length ? (
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth
-                onClick={() => {
-                  doFetch(api);
-                  setProgress(true);
-                }}
-              >
-                Find
-              </Button>
-            ) : (
+            {isFixing ? (
               <Button
                 color="primary"
                 variant="contained"
@@ -251,22 +247,26 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
               >
                 Fix
               </Button>
+            ) : (
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                onClick={() => {
+                  doFetch(api);
+                  setIsSearching(true);
+                  setIsFinding(true);
+                }}
+              >
+                Find
+              </Button>
             )}
           </Grid>
           <Grid item xs={12}>
-            <ProgressIndicator
-              brokenImages={brokenImages}
-              workingImages={workingImages}
-              progress={progress}
-              setProgress={setProgress}
-              completed={completed}
-              setCompleted={setCompleted}
-              apiData={apiData}
-              setApiData={setApiData}
-              isSearching={isSearching}
-            />
+            <ProgressIndicator step={step} max={max} setStep={setStep} />
           </Grid>
-          {isSearching ? (
+
+          {isFinding && (
             <>
               <Grid item xs={6}>
                 <Typography>Working: {workingImages.length}</Typography>
@@ -275,7 +275,7 @@ const BrokenImages = ({ open, setOpen, selected, classes, records }) => {
                 <Typography>Broken: {brokenImages.length}</Typography>
               </Grid>
             </>
-          ) : null}
+          )}
         </Grid>
       </DialogContent>
     </Dialog>

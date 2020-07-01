@@ -68,9 +68,10 @@ module PlaylistsMovies
       !@user.playlists.find_by(active: true).empty?
     end
 
-    def find_all_movie_images(id)
+    def find_all_movie_images(user_id)
       movie_images = []
-      user = User.find(id)
+      user = User.find(user_id)
+      #adds playlist movies
       movie_images += user.movies.pluck(:id, :poster_path)
       movie_ids = user.ratings.pluck(:movie_id)
       movie_ids.each do |id|

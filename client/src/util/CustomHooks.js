@@ -32,22 +32,21 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
   const [isMultiError, setIsMultiError] = useState(false);
   const [count, setCount] = useState(0);
 
-  const promises = ids.map(id => {
+  const promises = ids.map(el => {
     return fetch(
-      `${multiUrl}/${id}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256&language=en-US`,
+      `https://api.themoviedb.org/3/search/multi?include_adult=false&page=1&language=en-US&query=${encodeURIComponent(
+        el.title
+      )}&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
       multiHeader
     );
   });
 
+  // `${multiUrl}/movie/${
+  //   el[0]
+  // }?api_key=77d5d44b891ceb6d4b5e717b8e2e9256&language=en-US`
+
   useEffect(() => {
     if (multiUrl === "") return;
-    let count = 0;
-    let len = ids.length;
-    // let bulk = ids.length
-    // const batchReqs = ids => {
-    //   const idBatch = ids.slice(count, 30);
-    //   fetchData(idBatch)
-    // }
     const fetchData = async () => {
       setIsMultiError(false);
       setIsMultiLoading(true);

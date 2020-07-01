@@ -28,7 +28,7 @@ import ResetPasswordContainer from "./containers/ResetPasswordContainer";
 import SignInContainer from "./containers/SignInContainer";
 import SignUpContainer from "./containers/SignUpContainer";
 import UserContainer from "./containers/UserContainer";
-
+import MediaUpdate from "./components/MediaUpdate";
 import PersonContainer from "./containers/PersonContainer";
 
 library.add(
@@ -69,6 +69,7 @@ class App extends Component {
           <PrivateRoute path="/ms/playlists" component={PlaylistsContainer} />
           <PrivateRoute path="/ms/playlist/:id" component={PlaylistContainer} />
           <PrivateRoute path="/ms/users/:id" component={UserContainer} />
+          <Route path="/ms/media_update" component={MediaUpdate} />
         </Switch>
       </div>
     );

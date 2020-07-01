@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // material-ui
 import classNames from "classnames";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
@@ -102,7 +103,7 @@ const styles = theme => ({
     fontSize: 14
   },
   label: {
-    color: theme.palette.common.white,
+    color: "#3f51b5",
     marginLeft: theme.spacing.unit * 2
   },
   table: {
@@ -125,6 +126,9 @@ const styles = theme => ({
   },
   row: {
     paddingBottom: theme.spacing.unit
+  },
+  link: {
+    paddingRight: theme.spacing.unit * 5
   }
 });
 
@@ -294,7 +298,6 @@ const Admin = props => {
   });
 
   // map the result of stableSort
-
   const userData = stableSort(records, getSorting(order, orderBy)).map(
     (record, index) => {
       const isItemSelected = isSelected(record.id);
@@ -335,92 +338,98 @@ const Admin = props => {
   // <Grid className={classes.title} />
   // <Grid className={classes.title} />
   return (
-    <Grid container className={classes.main} justify="center">
-      <Grid item xs={10}>
-        {isLoading && <CircularProgress />}
-        <Paper className={classes.root}>
-          <div className={classes.tableWrapper}>
-            <Grid
-              container
-              alignItems="center"
-              className={classNames(classes.bar, {
-                [classes.highlight]: numSelected > 0
-              })}
-            >
-              <Grid item xs={6} className={classes.title}>
-                {numSelected > 0 ? (
-                  <Typography color="inherit" variant="h6">
-                    {numSelected} selected
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="h5"
-                    id="tableTitle"
-                    align="left"
-                    className={classes.label}
-                  >
-                    Users
-                  </Typography>
-                )}
-              </Grid>
-              <Grid item xs={6} className={classes.actions} align="right">
-                {numSelected === 1 ? (
-                  <Tooltip title="Broken Images">
-                    <IconButton
-                      aria-label="broken image"
-                      onClick={() => setOpen(true)}
+    <>
+      <Grid container className={classes.main} justify="center">
+        <Grid item xs={10}>
+          {isLoading && <CircularProgress />}
+          <Paper className={classes.root}>
+            <div className={classes.tableWrapper}>
+              <Grid
+                container
+                alignItems="center"
+                className={classNames(classes.bar, {
+                  [classes.highlight]: numSelected > 0
+                })}
+              >
+                <Grid item xs={6} className={classes.title}>
+                  {numSelected > 0 ? (
+                    <Typography style={{ color: "#ecca00" }} variant="h6">
+                      {numSelected} selected
+                    </Typography>
+                  ) : (
+                    <Typography
+                      variant="h4"
+                      id="tableTitle"
+                      align="left"
+                      className={classes.label}
                     >
-                      <BrokenImageIcon style={{ color: "red" }} />
-                    </IconButton>
-                  </Tooltip>
+                      Users
+                    </Typography>
+                  )}
+                </Grid>
+                <Grid item xs={6} className={classes.actions} align="right">
+                  {numSelected === 1 ? (
+                    <Tooltip title="Broken Images">
+                      <IconButton
+                        aria-label="broken image"
+                        onClick={() => setOpen(true)}
+                      >
+                        <BrokenImageIcon style={{ color: "#ecca00" }} />
+                      </IconButton>
+                    </Tooltip>
+                  ) : null}
+                  {numSelected > 0 ? (
+                    <Tooltip title="Delete">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDelete(selected)}
+                      >
+                        <DeleteIcon style={{ color: "#ecca00" }} />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title="Filter list">
+                      <IconButton aria-label="filter list">
+                        <FilterListIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </Grid>
+              </Grid>
+              <Table size="small" aria-labelledby="tableTitle">
+                <TableHead>
+                  <TableRow className={classes.row}>
+                    <CustomTableCell padding="checkbox">
+                      <Checkbox
+                        style={{ color: "#3f51b5" }}
+                        indeterminate={
+                          numSelected > 0 && numSelected < recordsCount
+                        }
+                        checked={numSelected === recordsCount}
+                        onChange={handleSelectAllClick}
+                      />
+                    </CustomTableCell>
+                    {headers}
+                  </TableRow>
+                </TableHead>
+                {open ? (
+                  <BrokenImages
+                    open={open}
+                    setOpen={setOpen}
+                    selected={selected}
+                    records={records}
+                  />
                 ) : null}
-                {numSelected > 0 ? (
-                  <Tooltip title="Delete">
-                    <IconButton
-                      aria-label="delete"
-                      onClick={() => handleDelete(selected)}
-                    >
-                      <DeleteIcon style={{ color: "red" }} />
-                    </IconButton>
-                  </Tooltip>
-                ) : (
-                  <Tooltip title="Filter list">
-                    <IconButton aria-label="filter list">
-                      <FilterListIcon />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </Grid>
-            </Grid>
-            <Table size="small" aria-labelledby="tableTitle">
-              <TableHead>
-                <TableRow className={classes.row}>
-                  <CustomTableCell padding="checkbox">
-                    <Checkbox
-                      style={{ color: "white" }}
-                      indeterminate={
-                        numSelected > 0 && numSelected < recordsCount
-                      }
-                      checked={numSelected === recordsCount}
-                      onChange={handleSelectAllClick}
-                    />
-                  </CustomTableCell>
-                  {headers}
-                </TableRow>
-              </TableHead>
-
-              <BrokenImages
-                open={open}
-                setOpen={setOpen}
-                selected={selected}
-                records={records}
-              />
-              <TableBody>{userData}</TableBody>
-            </Table>
-          </div>
-        </Paper>
+                <TableBody>{userData}</TableBody>
+              </Table>
+            </div>
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+      <Grid container item xs={10} justify="flex-end" className={classes.link}>
+        <Link to="/ms/media_update">Update Media Type</Link>
+      </Grid>
+    </>
   );
 };
 
