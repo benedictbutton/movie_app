@@ -26,26 +26,30 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def update
-    movies = []
+      movies = []
+    if params[:images]
+      images = params[:images]
+      images.each do |item|
+        if item[:id]
+          movie = Movie.find(item[:id])
+          movie.update('poster_path': item[:poster_path])
+          movies << movie
+        end
+      end
+  else
     media = params[:media]
     media.each do |item|
       if item != '***'
-        movie = Movie.find(item[:id])
-        movie.update('media_type': item[:media_type]) unless !movie
+        movie = Movie.find_by(id: item[:id])
+        movie.update('media_type': item[:media_type]) if movie
         movie ||= "#{item[:id]} not found"
         movies << movie
       end
     end
+    end
     render json: movies
     # movies = []
-    # images = params[:images]
-    # images.each do |item|
-    #   if item[:id]
-    #     movie = Movie.find(item[:id])
-    #     movie.update('poster_path': item[:poster_path])
-    #     movies << movie
-    #   end
-    # end
+
     # render json: movies
   end
 

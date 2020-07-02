@@ -46,11 +46,15 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def images
-    movies = Movie.all
+    movie_images = Playlist.find_all_movie_images(params[:id]) unless
+    !@current_user.admin?
+    render json: {images: movie_images}
+  end
+
+  def all_movies
+    movies = Movie.all unless
+    !@current_user.admin?
     render json: {movies: movies}
-    # movie_images = Playlist.find_all_movie_images(params[:id]) unless
-    # !@current_user.admin?
-    # render json: {images: movie_images}
   end
 
   def active

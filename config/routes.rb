@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           put 'active', to: 'playlists#active', as: 'active'
           get 'setup', to: 'playlists#setup', as: 'setup'
           get 'images/:id', to: 'playlists#images', as: 'images'
+          get 'all_movies', to: 'playlists#all_movies', as: 'all_movies'
         end
       end
       resources :users, :movies, :ratings, :movies_playlists

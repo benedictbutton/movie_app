@@ -44,7 +44,7 @@ const MediaUpdate = ({ classes }) => {
     setCount
   ] = useMultiApi("", {});
 
-  const dbMovies = `${process.env.REACT_APP_API_URL}/api/v1/playlists/images/:id`;
+  const dbMovies = `${process.env.REACT_APP_API_URL}/api/v1/playlists/all_movies`;
   const myMovieDbData = `https://api.themoviedb.org/3`;
 
   const dbHeader = {
@@ -128,6 +128,9 @@ const MediaUpdate = ({ classes }) => {
   ]);
 
   const handleMovieDb = useCallback(() => {
+    setTimeout(() => {
+      console.log("slow down");
+    }, 30000);
     let batch = apiData.movies.slice(count, count + 30);
     setCount(count => count + 30);
     setIds(batch);
