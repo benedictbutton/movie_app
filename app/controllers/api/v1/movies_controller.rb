@@ -36,7 +36,7 @@ class Api::V1::MoviesController < ApplicationController
           movies << movie
         end
       end
-  else
+    else
     media = params[:media]
     media.each do |item|
       if item != '***'

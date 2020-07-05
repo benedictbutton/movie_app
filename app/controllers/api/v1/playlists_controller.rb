@@ -32,7 +32,7 @@ class Api::V1::PlaylistsController < ApplicationController
     id = movie[:id]
 
     @playlist = Playlist.find(playlist)
-    @movie = Movie.exists?(movie[:id]) ? Movie.find(movie[:id]) :
+    @movie = Movie.where(id: id, media_type: movie[:media_type]).exists? ? Movie.find(id) :
     Movie.create_new_movie(movie)
     @playlist.movies_playlists.create!(movie: @movie)
     render json: {playlistId: playlist, movieId: id}, status: :accepted

@@ -31,19 +31,20 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
   const [isMultiLoading, setIsMultiLoading] = useState(false);
   const [isMultiError, setIsMultiError] = useState(false);
   const [count, setCount] = useState(0);
+  const [requestType, setRequestType] = useState();
 
   const promises = ids.map(el => {
-    return fetch(
-      `https://api.themoviedb.org/3/search/multi?include_adult=false&page=1&language=en-US&query=${encodeURIComponent(
-        el.title
-      )}&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
-      multiHeader
-    );
+    if (requestType === "media")
+      return fetch(
+        `${multiUrl}/search/multi?include_adult=false&page=1&language=en-US&query=${encodeURIComponent(
+          el.title
+        )}&api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+        multiHeader
+      );
+    return `${multiUrl}/movie/${
+      el[0]
+    }?api_key=77d5d44b891ceb6d4b5e717b8e2e9256&language=en-US`;
   });
-
-  // `${multiUrl}/movie/${
-  //   el[0]
-  // }?api_key=77d5d44b891ceb6d4b5e717b8e2e9256&language=en-US`
 
   useEffect(() => {
     if (multiUrl === "") return;
@@ -84,7 +85,8 @@ const useMultiApi = (multiApiUrl, multiApiHeader) => {
     setMultiHeader,
     setMultiApiData,
     setIds,
-    setCount
+    setCount,
+    setRequestType
   ];
 };
 

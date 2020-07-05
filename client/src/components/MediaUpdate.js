@@ -41,7 +41,8 @@ const MediaUpdate = ({ classes }) => {
     doMultiHeader,
     setMultiApiData,
     setIds,
-    setCount
+    setCount,
+    setRequestType
   ] = useMultiApi("", {});
 
   const dbMovies = `${process.env.REACT_APP_API_URL}/api/v1/playlists/all_movies`;
@@ -109,8 +110,13 @@ const MediaUpdate = ({ classes }) => {
     ]);
 
     setMultiApiData(null);
-    if (count < numOfMovies) handleMovieDb();
-    console.log(multiApiData);
+    if (count < numOfMovies) {
+      // cooncern about hitting rate limits
+      console.log("count: ", count);
+      setTimeout(() => {
+        handleMovieDb();
+      }, 30000);
+    }
     return;
   }, [
     apiData,
@@ -127,16 +133,16 @@ const MediaUpdate = ({ classes }) => {
     values
   ]);
 
+  useEffect(() => {
+    setRequestType("media");
+  }, [setRequestType]);
+
   const handleMovieDb = useCallback(() => {
-    setTimeout(() => {
-      console.log("slow down");
-    }, 30000);
     let batch = apiData.movies.slice(count, count + 30);
     setCount(count => count + 30);
     setIds(batch);
     doMultiHeader(multiHeader);
     doMultiFetch(myMovieDbData);
-    // handleMediaCheck();
   });
 
   console.log("apiData: ", apiData);
