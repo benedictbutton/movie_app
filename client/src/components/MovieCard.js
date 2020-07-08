@@ -39,7 +39,7 @@ class MovieCard extends Component {
   }
 
   render() {
-    const { movie, imageUrl, width, classes, profile } = this.props;
+    const { id, movie, imageUrl, width, classes, profile } = this.props;
     let target = profile ? "person" : "movie";
 
     const starSize = {
@@ -57,7 +57,7 @@ class MovieCard extends Component {
       <>
         <div
           className={classes.root}
-          aria-owns={open ? movie.id : undefined}
+          aria-owns={open ? id : undefined}
           aria-haspopup="true"
           onMouseEnter={event => {
             let target = event.currentTarget;
@@ -66,18 +66,19 @@ class MovieCard extends Component {
           onMouseLeave={this.handleMouseLeaveDebounced}
         >
           <ActionIconsContainer
-            id={movie.id}
+            id={id}
             actionPosition="right"
             titlePosition="top"
-            actionIcon={!profile ? <Add id={movie.id} movie={movie} /> : null}
+            actionIcon={!profile ? <Add id={id} movie={movie} /> : null}
             open={open}
             onClose={this.handleMouseLeaveDebounced}
             starsVisible={this.state.starsVisible}
           />
           <Link
             to={{
-              pathname: `/ms/${target}/${movie.id}`,
+              pathname: `/ms/${target}/${id}`,
               state: {
+                id: id,
                 imageUrl: imageUrl,
                 movie: movie,
                 profile: profile
@@ -87,11 +88,11 @@ class MovieCard extends Component {
             <img src={imageUrl} alt="test" width="100%" height="100%" />
           </Link>
           <ActionIconsContainer
-            id={movie.id}
+            id={id}
             actionPosition="center"
             actionIcon={
               !profile ? (
-                <Stars id={movie.id} movie={movie} starSize={starSize[width]} />
+                <Stars id={id} movie={movie} starSize={starSize[width]} />
               ) : null
             }
             open={open}

@@ -51,10 +51,11 @@ function* handleFetchCast(query) {
 }
 
 function* handlePostMovie(payload) {
-  const { movie } = payload;
+  // const { movie } = payload;
+
   // offsets array's zero index
-  movie.score = parseInt(payload.score, 10) + 1;
-  const { responseJson, error } = yield call(postMovie, movie);
+  payload.movie.score = parseInt(payload.score, 10) + 1;
+  const { responseJson, error } = yield call(postMovie, payload);
   /*
     MOVIE_SUCCESS is not triggering a reducer; it's simply indicating in the console that the POST request was successful (i.e. I'm not handling this correctly)
   */
