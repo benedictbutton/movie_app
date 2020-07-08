@@ -11,11 +11,16 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    if Movie.exists?(params[:id])
-      rating = Movie.existing_movie_rated(params, current_user)
+    # str = '999' + params[:id].to_s
+    # id = params[:media_type] === 'tv' ?
+    # str.to_i : params[:id]
+    id = params[:id]
+    params_movie = params[:movie]
+    if Movie.exists?(id)
+      rating = Movie.existing_movie_rated(id, params, current_user)
       render json: rating, status: :created
     else
-      movie = Movie.create_new_movie(params)
+      movie = Movie.create_new_movie(id, params_movie)
       if movie.save
         rating = Movie.create_new_rating(params, movie, current_user)
         render json: rating, status: :created
@@ -26,28 +31,51 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def update
-      movies = []
-    if params[:images]
-      images = params[:images]
-      images.each do |item|
-        if item[:id]
-          movie = Movie.find(item[:id])
-          movie.update('poster_path': item[:poster_path])
-          movies << movie
-        end
+    shows = []
+    movies = Movie.all
+    movies.each do |movie|
+      if movie[:media_type] === 'tv'
+        str = '999' + movie[:id].to_s
+        id = str.to_i
+        movie.update(id: id)
+        shows << movie
       end
-    else
-    media = params[:media]
-    media.each do |item|
-      if item != '***'
-        movie = Movie.find_by(id: item[:id])
-        movie.update('media_type': item[:media_type]) if movie
-        movie ||= "#{item[:id]} not found"
-        movies << movie
-      end
+
     end
-    end
-    render json: movies
+
+    User.find_by(email: 'Annie@email.com').destroy_all
+
+
+render json: shows
+
+    # movies = []
+    # if params[:images]
+    #   images = params[:images]
+    #   images.each do |item|
+    #     if item[:id]
+    #       str = '999' + item[:id].to_s
+    #       id = item[:media_type] === 'tv' ?
+    #       str.to_i : item[:id]
+    #       movie = Movie.find(id)
+    #       movie.update('poster_path': item[:poster_path])
+    #       movies << movie
+    #     end
+    #   end
+    # else
+    # media = params[:media]
+    # media.each do |item|
+    #   if item != '***'
+    #     str = '999' + item[:id].to_s
+    #     id = item[:media_type] === 'tv' ?
+    #     str.to_i : item[:id]
+    #     movie = Movie.find(id)
+    #     movie.update('media_type': item[:media_type]) if movie
+    #     movie ||= "#{item[:id]} not found"
+    #     movies << movie
+    #   end
+    # end
+    # end
+    # render json: movies
     # movies = []
 
     # render json: movies

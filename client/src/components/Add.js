@@ -55,7 +55,9 @@ const Add = props => {
       playlistId = props.match.params.id;
     else playlistId = "none";
   }
-
+  console.log(playlistId);
+  console.log(playlistMovieIds);
+  console.log(id);
   return (
     <Grid item align="right">
       {playlistId !== "none" && playlistMovieIds[playlistId].includes(+id) ? (
@@ -77,7 +79,7 @@ const Add = props => {
           className={classes.button}
           align="right"
           onClick={() => {
-            props.doPlaylistAddMovieRequesting(playlistId, props.movie);
+            props.doPlaylistAddMovieRequesting(playlistId, props.movie, id);
           }}
         >
           <AddIcon

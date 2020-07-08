@@ -112,6 +112,7 @@ class RatingsContainer extends Component {
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>
           <MovieCard
+            id={movie.id}
             key={card}
             movie={movie}
             imageUrl={imageUrl}

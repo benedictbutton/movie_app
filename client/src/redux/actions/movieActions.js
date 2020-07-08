@@ -25,8 +25,9 @@ const doCastRequesting = (id, mediaType) => ({
   mediaType
 });
 
-const doMoviePosting = (rating, movie) => ({
+const doMoviePosting = (rating, id, movie) => ({
   type: MOVIE_POSTING,
+  id: id,
   movie: movie,
   score: rating.currentTarget.value
 });

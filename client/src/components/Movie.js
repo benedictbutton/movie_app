@@ -88,6 +88,7 @@ const styles = theme => ({
 
 const Movie = props => {
   const {
+    id,
     classes,
     movie,
     profile,
@@ -132,7 +133,7 @@ const Movie = props => {
                   alt="movie poster"
                 />
                 <Paper className={classes.stars}>
-                  <Stars id={movie.id} movie={movie} starSize={20} />
+                  <Stars id={id} movie={movie} starSize={20} />
                 </Paper>
                 <Grid container>
                   <Grid item xs={6}>
@@ -143,7 +144,7 @@ const Movie = props => {
                         alt="clear stars"
                         fullWidth
                         onClick={() => {
-                          handleRatingClick(movie);
+                          handleRatingClick(id);
                         }}
                       >
                         <ClearIcon />
@@ -162,7 +163,7 @@ const Movie = props => {
                         alt="clear playlist"
                         fullWidth
                         onClick={() => {
-                          handlePlaylistClick(check, activePlaylist, movie);
+                          handlePlaylistClick(check, activePlaylist, movie, id);
                         }}
                       >
                         {check ? <CheckIcon /> : <AddIcon />}

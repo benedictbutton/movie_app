@@ -23,9 +23,9 @@ const doPlaylistAddRequesting = values => ({
   values
 });
 
-const doPlaylistAddMovieRequesting = (playlist, movie) => ({
+const doPlaylistAddMovieRequesting = (playlist, movie, id) => ({
   type: PLAYLIST_ADD_MOVIE_REQUESTING,
-  payload: { playlist: playlist, movie: movie }
+  payload: { playlist: playlist, movie: movie, id: id }
 });
 
 const doPlaylistRemoveMovieRequesting = (playlist, movie) => ({

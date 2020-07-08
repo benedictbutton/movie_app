@@ -35,7 +35,7 @@ const Stars = props => {
           className={classes.icon}
           onClick={event => {
             props.doRatingAdd(event);
-            props.doMoviePosting(event, props.movie);
+            props.doMoviePosting(event, id, props.movie);
           }}
         >
           {el === "white" ? (

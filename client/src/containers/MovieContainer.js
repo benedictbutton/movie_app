@@ -33,15 +33,14 @@ class MovieContainer extends Component {
     this.props.doCastRequesting(this.props.location.state.movie.id, mediaType);
   }
 
-  handlePlaylistClick = (check, activePlaylist, movie) => {
+  handlePlaylistClick = (check, activePlaylist, movie, id) => {
     check
-      ? this.props.doPlaylistRemoveMovieRequesting(activePlaylist, movie.id)
-      : this.props.doPlaylistAddMovieRequesting(activePlaylist, movie);
+      ? this.props.doPlaylistRemoveMovieRequesting(activePlaylist, id)
+      : this.props.doPlaylistAddMovieRequesting(activePlaylist, movie, id);
   };
 
-  handleRatingClick(movie) {
-    let movieId = movie.id;
-    this.props.doRatingRemoveRequesting(movieId);
+  handleRatingClick(id) {
+    this.props.doRatingRemoveRequesting(id);
   }
 
   render() {
@@ -51,13 +50,16 @@ class MovieContainer extends Component {
       playlistErrors,
       cast
     } = this.props;
-    const { movie, imageUrl, profile } = this.props.location.state;
+
+    const { id, movie, imageUrl, profile } = this.props.location.state;
+
     let check =
-      activePlaylist && playlistMovieIds[activePlaylist].includes(movie.id);
+      activePlaylist && playlistMovieIds[activePlaylist].includes(+id);
 
     return (
       <>
         <Movie
+          id={id}
           movie={movie}
           profile={profile}
           cast={cast}

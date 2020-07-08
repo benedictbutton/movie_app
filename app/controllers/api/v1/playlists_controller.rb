@@ -27,13 +27,13 @@ class Api::V1::PlaylistsController < ApplicationController
     raise ApiExceptions::PlaylistError::NoExistingPlaylist.new if !current_user.playlists.exists?
     raise ApiExceptions::PlaylistError::NoActivePlaylist.new if !current_user.playlists.find_by(active: true)
 
+    id = params[:id].to_i
     playlist = params[:payload][:playlist]
     movie = params[:payload][:movie]
-    id = movie[:id]
 
     @playlist = Playlist.find(playlist)
-    @movie = Movie.where(id: id, media_type: movie[:media_type]).exists? ? Movie.find(id) :
-    Movie.create_new_movie(movie)
+    @movie = Movie.exists?(id) ? Movie.find(id) :
+    Movie.create_new_movie(id, movie)
     @playlist.movies_playlists.create!(movie: @movie)
     render json: {playlistId: playlist, movieId: id}, status: :accepted
   end
@@ -52,7 +52,8 @@ class Api::V1::PlaylistsController < ApplicationController
   end
 
   def all_movies
-    movies = Movie.all unless
+    # movies = Movie.all unless
+    movies = Movie.where(media_type: 'tv')
     !@current_user.admin?
     render json: {movies: movies}
   end

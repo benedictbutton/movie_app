@@ -31,6 +31,8 @@ import UserContainer from "./containers/UserContainer";
 import MediaUpdate from "./components/MediaUpdate";
 import PersonContainer from "./containers/PersonContainer";
 
+import Fix from "./components/Fix";
+
 library.add(
   faSignOutAlt,
   faBars,
@@ -70,6 +72,7 @@ class App extends Component {
           <PrivateRoute path="/ms/playlist/:id" component={PlaylistContainer} />
           <PrivateRoute path="/ms/users/:id" component={UserContainer} />
           <Route path="/ms/media_update" component={MediaUpdate} />
+          <Route path="/ms/fix" component={Fix} />
         </Switch>
       </div>
     );

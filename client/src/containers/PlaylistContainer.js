@@ -86,7 +86,12 @@ class PlaylistContainer extends Component {
       card += 1;
       return (
         <GridListTile className={classes.tile} key={card} cols={resize}>
-          <MovieCard key={card} movie={movie} imageUrl={imageUrl} />
+          <MovieCard
+            id={movie.id}
+            key={card}
+            movie={movie}
+            imageUrl={imageUrl}
+          />
         </GridListTile>
       );
     });
