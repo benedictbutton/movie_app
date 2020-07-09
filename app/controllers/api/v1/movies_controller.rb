@@ -31,54 +31,52 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def update
-    shows = []
-    movies = Movie.all
-    movies.each do |movie|
-      if movie[:media_type] === 'tv'
-        str = '999' + movie[:id].to_s
-        id = str.to_i
-        movie.update(id: id)
-        shows << movie
+    # shows = []
+    # movies = Movie.all
+    # movies.each do |movie|
+    #   if movie[:media_type] === 'tv'
+    #     str = '999' + movie[:id].to_s
+    #     id = str.to_i
+    #     movie.update(id: id)
+    #     shows << movie
+    #   end
+    # end
+
+    # User.find_by(email: 'Annie@email.com').destroy_all
+
+    # render json: shows
+
+    movies = []
+    if params[:images]
+      images = params[:images]
+      images.each do |item|
+        if item[:id]
+          str = '999' + item[:id].to_s
+          id = item[:media_type] === 'tv' ?
+          str.to_i : item[:id]
+          movie = Movie.find(id)
+          movie.update('poster_path': item[:poster_path])
+          movies << movie
+        end
       end
-
+    else
+    media = params[:media]
+    media.each do |item|
+      if item != '***'
+        str = '999' + item[:id].to_s
+        id = item[:media_type] === 'tv' ?
+        str.to_i : item[:id]
+        movie = Movie.find(id)
+        movie.update('media_type': item[:media_type]) if movie
+        movie ||= "#{item[:id]} not found"
+        movies << movie
+      end
     end
+    end
+    render json: movies
+    movies = []
 
-    User.find_by(email: 'Annie@email.com').destroy_all
-
-
-render json: shows
-
-    # movies = []
-    # if params[:images]
-    #   images = params[:images]
-    #   images.each do |item|
-    #     if item[:id]
-    #       str = '999' + item[:id].to_s
-    #       id = item[:media_type] === 'tv' ?
-    #       str.to_i : item[:id]
-    #       movie = Movie.find(id)
-    #       movie.update('poster_path': item[:poster_path])
-    #       movies << movie
-    #     end
-    #   end
-    # else
-    # media = params[:media]
-    # media.each do |item|
-    #   if item != '***'
-    #     str = '999' + item[:id].to_s
-    #     id = item[:media_type] === 'tv' ?
-    #     str.to_i : item[:id]
-    #     movie = Movie.find(id)
-    #     movie.update('media_type': item[:media_type]) if movie
-    #     movie ||= "#{item[:id]} not found"
-    #     movies << movie
-    #   end
-    # end
-    # end
-    # render json: movies
-    # movies = []
-
-    # render json: movies
+    render json: movies
   end
 
 private
