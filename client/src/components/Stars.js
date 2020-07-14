@@ -19,10 +19,10 @@ const styles = theme => ({
     flex: 1
   }
 });
-
+// props.ratings.list[id] ||
 const Stars = props => {
   const { id, classes } = props;
-  let movieRating = props.ratings.list[id] || {
+  let movieRating = {
     stars: ["white", "white", "white", "white", "white"],
     score: 0
   };
