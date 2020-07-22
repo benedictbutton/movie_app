@@ -4,7 +4,6 @@ module Stars
   module ClassMethods
 
     def add_stars(score)
-      score = score.to_i
       case score
       when 0 then ["white", "white", "white", "white", "white"]
         when 1 then ["yellow", "white", "white", "white", "white"]

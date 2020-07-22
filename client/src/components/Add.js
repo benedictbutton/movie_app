@@ -55,9 +55,7 @@ const Add = props => {
       playlistId = props.match.params.id;
     else playlistId = "none";
   }
-  console.log(playlistId);
-  console.log(playlistMovieIds);
-  console.log(id);
+
   return (
     <Grid item align="right">
       {playlistId !== "none" && playlistMovieIds[playlistId].includes(+id) ? (
