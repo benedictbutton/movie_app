@@ -19,13 +19,14 @@ const styles = theme => ({
     flex: 1
   }
 });
-// props.ratings.list[id] ||
+
 const Stars = props => {
   const { id, classes } = props;
-  let movieRating = {
+  let movieRating = props.ratings.list[id] || {
     stars: ["white", "white", "white", "white", "white"],
     score: 0
   };
+
   let stars = movieRating.stars.map((el, index) => {
     return (
       <Grid item key={index}>
