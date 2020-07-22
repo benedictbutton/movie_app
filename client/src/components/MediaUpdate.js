@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import RatingsUpdate from "./RatingsUpdate";
 import SearchField from "./SearchField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -197,6 +198,7 @@ const MediaUpdate = ({ classes }) => {
           Update Movies
         </Button>
       </Grid>
+      <RatingsUpdate />
     </Grid>
   );
 };

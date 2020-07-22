@@ -5,6 +5,14 @@ class Api::V1::RatingsController < ApplicationController
     render json: { ratings: @ratings }
   end
 
+  def update
+    all_ratings = current_user.ratings
+    all_ratings.each do |rating|
+      Rating.add_stars(rating.score) if rating.stars.nil?
+    end
+    render json: :accepted
+  end
+
   def destroy
     movieId = params[:id]
     ratings = User.find(current_user[:id]).ratings
