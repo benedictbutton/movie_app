@@ -49,7 +49,6 @@ class MovieCard extends Component {
       lg: 18,
       xl: 18
     };
-    console.log(width);
 
     const open = Boolean(this.state.starsVisible);
 
