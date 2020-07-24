@@ -8,7 +8,7 @@ class Api::V1::RatingsController < ApplicationController
   def update
     all_ratings = current_user.ratings
     all_ratings.each do |rating|
-      if rating.stars.nil? || rating.stars == []
+      if rating.stars.nil?
         stars = Rating.add_stars(rating.score)
         rating.update(stars: stars)
       end
