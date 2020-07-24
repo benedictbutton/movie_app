@@ -11,9 +11,6 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def create
-    # str = '999' + params[:id].to_s
-    # id = params[:media_type] === 'tv' ?
-    # str.to_i : params[:id]
     id = params[:id]
     params_movie = params[:movie]
     if Movie.exists?(id)
@@ -31,21 +28,6 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def update
-    # shows = []
-    # movies = Movie.all
-    # movies.each do |movie|
-    #   if movie[:media_type] === 'tv'
-    #     str = '999' + movie[:id].to_s
-    #     id = str.to_i
-    #     movie.update(id: id)
-    #     shows << movie
-    #   end
-    # end
-
-    # User.find_by(email: 'Annie@email.com').destroy_all
-
-    # render json: shows
-
     movies = []
     if params[:images]
       images = params[:images]
@@ -60,18 +42,18 @@ class Api::V1::MoviesController < ApplicationController
         end
       end
     else
-    media = params[:media]
-    media.each do |item|
-      if item != '***'
-        str = '999' + item[:id].to_s
-        id = item[:media_type] === 'tv' ?
-        str.to_i : item[:id]
-        movie = Movie.find(id)
-        movie.update('media_type': item[:media_type]) if movie
-        movie ||= "#{item[:id]} not found"
-        movies << movie
+      media = params[:media]
+      media.each do |item|
+        if item != '***'
+          str = '999' + item[:id].to_s
+          id = item[:media_type] === 'tv' ?
+          str.to_i : item[:id]
+          movie = Movie.find(id)
+          movie.update('media_type': item[:media_type]) if movie
+          movie ||= "#{item[:id]} not found"
+          movies << movie
+        end
       end
-    end
     end
     render json: movies
     movies = []

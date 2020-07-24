@@ -53,8 +53,14 @@ class Api::V1::PlaylistsController < ApplicationController
 
   def all_movies
     # movies = Movie.all unless
-    movies = Movie.where(media_type: 'tv')
-    !@current_user.admin?
+    movies = Movie.where(media_type: 'tv') if
+    @current_user.admin?
+    movies.each do |movie|
+      id = movie.id
+      id.to_s.slice!(0,3)
+      rating = Rating.find_by(movie_id: id)
+      rating.update(movie_id: movie.id)
+    end
     render json: {movies: movies}
   end
 
