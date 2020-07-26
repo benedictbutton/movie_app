@@ -51,15 +51,19 @@ class Api::V1::PlaylistsController < ApplicationController
     render json: {images: movie_images}
   end
 
+  # def unfound_movies
+  #
+  # end
+
   def all_movies
     # movies = Movie.all unless
     unfound =[]
     movies = Movie.where(media_type: 'tv') if
     @current_user.admin?
     movies.each do |movie|
-      id = movie.id
-      id.to_s.slice!(0,3)
-      rating = Rating&.find_by(movie_id: id)
+      id = movie.id.to_s
+      new_id = id.slice!(3,id.length)
+      rating = Rating&.find_by(movie_id: new_id)
       rating.nil? ? unfound << movie : rating.update(movie_id: movie.id)
     end
     render json: {movies: movies, unfound: unfound}
