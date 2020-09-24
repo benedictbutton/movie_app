@@ -427,7 +427,11 @@ const Admin = props => {
         </Grid>
       </Grid>
       <Grid container item xs={10} justify="flex-end" className={classes.link}>
-        <Link to="/ms/media_update">Update Media Type</Link>
+        <Link to="/ms/media_update" style={{ color: "#ecca00" }}>
+          <Typography variant="h4" style={{ color: "#ecca00" }}>
+            Fixes
+          </Typography>
+        </Link>
       </Grid>
     </>
   );

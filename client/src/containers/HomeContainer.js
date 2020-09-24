@@ -16,7 +16,8 @@ const styles = theme => ({
     backgroundImage: `url(${Image})`,
     borderColor: "grey",
     borderStyle: "solid",
-    borderWidth: 5
+    borderWidth: 5,
+    margin: theme.spacing.unit * 5
   },
   label: {
     align: "center",

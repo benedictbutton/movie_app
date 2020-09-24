@@ -28,36 +28,8 @@ class Api::V1::MoviesController < ApplicationController
   end
 
   def update
-    movies = []
-    if params[:images]
-      images = params[:images]
-      images.each do |item|
-        if item[:id]
-          str = '999' + item[:id].to_s
-          id = item[:media_type] === 'tv' ?
-          str.to_i : item[:id]
-          movie = Movie.find(id)
-          movie.update('poster_path': item[:poster_path])
-          movies << movie
-        end
-      end
-    else
-      media = params[:media]
-      media.each do |item|
-        if item != '***'
-          str = '999' + item[:id].to_s
-          id = item[:media_type] === 'tv' ?
-          str.to_i : item[:id]
-          movie = Movie.find(id)
-          movie.update('media_type': item[:media_type]) if movie
-          movie ||= "#{item[:id]} not found"
-          movies << movie
-        end
-      end
-    end
-    render json: movies
-    movies = []
-
+    movies = params[:images] ? fix_images(params[:images]) :
+      update_media_type(params[:media])
     render json: movies
   end
 
@@ -67,3 +39,14 @@ private
     params.require(:movie).permit(:id, :title, :poster_path, :media_type, :release_date, :description, :vote_count, :vote_rating, :images)
   end
 end
+
+
+# if item[:id]
+#   str = '999' + item[:id].to_s
+#   id = item[:media_type] === 'tv' ?
+#   str.to_i : item[:id]
+
+# if item != '***'
+#   str = '999' + item[:id].to_s
+#   id = item[:media_type] === 'tv' ?
+#   str.to_i : item[:id]

@@ -27,10 +27,14 @@ class MovieContainer extends Component {
   }
 
   componentDidMount() {
-    let mediaType = this.props.location.state.movie.media_type
-      ? this.props.location.state.movie.media_type
-      : "movie";
-    this.props.doCastRequesting(this.props.location.state.movie.id, mediaType);
+    const { movie } = this.props.location.state;
+    const mediaType = movie.media_type;
+    const id =
+      movie.id.toString().slice(0, 3) === "999"
+        ? parseInt(movie.id.toString().slice(3))
+        : movie.id;
+
+    this.props.doCastRequesting(id, mediaType);
   }
 
   handlePlaylistClick = (check, activePlaylist, movie, id) => {
