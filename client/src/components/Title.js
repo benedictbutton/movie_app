@@ -39,7 +39,7 @@ const Title = props => {
           className={classes.type}
           gutterBottom
         >
-          MOVIE
+          MOVIE{" "}
         </Typography>
         <Typography
           id="rotate"
@@ -58,7 +58,7 @@ const Title = props => {
           className={classes.type}
           gutterBottom
         >
-          CENE
+          SCENE
         </Typography>
       </Grid>
     </>
