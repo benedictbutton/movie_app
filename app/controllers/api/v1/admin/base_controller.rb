@@ -1,4 +1,4 @@
-class Admin::BaseController < ApplicationController
+class Api::V1::Admin::BaseController < ApplicationController
   before_action :require_admin
 
     def require_admin
