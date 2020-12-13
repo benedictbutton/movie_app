@@ -148,11 +148,16 @@ const PersonContainer = props => {
       ? "https://image.tmdb.org/t/p/w500" + movie.profile_path
       : `${poster}`;
     card += 1;
+    let id =
+      movie.media_type === "tv"
+        ? parseInt("999" + movie.id.toString())
+        : movie.id;
 
     return (
       <GridListTile className={classes.tile} key={card} cols={resize}>
         <MovieCard
           key={card}
+          id={id}
           movie={movie}
           profile={profile}
           imageUrl={imageUrl}
