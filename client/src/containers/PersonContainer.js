@@ -65,7 +65,7 @@ const PersonContainer = props => {
     movieErrors,
     display,
     match: {
-      params: { id: id }
+      params: { id }
     }
   } = props;
 
@@ -80,9 +80,9 @@ const PersonContainer = props => {
       setIsError(false);
       setIsLoading(true);
       try {
-        const promises = ["", "combined_credits"].map(request => {
+        const promises = ["", "/combined_credits"].map(request => {
           return fetch(
-            `https://api.themoviedb.org/3/person/${id}/${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256`,
+            `https://api.themoviedb.org/3/person/${id}${request}?api_key=77d5d44b891ceb6d4b5e717b8e2e9256&language=en-US`,
             {
               method: "GET",
               headers: {
