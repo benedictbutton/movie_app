@@ -139,6 +139,7 @@ class MoviesContainer extends Component {
           loading={movies.requesting}
         />
         <StickyBoundary>
+          <div className="scrollbar">
           <div className={classes.root}>
             <LoadingIndicator>{movies.requesting}</LoadingIndicator>
             <ScrollButton scrollStepInPx="300" delayInMs="16.66" />
@@ -151,6 +152,7 @@ class MoviesContainer extends Component {
               {films}
             </GridList>
           </div>
+          
           <Snackbar
             className={classes.snack}
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
@@ -166,6 +168,7 @@ class MoviesContainer extends Component {
           />
           <Notifications>{movieErrors}</Notifications>
           <Notifications>{playlists.notifications}</Notifications>
+          </div>
         </StickyBoundary>
       </StickyContainer>
     );

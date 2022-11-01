@@ -58,7 +58,7 @@ const Title = props => {
           className={classes.type}
           gutterBottom
         >
-          SCENE
+          CENE
         </Typography>
       </Grid>
     </>
