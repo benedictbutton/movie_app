@@ -47,5 +47,12 @@
     "prettier": "^2.7.1",
     "react-test-renderer": "16.8.0",
     "redux-mock-store": "^1.5.3"
+  },
+  "eslintConfig": { 
+    "extends": [ 
+      "react-app", 
+      "react-app/jest", 
+      "prettier" 
+    ] 
   }
 }

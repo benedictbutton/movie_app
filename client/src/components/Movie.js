@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import ActivePlaylistContainer from "../containers/ActivePlaylistContainer";
@@ -130,7 +130,13 @@ const Movie = props => {
                 <img
                   src={imageUrl}
                   className={classes.media}
-                  alt="movie poster"
+                  alt={movie.title || movie.name}
+                  onError={(event) => {
+                    if(!this.state.altText) {
+                        event.currentTarget.onerror=null;
+                        event.currentTarget.src = Image; this.handleAltText();
+                    } else return;
+                }}
                 />
                 <Paper className={classes.stars}>
                   <Stars id={id} movie={movie} starSize={20} />

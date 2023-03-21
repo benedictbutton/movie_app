@@ -22,8 +22,8 @@ const styles = (theme) => ({
         left: '50%',
         width: '100%',
         transform: 'translate(-50%, -50%)',
-        padding: '0 10px'
-    }
+        padding: '0 10px',
+    },
 })
 
 class MovieCard extends Component {
@@ -53,7 +53,6 @@ class MovieCard extends Component {
     }
 
     handleAltText() {
-        console.log('test')
         this.setState({ altText: true })
     }
 
@@ -111,13 +110,18 @@ class MovieCard extends Component {
                             width="100%"
                             height="100%"
                             onError={(event) => {
-                                if(!this.state.altText) {
-                                    event.currentTarget.onerror=null;
-                                    event.currentTarget.src = Image; this.handleAltText();
-                                } else return;
+                                if (!this.state.altText) {
+                                    event.currentTarget.onerror = null
+                                    event.currentTarget.src = Image
+                                    this.handleAltText()
+                                } else return
                             }}
                         />
-                       {this.state.altText && <Typography className={classes.altText}>{movie.title || movie.name}</Typography> }
+                        {this.state.altText && (
+                            <Typography className={classes.altText}>
+                                {movie.title || movie.name}
+                            </Typography>
+                        )}
                     </Link>
                     <ActionIconsContainer
                         id={id}
