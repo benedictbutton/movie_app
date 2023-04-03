@@ -8,7 +8,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 6.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.4.4'
 # Use Puma as the app server
@@ -30,6 +30,7 @@ gem 'rack-cors'
 gem 'sendgrid-ruby'
 gem 'aws-sdk-rails'
 gem 'minitest', '~> 5.11.3'
+gem 'psych', '< 4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

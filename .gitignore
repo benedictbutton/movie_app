@@ -16,3 +16,5 @@
 .env
 
 .byebug_history
+
+extracted.sql
