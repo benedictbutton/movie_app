@@ -8,6 +8,7 @@ import ForgotPassword from '../components/ForgotPassword'
 import FormInput from '../components/FormInput'
 import LoadingIndicator from '../components/LoadingIndicator'
 import Notifications from '../components/Notifications'
+import Image from '../assets/brushed-metal.jpg'
 //material-ui
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -41,7 +42,8 @@ const styles = (theme) => ({
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
             theme.spacing.unit * 3
         }px`,
-        background: 'yellow',
+        backgroundImage: `url(${Image})`,
+        border: '#ecca00 solid 0.3rem',
     },
     avatar: {
         margin: theme.spacing.unit,
