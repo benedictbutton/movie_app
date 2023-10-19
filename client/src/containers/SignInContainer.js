@@ -21,6 +21,7 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 //Redux-Form generic Input component used in leiu of //FormInput
+import bgImage from '../assets/dark-grey-metal.jpg'
 
 const styles = (theme) => ({
     layout: {
@@ -47,7 +48,7 @@ const styles = (theme) => ({
     },
     avatar: {
         margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: '#3f51b5',
     },
     button: {
         marginTop: theme.spacing.unit * 2,
@@ -58,6 +59,10 @@ const styles = (theme) => ({
     },
     submit: {
         marginTop: theme.spacing.unit * 3,
+    },
+    type: {
+        color: '#3f51b5',
+        fontWeight: '800',
     },
 })
 
@@ -91,7 +96,11 @@ export class SignInContainer extends Component {
                         <Avatar className={classes.avatar}>
                             <LockIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
+                        <Typography
+                            component="h4"
+                            variant="h4"
+                            className={classes.type}
+                        >
                             Sign In
                         </Typography>
                         <form

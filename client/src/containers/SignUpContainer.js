@@ -60,7 +60,11 @@ const styles = (theme) => ({
     },
     avatar: {
         margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: '#3f51b5',
+    },
+    type: {
+        color: '#3f51b5',
+        fontWeight: '800',
     },
 })
 
@@ -95,6 +99,7 @@ class SignUpContainer extends Component {
                                     variant="h5"
                                     align="center"
                                     gutterBottom
+                                    className={classes.type}
                                 >
                                     Sign Up
                                 </Typography>
