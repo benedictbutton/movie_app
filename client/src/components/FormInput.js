@@ -11,6 +11,7 @@ const styles = ({ props }) => ({
         color: '#333333',
     },
     shrink: {
+        color: '#303f9f',
         transform: 'translate(0, -3px) scale(1)',
     },
 })
@@ -18,7 +19,6 @@ const styles = ({ props }) => ({
 const FormInput = (props) => {
     const { touched, error } = props.meta
     const { classes } = props
-    console.log(props)
 
     return (
         <TextField

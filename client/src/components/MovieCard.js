@@ -13,6 +13,7 @@ import { Typography } from '@material-ui/core'
 const styles = (theme) => ({
     root: {
         flex: 1,
+        width: '100%',
     },
     altText: {
         color: 'yellow',
