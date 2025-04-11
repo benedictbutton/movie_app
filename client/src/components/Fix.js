@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import SearchField from "./SearchField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
